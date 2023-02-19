@@ -29,4 +29,4 @@ maven-deploy:
   script:
   - echo ok.
 include:
-- template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/Dependency-Scanning.gitlab-ci.yml
