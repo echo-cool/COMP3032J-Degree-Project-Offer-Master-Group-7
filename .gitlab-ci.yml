@@ -10,7 +10,7 @@ maven-test:
         - "mvn clean"
         - "mvn test"
 
-maven-build:
+maven-package:
   image: maven:3-jdk-8
   stage: build
   script: 
