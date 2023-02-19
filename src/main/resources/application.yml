@@ -4,3 +4,11 @@ spring:
     url: jdbc:sqlite::resource:db/test.db
     username: user1
     password: pass
+  application:
+    name: group7
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+server:
+  port: 8080

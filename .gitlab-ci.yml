@@ -1,0 +1,34 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+stages:
+- test
+- build
+- deploy
+maven-test:
+  image: maven:3-jdk-8
+  stage: test
+  script:
+  - mvn clean
+  - mvn test
+maven-package:
+  image: maven:3-jdk-8
+  stage: build
+  script:
+  - mvn clean
+  - mvn package -DskipTests
+  artifacts:
+    paths:
+    - target/*.jar
+maven-deploy:
+  image: maven:3-jdk-8
+  stage: deploy
+  script:
+  - echo ok.
+
+include:
+- template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/Dependency-Scanning.gitlab-ci.yml
