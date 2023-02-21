@@ -14,6 +14,7 @@ maven-test:
   script:
   - mvn clean
   - mvn test
+  - cat target/site/jacoco/index.html
 maven-package:
   image: maven:3-jdk-8
   stage: build
