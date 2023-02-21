@@ -113,7 +113,7 @@
 <!--                        <exclude>com/Group_Six/View/**/*</exclude>-->
                     </excludes>
                     <includes>
-                        <include>com/group7</include>
+                        <include>com/group7/**/*</include>
                     </includes>
                 </configuration>
                 <executions>
