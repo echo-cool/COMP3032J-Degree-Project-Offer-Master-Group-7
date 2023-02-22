@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="generator.properties" />
+
+    <context id="context1" targetRuntime="MyBatis3">
+
+        <!-- 数据库连接信息 -->
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}" />
+
+        <!-- 生成Model对象路径配置 -->
+        <javaModelGenerator targetPackage="com.group7.db.Model.my.mybatis.generator.auto.entity"
+                            targetProject="src/main/java/com/group7/db/Model">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 生成sqlXML文件路径配置 -->
+        <sqlMapGenerator targetPackage="my.mybatis.generator.auto.entity.xml"
+                         targetProject="src/main/resources/xml/">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的类文件路径配置 -->
+        <javaClientGenerator targetPackage="com.group7.db.DAO.my.mybatis.generator.auto.dao"
+                             targetProject="src/main/java/com/group7/db/DAO" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--要生成哪些表 -->
+        <table tableName="Movie" domainObjectName="Movie" />
+    </context>
+</generatorConfiguration>
