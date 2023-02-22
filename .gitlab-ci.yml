@@ -30,8 +30,8 @@ docker-image:
     - shell
   stage: docker
   script:
-    - mvn clean
-    - mvn package -DskipTests
+    - /root/apache-maven-3.9.0/bin/mvn clean
+    - /root/apache-maven-3.9.0/bin/mvn package -DskipTests
     - docker build -t myapp:v1 .
 
 # maven-deploy:
