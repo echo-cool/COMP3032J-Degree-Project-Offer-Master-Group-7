@@ -23,6 +23,8 @@
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
+
+
         <!-- 生成DAO的类文件路径配置 -->
         <javaClientGenerator targetPackage="com.group7.db.DAO.my.mybatis.generator.auto.dao"
                              targetProject="src/main/java/" type="XMLMAPPER">
@@ -31,5 +33,9 @@
 
         <!--要生成哪些表 -->
         <table tableName="Movie" domainObjectName="Movie" />
+        <table tableName="Screen" domainObjectName="Screen" />
+        <table tableName="Screening" domainObjectName="Screening" />
+
+
     </context>
 </generatorConfiguration>
