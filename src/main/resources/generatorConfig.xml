@@ -12,7 +12,7 @@
 
         <!-- 生成Model对象路径配置 -->
         <javaModelGenerator targetPackage="com.group7.db.Model.my.mybatis.generator.auto.entity"
-                            targetProject="src/main/java/com/group7/db/Model">
+                            targetProject="src/main/java/">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
@@ -25,7 +25,7 @@
 
         <!-- 生成DAO的类文件路径配置 -->
         <javaClientGenerator targetPackage="com.group7.db.DAO.my.mybatis.generator.auto.dao"
-                             targetProject="src/main/java/com/group7/db/DAO" type="XMLMAPPER">
+                             targetProject="src/main/java/" type="XMLMAPPER">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
