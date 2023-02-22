@@ -1,22 +1,35 @@
 package com.group7.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.group7.entity.User;
+import com.group7.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
- * <p>
- *  前端控制器
- * </p>
+ * (User)表控制层
  *
- * @author
- * @since 2022-03-10
+ * @author makejava
+ * @since 2023-02-22 18:19:26
  */
 @RestController
-@CrossOrigin
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
+    /**
+     * 服务对象
+     */
+    @Resource
+    private UserService userService;
 
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("selectOne/{id}")
+    public User selectOne(@PathVariable("id") String id) {
+        return this.userService.queryById(id);
+    }
 
 }
-
