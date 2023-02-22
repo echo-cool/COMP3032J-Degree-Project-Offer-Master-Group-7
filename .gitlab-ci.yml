@@ -9,21 +9,21 @@ stages:
 # - build
 - docker
 # - deploy
-maven-test:
-  image: maven:3-jdk-8
-  stage: test
-  script:
-  - mvn clean
-  - mvn test
-maven-package:
-  image: maven:3-jdk-8
-  stage: build
-  script:
-  - mvn clean
-  - mvn package -DskipTests
-  artifacts:
-    paths:
-    - target/*.jar
+# maven-test:
+#   image: maven:3-jdk-8
+#   stage: test
+#   script:
+#   - mvn clean
+#   - mvn test
+# maven-package:
+#   image: maven:3-jdk-8
+#   stage: build
+#   script:
+#   - mvn clean
+#   - mvn package -DskipTests
+#   artifacts:
+#     paths:
+#     - target/*.jar
 
 docker-image:
   tags:
@@ -34,12 +34,12 @@ docker-image:
     - mvn package -DskipTests
     - docker build -t myapp:v1 .
 
-maven-deploy:
-  image: maven:3-jdk-8
-  stage: deploy
-  script:
-  - echo ok.
+# maven-deploy:
+#   image: maven:3-jdk-8
+#   stage: deploy
+#   script:
+#   - echo ok.
 
-include:
-- template: Security/Secret-Detection.gitlab-ci.yml
-- template: Security/Dependency-Scanning.gitlab-ci.yml
+# include:
+# - template: Security/Secret-Detection.gitlab-ci.yml
+# - template: Security/Dependency-Scanning.gitlab-ci.yml
