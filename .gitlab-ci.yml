@@ -13,15 +13,15 @@ maven-test:
   image: maven:3-jdk-8
   stage: test
   script:
-  - mvn clean
-  - mvn test
+  - ./mvnw clean
+  - ./mvnw test
   - cat target/site/jacoco/index.html
 maven-package:
   image: maven:3-jdk-8
   stage: build
   script:
-  - mvn clean
-  - mvn package -DskipTests
+  - ./mvnw clean
+  - ./mvnw package -DskipTests
   artifacts:
     paths:
     - target/*.jar
@@ -31,8 +31,8 @@ docker-image:
     - shell
   stage: docker
   script:
-    - /home/gitlab-runner/apache-maven-3.9.0/bin/mvn clean
-    - /home/gitlab-runner/apache-maven-3.9.0/bin/mvn package -DskipTests
+    - ./mvnw clean
+    - ./mvnw package -DskipTests
     - docker build -t myapp:v1 .
 
 maven-deploy:
