@@ -1,8 +1,9 @@
 package com.group7.controller;
 
-import com.group7.common.R;
-import com.group7.db.mapper.UserMapper;
-import com.group7.db.model.User;
+import com.group7.utils.common.R;
+import generator.domain.User;
+import generator.mapper.UserMapper;
+import generator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/{id}")
     public R selectOne(@PathVariable("id") String id) {
-        User user = userMapper.selectByPrimaryKey(id);
+        User user = userService.getById(id);
         if (user != null){
             return R.ok().data("data", user);
         }

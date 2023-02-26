@@ -1,4 +1,4 @@
-package com.group7.handler;
+package com.group7.utils.handler;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;

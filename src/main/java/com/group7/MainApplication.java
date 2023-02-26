@@ -7,10 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@MapperScan("com.group7.db")
+
 @SpringBootApplication
-//@EnableScheduling
-//@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@MapperScan("generator")
 public class MainApplication {
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);

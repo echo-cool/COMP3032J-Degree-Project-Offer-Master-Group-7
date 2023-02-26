@@ -1,4 +1,4 @@
-package com.group7.generator;
+package com.group7.utils.generator;
 
 /**
  * @Author: WangYuyang
