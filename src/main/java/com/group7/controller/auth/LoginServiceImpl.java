@@ -1,14 +1,14 @@
 package com.group7.controller.auth;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.group7.db.domain.User;
-import com.group7.db.mapper.UserMapper;
-import com.group7.db.service.UserService;
+import com.group7.db.mappers.UserMapper;
+import com.group7.db.model.User;
+import com.group7.db.model.UserExample;
 import com.group7.utils.common.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 
 
@@ -21,8 +21,8 @@ import java.util.UUID;
  **/
 @Service
 public class LoginServiceImpl implements LoginService {
-    @Autowired
-    private UserService userService;
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public R login(LoginDTO loginDTO) {
@@ -35,11 +35,9 @@ public class LoginServiceImpl implements LoginService {
 
         //query by example
 
-
-
-        QueryWrapper<User> wrapper = new QueryWrapper();
-        wrapper.eq("login_name", loginDTO.getLoginName());
-        User user = userService.getOne(wrapper);
+        UserExample example = new UserExample();
+        example.createCriteria().andNameEqualTo(loginDTO.getLoginName());
+        User user = userMapper.selectByExample(example).get(0);
         //比较密码
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
             LoginVO loginVO = new LoginVO();

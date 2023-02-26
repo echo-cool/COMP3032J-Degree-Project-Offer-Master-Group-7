@@ -1,9 +1,9 @@
 package com.group7.interceptor;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group7.utils.common.HttpContextUtil;
 import com.group7.utils.common.R;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

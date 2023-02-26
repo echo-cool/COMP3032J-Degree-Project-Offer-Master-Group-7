@@ -1,6 +1,7 @@
 package com.group7.controller.auth;
 
-import com.group7.db.domain.User;
+
+import com.group7.db.model.User;
 
 import java.io.Serializable;
 

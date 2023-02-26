@@ -8,9 +8,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
-
 @SpringBootApplication
-@MapperScan("com.group7.db.mapper")
+@MapperScan("com.group7.db.mappers")
 public class MainApplication {
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);
