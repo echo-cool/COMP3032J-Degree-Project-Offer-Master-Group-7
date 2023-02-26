@@ -3,10 +3,10 @@ import com.group7.db.mappers.UserMapper;
 import com.group7.db.model.User;
 import com.group7.db.model.UserExample;
 import com.group7.utils.common.R;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 
 
 @RestController
