@@ -6,12 +6,14 @@ import com.group7.utils.common.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @GetMapping("/{id}")
