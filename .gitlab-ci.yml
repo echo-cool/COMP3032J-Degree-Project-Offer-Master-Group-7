@@ -19,7 +19,7 @@ maven-test:
   - ./mvnw test
   - cat target/site/jacoco/index.html
 maven-package:
-  image: maven:3-jdk-8
+  image: maven:3.8.3-openjdk-17
   stage: build
   script:
   - ./mvnw clean
@@ -38,7 +38,7 @@ docker-image:
     - docker build -t myapp:v1 .
 
 maven-deploy:
-  image: maven:3-jdk-8
+  image: maven:3.8.3-openjdk-17
   stage: deploy
   script:
   - echo ok.
