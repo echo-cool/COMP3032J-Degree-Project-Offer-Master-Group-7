@@ -1,6 +1,6 @@
-package com.group7.handler.exception;
+package com.group7.utils.handler.exception;
 
-import com.group7.common.R;
+import com.group7.utils.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

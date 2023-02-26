@@ -1,4 +1,4 @@
-package com.group7.common;
+package com.group7.utils.common;
 
 
 

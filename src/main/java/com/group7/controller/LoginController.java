@@ -1,6 +1,6 @@
 package com.group7.controller;
 
-import com.group7.common.R;
+import com.group7.utils.common.R;
 import org.springframework.web.bind.annotation.*;
 
 /**

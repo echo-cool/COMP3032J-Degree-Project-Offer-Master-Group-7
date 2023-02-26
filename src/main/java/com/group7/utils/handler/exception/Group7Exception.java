@@ -1,4 +1,4 @@
-package com.group7.handler.exception;
+package com.group7.utils.handler.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

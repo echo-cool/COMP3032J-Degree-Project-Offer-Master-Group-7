@@ -1,5 +1,4 @@
-package com.group7.common;
-import com.group7.common.ResultCode;
+package com.group7.utils.common;
 import lombok.Data;
 
 import java.util.HashMap;
