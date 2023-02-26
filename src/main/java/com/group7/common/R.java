@@ -37,7 +37,7 @@ public class R {
         R r = new R();
         r.setSuccess(true);
         r.setCode(ResultCode.SUCCESS);
-        r.setMessage("成功");
+        r.setMessage("success");
         return r;
     }
 
@@ -48,7 +48,7 @@ public class R {
         R r = new R();
         r.setSuccess(false);
         r.setCode(ResultCode.ERROR);
-        r.setMessage("失败");
+        r.setMessage("failed");
         return r;
     }
 

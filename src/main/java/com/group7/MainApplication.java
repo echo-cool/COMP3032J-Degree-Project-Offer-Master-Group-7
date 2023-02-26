@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@MapperScan("com.group7.dao")
+@MapperScan("com.group7.db")
 @SpringBootApplication
 //@EnableScheduling
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)

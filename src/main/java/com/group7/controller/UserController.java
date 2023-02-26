@@ -1,35 +1,28 @@
 package com.group7.controller;
 
-import com.group7.entity.User;
-import com.group7.service.UserService;
+import com.group7.common.R;
+import com.group7.db.mapper.UserMapper;
+import com.group7.db.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 
-/**
- * (User)表控制层
- *
- * @author makejava
- * @since 2023-02-22 18:19:26
- */
 @RestController
 @RequestMapping("user")
 public class UserController {
-    /**
-     * 服务对象
-     */
-    @Resource
-    private UserService userService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne/{id}")
-    public User selectOne(@PathVariable("id") String id) {
-        return this.userService.queryById(id);
+    @Autowired
+    private UserMapper userMapper;
+
+    @GetMapping("/{id}")
+    public R selectOne(@PathVariable("id") String id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user != null){
+            return R.ok().data("data", user);
+        }
+        else {
+            return R.error();
+        }
     }
 
 }
