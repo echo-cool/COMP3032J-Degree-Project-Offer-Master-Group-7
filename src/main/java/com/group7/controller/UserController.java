@@ -1,9 +1,8 @@
 package com.group7.controller;
 
+import com.group7.db.domain.User;
+import com.group7.db.service.UserService;
 import com.group7.utils.common.R;
-import generator.domain.User;
-import generator.mapper.UserMapper;
-import generator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
