@@ -1,9 +1,9 @@
 package com.group7.controller.auth;
 
 import com.group7.utils.common.R;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: WangYuyang
@@ -15,8 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api")
 public class AuthController {
+    @Autowired
+    LoginService loginService;
+
     @GetMapping(value = "/hello")
-    public R hello(){
+    public R hello() {
         return R.ok().message("hello");
     }
+
+
+    @PostMapping(value = "/login")
+    @CrossOrigin
+    public R login(@RequestBody LoginDTO loginDTO) {
+        return loginService.login(loginDTO);
+    }
+
+
 }
