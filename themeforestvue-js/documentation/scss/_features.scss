@@ -1,0 +1,77 @@
+/*=============== doc_features_area_one css ===========*/
+.doc_features_area_one{
+    position: relative;
+    z-index: 1;
+    padding: 100px 0 140px;
+    &:before{
+        content: "";
+        width: 100%;
+        height: 460px;
+        top: 0;
+        left: 0;
+        background: url("../img/home_one/dow_bg.png") no-repeat scroll center top / cover;
+        position: absolute;
+        z-index: -1;
+    }
+}
+.doc_features_item_one{
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(4, 73, 89, 0.05);
+    padding: 30px;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    h3{
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 15px;
+        transition: color 0.2s linear;
+        &:hover{
+            color: #41B782;
+        }
+    }
+    p{
+        line-height: 24px;
+    }
+    img{
+        margin-right: 30px;
+    }
+    .learn_btn{
+        font-size: 14px;
+        i{
+            font-size: 20px;
+            margin-left: 4px;
+        }
+    }
+    &:hover{
+        box-shadow: 0 30px 40px 0 rgba(4, 73, 89, 0.08);
+    }
+}
+.learn_btn{
+    font-size: 14px;
+    font-weight: 500;
+    color: $h_title;
+    padding-top: 5px;
+    display: inline-block;
+    transition: color 0.2s linear;
+    i{
+        vertical-align: middle;
+        display: inline-block;
+        font-size: 20px;
+        margin-left: 6px;
+        transition: all 0.2s linear, color 0s linear;
+    }
+    &.c_blue{
+        color: $blue;
+    }
+    &:hover{
+        color: #41B782;
+        i{
+            transform: translateX(8px);
+        }
+        &.c_blue{
+            color: $h_title;
+        }
+    }
+}
+/*=============== doc_features_area_one css ===========*/

@@ -1,0 +1,236 @@
+html {
+    height: 100%;
+} 
+a{
+    text-decoration:none;
+    transition: all 0.3s ease-in-out;
+    &:hover, &:focus{
+       text-decoration:none;
+       outline: none;
+        color: $blue;
+    }
+}
+
+body{
+    line-height: 24px;
+    font-size: 16px;
+    height: 100%;
+    font-family: $rob;
+    font-weight: 400;
+    color: #6b707f;
+}
+:focus{
+    outline: none;
+}
+h1, h2, h3, h4, h5, h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    font-weight: 500;
+    font-family: $rob;
+    color: $h_title;
+}
+figure {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    clear: both;
+    border: none;
+}
+figure figcaption{
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 20px;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 728px;
+    margin-right: auto;
+}
+video {
+    max-width: 100%;
+}
+
+/** === Scrollbar === **/
+::-webkit-scrollbar{ width: 8px; }
+::-webkit-scrollbar-track { background: #fff;}
+::-webkit-scrollbar-thumb { background: #ddd;border-radius: 30px;}
+
+/** === Predefined Global Classes === **/
+.h1{
+    font-size: 50px;
+}
+.h2{
+    font-size: 44px;
+}
+.h3{
+    font-size: 36px;
+}
+.h4{
+    font-size: 30px;
+}
+.h5{
+    font-size: 24px;
+}
+.h6{
+    font-size: 18px;
+}
+.bold{
+    font-weight: 700;
+}
+.medium{
+    font-weight: 500;
+}
+.regular{
+    font-weight: 400;
+}
+
+.shortcode_info h1, .shortcode_info h2, .shortcode_info h3, .shortcode_info h4, .shortcode_info h5, .shortcode_info h6,
+.blog_single_item h1, .blog_single_item h2, .blog_single_item h3, .blog_single_item h4, .blog_single_item h5, .blog_single_item h6 {
+  margin-bottom: 30px;
+}
+
+button:focus{
+    outline: none;
+}
+
+.body_wrapper{
+    overflow: hidden;
+}
+
+.sec_pad{
+    padding: 100px 0;
+}
+
+.pl-40{
+    padding-left: 40px;
+}
+.pl-60{
+    padding-left: 60px;
+}
+.pr-60{
+    padding-right: 60px;
+}
+.mt-40{
+    margin-top: 40px;
+}
+
+.container{
+    @media (min-width:1200px){
+        max-width: 1200px;
+    }
+}
+.custom_container{
+    @media (min-width:1500px){
+        max-width: 1470px;
+    }
+}
+
+/*===== section title scss ======*/
+.section_title{
+    margin-bottom: 56px;
+    p{
+        max-width: 530px;
+        margin: 10px auto 0;
+    }
+    &.text-left{
+        p{
+            max-width: inherit;
+        }
+    }
+
+    &.title-img {
+        margin-bottom: 76px;
+        .title-lg {
+            font-size: 44px;
+            line-height: 1.1;
+            color: #1d2746;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .action_btn {
+            padding: 9px 34px;
+            box-shadow: none;
+            border: 2px solid #41B782;
+            font-weight: 500;
+
+            &:hover {
+                background: transparent;
+                color: #41B782;
+            }
+        }
+    }
+}
+.h_title{
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 0;
+    font-weight: 700;
+    position: relative;
+
+
+    @media(max-width: 440px) {
+        br {
+            display: none;
+        }
+    } 
+}
+.c_head{
+    font-size: 20px;
+    line-height: 26px;
+}
+/*===== section title scss ======*/
+.bg_color{
+    background: #fafcfd;
+}
+.f_bg_color{
+    background: #f6fbfc;
+}
+
+.local-video-container {
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,.05);
+    box-sizing: content-box;
+}
+
+/** === Back to Top Button === **/
+#back-to-top {
+    display: inline-block;
+    background-color: #FF9800;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+#back-to-top::after {
+    content: "\32";
+    font-family: eleganticons;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+#back-to-top:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+#back-to-top:active {
+    background-color: #555;
+}
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}

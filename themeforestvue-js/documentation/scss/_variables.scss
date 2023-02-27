@@ -1,0 +1,29 @@
+/*font Variables*/
+$rob: 'Roboto', sans-serif;
+$great: 'Great Vibes', cursive;
+
+/*=================== fonts ====================*/
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes|Roboto:300,400,500,700&display=swap');
+
+$h_title: #1d2746;
+$p_color: #6b707f;
+$blue: #10b3d6;
+
+// Mixins
+@mixin transition($property: all, $duration: 300ms, $animate: linear, $delay:0s){
+    transition: $property $duration $animate $delay; 
+}
+
+// Placeholder Mixins
+
+@mixin placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+.col-md-offset-right-1,.col-lg-offset-right-1{
+    margin-right: 8.33333333%;
+}
+// Font family link
