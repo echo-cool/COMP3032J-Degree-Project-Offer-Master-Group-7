@@ -20,9 +20,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // 所有方法都会处理跨域请求
-                .allowedOrigins("*")    // 允许请求的域名
-                .allowedHeaders("*")    // 允许的请求头
-                .allowedMethods("GET","POST");  // 允许的请求方式
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT","PATCH")
+                .allowedOrigins("http://127.0.0.1:8080")    // 允许请求的域名
+                .allowedHeaders("*");    // 允许的请求头
+
         WebMvcConfigurer.super.addCorsMappings(registry);
     }
     @Override
