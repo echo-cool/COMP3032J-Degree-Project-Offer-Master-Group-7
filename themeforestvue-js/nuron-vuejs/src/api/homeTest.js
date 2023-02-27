@@ -1,11 +1,13 @@
-import request from '@/utils/request'
+import request from '@/request/index'
 
-export function test(data) {
-  return request({
-    url: '',
-    method: 'post',
-    data
-  })
+export default {
+  testGetUser(page, size) {
+    return request({
+      url: `/rest/users`,
+      method: 'get',
+      params: {page, size}
+    })
+  }
 }
 
 export function login(data) {
