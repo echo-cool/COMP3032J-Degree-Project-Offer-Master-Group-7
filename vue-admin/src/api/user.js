@@ -13,9 +13,9 @@ export function login(username, password) {
 
 export function getInfo(token) {
   return request({
-    url: '/admin/user/info',
+    url: '/secure/user',
     method: 'get',
-    params: { token }
+    headers: {"Authorization": token}
   })
 }
 
