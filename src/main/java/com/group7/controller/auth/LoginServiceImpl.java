@@ -3,6 +3,7 @@ package com.group7.controller.auth;
 import com.group7.db.mappers.UserMapper;
 import com.group7.db.model.User;
 import com.group7.db.model.UserExample;
+import com.group7.utils.common.JwtUtil;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,9 @@ public class LoginServiceImpl implements LoginService {
             loginVO.setId(user.getId());
             //这里token直接用一个uuid
             //使用jwt的情况下，会生成一个jwt token,jwt token里会包含用户的信息
-            loginVO.setToken(UUID.randomUUID().toString());
+            System.out.println(user);
+            String token = JwtUtil.createToken(user);
+            loginVO.setToken(token);
             loginVO.setUser(user);
             return R.ok().data("data", loginVO);
         }

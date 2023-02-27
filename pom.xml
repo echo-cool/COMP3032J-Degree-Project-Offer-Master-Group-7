@@ -14,10 +14,17 @@
     <name>COMP3032J_FYP_Thesis_Group_7</name>
     <description>COMP3032J_FYP_Thesis_Group_7</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+
 <!--        swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
