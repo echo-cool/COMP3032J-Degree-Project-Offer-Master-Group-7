@@ -29,6 +29,7 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+
   devServer: {
     port: port,
     open: true,
@@ -36,7 +37,17 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js'),
+    proxy: {//增加一个api的前缀
+      '/backend': {
+        target: "http://127.0.0.1:8080",//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,    //這裡true表示实现跨域
+        ws: true,
+        pathRewrite: {
+          '^/backend': ''//这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'https://houduan.downline.cn/user/add'，直接写‘/api/user/add’即可
+        }
+      }
+    },
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -87,34 +98,34 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()
           config
             .optimization.splitChunks({
-              chunks: 'all',
-              cacheGroups: {
-                libs: {
-                  name: 'chunk-libs',
-                  test: /[\\/]node_modules[\\/]/,
-                  priority: 10,
-                  chunks: 'initial' // only package third parties that are initially dependent
-                },
-                elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
-                },
-                commons: {
-                  name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
-                  minChunks: 3, //  minimum common number
-                  priority: 5,
-                  reuseExistingChunk: true
-                }
+            chunks: 'all',
+            cacheGroups: {
+              libs: {
+                name: 'chunk-libs',
+                test: /[\\/]node_modules[\\/]/,
+                priority: 10,
+                chunks: 'initial' // only package third parties that are initially dependent
+              },
+              elementUI: {
+                name: 'chunk-elementUI', // split elementUI into a single package
+                priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+              },
+              commons: {
+                name: 'chunk-commons',
+                test: resolve('src/components'), // can customize your rules
+                minChunks: 3, //  minimum common number
+                priority: 5,
+                reuseExistingChunk: true
               }
-            })
+            }
+          })
           // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
           config.optimization.runtimeChunk('single')
         }

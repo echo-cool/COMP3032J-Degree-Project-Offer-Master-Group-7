@@ -14,20 +14,14 @@ import java.util.Map;
 
 /**
  * @Author: WangYuyang
- * @Date: 2023/2/26-22:21
+ * @Date: 2023/2/27-13:00
  * @Project: COMP3032J_FYP_Thesis_Group_7
  * @Package: com.group7.filters
  * @Description:
  **/
-@WebFilter(filterName = "jwtFilter", urlPatterns = "/secure/*")
-public class JwtFilter implements Filter {
+@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
+public class AdminFilter implements Filter {
     private final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
-
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -53,26 +47,15 @@ public class JwtFilter implements Filter {
             response.getWriter().write("token不合法！");
             return;
         }
-        String id = userData.get("id").asString();
-        String username = userData.get("username").asString();
-        String openid = userData.get("openid").asString();
+
         String role = userData.get("role").asString();
-        String email = userData.get("email").asString();
-
-        //拦截器 拿到用户信息，放到request中
-//        System.out.println("id:" + id + " username:" + username + " openid:" + openid);
-        request.setAttribute("id", id);
-        request.setAttribute("username", username);
-        request.setAttribute("openid", openid);
-        request.setAttribute("role", role);
-        request.setAttribute("email", email);
-
-        filterChain.doFilter(servletRequest, servletResponse);
-
-    }
-
-    @Override
-    public void destroy() {
+        if (role.equals("admin")) {
+            request.setAttribute("isAdmin", true);
+        }
+        else {
+            request.setAttribute("isAdmin", false);
+        }
+        filterChain.doFilter(request, response);
 
     }
 }
