@@ -34,7 +34,7 @@ public class User {
     @Column(nullable = false)
     private String profileId = "NULL";
     @Column(nullable = false, length = 45)
-    private String role = "USER";
+    private String roles = "USER";
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -42,11 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String email, String password, String role) {
+    public User(String username, String email, String password, String roles) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     public User() {
@@ -109,12 +109,12 @@ public class User {
         this.profileId = profileId;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(String roles) {
+        this.roles = roles;
     }
 
     @Override

@@ -26,8 +26,8 @@ class LoadDatabase {
 
         return args -> {
             log.info("Preloading " + repository.save(new User("test", "me@echo.cool", "111")));
-            log.info("Preloading " + repository.save(new User("111", "me@echo.cool", "111")));
-            log.info("Preloading " + repository.save(new User("111", "me@echo.cool", "111", "ADMIN")));
+            log.info("Preloading " + repository.save(new User("1112", "me@echo.cool", "111")));
+            log.info("Preloading " + repository.save(new User("111", "me@echo.cool", "111", "admin")));
 
         };
     }
