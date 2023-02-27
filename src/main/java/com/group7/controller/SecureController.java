@@ -18,11 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/secure")
 public class SecureController {
     private final Logger logger = LoggerFactory.getLogger(SecureController.class);
+
     @RequestMapping("/getUserInfo")
     public R getUserInfo(HttpServletRequest request) {
         String id = request.getAttribute("id").toString();
         String username = request.getAttribute("username").toString();
         String openid = request.getAttribute("openid").toString();
-        return R.ok().data("id", id).data("username", username).data("openid", openid);
+        String email = request.getAttribute("email").toString();
+        String role = request.getAttribute("role").toString();
+        return R.ok()
+                .data("id", id)
+                .data("username", username)
+                .data("openid", openid)
+                .data("email", email)
+                .data("role", role);
     }
 }
