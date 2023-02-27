@@ -51,9 +51,11 @@ public class JwtUtil {
         String token= JWT.create()
                 .withHeader(map)                //添加头部
                 //可以把数据存在claim中
-                .withClaim("id",user.getId())      //userId
-                .withClaim("name",user.getName())
+                .withClaim("id",user.getId().toString())      //userId
+                .withClaim("username",user.getUsername())
                 .withClaim("openid",user.getOpenId())
+                .withClaim("role",user.getRole())
+                .withClaim("email", user.getEmail())
                 .withExpiresAt(expireDate)          //超时设置,设置过期的日期
                 .withIssuedAt(new Date()) //签发时间
                 .sign(Algorithm.HMAC256(SECRET)); //SECRET加密
@@ -68,11 +70,12 @@ public class JwtUtil {
         try {
             JWTVerifier verifier=JWT.require(Algorithm.HMAC256(SECRET)).build();
             jwt=verifier.verify(token);
+            return jwt.getClaims();
         }catch (Exception e){
             logger.error(e.getMessage().toString());
             logger.error("解析编码异常");
         }
 
-        return jwt.getClaims();
+        return null;
     }
 }

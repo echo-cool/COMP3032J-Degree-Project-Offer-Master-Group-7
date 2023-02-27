@@ -54,12 +54,19 @@ public class JwtFilter implements Filter {
             return;
         }
         String id = userData.get("id").asString();
-        String name = userData.get("name").asString();
+        String username = userData.get("username").asString();
         String openid = userData.get("openid").asString();
+        String role = userData.get("role").asString();
+        String email = userData.get("email").asString();
+
         //拦截器 拿到用户信息，放到request中
+//        System.out.println("id:" + id + " username:" + username + " openid:" + openid);
         request.setAttribute("id", id);
-        request.setAttribute("name", name);
+        request.setAttribute("username", username);
         request.setAttribute("openid", openid);
+        request.setAttribute("role", role);
+        request.setAttribute("email", email);
+
         filterChain.doFilter(servletRequest, servletResponse);
 
     }
