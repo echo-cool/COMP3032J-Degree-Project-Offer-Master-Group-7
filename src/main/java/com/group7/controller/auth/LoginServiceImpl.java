@@ -1,8 +1,7 @@
 package com.group7.controller.auth;
 
-import com.group7.db.mappers.UserMapper;
-import com.group7.db.model.User;
-import com.group7.db.model.UserExample;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtil;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
@@ -24,7 +23,7 @@ import java.util.UUID;
 @Service
 public class LoginServiceImpl implements LoginService {
     @Resource
-    private UserMapper userMapper;
+    private UserRepository userRepository;
 
     @Override
     public R login(LoginDTO loginDTO) {
@@ -36,10 +35,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //query by example
-
-        UserExample example = new UserExample();
-        example.createCriteria().andUsernameEqualTo(loginDTO.getLoginName());
-        User user = userMapper.selectByExample(example).get(0);
+        User user = userRepository.findByUsername(loginDTO.getLoginName());
         //比较密码
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
             LoginVO loginVO = new LoginVO();

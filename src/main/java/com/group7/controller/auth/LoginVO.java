@@ -1,7 +1,7 @@
 package com.group7.controller.auth;
 
 
-import com.group7.db.model.User;
+import com.group7.db.jpa.User;
 
 import java.io.Serializable;
 
