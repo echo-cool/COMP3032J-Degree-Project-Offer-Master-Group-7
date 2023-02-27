@@ -1,6 +1,10 @@
 package com.group7.db.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Optional;
 
@@ -11,8 +15,9 @@ import java.util.Optional;
  * @Package: com.group7.db.jpa
  * @Description:
  **/
-public interface UserRepository  extends JpaRepository<User, Long>{
-    User findByUsername(String username);
+@RepositoryRestResource(collectionResourceRel = "users", path = "users")
+public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long> {
+    User findByUsername(@Param("username") String username);
 
 
 }
