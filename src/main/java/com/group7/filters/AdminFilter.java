@@ -49,7 +49,7 @@ public class AdminFilter implements Filter {
         }
 
         String role = userData.get("role").asString();
-        if (role.equals("admin")) {
+        if (role.equalsIgnoreCase("admin")) {
             request.setAttribute("isAdmin", true);
         }
         else {
