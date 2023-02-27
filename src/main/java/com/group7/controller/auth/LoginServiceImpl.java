@@ -38,12 +38,12 @@ public class LoginServiceImpl implements LoginService {
         //query by example
 
         UserExample example = new UserExample();
-        example.createCriteria().andNameEqualTo(loginDTO.getLoginName());
+        example.createCriteria().andUsernameEqualTo(loginDTO.getLoginName());
         User user = userMapper.selectByExample(example).get(0);
         //比较密码
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
             LoginVO loginVO = new LoginVO();
-            loginVO.setId(user.getId());
+            loginVO.setId(user.getId().toString());
             //这里token直接用一个uuid
             //使用jwt的情况下，会生成一个jwt token,jwt token里会包含用户的信息
             System.out.println(user);

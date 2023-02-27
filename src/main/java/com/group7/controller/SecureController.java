@@ -1,4 +1,4 @@
-package com.group7.controller.auth;
+package com.group7.controller;
 
 import com.group7.utils.common.R;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +21,8 @@ public class SecureController {
     @RequestMapping("/getUserInfo")
     public R getUserInfo(HttpServletRequest request) {
         String id = request.getAttribute("id").toString();
-        String name = request.getAttribute("name").toString();
+        String username = request.getAttribute("username").toString();
         String openid = request.getAttribute("openid").toString();
-        return R.ok().data("id", id).data("name", name).data("openid", openid);
+        return R.ok().data("id", id).data("username", username).data("openid", openid);
     }
 }
