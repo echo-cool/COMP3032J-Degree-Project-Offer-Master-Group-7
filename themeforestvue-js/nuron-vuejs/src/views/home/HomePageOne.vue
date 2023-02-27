@@ -74,6 +74,8 @@
     import CollectionStyleOne from '@/components/collection/CollectionStyleOne'
     import ExploreNewestItem from '@/components/explore/ExploreNewestItem'
 
+    import {test} from '@/api/homeTest'
+
     export default {
         name: 'HomePageOne',
         components: {
@@ -89,6 +91,21 @@
             ExploreLiveCarousel,
             Layout
         },
-        mixins: [SalScrollAnimationMixin]
+        mixins: [SalScrollAnimationMixin],
+
+      data() {
+          return{
+
+          }
+      },
+
+      created() {
+
+      },
+
+      methods:{
+
+      }
+
     }
 </script>
