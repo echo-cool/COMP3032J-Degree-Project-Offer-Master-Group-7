@@ -1,0 +1,197 @@
+/*========== Start footer_area css ==========*/
+.footer_area{
+    padding-top: 100px;
+    position: relative;
+    z-index: 1;
+    .leaf{
+        right: 60px;
+        bottom: 0;
+        width: 180px;
+        z-index: -1;
+    }
+    .f_man{
+        right: 280px;
+        bottom: 40px;
+    }
+    .f_man_two{
+        bottom: 60px;
+        left: 125px;
+    }
+    .f_cloud{
+        bottom: 410px;
+        left: 150px;
+    }
+    .f_email{
+        left: 75px;
+        bottom: 290px;
+    }
+    .f_email_two{
+        bottom: 200px;
+        left: 250px;
+    }
+}
+.footer_p_top{
+    padding-top: 225px;
+}
+.footer_top{
+    .border_bottom{
+        margin-top: 100px;
+    }
+}
+.border_bottom{
+    width: 100%;
+    height: 1px;
+    background: #e8f0f1;
+}
+.f_widget{
+    .f_title{
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    &.subscribe_widget{
+        padding-right: 40px;
+        .f_logo{
+            display: inline-block;
+            margin-bottom: 32px;
+        }
+        h4{
+            margin-bottom: 34px;
+        }
+    }
+    &.link_widget{
+        .link_list{
+            margin-bottom: 0;    
+            li{
+                a{
+                    color: $p_color;
+                    font-size: 16px;
+                    &:hover{
+                        color: $blue;
+                    }
+                }
+                & + li{
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}
+.footer_subscribe_form{
+    position: relative;
+    .form-control{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 20px 30px 0 rgba(4, 73, 89, 0.08);
+        height: 56px;
+        border: 1px solid transparent;
+        color: $h_title;
+        padding-left: 25px;
+        position: relative;
+        transition: all 0.2s linear;
+        @include placeholder{
+            color: #878b99;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+    .s_btn{
+        border: 0;
+        font-size: 16px;
+        font-weight: 400;
+        background: $blue;
+        border-radius: 4px;
+        color: #fff;
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        right: 8px;
+        padding: 7px 22px;
+    }
+}
+.f_social_icon{
+    padding-top: 40px;
+    li{
+        display: inline-block;
+        a{
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 2px solid #86D169;
+            font-size: 14px;
+            line-height: 45px;
+            text-align: center;
+            display: block;
+            color: $blue;
+            margin-right: 6px;
+            &:hover{
+                background: $blue;
+                border-color: $blue;
+                box-shadow: 0 10px 20px 0 rgba(12, 118, 142, 0.2);
+                color: #fff;
+            }
+        }
+    }
+}
+.footer_bottom{
+    padding: 38px 0 66px;
+    position: relative;
+    z-index: 1;
+    p{
+        margin-bottom: 0;
+        font-size: 16px;
+        color: $p_color;
+        a{
+            color:$blue;
+        }
+    }
+}
+.pl_30{
+    padding-left: 30px;
+}
+.pl_70{
+    padding-left: 70px;
+}
+
+.simple_footer{
+    padding: 30px 0;
+    position: relative;
+    z-index: 1;
+    background: #1d2746;
+    .row{
+        align-items: center;
+    }
+    .leaf_right{
+        position: absolute;
+        right: 170px;
+        bottom: 0;
+        z-index: -1;
+    }
+    p{
+        margin-bottom: 0;
+        font-size: 16px;
+        color: #a4a8b4;
+        a{
+            color: $blue;
+        }
+    }
+    .f_social_icon{
+        margin-bottom: 0;
+        padding-top: 0;
+        li{
+            a{
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                color: #8d93a4;
+                border-color: #8d93a4;
+                &:hover{
+                    background: $blue;
+                    border-color: $blue;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+/*========== End footer_area css ==========*/

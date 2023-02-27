@@ -1,0 +1,125 @@
+/*-----------------------
+Rainbow Styles  
+-------------------------*/
+
+.navbar-brand {
+  img {
+    max-width: 140px;
+  }
+}
+
+.menu > .nav-item {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.navbar_fixed.menu_one .menu > .nav-item {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+strong {
+  color: #1d2746;
+}
+
+.body_dark strong {
+  color: #ffffff;
+}
+
+.body_dark code strong {
+  color: #000;
+}
+
+ol {
+  margin: 0 0 2rem;
+}
+
+ol li {
+  color: #6b707f;
+}
+
+.body_dark ol li {
+  color: #d3d4d4;
+}
+
+.shortcode_info p.notify {
+  font-size: 25px;
+  line-height: 34px;
+  color: #f10;
+  font-weight: 700;
+}
+
+.list-unstyled {
+  &.rn-list {
+    list-style-type: disc;
+    padding-left: 17px;
+
+    li {
+      a {
+        color: #41B782;
+      }
+    }
+  }
+}
+
+.rn-order-list {
+  padding-left: 18px;
+}
+
+.rn-order-list li {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.body_dark .navbar_fixed.menu_one .menu > .nav-item:hover > .nav-link,
+.body_dark .navbar_fixed.menu_one .menu > .nav-item.active > .nav-link {
+  color: #41B782;
+}
+
+
+.doc-nav li.nav-item a img {
+  max-width: 32px;
+}
+
+.explanation.hire::after {
+  content: "Need a Custom Work?";
+  font-size: 0.8rem;
+  top: -21px;
+}
+
+.hire-us {
+  margin-top: 30px;
+}
+
+.explanation.hire {
+  padding: 1rem;
+}
+
+.body_dark .explanation.hire {
+  background: linear-gradient(90deg, #131417, #2c303a);
+  border: 10px solid #131417;
+}
+
+.body_dark .explanation.hire::after {
+  color: #fff;
+  background: #131417;
+}
+
+ul.navbar-nav.menu.ml-auto {
+  align-items: center;
+}
+
+
+.documentation_body {
+  padding-top: 60px;
+  padding-bottom: 35px;
+}
+
+.documentation_body + .documentation_body {
+  border-top: 1px solid #e8f0f1;
+}
+
+figure figcaption {
+  width: 100% !important;
+  max-width: 100%;
+}

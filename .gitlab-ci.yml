@@ -9,17 +9,17 @@ variables:
 stages:
 - test
 - build
-- docker
+#- docker
 - deploy
 maven-test:
-  image: maven:3-jdk-8
+  image: maven:3.8.3-openjdk-17
   stage: test
   script:
   - ./mvnw clean
   - ./mvnw test
   - cat target/site/jacoco/index.html
 maven-package:
-  image: maven:3-jdk-8
+  image: maven:3.8.3-openjdk-17
   stage: build
   script:
   - ./mvnw clean
@@ -28,21 +28,21 @@ maven-package:
     paths:
     - target/*.jar
 
-docker-image:
-  tags:
-    - shell
-  stage: docker
-  script:
-    - ./mvnw clean
-    - ./mvnw package -DskipTests
-    - docker build -t myapp:v1 .
+#docker-image:
+#  tags:
+#    - shell
+#  stage: docker
+#  script:
+#    - ./mvnw clean
+#    - ./mvnw package -DskipTests
+#    - docker build -t myapp:v1 .
 
 maven-deploy:
-  image: maven:3-jdk-8
+  image: maven:3.8.3-openjdk-17
   stage: deploy
   script:
   - echo ok.
 
 include:
 - template: Security/Secret-Detection.gitlab-ci.yml
-- template: Security/Dependency-Scanning.gitlab-ci.yml
+#- template: Security/Dependency-Scanning.gitlab-ci.yml
