@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link
+            rel="stylesheet"
+            href="assets/bootstrap/css/bootstrap-select.min.css"
+    />
+    <!-- icon css-->
+    <link rel="stylesheet" href="assets/elagent-icon/style.css"/>
+    <link rel="stylesheet" href="assets/font-awesome/css/all.css"/>
+    <link rel="stylesheet" href="assets/niceselectpicker/nice-select.css"/>
+    <link rel="stylesheet" href="assets/font-size/css/rvfs.css"/>
+    <link rel="stylesheet" href="assets/animation/animate.css"/>
+    <link rel="stylesheet" href="assets/video/video-js.css"/>
+    <link
+            rel="stylesheet"
+            href="assets/tooltipster/css/tooltipster.bundle.css"
+    />
+    <link rel="stylesheet" href="assets/prism/prism.css"/>
+    <link rel="stylesheet" href="assets/prism/prism-coy.css"/>
+    <link rel="stylesheet" href="assets/magnify-pop/magnific-popup.css"/>
+    <link
+            rel="stylesheet"
+            href="assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/responsive.css"/>
+    <title>
+        Nuron - NFT Marketplace Vue.Js Template
+    </title>
+</head>
+
+<body
+        class="doc full-width-doc sticky-nav-doc onepage-doc"
+        data-spy="scroll"
+        data-target=".navbar"
+        data-offset="0"
+>
+<div class="body_wrapper sticky_menu">
+    <nav class="navbar navbar-expand-lg menu_one menu_logo_change">
+        <div class="container-fluid pl-60 pr-60">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo-dark.png" srcset="img/logo-dark.png" alt="logo"/>
+                <img src="img/logo.png" srcset="img/logo.png" alt="logo"/>
+            </a>
+            <button
+                    class="navbar-toggler collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+            <span class="menu_toggle">
+              <span class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <span class="hamburger-cross">
+                <span></span>
+                <span></span>
+              </span>
+            </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav menu ml-auto">
+                    <li class="nav-item">
+                        <a href="https://support.rainbowit.net/support/login" class="nav-link dropdown-toggle">
+                            Request Support
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://themeforest.net/user/rainbow-themes/portfolio"
+                           class="nav-link dropdown-toggle">
+                            Awesome templates
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link dropdown-toggle">Purchase</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://support.rainbowit.net/support/login" class="action_btn btn_small_two">
+                            Submit a Ticket <i class="arrow_right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="doc_documentation_area onepage_doc_area" id="sticky_doc">
+        <div class="overlay_bg"></div>
+        <div class="container-fluid pl-60 pr-60">
+            <div class="row doc-container">
+                <div class="col-lg-2 doc_mobile_menu doc-sidebar display_none">
+                    <!-- Start Aside area  -->
+                    <aside class="doc_left_sidebarlist">
+                        <h3 class="nav_title">Doc NAVIGATION</h3>
+                        <div class="scroll">
+                            <ul class="list-unstyled nav-sidebar doc-nav">
+                                <li class="nav-item">
+                                    <a href="#getting_started" class="nav-link">
+                                        <img src="img/onepage-icon/smiles-icon.png" alt=""/>
+                                        Getting Started
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#requirements" class="nav-link">Requirements</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#whats_included" class="nav-link">What's Included</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                                        <i class="icon_plus"></i>
+                                        <i class="icon_minus-06"></i>
+                                      </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#vue_installation" class="nav-link">
+                                        <img src="img/side-nav/cmm4.png" alt="Nuron"/>
+                                        Vue Installation
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#basic_site_setting" class="nav-link">
+                                        <img src="img/side-nav/rc12.png" alt="Nuron"/>
+                                        Basic Site Setting
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#change_site_title_and_favicon" class="nav-link">
+                                                Change Site Title and Favicon
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#change_logo" class="nav-link">Change Logo</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#customize_menu" class="nav-link">Customize Menu</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                                        <i class="icon_plus"></i>
+                                        <i class="icon_minus-06"></i>
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#template_options" class="nav-link">
+                                        <img src="img/side-nav/gear.png" alt="Nuron"/>Template Options
+                                    </a>
+                                    <ul class="list-unstyled dropdown_nav">
+                                        <li class="nav-item">
+                                            <a href="#social_networks" class="nav-link">Social Networks</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#header" class="nav-link">Header</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#footer" class="nav-link">Footer</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#blog" class="nav-link">Blog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#blog_details" class="nav-link">Blog Details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#typography" class="nav-link">Typography</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#404_page" class="nav-link">404 Page</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#back_to_top_arrow" class="nav-link">Back to Top Arrow</a>
+                                        </li>
+                                    </ul>
+                                    <span class="icon">
+                                        <i class="icon_plus"></i>
+                                        <i class="icon_minus-06"></i>
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#global_color_options" class="nav-link">
+                                        <img src="img/side-nav/color-palette.png" alt="Nuron"/>
+                                        Global Color Options
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="docs-progress-bar" style="width: 0%;"></span>
+                                    <a href="#change-log" class="nav-link">
+                                        <img src="img/side-nav/document2.png" alt="Nuron" class="mCS_img_loaded">
+                                        Change Log
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- End Aside area  -->
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="documentation_info" id="post">
+                        <article class="documentation_body doc-section pt-0"
+                                 id="getting_started">
+                            <div class="shortcode_title">
+                                <h1>Getting Started</h1>
+                                <p>
+                                    Welcome to Nuron Vue.js template! We would like to thank you for choosing our template - Nuron.
+                                </p>
+                                <p>
+                                    It’s built with Vue.js. It’s fully responsive and looks
+                                    well. It is a modern design and high-speed performance Vue
+                                    template. Nuron is suitable for NFT marketplace, digital marketplace, crypto collectibles,
+                                    NFT world buying selling, digital art, crypto art, DeFi website and non-fungible tokens.
+                                </p>
+                            </div>
+                            <div class="shortcode_title" id="requirements">
+                                <h2>Requirements</h2>
+                                <p>
+                                    There are system requirements in order to install and
+                                    setup Nuron template and its components properly. Make
+                                    sure that you are running the
+                                    <strong>node.js install</strong>
+                                    <strong>npm install</strong>.
+                                </p>
+                            </div>
+                            <h3 class="c_head load-order-2" id="php-configuration-limits">
+                                Recommended node and npm
+                            </h3>
+                            <div class="code_item">
+                                <pre class="snippet">
+                                    <code class="language-html" data-lang="html">
+                                        <strong>node install</strong>
+                                    </code>
+                                </pre>
+                            </div>
+                            <h3 class="c_head load-order-2">Install npm packages</h3>
+                            <div class="code_item">
+                                <p><strong>NPM</strong> : You must have to <strong>npm install</strong> packages. You
+                                    can do this by running npm install from the root of your project to install all the
+                                    necessary dependencies.</p>
+                                <pre class="snippet">
+                                    <code class="language-html" data-lang="html">
+                                       <strong>npm install</strong>.
+                                    </code>
+                                </pre>
+                            </div>
+
+                            <h3 class="c_head load-order-2">Development server</h3>
+                            <div class="code_item">
+                                <p>
+                                    Run npm run start for a dev server. Navigate to http://localhost:8080/ . The app will
+                                    automatically reload if you change any of the source files.
+                                </p>
+                                <pre class="snippet">
+                                    <code class="language-html" data-lang="html">
+                                       <strong>npm run serve</strong>
+                                    </code>
+                                </pre>
+                            </div>
+
+                            <h3 class="c_head load-order-2">Build</h3>
+                            <div class="code_item">
+                                <p>
+                                    Run npm run build to build the project. The build artifacts will be stored in the
+                                    build/ directory. Use the npm run build --prod flag for a production build.</p>
+                                <pre class="snippet">
+                                    <code class="language-html" data-lang="html">
+                                       <strong>npm run build</strong>
+                                    </code>
+                                </pre>
+                            </div>
+
+                            <div class="shortcode_title" id="whats_included">
+                                <h2>What's Included</h2>
+                                <p>
+                                    After purchasing Nuron template on templateforest.net with
+                                    your Envato account, go to your Download page. You can
+                                    choose to download Nuron template only (Installable Vue
+                                    template) or the entire Nuron Vue.js template package which
+                                    contains the following files:
+                                </p>
+                                <img
+                                        class="w-100 img-thumbnail"
+                                        src="img/nuron/included/1.png"
+                                        alt="whats-included"
+                                />
+                            </div>
+                            <h3 class="c_head load-order-2" id="template-package">
+                                You can get the following items after purchasing our
+                                template from themeforest
+                            </h3>
+                            <div class="steps-panel">
+                                <ul class="ordered-list">
+                                    <li>
+                                        <strong>Nuron.zip</strong> - An Installable Vue template
+                                        zip file. this file you need to upload
+                                    </li>
+                                    <li>
+                                        <strong>Licensing</strong> - This folder contains the
+                                        terms and conditions of the license.
+                                    </li>
+                                    <li>
+                                        <strong>Documentation</strong> - This folder contains
+                                        what you are reading now :)
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                        <article class="documentation_body doc-section" id="vue_installation">
+                            <div class="shortcode_title">
+                                <h2>Vue Installation</h2>
+                                <p>
+                                    Please follow the instructions to see how you can install Vue.js:
+                                </p>
+                            </div>
+                            <div class="steps-panel">
+                                <ol class="ordered-list">
+                                    <li>
+                                        <strong>For local host</strong> -
+                                        <ol class="ordered-list">
+                                            <li>Open you command prompt</li>
+                                            <li>npm install</li>
+                                            <li>npm run serve</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </div>
+                        </article>
+                        <article class="documentation_body doc-section" id="basic_site_setting">
+                            <div class="shortcode_title" id="change_site_title_and_favicon">
+                                <h2 class="load-order-2">Change Site Title and Favicon</h2>
+                                <p>
+                                    To change your Site title and Favicon open the Nuron in
+                                    your editor and go to the location by following screenshot
+                                    which are given bellow.
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail mb-2"
+                                         src="img/nuron/basic-setting/title-and-favicon.png"
+                                         alt="go to Appearance -> Import Demo Data"/>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/basic-setting/favicon.png"
+                                         alt="go to Appearance -> Import Demo Data"/>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="change_logo">
+                                <h2 class="load-order-2">Change Logo</h2>
+                                <p>To change your Site logo by following screenshot</p>
+                                <figure>
+                                    <img
+                                            class="w-100 img-thumbnail"
+                                            src="img/nuron/basic-setting/change-logo.png"
+                                            alt="Go to Dashboard > nuron template Options > General > upload your logo from here."
+                                    />
+                                    <figcaption class="text-center">
+                                        By following this screenshot you can change your Logo
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="customize_menu">
+                                <h2 class="load-order-2">Customize Menu</h2>
+                                <p>
+                                    By following the screenshot you can change the navigation
+                                    menu
+                                </p>
+                                <figure>
+                                    <img
+                                            class="w-100 img-thumbnail"
+                                            src="img/nuron/basic-setting/customize-menu.png"
+                                            alt="Customize the menu."
+                                    />
+                                    <figcaption class="text-center">
+                                        Customize the page menu
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </article>
+                        <article class="documentation_body doc-section" id="template_options">
+                            <div class="shortcode_title" id="social_networks">
+                                <h2 class="load-order-2">Social Networks</h2>
+                                <p>Put your social profile link here.</p>
+                                <figure>
+                                    <img
+                                            class="w-100 img-thumbnail"
+                                            src="img/nuron/theme-options/social-networks.png"
+                                            alt="Add your link here"
+                                    />
+                                    <figcaption class="text-center">
+                                        Add your link here
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="header">
+                                <h2 class="load-order-2" id="header_title">Header</h2>
+                                <figure>
+                                    <img
+                                            class="w-100 img-thumbnail"
+                                            src="img/nuron/theme-options/change-header.png"
+                                            alt="Change Header Setting"
+                                    />
+                                    <figcaption class="text-center">
+                                        Change Header Setting
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="footer">
+                                <h2 class="load-order-2" id="footer_title">Footer</h2>
+                                <p>
+                                    To change Footer Layout and setting you can change by
+                                    following this screenshot here.
+                                </p>
+                                <figure>
+                                    <img
+                                            class="w-100 img-thumbnail"
+                                            src="img/nuron/theme-options/change-footer.png"
+                                            alt="Change Footer Setting"
+                                    />
+                                    <figcaption class="text-center">
+                                        Change Footer Setting
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="blog">
+                                <h2 class="load-order-2" id="blog_archive_title">Blog</h2>
+                                <p>
+                                    To change Blog Layout and setting you can change by
+                                    following this screenshot here.
+                                </p>
+                                <div class="steps-panel">
+                                    <ol class="ordered-list">
+                                        <li>
+                                            From the template options go to the following directory
+                                            <span class="direction_steps">
+                                                <span class="direction_step">src</span>
+                                                <span class="direction_step">views</span>
+                                                <span class="direction_step">blog</span>
+                                            </span>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/theme-options/blog-page.png"
+                                         alt="Change Blog Archive Setting"/>
+                                    <figcaption class="text-center">
+                                        Change Blog Content
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="blog_details">
+                                <h2 class="load-order-2" id="blog_single_title">
+                                    Blog Details
+                                </h2>
+                                <div class="steps-panel">
+                                    <ol class="ordered-list">
+                                        <li>
+                                            From the template options go to
+                                            <span class="direction_steps">
+                                                <span class="direction_step">src</span>
+                                                <span class="direction_step">views</span>
+                                                <span class="direction_step">blog</span>
+                                                <span class="direction_step">BlogDetails.vue</span>
+                                            </span>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <p>
+                                    To change Blog Details and setting you can change by
+                                    following this screenshot here.
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/theme-options/blog-details.png"
+                                         alt="Change Blog Single Setting"/>
+                                    <figcaption class="text-center">
+                                        Change Blog Details Content
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="typography">
+                                <h2 class="load-order-2" id="typography_title">
+                                    Typography
+                                </h2>
+                                <p>
+                                    To change Typography and setting you can change by
+                                    following this screenshot here.
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/theme-options/typography.png"
+                                         alt="Change Typography Setting"/>
+                                    <figcaption class="text-center">
+                                        Change Typography Setting
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="404_page">
+                                <h2 class="load-order-2" id="404_page_title">404 Page</h2>
+                                <p>
+                                    To change 404 and setting you can change by following this
+                                    screenshot here.
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/theme-options/404.png"
+                                         alt="Change 404 Page Setting"/>
+                                    <figcaption class="text-center">
+                                        Change 404 Page Content
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="shortcode_title" id="back_to_top_arrow">
+                                <h2 class="load-order-2" id="back_to_top_arrow_title">
+                                    Back to Top Arrow
+                                </h2>
+                                <p>
+                                    To change Back to Top Arrow and setting you can change by
+                                    following this screenshot here.
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/theme-options/back-to-top.png"
+                                         alt="Change Back to Top Arrow Setting"/>
+                                    <figcaption class="text-center">
+                                        Change Back to Top Arrow Setting
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </article>
+                        <article class="documentation_body doc-section" id="global_color_options">
+                            <div class="shortcode_title">
+                                <h2 class="load-order-2" id="global_color_options_title">
+                                    Global Color Options
+                                </h2>
+                                <p>
+                                    To change Global Color Options setting, navigate to
+                                    <span class="direction_steps">
+                                        <span class="direction_step">src</span>
+                                        <span class="direction_step">assets</span>
+                                        <span class="direction_step">scss</span>
+                                        <span class="direction_step">default</span>
+                                        <span class="direction_step">_variables.scss</span>
+                                    </span>
+                                </p>
+                                <figure>
+                                    <img class="w-100 img-thumbnail"
+                                         src="img/nuron/global-color.png"
+                                         alt="Change Global Color Options Setting"/>
+                                    <figcaption class="text-center">
+                                        Change Global Color Options Setting
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </article>
+                        <article class="documentation_body doc-section" id="change-log" tabindex="-1">
+                            <div class="shortcode_title">
+                                <h2 class="load-order-2" id="changelog_title">Change Log<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#changelog_title" style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                                <p>Rainbow-themes team never stops Improving, bug fixes, and improvements. See What's New. We recommend you to read the changelog for every update.</p>
+                            </div>
+                            <div class="changelog_inner">
+                                <div class="row changelog_info" id="v100">
+                                    <div class="col-lg-3 changelog_date">
+                                        <div class="c_date">
+                                            <h6>00 May 2022</h6>
+                                            <p>Init release</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="version_info">
+                                            <div class="c_version">
+                                                1.0.0
+                                            </div>
+                                            <div class="line bottom_half"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="changelog_content">
+                                            <p><span class="new">New</span>template release</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row changelog_info" id="v101">
+                                    <div class="col-lg-3 changelog_date">
+                                        <div class="c_date">
+                                            <h6>07 Dec 2022</h6>
+                                            <p>Added</p>
+                                            <p>Issues Fixing</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="version_info">
+                                            <div class="c_version">
+                                                1.0.1
+                                            </div>
+                                            <div class="line bottom_half"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="changelog_content">
+                                            <p><span class="new">Added</span>New home pages</p>
+                                            <p><span class="new">Added</span>New explore page</p>
+                                            <p><span class="fixed">Fixed</span>Dark mode color issue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border_bottom"></div>
+                            <div class="row feedback_link">
+                                <div class="col-lg-6">
+                                    <h6><i class="icon_mail_alt"></i>Still stuck? <a href="https://support.rainbowit.net/support/login">How can we help?</a></h6>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>If you like our product. <a href="https://themeforest.net/downloads" class="h_btn">Please Rate Us</a></p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 doc_right_mobile_menu">
+                    <div class="open_icon" id="right">
+                        <i class="arrow_carrot-left"></i>
+                        <i class="arrow_carrot-right"></i>
+                    </div>
+                    <div class="doc_rightsidebar">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div id="rvfs-controllers" class="fontsize-controllers group"></div>
+                            <a href="javascript:window.print()" class="print"><i class="icon_printer"></i></a>
+                        </div>
+                        <div class="doc_switch">
+                            <label for="something" class="tab-btn tab-btns">
+                                <i class="icon_lightbulb_alt"></i>
+                            </label>
+                            <input type="checkbox"
+                                   name="something"
+                                   id="something"
+                                   class="tab_switcher"/>
+                            <label for="something" class="tab-btn">
+                                <i class="far fa-moon"></i>
+                            </label>
+                        </div>
+                        <div class="hire-us">
+                            <p class="explanation hire expn-left">
+                                If you need the template customization or custom development
+                                services please contact us. <br/><br/>
+                                <a href="mailto:rainbowit10@gmail.com" class="action_btn btn_small">
+                                    Email Us <i class="arrow_right"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="simple_footer">
+        <img class="leaf_right"
+             src="img/home_one/leaf_footter.png"
+             alt="Nuron"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>
+                        © 2022 All Rights Reserved by
+                        <a href="https://themeforest.net/user/rainbow-themes/portfolio">Rainbow-templates</a>
+                    </p>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <ul class="list-unstyled f_social_icon">
+                        <li>
+                            <a href="https://www.youtube.com/channel/UC6ngMhhQN50MPy-dbKxh7Sg">
+                                <i class="social_youtube"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="assets/bootstrap/js/popper.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap-select.min.js"></script>
+<script src="js/parallaxie.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/anchor.js"></script>
+<script src="assets/wow/wow.min.js"></script>
+<script src="assets/prism/prism.js"></script>
+<script src="assets/niceselectpicker/jquery.nice-select.min.js"></script>
+<script src="assets/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/magnify-pop/jquery.magnific-popup.min.js"></script>
+<script src="assets/tooltipster/js/tooltipster.bundle.min.js"></script>
+<script src="assets/font-size/js/rv-jquery-fontsize-2.0.3.js"></script>
+<script src="assets/video/video.min.js"></script>
+<script src="assets/video/wistia.js"></script>
+<script src="js/onpage-menu.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
