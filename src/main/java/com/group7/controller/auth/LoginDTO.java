@@ -8,15 +8,15 @@ package com.group7.controller.auth;
  * @Description:
  **/
 public class LoginDTO {
-    private String loginName;
+    private String username;
     private String password;
 
-    public String getLoginName() {
-        return loginName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

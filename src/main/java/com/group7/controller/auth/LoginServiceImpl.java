@@ -5,12 +5,8 @@ import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtil;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-
-import java.util.UUID;
 
 
 /**
@@ -27,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public R login(LoginDTO loginDTO) {
-        if (StringUtils.isEmpty(loginDTO.getLoginName())) {
+        if (StringUtils.isEmpty(loginDTO.getUsername())) {
             return R.error().message("Username is empty");
         }
         if (StringUtils.isEmpty(loginDTO.getPassword())) {
@@ -35,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //query by example
-        User user = userRepository.findByUsername(loginDTO.getLoginName());
+        User user = userRepository.findByUsername(loginDTO.getUsername());
         //比较密码
         if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
             LoginVO loginVO = new LoginVO();
@@ -46,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
             String token = JwtUtil.createToken(user);
             loginVO.setToken(token);
             loginVO.setUser(user);
-            return R.ok().data("data", loginVO);
+            return R.ok().data("token", token).data("data", loginVO);
         }
         return R.error().message("failed");
     }
