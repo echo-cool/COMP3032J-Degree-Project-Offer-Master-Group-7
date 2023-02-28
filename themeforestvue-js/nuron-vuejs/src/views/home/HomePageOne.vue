@@ -112,7 +112,7 @@
                   // this.list = response.data.rows
                   // this.total = response.data.total
                   console.log("here");
-                  console.log(response.data);
+                  // console.log(response.data);
                 })
                 .catch(error => {   // 请求失败
                   console.log(error)

@@ -356,8 +356,8 @@
                     // this.list = response.data.rows
                     // this.total = response.data.total
                     console.log("here");
-                    console.log(response.data);
-                    this.currentUser = response.data;
+                    console.log(response);
+                    this.currentUser = response;
                     console.log(this.currentUser);
                   })
                   .catch(error => {   // 请求失败
