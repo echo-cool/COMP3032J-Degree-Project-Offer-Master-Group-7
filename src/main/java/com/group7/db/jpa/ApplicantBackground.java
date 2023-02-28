@@ -2,6 +2,7 @@ package com.group7.db.jpa;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -40,10 +41,10 @@ public class ApplicantBackground {
     private String undergradProgram;
 
     @Column(nullable = false, precision = 3, scale = 2)
-    private double gpaOrigin;
+    private BigDecimal gpaOrigin;
 
     @Column(precision = 3, scale = 2)
-    private double gpaConverted;
+    private BigDecimal gpaConverted;
 
     @Column
     private int undergradRank;
@@ -55,19 +56,19 @@ public class ApplicantBackground {
 
     /* Language Tests - IELTS */
     @Column(precision = 2, scale = 1)
-    private double IELTSTotal;
+    private BigDecimal IELTSTotal;
 
     @Column(precision = 2, scale = 1)
-    private double IELTSListening;
+    private BigDecimal IELTSListening;
 
     @Column(precision = 2, scale = 1)
-    private double IELTSSpeaking;
+    private BigDecimal IELTSSpeaking;
 
     @Column(precision = 2, scale = 1)
-    private double IELTSReading;
+    private BigDecimal IELTSReading;
 
     @Column(precision = 2, scale = 1)
-    private double IELTSWriting;
+    private BigDecimal IELTSWriting;
 
     /* Language Tests - TOEFL */
     @Column
@@ -91,7 +92,7 @@ public class ApplicantBackground {
     private User user;
 
     /* constructors */
-    public ApplicantBackground(String enrollYear, String targetDegree, String targetProgram, String targetFellowship, String undergradLevel, String undergradSchool, String undergradProgram, double gpaOrigin, String languageTestType, User user) {
+    public ApplicantBackground(String enrollYear, String targetDegree, String targetProgram, String targetFellowship, String undergradLevel, String undergradSchool, String undergradProgram, BigDecimal gpaOrigin, String languageTestType, User user) {
         this.enrollYear = enrollYear;
         this.targetDegree = targetDegree;
         this.targetProgram = targetProgram;
@@ -108,8 +109,63 @@ public class ApplicantBackground {
 
     }
 
-
     /* getter and setters */
+
+    public BigDecimal getGpaOrigin() {
+        return gpaOrigin;
+    }
+
+    public void setGpaOrigin(BigDecimal gpaOrigin) {
+        this.gpaOrigin = gpaOrigin;
+    }
+
+    public BigDecimal getGpaConverted() {
+        return gpaConverted;
+    }
+
+    public void setGpaConverted(BigDecimal gpaConverted) {
+        this.gpaConverted = gpaConverted;
+    }
+
+    public BigDecimal getIELTSTotal() {
+        return IELTSTotal;
+    }
+
+    public void setIELTSTotal(BigDecimal IELTSTotal) {
+        this.IELTSTotal = IELTSTotal;
+    }
+
+    public BigDecimal getIELTSListening() {
+        return IELTSListening;
+    }
+
+    public void setIELTSListening(BigDecimal IELTSListening) {
+        this.IELTSListening = IELTSListening;
+    }
+
+    public BigDecimal getIELTSSpeaking() {
+        return IELTSSpeaking;
+    }
+
+    public void setIELTSSpeaking(BigDecimal IELTSSpeaking) {
+        this.IELTSSpeaking = IELTSSpeaking;
+    }
+
+    public BigDecimal getIELTSReading() {
+        return IELTSReading;
+    }
+
+    public void setIELTSReading(BigDecimal IELTSReading) {
+        this.IELTSReading = IELTSReading;
+    }
+
+    public BigDecimal getIELTSWriting() {
+        return IELTSWriting;
+    }
+
+    public void setIELTSWriting(BigDecimal IELTSWriting) {
+        this.IELTSWriting = IELTSWriting;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -175,22 +231,6 @@ public class ApplicantBackground {
         this.undergradProgram = undergradProgram;
     }
 
-    public double getGpaOrigin() {
-        return gpaOrigin;
-    }
-
-    public void setGpaOrigin(double gpaOrigin) {
-        this.gpaOrigin = gpaOrigin;
-    }
-
-    public double getGpaConverted() {
-        return gpaConverted;
-    }
-
-    public void setGpaConverted(double gpaConverted) {
-        this.gpaConverted = gpaConverted;
-    }
-
     public int getUndergradRank() {
         return undergradRank;
     }
@@ -205,46 +245,6 @@ public class ApplicantBackground {
 
     public void setLanguageTestType(String languageTestType) {
         this.languageTestType = languageTestType;
-    }
-
-    public double getIELTSTotal() {
-        return IELTSTotal;
-    }
-
-    public void setIELTSTotal(double IELTSTotal) {
-        this.IELTSTotal = IELTSTotal;
-    }
-
-    public double getIELTSListening() {
-        return IELTSListening;
-    }
-
-    public void setIELTSListening(double IELTSListening) {
-        this.IELTSListening = IELTSListening;
-    }
-
-    public double getIELTSSpeaking() {
-        return IELTSSpeaking;
-    }
-
-    public void setIELTSSpeaking(double IELTSSpeaking) {
-        this.IELTSSpeaking = IELTSSpeaking;
-    }
-
-    public double getIELTSReading() {
-        return IELTSReading;
-    }
-
-    public void setIELTSReading(double IELTSReading) {
-        this.IELTSReading = IELTSReading;
-    }
-
-    public double getIELTSWriting() {
-        return IELTSWriting;
-    }
-
-    public void setIELTSWriting(double IELTSWriting) {
-        this.IELTSWriting = IELTSWriting;
     }
 
     public int getTOEFLTotal() {

@@ -38,8 +38,8 @@ public class User {
 
     // The applicant background of this user
     @OneToOne
-    @JoinColumn(name = "background", referencedColumnName = "id")
-    private ApplicantBackground backgroundId;
+    @JoinColumn(name = "backgroundId", referencedColumnName = "id")
+    private ApplicantBackground background;
 
     public User(String username, String email, String password) {
         this.username = username;

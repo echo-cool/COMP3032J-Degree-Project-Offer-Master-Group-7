@@ -18,6 +18,4 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long> {
     User findByUsername(@Param("username") String username);
-
-
 }
