@@ -47,5 +47,6 @@
         <!--要生成哪些表 -->
         <table tableName="User" domainObjectName="User"/>
 
+
     </context>
 </generatorConfiguration>

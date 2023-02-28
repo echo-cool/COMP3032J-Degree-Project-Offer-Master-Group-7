@@ -36,6 +36,11 @@ public class User {
     @Column(nullable = false, length = 45)
     private String roles = "USER";
 
+    // The applicant background of this user
+    @OneToOne
+    @JoinColumn(name = "backgroundId", referencedColumnName = "id")
+    private ApplicantBackground backgroundId;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
