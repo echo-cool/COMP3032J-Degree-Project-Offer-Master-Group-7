@@ -30,5 +30,11 @@ public class AuthController {
         return loginService.login(loginDTO);
     }
 
+    @PostMapping(value = "/logout")
+    @CrossOrigin
+    public R logout() {
+        return R.ok();
+    }
+
 
 }

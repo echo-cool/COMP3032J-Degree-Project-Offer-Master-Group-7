@@ -38,7 +38,7 @@ public class User {
 
     // The applicant background of this user
     @OneToOne
-    @JoinColumn(name = "backgroundId", referencedColumnName = "id")
+    @JoinColumn(name = "background", referencedColumnName = "id")
     private ApplicantBackground backgroundId;
 
     public User(String username, String email, String password) {
