@@ -39,10 +39,17 @@ class LoadDatabase {
         School school5 = new School("Stanford University");
         School school6 = new School("University of California, Berkeley");
 
-        Program program1 = new Program("Computer Science");
-        Program program2 = new Program("Computer Engineering");
-        Program program3 = new Program("Software Engineering");
-        Program program4 = new Program("Computer Science");
+        log.info("Preloading " + schoolRepository.save(school1));
+        log.info("Preloading " + schoolRepository.save(school2));
+        log.info("Preloading " + schoolRepository.save(school3));
+        log.info("Preloading " + schoolRepository.save(school4));
+        log.info("Preloading " + schoolRepository.save(school5));
+        log.info("Preloading " + schoolRepository.save(school6));
+
+        Program program1 = new Program("Computer Science", school1);
+        Program program2 = new Program("Computer Engineering", school3);
+        Program program3 = new Program("Software Engineering", school2);
+        Program program4 = new Program("Computer Science", school6);
 
 
         log.info("Preloading " + programRepository.save(program1));
@@ -50,19 +57,8 @@ class LoadDatabase {
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
 
-        school1.getPrograms().add(program1);
-        school2.getPrograms().add(program2);
-        school3.getPrograms().add(program1);
-        school4.getPrograms().add(program2);
-        school5.getPrograms().add(program3);
-        school6.getPrograms().add(program4);
 
-        log.info("Preloading " + schoolRepository.save(school1));
-        log.info("Preloading " + schoolRepository.save(school2));
-        log.info("Preloading " + schoolRepository.save(school3));
-        log.info("Preloading " + schoolRepository.save(school4));
-        log.info("Preloading " + schoolRepository.save(school5));
-        log.info("Preloading " + schoolRepository.save(school6));
+
 
         return args -> {
             log.info("Preloading " + userRepository.save(new User("test", "me@echo.cool", "111")));

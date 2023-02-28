@@ -26,10 +26,10 @@ public class Program {
 //    @JoinColumn(name="program_id")
     private School school;
 
-    public Program(String name) {
+    public Program(String name, School school) {
         this.name = name;
+        this.school = school;
     }
-
 
     public Program() {
 
