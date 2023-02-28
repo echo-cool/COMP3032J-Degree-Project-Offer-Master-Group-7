@@ -7,6 +7,8 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Optional;
+
 /**
  * @Author: LiuZhe
  * @Date: 2023/2/28 - 21:37
@@ -49,6 +51,12 @@ public class RegisterServiceImpl implements RegisterService{
         userRepository.save(new User(username, email, password));
 
         return R.ok();
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        User user = userRepository.findById(id).get();
+        return user;
     }
 
 

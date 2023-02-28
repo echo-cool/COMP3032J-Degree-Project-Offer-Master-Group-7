@@ -1,5 +1,6 @@
 package com.group7.controller.auth.reg;
 
+import com.group7.db.jpa.User;
 import com.group7.utils.common.R;
 
 /**
@@ -9,5 +10,5 @@ import com.group7.utils.common.R;
 public interface RegisterService {
 
     public R register(RegisterVo registerVo);
-
+    public User getUserById(Long id);
 }
