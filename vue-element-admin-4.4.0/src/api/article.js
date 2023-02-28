@@ -1,10 +1,29 @@
 import request from '@/utils/request'
 
 export function fetchList(query) {
+  console.log(query)
   return request({
-    url: '/vue-element-admin/article/list',
+    url: '/backend/rest/users',
+    method: 'get'
+    // params: query
+  })
+}
+
+export function deleteUser(username) {
+  // eslint-disable-next-line no-unused-vars
+  console.log(username)
+  request({
+    url: 'backend/rest/users/search/findByUsername',
     method: 'get',
-    params: query
+    params: { 'username': username }
+  }).then(response => {
+    const userID = response['_links']['self']['href'].split('/').pop()
+    console.log(userID)
+    return request({
+      url: 'backend/rest/users/' + userID,
+      method: 'delete'
+      // params: query
+    })
   })
 }
 
