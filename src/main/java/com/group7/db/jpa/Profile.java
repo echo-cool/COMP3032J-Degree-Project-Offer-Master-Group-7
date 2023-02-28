@@ -20,4 +20,7 @@ public class Profile {
         this.user = user;
     }
 
+    public Profile() {
+
+    }
 }
