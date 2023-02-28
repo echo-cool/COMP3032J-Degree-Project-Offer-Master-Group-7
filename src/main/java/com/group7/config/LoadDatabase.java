@@ -1,9 +1,9 @@
 package com.group7.config;
 
-import com.group7.db.jpa.User;
-import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +21,55 @@ class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SchoolRepository schoolRepository;
+
+
+    @Autowired
+    private ProgramRepository programRepository;
     @Bean
-    CommandLineRunner initDatabase(UserRepository repository) {
+    CommandLineRunner initDatabase() {
+        School school1 = new School("Duke University");
+        School school2 = new School("University of Toronto");
+        School school3 = new School("University of Waterloo");
+        School school4 = new School("University of British Columbia");
+        School school5 = new School("Stanford University");
+        School school6 = new School("University of California, Berkeley");
+
+        Program program1 = new Program("Computer Science");
+        Program program2 = new Program("Computer Engineering");
+        Program program3 = new Program("Software Engineering");
+        Program program4 = new Program("Computer Science");
+
+
+        log.info("Preloading " + programRepository.save(program1));
+        log.info("Preloading " + programRepository.save(program2));
+        log.info("Preloading " + programRepository.save(program3));
+        log.info("Preloading " + programRepository.save(program4));
+
+        school1.getPrograms().add(program1);
+        school2.getPrograms().add(program2);
+        school3.getPrograms().add(program1);
+        school4.getPrograms().add(program2);
+        school5.getPrograms().add(program3);
+        school6.getPrograms().add(program4);
+
+        log.info("Preloading " + schoolRepository.save(school1));
+        log.info("Preloading " + schoolRepository.save(school2));
+        log.info("Preloading " + schoolRepository.save(school3));
+        log.info("Preloading " + schoolRepository.save(school4));
+        log.info("Preloading " + schoolRepository.save(school5));
+        log.info("Preloading " + schoolRepository.save(school6));
 
         return args -> {
-            log.info("Preloading " + repository.save(new User("test", "me@echo.cool", "111")));
-            log.info("Preloading " + repository.save(new User("1112", "me@echo.cool", "111")));
-            log.info("Preloading " + repository.save(new User("111", "me@echo.cool", "111", "admin")));
+            log.info("Preloading " + userRepository.save(new User("test", "me@echo.cool", "111")));
+            log.info("Preloading " + userRepository.save(new User("1112", "me@echo.cool", "111")));
+            log.info("Preloading " + userRepository.save(new User("111", "me@echo.cool", "111", "admin")));
+
+
 
         };
     }

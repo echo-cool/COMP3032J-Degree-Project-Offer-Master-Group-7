@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -31,15 +32,16 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
 
-    @Column(nullable = false)
-    private String profileId = "NULL";
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private Profile profile = new Profile(this);
     @Column(nullable = false, length = 45)
     private String roles = "USER";
 
     // The applicant background of this user
     @OneToOne
     @JoinColumn(name = "background", referencedColumnName = "id")
-    private ApplicantBackground backgroundId;
+    private Profile backgroundId;
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -106,13 +108,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public String getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
-    }
 
     public String getRoles() {
         return roles;
@@ -122,32 +117,23 @@ public class User {
         this.roles = roles;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        if (getOpenId() != null ? !getOpenId().equals(user.getOpenId()) : user.getOpenId() != null) return false;
-        if (getCreatedAt() != null ? !getCreatedAt().equals(user.getCreatedAt()) : user.getCreatedAt() != null)
-            return false;
-        return getProfileId() != null ? getProfileId().equals(user.getProfileId()) : user.getProfileId() == null;
+    public Profile getProfile() {
+        return profile;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (getOpenId() != null ? getOpenId().hashCode() : 0);
-        result = 31 * result + (getCreatedAt() != null ? getCreatedAt().hashCode() : 0);
-        result = 31 * result + (getProfileId() != null ? getProfileId().hashCode() : 0);
-        return result;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public Profile getBackgroundId() {
+        return backgroundId;
+    }
+
+    public void setBackgroundId(Profile backgroundId) {
+        this.backgroundId = backgroundId;
     }
 }
