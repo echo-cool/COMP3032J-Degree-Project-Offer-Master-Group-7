@@ -9,21 +9,30 @@ export function fetchList(query) {
   })
 }
 
-export function deleteUser(username) {
-  // eslint-disable-next-line no-unused-vars
-  console.log(username)
-  request({
-    url: 'backend/rest/users/search/findByUsername',
-    method: 'get',
-    params: { 'username': username }
-  }).then(response => {
-    const userID = response['_links']['self']['href'].split('/').pop()
-    console.log(userID)
-    return request({
-      url: 'backend/rest/users/' + userID,
-      method: 'delete'
-      // params: query
-    })
+// export function deleteUser(username) {
+//   // eslint-disable-next-line no-unused-vars
+//   console.log(username)
+//   request({
+//     url: 'backend/rest/users/search/findByUsername',
+//     method: 'get',
+//     params: { 'username': username }
+//   }).then(response => {
+//     const userID = response['_links']['self']['href'].split('/').pop()
+//     console.log(userID)
+//     return request({
+//       url: 'backend/rest/users/' + userID,
+//       method: 'delete'
+//       // params: query
+//     })
+//   })
+// }
+
+export function deleteUser(userID) {
+  console.log(userID)
+  return request({
+    url: 'backend/rest/users/' + userID,
+    method: 'delete'
+    // params: query
   })
 }
 

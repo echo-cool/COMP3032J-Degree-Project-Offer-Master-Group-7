@@ -340,7 +340,7 @@ export default {
       })
     },
     handleDelete(row, index) {
-      deleteUser(row.username)
+      deleteUser(row.id)
       this.$notify({
         title: 'Success',
         message: 'Delete Successfully',
