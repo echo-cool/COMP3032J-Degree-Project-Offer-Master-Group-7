@@ -32,6 +32,8 @@ class LoadDatabase {
     private ProgramRepository programRepository;
     @Bean
     CommandLineRunner initDatabase() {
+        log.warn("Preloading database...");
+
         School school1 = new School("Duke University");
         School school2 = new School("University of Toronto");
         School school3 = new School("University of Waterloo");
@@ -58,15 +60,13 @@ class LoadDatabase {
         log.info("Preloading " + programRepository.save(program4));
 
 
+        log.info("Preloading " + userRepository.save(new User("test", "me@echo.cool", "111")));
+        log.info("Preloading " + userRepository.save(new User("1112", "me@echo.cool", "111")));
+        log.info("Preloading " + userRepository.save(new User("111", "me@echo.cool", "111", "admin")));
 
 
         return args -> {
-            log.info("Preloading " + userRepository.save(new User("test", "me@echo.cool", "111")));
-            log.info("Preloading " + userRepository.save(new User("1112", "me@echo.cool", "111")));
-            log.info("Preloading " + userRepository.save(new User("111", "me@echo.cool", "111", "admin")));
-
-
-
+            log.warn("Preloaded database, completed.");
         };
     }
 }

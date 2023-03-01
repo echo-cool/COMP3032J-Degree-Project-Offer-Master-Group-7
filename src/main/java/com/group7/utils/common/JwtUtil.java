@@ -78,4 +78,13 @@ public class JwtUtil {
 
         return null;
     }
+
+    /**
+     * get the user id from the token
+     */
+    public static Long getUserIdByToken(String token){
+        DecodedJWT decodedJWT = JWT.decode(token);
+        String idStr = decodedJWT.getClaim("id").asString();
+        return Long.valueOf(idStr);
+    }
 }

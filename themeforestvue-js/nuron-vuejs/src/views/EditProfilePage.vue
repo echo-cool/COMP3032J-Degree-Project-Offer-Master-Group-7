@@ -326,16 +326,45 @@
 <script>
     import Layout from "@/components/layouts/Layout";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+    import userApi from '@/api/user'
     export default {
         name: 'EditProfilePage',
         components: {Breadcrumb, Layout},
+        data(){
+            return {
+              currentUser: {}
+            }
+        },
+
+        created() {
+            this.getCurrentUser(1);
+        },
+
         methods: {
             previewImage(e, id) {
                 if (e.target.files && e.target.files.length > 0) {
                     const file = e.target.files[0];
                     document.querySelector(`#${id}`).setAttribute('src', URL.createObjectURL(file));
                 }
+            },
+
+            getCurrentUser(uid){
+                userApi.getUserById(uid)
+                  .then(response => { // 请求成功
+                    // response 是后端接口返回的数据
+                    // 用response里的值初始化data
+                    // this.list = response.data.rows
+                    // this.total = response.data.total
+                    console.log("here");
+                    console.log(response);
+                    this.currentUser = response;
+                    console.log(this.currentUser);
+                  })
+                  .catch(error => {   // 请求失败
+                    console.log(error)
+                  })
             }
+
         }
     }
 </script>
