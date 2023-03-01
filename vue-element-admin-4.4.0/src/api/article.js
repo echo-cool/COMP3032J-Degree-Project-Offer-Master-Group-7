@@ -52,9 +52,10 @@ export function fetchPv(pv) {
   })
 }
 
-export function createArticle(data) {
+export function createUser(data) {
+  console.log(data)
   return request({
-    url: '/vue-element-admin/article/create',
+    url: '/backend/rest/users',
     method: 'post',
     data
   })
