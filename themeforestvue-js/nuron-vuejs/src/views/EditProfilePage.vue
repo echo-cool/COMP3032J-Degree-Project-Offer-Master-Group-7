@@ -326,7 +326,9 @@
 <script>
     import Layout from "@/components/layouts/Layout";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
-    import userApi from '@/api/user'
+
+    import cookie from "js-cookie";
+
     export default {
         name: 'EditProfilePage',
         components: {Breadcrumb, Layout},
@@ -337,7 +339,8 @@
         },
 
         created() {
-            this.getCurrentUser(1);
+            // load the current user info as this page is created
+            this.getCurrentUser();
         },
 
         methods: {
@@ -348,21 +351,14 @@
                 }
             },
 
-            getCurrentUser(uid){
-                userApi.getUserById(uid)
-                  .then(response => { // 请求成功
-                    // response 是后端接口返回的数据
-                    // 用response里的值初始化data
-                    // this.list = response.data.rows
-                    // this.total = response.data.total
-                    console.log("here");
-                    console.log(response);
-                    this.currentUser = response;
-                    console.log(this.currentUser);
-                  })
-                  .catch(error => {   // 请求失败
-                    console.log(error)
-                  })
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                }
             }
 
         }

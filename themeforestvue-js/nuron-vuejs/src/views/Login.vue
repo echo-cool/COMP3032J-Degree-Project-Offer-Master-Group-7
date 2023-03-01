@@ -103,7 +103,7 @@
                                         // get the current user info
                                         // and store it into the cookie
                                         this.currentUser = response.data.user;
-                                        cookie.set("current_user", this.currentUser, { domain: 'localhost' });
+                                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
 
                                         // redirect to the index page
                                         window.location.href = "/";
