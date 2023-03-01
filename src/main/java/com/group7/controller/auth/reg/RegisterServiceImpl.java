@@ -55,6 +55,12 @@ public class RegisterServiceImpl implements RegisterService{
 
     @Override
     public User getUserById(Long id) {
+        if(id == null){
+            return null;
+        }
+        if(!userRepository.findById(id).isPresent()){
+            return null;
+        }
         User user = userRepository.findById(id).get();
         return user;
     }

@@ -53,6 +53,9 @@ public class AuthController {
         Long userId = JwtUtil.getUserIdByToken(token);
         // query user from db
         User user = registerService.getUserById(userId);
+        if (user == null){
+            return R.error().message("User not found");
+        }
         return R.ok().data("user", user);
     }
 
