@@ -61,10 +61,16 @@ export function createUser(data) {
   })
 }
 
-export function updateArticle(data) {
+export function updateUser(data) {
+  console.log(data)
   return request({
-    url: '/vue-element-admin/article/update',
-    method: 'post',
-    data
+    url: '/backend/rest/users/' + data.id,
+    method: 'put',
+    data: {
+      'username': data.username,
+      'password': data.password,
+      'email': data.email,
+      'roles': data.roles
+    }
   })
 }
