@@ -5,6 +5,7 @@ import com.group7.controller.auth.reg.RegisterVo;
 import com.group7.db.jpa.User;
 import com.group7.utils.common.JwtUtil;
 import com.group7.utils.common.R;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +50,8 @@ public class AuthController {
     }
 
     @GetMapping(value = "/getUserInfo")
-    public R getUserByToken(String token){
-        Long userId = JwtUtil.getUserIdByToken(token);
+    public R getUserByToken(HttpServletRequest request){
+        Long userId = JwtUtil.getUserIdByToken(request);
         // query user from db
         User user = registerService.getUserById(userId);
         if (user == null){

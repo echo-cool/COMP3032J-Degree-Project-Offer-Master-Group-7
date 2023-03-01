@@ -23,27 +23,40 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public R login(LoginDTO loginDTO) {
-        if (StringUtils.isEmpty(loginDTO.getUsername())) {
-            return R.error().message("Username is empty");
+        // get login form inputs from DTO
+        String email = loginDTO.getEmail();
+        String password = loginDTO.getPassword();
+
+        // check inputs
+        if (StringUtils.isEmpty(email)) {
+            return R.error().message("Login failed - Email cannot be empty!");
         }
-        if (StringUtils.isEmpty(loginDTO.getPassword())) {
-            return R.error().message("Password is empty");
+        if (StringUtils.isEmpty(password)) {
+            return R.error().message("Login failed - Password cannot be empty!");
         }
 
         //query by example
-        User user = userRepository.findByUsername(loginDTO.getUsername());
-        //比较密码
-        if (user != null && user.getPassword().equals(loginDTO.getPassword())) {
-            LoginVO loginVO = new LoginVO();
-            loginVO.setId(user.getId().toString());
-            //这里token直接用一个uuid
-            //使用jwt的情况下，会生成一个jwt token,jwt token里会包含用户的信息
-            System.out.println(user);
-            String token = JwtUtil.createToken(user);
-            loginVO.setToken(token);
-            loginVO.setUser(user);
-            return R.ok().data("token", token).data("data", loginVO);
+        User user = userRepository.findByEmail(loginDTO.getEmail());
+
+        // check user
+        if (user == null){
+            return  R.error().message("Login failed - Email not found!");
         }
-        return R.error().message("failed");
+
+        // check the password
+        if(!password.equals(user.getPassword())){
+            return R.error().message("Login failed - Wrong password!");
+        }
+
+        // encapsulate user into VO and create a token
+        LoginVO loginVO = new LoginVO();
+        loginVO.setId(user.getId().toString());
+        //这里token直接用一个uuid
+        //使用jwt的情况下，会生成一个jwt token,jwt token里会包含用户的信息
+        String token = JwtUtil.createToken(user);
+        loginVO.setToken(token);
+        loginVO.setUser(user);
+
+        return R.ok().data("token", token).data("data", loginVO);
     }
 }

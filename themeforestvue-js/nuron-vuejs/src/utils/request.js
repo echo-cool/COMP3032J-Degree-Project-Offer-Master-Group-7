@@ -1,9 +1,11 @@
-import axios from 'axios'
+import axios from 'axios';
+import cookie from "js-cookie";
+
 // 创建一个 axios 实例
 const service = axios.create({
-    baseURL: '/backend', // 所有的请求地址前缀部分
-    timeout: 60000, // 请求超时时间毫秒
-    withCredentials: true, // 异步请求携带cookie
+    baseURL: '/backend',    // 所有的请求地址前缀部分
+    timeout: 60000,         // 请求超时时间毫秒
+    withCredentials: true,  // 异步请求携带cookie
     headers: {
         // 设置后端需要的传参类型
         'Content-Type': 'application/json',
@@ -13,9 +15,17 @@ const service = axios.create({
 })
 
 // 添加请求拦截器
+// every time send request to backend API, this interceptor would be used
 service.interceptors.request.use(
     function (config) {
         // 在发送请求之前做些什么
+
+        // check weather there is a token in the cookie
+        if(cookie.get("user_token")){
+            // put the token into the header of this request
+            config.headers['token'] = cookie.get("user_token");
+        }
+
         return config
     },
     function (error) {
