@@ -15,7 +15,7 @@
 <!--                                </div>-->
                                 <div class="mb-5">
                                     <label for="sastName" class="form-label">Username</label>
-                                    <input type="email" id="sastName" v-model="params.username">
+                                    <input type="text" id="sastName" v-model="params.username">
                                 </div>
                                 <div class="mb-5">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -34,7 +34,7 @@
                                     <label class="rn-check-box-label" for="exampleCheck1">Allow to all tearms &
                                         condition</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr--15" @click="register()">Sign Up</button>
+                                <button type="button" class="btn btn-primary mr--15" @click="register()">Sign Up</button>
                                 <router-link to="/login" class="btn btn-primary-alta">Log In</router-link>
                             </form>
                         </div>
@@ -70,7 +70,9 @@
 <script>
     import Layout from "@/components/layouts/Layout";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
-    import registerApi from "@/api/register"
+
+    import router from "@/router/index";
+    import registerApi from "@/api/register";
 
     export default {
         name: 'Signup',
@@ -94,10 +96,17 @@
                 // call the api method
                 registerApi.register(this.params)
                     .then(response => {
-                        // notify user
+                        if(response.success){
+                            // notify user
+                            window.alert("Registration success, you can login now!");
 
-                        // redirect to login page
-                        this.$router.push({path: '/login'});
+                            // redirect to login page
+                            router.push({path: '/login'});
+
+                        }else{
+                            // notify user
+                            window.alert(response.message);
+                        }
                     })
             }
         }
