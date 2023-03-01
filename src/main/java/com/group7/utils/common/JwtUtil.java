@@ -14,6 +14,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.group7.db.jpa.User;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +83,10 @@ public class JwtUtil {
     /**
      * get the user id from the token
      */
-    public static Long getUserIdByToken(String token){
+    public static Long getUserIdByToken(HttpServletRequest request){
+        // get the token from the header of http request
+        String token = request.getHeader("token");
+        // decode the token
         DecodedJWT decodedJWT = JWT.decode(token);
         String idStr = decodedJWT.getClaim("id").asString();
         return Long.valueOf(idStr);

@@ -11,17 +11,17 @@
                             <form>
                                 <div class="mb-5">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" id="exampleInputEmail1">
+                                    <input type="email" id="exampleInputEmail1" v-model="params.email">
                                 </div>
                                 <div class="mb-5">
                                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" id="exampleInputPassword1">
+                                    <input type="password" id="exampleInputPassword1" v-model="params.password">
                                 </div>
                                 <div class="mb-5 rn-check-box">
                                     <input type="checkbox" class="rn-check-box-input" id="exampleCheck1">
                                     <label class="rn-check-box-label" for="exampleCheck1">Remember me leter</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr--15">Log In</button>
+                                <button type="button" class="btn btn-primary mr--15" @click="login()">Log In</button>
                                 <router-link to="/sign-up" class="btn btn-primary-alta">Sign Up</router-link>
                             </form>
                         </div>
@@ -58,8 +58,68 @@
     import Layout from "@/components/layouts/Layout";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 
+    import loginApi from "@/api/login"
+    import cookie from "js-cookie"
+
     export default {
         name: 'Login',
-        components: {Breadcrumb, Layout}
+        components: {Breadcrumb, Layout},
+        data(){
+            return{
+                params: {
+                    email: "",
+                    password: ""
+                },
+                currentUser: {}
+            }
+        },
+
+        created() {
+
+        },
+
+        methods: {
+            // the method for submitting login form
+            login(){
+                // call the method defined in the api
+                loginApi.login(this.params)
+                    .then(response => {     // this response is R
+
+                        if (response.success){
+                            // get the token from response
+                            // and store it into the cookie
+                            cookie.set("user_token", response.data.token, { domain: 'localhost' });
+
+                            // (also viable to get user info from VO)
+                            // this.currentUser = response.data.data.user;
+
+                            // get the user info from backend by token
+                            // no parameter is required
+                            // because the token has been configured into the request header
+                            loginApi.getUserInfoByToken()
+                                .then(response => {     // this response is R
+
+                                    if(response.success){
+                                        // get the current user info
+                                        // and store it into the cookie
+                                        this.currentUser = response.data.user;
+                                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                                        // redirect to the index page
+                                        window.location.href = "/";
+                                    }else{
+                                        // notify user
+                                        window.alert(response.message);
+                                    }
+
+                                })
+
+                        }else{
+                            window.alert(response.message);
+                        }
+                    })
+            }
+        }
+
     }
 </script>

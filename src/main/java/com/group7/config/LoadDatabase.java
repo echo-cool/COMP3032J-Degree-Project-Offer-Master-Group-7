@@ -60,9 +60,9 @@ class LoadDatabase {
         log.info("Preloading " + programRepository.save(program4));
 
 
-        log.info("Preloading " + userRepository.save(new User("test", "me@echo.cool", "111")));
-        log.info("Preloading " + userRepository.save(new User("1112", "me@echo.cool", "111")));
-        log.info("Preloading " + userRepository.save(new User("111", "me@echo.cool", "111", "admin")));
+        log.info("Preloading " + userRepository.save(new User("test1", "me1@echo.cool", "111")));
+        log.info("Preloading " + userRepository.save(new User("test2", "me2@echo.cool", "111")));
+        log.info("Preloading " + userRepository.save(new User("test3", "me3@echo.cool", "111", "admin")));
 
 
         return args -> {
