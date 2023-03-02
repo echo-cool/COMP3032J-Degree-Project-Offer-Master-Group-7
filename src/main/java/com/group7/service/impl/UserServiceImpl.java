@@ -37,11 +37,13 @@ public class UserServiceImpl implements UserService {
         String pre = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()
 //                + "\\src\\main\\resources\\static\\upload\\avatar\\";
                 + "\\---vue---\\src\\assets\\upload\\avatar\\";
-        String avatarPath = pre + filename;
+        String savePath = pre + filename;
 
         // store the file
         try {
-            file.transferTo(new File(avatarPath));
+            file.transferTo(new File(savePath));
+            // create the access path to store in db
+            String avatarPath = "@/assets/upload/avatar/" + filename;
             return avatarPath;
         } catch (IOException e) {
             return null;
