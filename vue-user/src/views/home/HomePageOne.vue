@@ -74,8 +74,6 @@
     import CollectionStyleOne from '@/components/collection/CollectionStyleOne'
     import ExploreNewestItem from '@/components/explore/ExploreNewestItem'
 
-    import test from '@/api/homeTest'
-
     export default {
         name: 'HomePageOne',
         components: {
@@ -91,34 +89,6 @@
             ExploreLiveCarousel,
             Layout
         },
-        mixins: [SalScrollAnimationMixin],
-
-        data() {
-            return{
-
-            }
-        },
-
-        created() {
-          this.getList();
-        },
-
-        methods:{
-          getList(){
-            test.testGetUser(1, 1)
-                .then(response => { // 请求成功
-                  // response 是后端接口返回的数据
-                  // 用response里的值初始化data
-                  // this.list = response.data.rows
-                  // this.total = response.data.total
-                  console.log("here");
-                  // console.log(response.data);
-                })
-                .catch(error => {   // 请求失败
-                  console.log(error)
-                })
-          }
-        }
-
+        mixins: [SalScrollAnimationMixin]
     }
 </script>

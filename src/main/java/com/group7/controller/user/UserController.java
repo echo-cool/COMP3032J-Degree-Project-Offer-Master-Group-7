@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private static final String[] PIC_TYPES = new String[]{"bmp", "jpg", "jpeg", "png", "gif"};
+    private static final String[] PIC_TYPES = new String[]{"bmp", "jpg", "jpeg", "png", "gif", "svg"};
 
     @RequestMapping("/getUser")
     public R getUser(HttpServletRequest request) {
@@ -44,12 +44,7 @@ public class UserController {
 
     @PostMapping("/uploadAvatar")
     public R uploadAvatar(MultipartFile file, HttpServletRequest request){
-        // check empty file
-        if (file.isEmpty()){
-            return R.error().message("Upload failed - empty picture");
-        }
-
-        // check file type
+        // check file type (this should before the empty check)
         String ext = file.getOriginalFilename().split("\\.")[1];
         boolean isValidType = false;
         for (String type : PIC_TYPES){
@@ -60,11 +55,20 @@ public class UserController {
         }
         if(!isValidType){
             return R.error().message("Upload failed - the picture type should be the following: " +
-                    "\"bmp\", \"jpg\", \"jpeg\", \"png\", \"gif\"");
+                    "\"bmp\", \"jpg\", \"jpeg\", \"png\", \"gif\", \"svg\"");
+        }
+
+        // check empty file
+        if (file.isEmpty()){
+            return R.error().message("Upload failed - empty picture");
         }
 
         // get user id from the token in the header of http request
         Long userId = JwtUtil.getUserIdByToken(request);
+        // if user id is null, the user does not log in
+        if (userId == null){
+            return R.error().message("Upload failed - you should login first!");
+        }
         // find user from db
         User user = userRepository.findById(userId).orElse(null);
         if (user == null){
@@ -72,17 +76,17 @@ public class UserController {
         }
 
         // store the file locally
-        String avatarPath = userService.uploadAvatar(file);
+        String newFileName = userService.uploadAvatar(file);
 
-        if (avatarPath == null){
+        if (newFileName == null){
             return R.error().message("Upload failed - Try it again latter.");
         }
 
         // update the user avatar in db
-        user.setAvatar(avatarPath);
+        user.setAvatar(newFileName);
         userRepository.save(user);
 
-        return R.ok().data("avatar", avatarPath).data("user", user);
+        return R.ok().data("avatar", newFileName).data("user", user);
     }
 
 

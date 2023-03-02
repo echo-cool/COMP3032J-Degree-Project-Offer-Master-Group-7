@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String avatar = "@/assets/images/profile/profile-01.jpg";
+    private String avatar = "profile-01.jpg";
 
     @Column(nullable = false, length = 45)
     private String openId = "NULL";

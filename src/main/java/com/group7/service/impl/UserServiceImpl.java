@@ -30,21 +30,17 @@ public class UserServiceImpl implements UserService {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         filename = uuid + filename;
 
-        System.out.println("--------------------filename: " + filename);
-
         // concatenate the path for this avatar
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
         String pre = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()
-//                + "\\src\\main\\resources\\static\\upload\\avatar\\";
-                + "\\---vue---\\src\\assets\\upload\\avatar\\";
+                + "\\vue-user\\src\\assets\\images\\profile\\upload\\avatar\\";
         String savePath = pre + filename;
 
         // store the file
         try {
             file.transferTo(new File(savePath));
-            // create the access path to store in db
-            String avatarPath = "@/assets/upload/avatar/" + filename;
-            return avatarPath;
+            // return the filename to store in db
+            return filename;
         } catch (IOException e) {
             return null;
         }

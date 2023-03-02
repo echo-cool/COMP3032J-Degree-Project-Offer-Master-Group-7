@@ -67,9 +67,14 @@
                                         <div class="profile-left col-lg-4">
                                             <div class="profile-image mb--30">
                                                 <h6 class="title">Change Your Profile Picture</h6>
+                                                <!-- That :src require() is fucking important!!! -->
+                                                <!-- 1. it cannot totally be a variable, so we must concatenate the param like the following -->
+                                                <!-- 2. for that @..., we must use the dir of /assets/images/profile/..., don't know why -->
+                                                <!-- 3. this two <img> must use the same id here, because preview function would be called again -->
+                                                <!-- after the user upload an avatar (no avatar -> has avatar) -->
                                                 <img v-if="currentUser.avatar"
                                                      id="profilePicture"
-                                                     :src="require(currentUser.avatar)"
+                                                     :src="require(`@/assets/images/profile/upload/avatar/` + currentUser.avatar)"
                                                      alt="Profile-NFT"
                                                      @click="$refs.profileImageInput.click()">
                                                 <img v-else
@@ -82,6 +87,7 @@
                                                 <div class="brows-file-wrapper">
                                                     <input id="fatima"
                                                            type="file"
+                                                           accept="image/*"
                                                            @change="previewImage($event, 'profilePicture')"
                                                            ref="profileImageInput">
                                                     <label for="fatima" title="No File Choosen">
@@ -335,8 +341,7 @@
 
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
-    import router from "@/router";
-    import axios from 'axios';
+    import router from "@/router/index";
 
     export default {
         name: 'EditProfilePage',
@@ -351,6 +356,7 @@
 
         created() {
             // load the current user info as this page is created
+            // user would be redirected to the login page if not logged in
             this.getCurrentUser();
         },
 
@@ -372,27 +378,17 @@
                 // turn json string to json obj
                 if (userStr){
                     this.currentUser = JSON.parse(userStr);
+                }else{
+                    // user should be redirected to the login page if not logged in
+                    window.alert("You should login first!");
+                    router.push({path: '/login'});
                 }
             },
 
             uploadAvatar(file){
-                // for test
-                console.log("upload avatar!" + file.name);
                 // encapsulate the avatar file into a form obj
                 let formData = new FormData();
                 formData.append("file", file);
-
-                // axios.post('/backend/secure/uploadAvatar', formData, {'Content-type' : 'multipart/form-data'})
-                //     .then(response => {
-                //         if(response.success){
-                //             // notify user
-                //             window.alert("upload successfully!");
-                //
-                //         }else{
-                //             // notify user
-                //             window.alert(response.data);
-                //         }
-                //     });
 
                 // call the api method
                 profileApi.uploadAvatar(formData)
@@ -404,9 +400,6 @@
                             // update the current_user and cookie
                             this.currentUser = response.data.user;
                             cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
-
-                            // for test
-                            console.log("new avatar: " + this.currentUser.avatar);
 
                         }else{
                             // notify user

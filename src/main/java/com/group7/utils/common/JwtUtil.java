@@ -86,6 +86,11 @@ public class JwtUtil {
     public static Long getUserIdByToken(HttpServletRequest request){
         // get the token from the header of http request
         String token = request.getHeader("token");
+        if (token == null) {
+            // user does not log in
+            return null;
+        }
+
         // decode the token
         DecodedJWT decodedJWT = JWT.decode(token);
         String idStr = decodedJWT.getClaim("id").asString();
