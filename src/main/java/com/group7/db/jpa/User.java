@@ -27,6 +27,10 @@ public class User {
 
     @Column(nullable = false, length = 45)
     private String password;
+
+    @Column(nullable = false)
+    private String avatar = "@/assets/images/profile/profile-01.jpg";
+
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
     @Temporal(TemporalType.DATE)
@@ -108,6 +112,13 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getRoles() {
         return roles;
