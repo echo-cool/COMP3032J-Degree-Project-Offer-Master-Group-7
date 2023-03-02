@@ -1,9 +1,6 @@
 package com.group7.config;
 
-import com.group7.db.jpa.Profile;
-import com.group7.db.jpa.Program;
-import com.group7.db.jpa.School;
-import com.group7.db.jpa.User;
+import com.group7.db.jpa.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -25,6 +22,8 @@ public class RestConfiguration implements RepositoryRestConfigurer {
         config.exposeIdsFor(Program.class);
         config.exposeIdsFor(School.class);
         config.exposeIdsFor(User.class);
+        config.exposeIdsFor(Role.class);
+
     }
 
 
