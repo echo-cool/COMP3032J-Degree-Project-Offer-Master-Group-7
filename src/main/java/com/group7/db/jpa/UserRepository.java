@@ -17,6 +17,10 @@ import java.util.Optional;
  **/
 @RepositoryRestResource
 public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long> {
-    User findByUsername(@Param("username") String username);
-    User findByEmail(@Param("email") String email);
+    Optional<User> findByUsername(String username);
+
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmail(String email);
+    Optional<User> findByEmail(@Param("email") String email);
 }
