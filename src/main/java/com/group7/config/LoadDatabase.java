@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -20,7 +24,8 @@ import org.springframework.context.annotation.Configuration;
 class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
-
+    @Autowired
+    PasswordEncoder encoder;
     @Autowired
     private UserRepository userRepository;
 
@@ -30,9 +35,20 @@ class LoadDatabase {
 
     @Autowired
     private ProgramRepository programRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
     @Bean
     CommandLineRunner initDatabase() {
         log.warn("Preloading database...");
+
+        Role role1 = new Role(ERole.ROLE_USER);
+        Role role2 = new Role(ERole.ROLE_MODERATOR);
+        Role role3 = new Role(ERole.ROLE_ADMIN);
+        log.info("Preloading " + roleRepository.save(role1));
+        log.info("Preloading " + roleRepository.save(role2));
+        log.info("Preloading " + roleRepository.save(role3));
+
 
         School school1 = new School("Duke University");
         School school2 = new School("University of Toronto");
@@ -59,10 +75,15 @@ class LoadDatabase {
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
 
-
-        log.info("Preloading " + userRepository.save(new User("test1", "me1@echo.cool", "111")));
-        log.info("Preloading " + userRepository.save(new User("test2", "me2@echo.cool", "111")));
-        log.info("Preloading " + userRepository.save(new User("test3", "me3@echo.cool", "111", "admin")));
+        Set<Role> test1Roles = new HashSet<>();
+        test1Roles.add(role1);
+        Set<Role> test2Roles = new HashSet<>();
+        test2Roles.add(role2);
+        Set<Role> test3Roles = new HashSet<>();
+        test3Roles.add(role3);
+        log.info("Preloading " + userRepository.save(new User("test1", "me1@echo.cool", encoder.encode("111"), test1Roles)));
+        log.info("Preloading " + userRepository.save(new User("test2", "me2@echo.cool", encoder.encode("111"), test2Roles)));
+        log.info("Preloading " + userRepository.save(new User("test3", "me3@echo.cool", encoder.encode("111"), test3Roles)));
 
 
         return args -> {
