@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, updateArticle, deleteUser, createUser } from '@/api/article'
+import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -306,7 +306,6 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createUser(this.temp).then(response => {
-            console.log(response)
             this.temp.id = response['id']
             this.temp.createdAt = response['createdAt']
             this.list.unshift(this.temp)
@@ -323,7 +322,7 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -333,9 +332,9 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          // const tempData = Object.assign({}, this.temp)
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          updateUser(this.temp).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false

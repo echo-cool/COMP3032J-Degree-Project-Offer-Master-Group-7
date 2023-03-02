@@ -2,6 +2,8 @@ package com.group7.utils.handler.exception;
 
 import com.group7.utils.common.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +20,17 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseBody
+    public R accessDeniedException(Exception e){
+        return R.error().message("AccessDenied").data("error", e.getMessage());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseBody
+    public R badCredentialsException(Exception e){
+        return R.error().message("badCredentials").data("error", e.getMessage());
+    }
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public R error(Exception e){

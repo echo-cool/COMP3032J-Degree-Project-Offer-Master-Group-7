@@ -1,9 +1,14 @@
 package com.group7.db.jpa;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author: WangYuyang
@@ -14,18 +19,27 @@ import java.util.Date;
  **/
 
 @Entity
+@Table(name = "user",
+        uniqueConstraints = {
+//                @UniqueConstraint(columnNames = "username"),
+//                @UniqueConstraint(columnNames = "email")
+        })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 45)
+    @NotBlank
+    @Size(max = 20)
     private String username;
 
-    @Column(nullable = false, length = 45)
-    private String email = "NULL";
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
 
-    @Column(nullable = false, length = 45)
+    @NotBlank
+    @Size(max = 120)
     private String password;
 
     @Column(nullable = false)
@@ -33,19 +47,32 @@ public class User {
 
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
+
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile = new Profile(this);
-    @Column(nullable = false, length = 45)
-    private String roles = "USER";
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     // The applicant background of this user
     @OneToOne
     @JoinColumn(name = "background", referencedColumnName = "id")
     private Profile backgroundId;
+
+
+    public User(String username, String email, String password, Set<Role> roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -53,23 +80,16 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String email, String password, String roles) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
     public User() {
 
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -120,14 +140,6 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRole(String roles) {
-        this.roles = roles;
-    }
-
     public Profile getProfile() {
         return profile;
     }
@@ -136,7 +148,11 @@ public class User {
         this.profile = profile;
     }
 
-    public void setRoles(String roles) {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
