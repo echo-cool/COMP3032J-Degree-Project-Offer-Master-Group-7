@@ -37,6 +37,7 @@ maven-package:
 #    - ./mvnw package -DskipTests
 #    - docker build -t myapp:v1 .
 
+
 maven-deploy:
   image: maven:3.8.3-openjdk-17
   stage: deploy
