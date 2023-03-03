@@ -6,9 +6,9 @@ const tableRouter = {
   path: '/table',
   component: Layout,
   redirect: '/table/complex-table',
-  name: 'Table',
+  name: 'Management',
   meta: {
-    title: 'Table',
+    title: 'Management',
     icon: 'table'
   },
   children: [
@@ -31,10 +31,23 @@ const tableRouter = {
       meta: { title: 'Inline Edit' }
     },
     {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'Complex Table' }
+      path: 'user',
+      component: () => import('@/views/table/user'),
+      name: 'User',
+      meta: { title: 'User' }
+    },
+    {
+      path: 'school',
+      component: () => import('@/views/table/school'),
+      name: 'School',
+      meta: { title: 'School' }
+    },
+    {
+      path: 'program/:id',
+      component: () => import('@/views/table/program'),
+      name: 'Program',
+      meta: { title: 'Program' },
+      hidden: true
     }
   ]
 }

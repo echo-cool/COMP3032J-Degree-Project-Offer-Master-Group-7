@@ -1,15 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.username" placeholder="Username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.password" placeholder="Password" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.email" placeholder="Email" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.roles" placeholder="Role" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in roles" :key="item" :label="item" :value="item" />
-      </el-select>
-      <!--      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">-->
-      <!--        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />-->
-      <!--      </el-select>-->
+      <el-input v-model="listQuery.name" placeholder="SchoolName" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
@@ -37,57 +29,18 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="Username" width="150px" align="center">
+      <el-table-column label="SchoolName" width="350px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.username }}</span>
+          <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Created At" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.createdAt | parseTime('{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Password" width="150px">
-        <template slot-scope="{row}">
-          <!--          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>-->
-          <span>{{ row.password }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Role" width="180px" align="center">
-        <template slot-scope="{row}">
-          <el-tag v-for="role in row.roles" :key="role">{{ role }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="Email" width="110px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.email }}</span>
-        </template>
-      </el-table-column>
-      <!--      <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">-->
-      <!--        <template slot-scope="{row}">-->
-      <!--          <span style="color:red;">{{ row.reviewer }}</span>-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column label="Imp" width="80px">-->
-      <!--        <template slot-scope="{row}">-->
-      <!--          <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column label="Readings" align="center" width="95">-->
-      <!--        <template slot-scope="{row}">-->
-      <!--          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>-->
-      <!--          <span v-else>0</span>-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column label="Status" class-name="status-col" width="100">-->
-      <!--        <template slot-scope="{row}">-->
-      <!--          <el-tag :type="row.status | statusFilter">-->
-      <!--            {{ row.status }}-->
-      <!--          </el-tag>-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <el-table-column label="Actions" align="center" min-width="230" class-name="small-padding fixed-width">
+      <el-table-column label="Actions" align="center" min-width="280" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
+          <router-link class="rl" :to="'/table/program/' + row.id">
+            <el-button type="primary" size="mini">
+              Programs
+            </el-button>
+          </router-link>
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>
@@ -108,37 +61,9 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Username" prop="username">
-          <el-input v-model="temp.username" />
+        <el-form-item label="SchoolName" prop="name">
+          <el-input v-model="temp.name" />
         </el-form-item>
-        <el-form-item label="Password" prop="password">
-          <el-input v-model="temp.password" />
-        </el-form-item>
-        <el-form-item label="Email" prop="email">
-          <el-input v-model="temp.email" />
-        </el-form-item>
-        <el-form-item label="Role" prop="roles">
-          <el-checkbox-group v-model="temp.roles" class="filter-item" placeholder="Please select">
-            <el-checkbox v-for="item in roles" :key="item" :label="item" :value="item">{{ item }}</el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <!--        <el-form-item label="Date" prop="timestamp">-->
-        <!--          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="Title" prop="title">-->
-        <!--          <el-input v-model="temp.title" />-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="Status">-->
-        <!--          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">-->
-        <!--            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="Imp">-->
-        <!--          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="Remark">-->
-        <!--          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />-->
-        <!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -163,11 +88,11 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/article'
+import { fetchList, fetchPv, deleteSchool, createSchool, updateSchool } from '@/api/school'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
-import { getRoles } from '@/api/role'
+// import { getPrograms } from '@/api/program'
 // secondary package based on el-pagination
 
 const calendarTypeOptions = [
@@ -184,7 +109,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'School',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -209,23 +134,16 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        username: undefined,
-        password: undefined,
-        email: undefined,
-        roles: undefined,
+        name: undefined,
         sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Username Ascending', key: '+id' }, { label: 'Username Descending', key: '-id' }],
+      sortOptions: [{ label: 'School Name Ascending', key: '+id' }, { label: 'School Name Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
-        username: '',
-        password: '',
-        // createdAt: new Date(),
-        email: '',
-        roles: []
+        name: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -236,44 +154,37 @@ export default {
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        username: [{ required: true, message: 'username is required', trigger: 'blur' }],
-        password: [{ required: true, message: 'password is required', trigger: 'blur' }],
-        email: [{ required: true, message: 'email is required', trigger: 'blur' }],
-        roles: [{ required: true, message: 'role is required', trigger: 'change' }]
+        name: [{ required: true, message: 'school name is required', trigger: 'blur' }]
       },
       downloadLoading: false
     }
   },
   created() {
     this.getList()
+    // console.log("54")
   },
   methods: {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response['_embedded']['users']
-        this.total = response['_embedded']['users'].length
-
-        for (let i = 0; i < this.list.length; i++) {
-          const user = this.list[i]
-          user['roles'] = []
-          getRoles(user['id']).then(roleResponse => {
-            const roles = roleResponse['_embedded']['roles']
-            for (const index in roles) {
-              user['roles'].push(roles[index]['name'])
-            }
-            if (i === this.list.length - 1) {
-              this.listLoading = false
-              this.tableKey = 1
-            }
-          })
-        }
-
-        // Just to simulate the time of the request
-        // setTimeout(() => {
-        //   this.listLoading = false
-        //   this.tableKey = 1
-        // }, 1.5 * 1000)
+        this.list = response['_embedded']['schools']
+        this.total = response['_embedded']['schools'].length
+        console.log(this.list)
+        // for (let i = 0; i < this.list.length; i++) {
+        //   const school = this.list[i]
+        //   school['programs'] = []
+        //   getPrograms(school['id']).then(roleResponse => {
+        //     const roles = roleResponse['_embedded']['programs']
+        //     for (const index in roles) {
+        //       user['roles'].push(roles[index]['name'])
+        //     }
+        //     if (i === this.list.length - 1) {
+        //       this.listLoading = false
+        //       this.tableKey = 1
+        //     }
+        //   })
+        // }
+        this.listLoading = false
       })
     },
     handleFilter() {
@@ -303,11 +214,8 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        username: '',
-        password: '',
-        // createdAt: new Date(),
-        email: '',
-        roles: []
+        name: '',
+        icon: ''
       }
     },
     handleCreate() {
@@ -321,7 +229,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createUser(this.temp).then(response => {
+          createSchool(this.temp).then(response => {
             this.temp.id = response['id']
             this.temp.createdAt = response['createdAt']
             this.list.unshift(this.temp)
@@ -350,7 +258,7 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateUser(this.temp).then(() => {
+          updateSchool(this.temp).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
@@ -365,7 +273,7 @@ export default {
       })
     },
     handleDelete(row, index) {
-      deleteUser(row.id)
+      deleteSchool(row.id)
       this.$notify({
         title: 'Success',
         message: 'Delete Successfully',
@@ -410,3 +318,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.rl{
+    margin: 10px;
+}
+</style>
