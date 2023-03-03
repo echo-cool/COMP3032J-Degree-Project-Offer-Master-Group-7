@@ -8,23 +8,14 @@ export function getRoutes() {
   })
 }
 
-export function getRoles(userList) {
-  for (let i = 0; i < userList.length; i++) {
-    const user = userList[i]
-    user['roles'] = []
-    request({
-      url: '/backend/rest/users/' + user['id'] + '/roles',
-      method: 'get',
-      headers: {
-        'Authorization': getToken()
-      }
-    }).then(roleResponse => {
-      const roles = roleResponse['_embedded']['roles']
-      for (const index in roles) {
-        user['roles'].push(roles[index]['name'])
-      }
-    })
-  }
+export function getRoles(userID) {
+  return request({
+    url: '/backend/rest/users/' + userID + '/roles',
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
+  })
 }
 
 export function addRole(data) {

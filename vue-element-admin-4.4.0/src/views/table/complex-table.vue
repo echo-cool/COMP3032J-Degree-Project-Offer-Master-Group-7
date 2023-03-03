@@ -167,7 +167,8 @@ import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/ar
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
-import { getRoles } from '@/api/role' // secondary package based on el-pagination
+import { getRoles } from '@/api/role'
+// secondary package based on el-pagination
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -250,16 +251,29 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        // this.list = response.data.items
-        // this.total = response.data.total
         this.list = response['_embedded']['users']
         this.total = response['_embedded']['users'].length
-        getRoles(this.list)
+
+        for (let i = 0; i < this.list.length; i++) {
+          const user = this.list[i]
+          user['roles'] = []
+          getRoles(user['id']).then(roleResponse => {
+            const roles = roleResponse['_embedded']['roles']
+            for (const index in roles) {
+              user['roles'].push(roles[index]['name'])
+            }
+            if (i === this.list.length - 1) {
+              this.listLoading = false
+              this.tableKey = 1
+            }
+          })
+        }
 
         // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        // setTimeout(() => {
+        //   this.listLoading = false
+        //   this.tableKey = 1
+        // }, 1.5 * 1000)
       })
     },
     handleFilter() {
