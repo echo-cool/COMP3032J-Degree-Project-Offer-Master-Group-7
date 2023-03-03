@@ -53,9 +53,9 @@
           <span>{{ row.password }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Role" width="110px" align="center">
+      <el-table-column label="Role" width="180px" align="center">
         <template slot-scope="{row}">
-          <el-tag>{{ row.roles }}</el-tag>
+          <el-tag v-for="role in row.roles" :key="role">{{ role }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="Email" width="110px" align="center">
@@ -118,9 +118,9 @@
           <el-input v-model="temp.email" />
         </el-form-item>
         <el-form-item label="Role" prop="roles">
-          <el-select v-model="temp.roles" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in roles" :key="item" :label="item" :value="item" />
-          </el-select>
+          <el-checkbox-group v-model="temp.roles" class="filter-item" placeholder="Please select">
+            <el-checkbox v-for="item in roles" :key="item" :label="item" :value="item">{{ item }}</el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <!--        <el-form-item label="Date" prop="timestamp">-->
         <!--          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />-->
@@ -166,7 +166,8 @@
 import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
+import { getRoles } from '@/api/role' // secondary package based on el-pagination
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -223,7 +224,7 @@ export default {
         password: '',
         // createdAt: new Date(),
         email: '',
-        roles: ''
+        roles: []
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -253,6 +254,7 @@ export default {
         // this.total = response.data.total
         this.list = response['_embedded']['users']
         this.total = response['_embedded']['users'].length
+        getRoles(this.list)
 
         // Just to simulate the time of the request
         setTimeout(() => {
@@ -291,7 +293,7 @@ export default {
         password: '',
         // createdAt: new Date(),
         email: '',
-        roles: ''
+        roles: []
       }
     },
     handleCreate() {
