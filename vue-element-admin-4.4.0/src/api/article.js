@@ -1,10 +1,45 @@
 import request from '@/utils/request'
+import { getToken } from '@/utils/auth'
 
 export function fetchList(query) {
+  console.log(query)
   return request({
-    url: '/vue-element-admin/article/list',
+    url: '/backend/rest/users',
     method: 'get',
-    params: query
+    headers: {
+      'Authorization': getToken()
+    }
+    // params: query
+  })
+}
+
+// export function deleteUser(username) {
+//   // eslint-disable-next-line no-unused-vars
+//   console.log(username)
+//   request({
+//     url: 'backend/rest/users/search/findByUsername',
+//     method: 'get',
+//     params: { 'username': username }
+//   }).then(response => {
+//     const userID = response['_links']['self']['href'].split('/').pop()
+//     console.log(userID)
+//     return request({
+//       url: 'backend/rest/users/' + userID,
+//       method: 'delete'
+//       // params: query
+//     })
+//   })
+// }
+
+export function deleteUser(userID) {
+  console.log(userID)
+  return request({
+    url: 'backend/rest/users/' + userID,
+    method: 'delete',
+    headers: {
+      'Authorization': getToken()
+    }
+    // params: query
   })
 }
 
@@ -24,18 +59,31 @@ export function fetchPv(pv) {
   })
 }
 
-export function createArticle(data) {
+export function createUser(data) {
+  console.log(data)
   return request({
-    url: '/vue-element-admin/article/create',
+    url: '/backend/rest/users',
     method: 'post',
-    data
+    data,
+    headers: {
+      'Authorization': getToken()
+    }
   })
 }
 
-export function updateArticle(data) {
+export function updateUser(data) {
+  console.log(data)
   return request({
-    url: '/vue-element-admin/article/update',
-    method: 'post',
-    data
+    url: '/backend/rest/users/' + data.id,
+    method: 'put',
+    data: {
+      'username': data.username,
+      'password': data.password,
+      'email': data.email,
+      'roles': data.roles
+    },
+    headers: {
+      'Authorization': getToken()
+    }
   })
 }

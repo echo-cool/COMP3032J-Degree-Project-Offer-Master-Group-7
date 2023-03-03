@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { getToken } from '@/utils/auth'
 
 export function getRoutes() {
   return request({
@@ -7,10 +8,13 @@ export function getRoutes() {
   })
 }
 
-export function getRoles() {
+export function getRoles(userID) {
   return request({
-    url: '/vue-element-admin/roles',
-    method: 'get'
+    url: '/backend/rest/users/' + userID + '/roles',
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
   })
 }
 

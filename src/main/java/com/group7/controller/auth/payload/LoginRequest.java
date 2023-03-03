@@ -1,14 +1,20 @@
-package com.group7.controller.auth;
+package com.group7.controller.auth.payload;
+
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @Author: WangYuyang
- * @Date: 2023/2/26-18:23
+ * @Date: 2023/3/2-17:57
  * @Project: COMP3032J_FYP_Thesis_Group_7
- * @Package: com.group7.controller.auth
+ * @Package: com.group7.controller.auth.reg
  * @Description:
  **/
-public class LoginDTO {
+
+public class LoginRequest {
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
 
     public String getUsername() {

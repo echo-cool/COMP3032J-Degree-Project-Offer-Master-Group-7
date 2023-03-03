@@ -326,16 +326,41 @@
 <script>
     import Layout from "@/components/layouts/Layout";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+
+    import cookie from "js-cookie";
+
     export default {
         name: 'EditProfilePage',
         components: {Breadcrumb, Layout},
+        data(){
+            return {
+              currentUser: {}
+            }
+        },
+
+        created() {
+            // load the current user info as this page is created
+            this.getCurrentUser();
+        },
+
         methods: {
             previewImage(e, id) {
                 if (e.target.files && e.target.files.length > 0) {
                     const file = e.target.files[0];
                     document.querySelector(`#${id}`).setAttribute('src', URL.createObjectURL(file));
                 }
+            },
+
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                }
             }
+
         }
     }
 </script>

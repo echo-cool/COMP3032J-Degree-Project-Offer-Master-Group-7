@@ -1,8 +1,14 @@
 package com.group7.db.jpa;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author: WangYuyang
@@ -13,28 +19,52 @@ import java.util.Date;
  **/
 
 @Entity
+@Table(name = "user",
+        uniqueConstraints = {
+//                @UniqueConstraint(columnNames = "username"),
+//                @UniqueConstraint(columnNames = "email")
+        })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 45)
+    @NotBlank
+    @Size(max = 20)
     private String username;
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
 
-    @Column(nullable = false, length = 45)
-    private String email = "NULL";
-
-    @Column(nullable = false, length = 45)
+    @NotBlank
+    @Size(max = 120)
     private String password;
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
 
-    @Column(nullable = false)
-    private String profileId = "NULL";
-    @Column(nullable = false, length = 45)
-    private String roles = "USER";
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private Profile profile = new Profile(this);
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    // The applicant background of this user
+    @OneToOne
+    @JoinColumn(name = "background", referencedColumnName = "id")
+    private Profile backgroundId;
+
+
+    public User(String username, String email, String password, Set<Role> roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -42,23 +72,16 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String email, String password, String roles) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
     public User() {
 
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -101,48 +124,27 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public String getProfileId() {
-        return profileId;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
-    public String getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRole(String roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        if (getOpenId() != null ? !getOpenId().equals(user.getOpenId()) : user.getOpenId() != null) return false;
-        if (getCreatedAt() != null ? !getCreatedAt().equals(user.getCreatedAt()) : user.getCreatedAt() != null)
-            return false;
-        return getProfileId() != null ? getProfileId().equals(user.getProfileId()) : user.getProfileId() == null;
+    public Profile getBackgroundId() {
+        return backgroundId;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (getOpenId() != null ? getOpenId().hashCode() : 0);
-        result = 31 * result + (getCreatedAt() != null ? getCreatedAt().hashCode() : 0);
-        result = 31 * result + (getProfileId() != null ? getProfileId().hashCode() : 0);
-        return result;
+    public void setBackgroundId(Profile backgroundId) {
+        this.backgroundId = backgroundId;
     }
 }
