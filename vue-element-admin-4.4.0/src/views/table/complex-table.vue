@@ -215,7 +215,7 @@ export default {
         roles: undefined,
         sort: '+id'
       },
-      roles: ['USER', 'ADMIN'],
+      roles: ['USER', 'ADMIN', 'MODERATOR'],
       calendarTypeOptions,
       sortOptions: [{ label: 'Username Ascending', key: '+id' }, { label: 'Username Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
