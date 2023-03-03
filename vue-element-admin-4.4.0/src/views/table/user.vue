@@ -104,7 +104,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
@@ -184,7 +184,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'User',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -208,16 +208,16 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        username: undefined,
-        password: undefined,
-        email: undefined,
-        roles: undefined,
-        sort: '+id'
+        size: 20
+        // username: undefined,
+        // password: undefined,
+        // email: undefined,
+        // roles: undefined,
+        // sort: 'username,asc'
       },
       roles: ['USER', 'ADMIN', 'MODERATOR'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Username Ascending', key: '+id' }, { label: 'Username Descending', key: '-id' }],
+      sortOptions: [{ label: 'Username Ascending', key: 'username,asc' }, { label: 'Username Descending', key: 'username,desc' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
@@ -252,7 +252,10 @@ export default {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response['_embedded']['users']
-        this.total = response['_embedded']['users'].length
+        this.total = response['page']['totalElements']
+
+        // eslint-disable-next-line no-unused-vars
+        let finished = 0
 
         for (let i = 0; i < this.list.length; i++) {
           const user = this.list[i]
@@ -262,9 +265,11 @@ export default {
             for (const index in roles) {
               user['roles'].push(roles[index]['name'])
             }
-            if (i === this.list.length - 1) {
+            if (finished === this.list.length - 1) {
               this.listLoading = false
-              this.tableKey = 1
+              this.tableKey += 1
+            } else {
+              finished += 1
             }
           })
         }
@@ -295,9 +300,9 @@ export default {
     },
     sortByID(order) {
       if (order === 'ascending') {
-        this.listQuery.sort = '+id'
+        this.listQuery.sort = 'id,asc'
       } else {
-        this.listQuery.sort = '-id'
+        this.listQuery.sort = 'id,desc'
       }
       this.handleFilter()
     },
