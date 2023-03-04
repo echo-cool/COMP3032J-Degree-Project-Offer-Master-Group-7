@@ -1,6 +1,7 @@
 package com.group7.controller.auth;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import com.group7.controller.user.UserDetailsImpl;
 import com.group7.db.jpa.*;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
 
 /**
@@ -54,10 +52,33 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
 
+        // check the auto validation defined in LoginRequest
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // check if the user exist
+        User user = userRepository.findByEmail(loginRequest.getEmail()).orElse(null);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: User email does not exist!"));
+        }
+
+        // check the password
+        if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: Wrong password!"));
+        }
+
+        // for authentication and token generation
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -71,6 +92,7 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getAvatar(),
                 roles));
     }
 
@@ -145,6 +167,33 @@ public class AuthController {
 
         return ResponseEntity.ok(R.ok().message("User registered successfully!"));
     }
+
+    @GetMapping(value = "/getUserInfo")
+    public ResponseEntity<?> getUserByToken(HttpServletRequest request){
+
+        // get token from the request header
+        String token = request.getHeader("token");
+        if (!jwtUtils.validateJwtToken(token)){
+            // user does not log in
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("You should login first!"));
+        }
+
+        // get username from token
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        // query user from db
+        if (!userRepository.findByUsername(username).isPresent()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Invalid token info! User not found!"));
+        }
+        User user = userRepository.findByUsername(username).get();
+
+        // return the user info
+        return ResponseEntity.ok(R.ok().data("user", user));
+    }
+
 }
 //@RestController
 //@RequestMapping(value = "/api")
