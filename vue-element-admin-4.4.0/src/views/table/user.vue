@@ -53,9 +53,9 @@
           <span>{{ row.password }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Role" width="110px" align="center">
+      <el-table-column label="Role" width="180px" align="center">
         <template slot-scope="{row}">
-          <el-tag>{{ row.roles }}</el-tag>
+          <el-tag v-for="role in row.roles" :key="role">{{ role }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="Email" width="110px" align="center">
@@ -104,7 +104,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
@@ -118,9 +118,9 @@
           <el-input v-model="temp.email" />
         </el-form-item>
         <el-form-item label="Role" prop="roles">
-          <el-select v-model="temp.roles" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in roles" :key="item" :label="item" :value="item" />
-          </el-select>
+          <el-checkbox-group v-model="temp.roles" class="filter-item" placeholder="Please select">
+            <el-checkbox v-for="item in roles" :key="item" :label="item" :value="item">{{ item }}</el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <!--        <el-form-item label="Date" prop="timestamp">-->
         <!--          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />-->
@@ -166,7 +166,9 @@
 import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
+import { getRoles } from '@/api/role'
+// secondary package based on el-pagination
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -182,7 +184,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'User',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -206,16 +208,16 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        username: undefined,
-        password: undefined,
-        email: undefined,
-        roles: undefined,
-        sort: '+id'
+        size: 20
+        // username: undefined,
+        // password: undefined,
+        // email: undefined,
+        // roles: undefined,
+        // sort: 'username,asc'
       },
-      roles: ['USER', 'ADMIN'],
+      roles: ['USER', 'ADMIN', 'MODERATOR'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Username Ascending', key: '+id' }, { label: 'Username Descending', key: '-id' }],
+      sortOptions: [{ label: 'Username Ascending', key: 'username,asc' }, { label: 'Username Descending', key: 'username,desc' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
@@ -223,7 +225,7 @@ export default {
         password: '',
         // createdAt: new Date(),
         email: '',
-        roles: ''
+        roles: []
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -249,15 +251,34 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        // this.list = response.data.items
-        // this.total = response.data.total
         this.list = response['_embedded']['users']
-        this.total = response['_embedded']['users'].length
+        this.total = response['page']['totalElements']
+
+        // eslint-disable-next-line no-unused-vars
+        let finished = 0
+
+        for (let i = 0; i < this.list.length; i++) {
+          const user = this.list[i]
+          user['roles'] = []
+          getRoles(user['id']).then(roleResponse => {
+            const roles = roleResponse['_embedded']['roles']
+            for (const index in roles) {
+              user['roles'].push(roles[index]['name'])
+            }
+            if (finished === this.list.length - 1) {
+              this.listLoading = false
+              this.tableKey += 1
+            } else {
+              finished += 1
+            }
+          })
+        }
 
         // Just to simulate the time of the request
-        setTimeout(() => {
-          this.listLoading = false
-        }, 1.5 * 1000)
+        // setTimeout(() => {
+        //   this.listLoading = false
+        //   this.tableKey = 1
+        // }, 1.5 * 1000)
       })
     },
     handleFilter() {
@@ -279,9 +300,9 @@ export default {
     },
     sortByID(order) {
       if (order === 'ascending') {
-        this.listQuery.sort = '+id'
+        this.listQuery.sort = 'id,asc'
       } else {
-        this.listQuery.sort = '-id'
+        this.listQuery.sort = 'id,desc'
       }
       this.handleFilter()
     },
@@ -291,7 +312,7 @@ export default {
         password: '',
         // createdAt: new Date(),
         email: '',
-        roles: ''
+        roles: []
       }
     },
     handleCreate() {

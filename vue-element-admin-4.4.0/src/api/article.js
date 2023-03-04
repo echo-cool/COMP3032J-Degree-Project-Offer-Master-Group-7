@@ -1,11 +1,17 @@
 import request from '@/utils/request'
+import { getToken } from '@/utils/auth'
 
 export function fetchList(query) {
-  console.log(query)
   return request({
     url: '/backend/rest/users',
-    method: 'get'
-    // params: query
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    },
+    params: {
+      'page': query['page'] - 1,
+      'size': query['size']
+    }
   })
 }
 
@@ -31,7 +37,10 @@ export function deleteUser(userID) {
   console.log(userID)
   return request({
     url: 'backend/rest/users/' + userID,
-    method: 'delete'
+    method: 'delete',
+    headers: {
+      'Authorization': getToken()
+    }
     // params: query
   })
 }
@@ -57,7 +66,10 @@ export function createUser(data) {
   return request({
     url: '/backend/rest/users',
     method: 'post',
-    data
+    data,
+    headers: {
+      'Authorization': getToken()
+    }
   })
 }
 
@@ -71,6 +83,9 @@ export function updateUser(data) {
       'password': data.password,
       'email': data.email,
       'roles': data.roles
+    },
+    headers: {
+      'Authorization': getToken()
     }
   })
 }
