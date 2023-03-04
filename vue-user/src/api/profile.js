@@ -5,7 +5,7 @@ export default{
     // for uploading avatar
     uploadAvatar(form){
         return request({
-            url: `/user/uploadAvatar`,
+            url: `/api/user/uploadAvatar`,
             method: 'post',
             headers: {
                 'Content-Type': 'multipart/form-data'

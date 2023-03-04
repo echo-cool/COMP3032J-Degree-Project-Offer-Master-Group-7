@@ -345,6 +345,7 @@
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
     import router from "@/router/index";
+    import userLoader from "@/utils/userloader";
 
     export default {
         name: 'EditProfilePage',
@@ -360,7 +361,9 @@
         created() {
             // load the current user info as this page is created
             // user would be redirected to the login page if not logged in
+
             this.getCurrentUser();
+            // this.currentUser = userLoader.getCurrentUser();
         },
 
         methods: {
@@ -384,7 +387,7 @@
                 }else{
                     // user should be redirected to the login page if not logged in
                     window.alert("You should login first!");
-                    // router.push({path: '/login'});
+                    router.push({path: '/login'});
                 }
             },
 
@@ -396,18 +399,16 @@
                 // call the api method
                 profileApi.uploadAvatar(formData)
                     .then(response => {
-                        if(response.success){
-                            // notify user
-                            window.alert("upload successfully!");
+                        // notify user
+                        window.alert("upload successfully!");
 
-                            // update the current_user and cookie
-                            this.currentUser = response.data.user;
-                            cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
-
-                        }else{
-                            // notify user
-                            window.alert(response.message);
-                        }
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+                    })
+                    .catch(error => {
+                        // notify user
+                        window.alert(error.response.data.message);
                     })
 
             }

@@ -10,6 +10,7 @@ import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.auth.payload.SignupRequest;
 import com.group7.controller.user.UserDetailsImpl;
 import com.group7.db.jpa.*;
+import com.group7.service.UserService;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author: WangYuyang
@@ -66,7 +68,7 @@ public class AuthController {
         if (user == null){
             return ResponseEntity
                     .badRequest()
-                    .body(R.error().message("Login failed: User email does not exist!"));
+                    .body(R.error().message("Login failed: User does not exist!"));
         }
 
         // check the password
@@ -170,31 +172,20 @@ public class AuthController {
 
     @GetMapping(value = "/getUserInfo")
     public ResponseEntity<?> getUserByToken(HttpServletRequest request){
-
-        // get token from the request header
-        String token = request.getHeader("token");
-        if (!jwtUtils.validateJwtToken(token)){
-            // user does not log in
+        // find user from the token in request header
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
             return ResponseEntity
                     .badRequest()
-                    .body(R.error().message("You should login first!"));
+                    .body(R.error().message("Invalid token! User not found! You should login first."));
         }
-
-        // get username from token
-        String username = jwtUtils.getUserNameFromJwtToken(token);
-        // query user from db
-        if (!userRepository.findByUsername(username).isPresent()){
-            return ResponseEntity
-                    .badRequest()
-                    .body(R.error().message("Invalid token info! User not found!"));
-        }
-        User user = userRepository.findByUsername(username).get();
 
         // return the user info
         return ResponseEntity.ok(R.ok().data("user", user));
     }
 
 }
+
 //@RestController
 //@RequestMapping(value = "/api")
 //public class AuthController {

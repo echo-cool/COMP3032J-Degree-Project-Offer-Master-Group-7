@@ -1,7 +1,7 @@
 package com.group7.controller.user;
 
 
-import com.auth0.jwt.interfaces.Claim;
+import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtils;
@@ -10,15 +10,15 @@ import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
 import java.util.Objects;
 
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Resource
@@ -52,52 +52,53 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/uploadAvatar")
-//    public R uploadAvatar(MultipartFile file, HttpServletRequest request){
-//        // check file type (this should before the empty check)
-//        String ext = file.getOriginalFilename().split("\\.")[1];
-//        boolean isValidType = false;
-//        for (String type : PIC_TYPES){
-//            if (type.equals(ext)){
-//                isValidType = true;
-//                break;
-//            }
-//        }
-//        if(!isValidType){
-//            return R.error().message("Upload failed - the picture type should be the following: " +
-//                    "\"bmp\", \"jpg\", \"jpeg\", \"png\", \"gif\", \"svg\"");
-//        }
-//
-//        // check empty file
-//        if (file.isEmpty()){
-//            return R.error().message("Upload failed - empty picture");
-//        }
-//
-//        // get user id from the token in the header of http request
-//        Long userId = JwtUtil.getUserIdByToken(request);
-//        // if user id is null, the user does not log in
-//        if (userId == null){
-//            return R.error().message("Upload failed - you should login first!");
-//        }
-//        // find user from db
-//        User user = userRepository.findById(userId).orElse(null);
-//        if (user == null){
-//            return R.error().message("Upload failed - user not found!");
-//        }
-//
-//        // store the file locally
-//        String newFileName = userService.uploadAvatar(file);
-//
-//        if (newFileName == null){
-//            return R.error().message("Upload failed - Try it again latter.");
-//        }
-//
-//        // update the user avatar in db
-//        user.setAvatar(newFileName);
-//        userRepository.save(user);
-//
-//        return R.ok().data("avatar", newFileName).data("user", user);
-//    }
+    @PostMapping("/uploadAvatar")
+    public ResponseEntity<?> uploadAvatar(MultipartFile file, HttpServletRequest request){
+        // check empty file
+        if (file.isEmpty()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Upload failed - empty picture"));
+        }
 
+        // check file type
+        String ext = file.getOriginalFilename().split("\\.")[1];
+        boolean isValidType = false;
+        for (String type : PIC_TYPES){
+            if (type.equals(ext)){
+                isValidType = true;
+                break;
+            }
+        }
+        if(!isValidType){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Upload failed - the picture type should be the following: " +
+                            "\"bmp\", \"jpg\", \"jpeg\", \"png\", \"gif\", \"svg\""));
+        }
+
+        // get user id from the token in the header of http request
+        // find user from the token in request header
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Upload failed - You should login first."));
+        }
+
+        // store the file locally
+        String newFileName = userService.uploadAvatar(file);
+        if (newFileName == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Upload failed - Try it again latter."));
+        }
+
+        // update the user avatar in db
+        user.setAvatar(newFileName);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(R.ok().data("avatar", newFileName).data("user", user));
+    }
 
 }

@@ -22,6 +22,7 @@ service.interceptors.request.use(
         // check weather there is a token in the cookie
         if(cookie.get("user_token")){
             // put the token into the header of this request
+            config.headers['Authorization'] = 'Bearer ' + cookie.get("user_token");
             config.headers['token'] = cookie.get("user_token");
         }
 
