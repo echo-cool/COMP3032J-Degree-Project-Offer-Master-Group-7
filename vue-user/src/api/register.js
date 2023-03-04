@@ -5,7 +5,7 @@ export default{
     // for submitting the register form
     register(form){
         return request({
-            url: `/api/register`,
+            url: `/api/auth/signup`,
             method: 'post',
             data: form
         })

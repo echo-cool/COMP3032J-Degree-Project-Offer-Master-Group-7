@@ -42,7 +42,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="social-share-media form-wrapper-one">
                             <h6>Another way to sign up</h6>
-                            <p> Lorem ipsum dolor sit, amet sectetur adipisicing elit.cumque.</p>
+                            <p> You can also sign up with the following ways.</p>
                             <button class="another-login login-facebook">
                                 <img class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
                                 <span>Log in with Google</span>
@@ -96,6 +96,7 @@
                 // call the api method
                 registerApi.register(this.params)
                     .then(response => {
+
                         if(response.success){
                             // notify user
                             window.alert("Registration success, you can login now!");
@@ -107,6 +108,10 @@
                             // notify user
                             window.alert(response.message);
                         }
+                    })
+                    .catch(error => {
+                        // notify user
+                        window.alert(error.response.data.message)
                     })
             }
         }

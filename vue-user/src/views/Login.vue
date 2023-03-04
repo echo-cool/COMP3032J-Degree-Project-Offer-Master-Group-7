@@ -29,7 +29,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="social-share-media form-wrapper-one">
                             <h6>Another way to log in</h6>
-                            <p>Lorem ipsum dolor sit, amet sectetur adipisicing elit.cumque.</p>
+                            <p>You can also login with the following ways.</p>
                             <button class="another-login login-facebook">
                                 <img class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
                                 <span>Log in with Google</span>

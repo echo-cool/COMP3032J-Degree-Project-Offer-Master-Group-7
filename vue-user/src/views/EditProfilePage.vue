@@ -66,7 +66,7 @@
                                     <div class="profile-change row g-5">
                                         <div class="profile-left col-lg-4">
                                             <div class="profile-image mb--30">
-                                                <h6 class="title">Change Your Profile Picture</h6>
+                                                <h6 class="title">Change Your Avatar</h6>
                                                 <!-- That :src require() is fucking important!!! -->
                                                 <!-- 1. it cannot totally be a variable, so we must concatenate the param like the following -->
                                                 <!-- 2. for that @..., we must use the dir of /assets/images/profile/..., don't know why -->
@@ -91,7 +91,7 @@
                                                            @change="previewImage($event, 'profilePicture')"
                                                            ref="profileImageInput">
                                                     <label for="fatima" title="No File Choosen">
-                                                        <span class="text-center color-white">Upload Profile</span>
+                                                        <span class="text-center color-white">Upload Avatar</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -123,35 +123,38 @@
                             <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="nuron-information">
                                     <div class="profile-form-wrapper">
-                                        <div class="input-two-wrapper mb--15">
-                                            <div class="first-name half-wid">
-                                                <label for="contact-name" class="form-label">First Name</label>
-                                                <input id="contact-name" type="text" value="Mr.">
-                                            </div>
-                                            <div class="last-name half-wid">
-                                                <label for="contact-name-last" class="form-label">Last Name</label>
-                                                <input id="contact-name-last" type="text" value="Sunayra">
-                                            </div>
+<!--                                        <div class="input-two-wrapper mb&#45;&#45;15">-->
+<!--                                            <div class="first-name half-wid">-->
+<!--                                                <label for="contact-name" class="form-label">First Name</label>-->
+<!--                                                <input id="contact-name" type="text" value="Mr.">-->
+<!--                                            </div>-->
+<!--                                            <div class="last-name half-wid">-->
+<!--                                                <label for="contact-name-last" class="form-label">Last Name</label>-->
+<!--                                                <input id="contact-name-last" type="text" value="Sunayra">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                        <div class="email-area mb--15">
+                                            <label for="username" class="form-label">Change Your Username</label>
+                                            <input id="username" type="text" value="Luca">
                                         </div>
                                         <div class="email-area">
                                             <label for="Email" class="form-label">Edit Your Email</label>
-                                            <input id="Email" type="email" value="example@gmail.com">
+                                            <input id="Email" type="email" value="Luca@gmail.com">
                                         </div>
                                     </div>
                                     <div class="edit-bio-area mt--30">
                                         <label for="description" class="form-label">Edit Your Bio</label>
-                                        <textarea id="description">Hello, I am Alamin, A Front-end Developer...</textarea>
+                                        <textarea id="description">Hello, I am Luca who is applying for the oversea university programs...</textarea>
                                     </div>
                                     <div class="input-two-wrapepr-prifile">
                                         <div class="role-area mt--15">
-                                            <label for="Role" class="form-label mb--10">Your Role</label>
-                                            <input id="Role" type="text" value="Front-end Developer">
+                                            <label for="gpa" class="form-label mb--10">Your Graduate GPA</label>
+                                            <input id="gpa" type="number" value="3.81">
                                         </div>
                                         <select class="profile-edit-select">
-                                            <option selected>Select Your Gender</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="3">Third Gender</option>
+                                            <option selected>Select Your English Proficiency Test</option>
+                                            <option value="1">IELTS</option>
+                                            <option value="2">TOEFL</option>
                                         </select>
                                     </div>
 
@@ -381,7 +384,7 @@
                 }else{
                     // user should be redirected to the login page if not logged in
                     window.alert("You should login first!");
-                    router.push({path: '/login'});
+                    // router.push({path: '/login'});
                 }
             },
 
