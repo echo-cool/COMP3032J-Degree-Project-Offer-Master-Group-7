@@ -15,20 +15,24 @@ import java.util.Set;
 
 
 public class SignupRequest {
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "The username cannot be empty!")
+    @Size(message = "The username should in length between {min} - {max} chars.", min = 3, max = 20)
     private String username;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "The email cannot be empty!")
+    @Size(message = "The email cannot be more than {max} chars!", max = 50)
     @Email
     private String email;
 
     private Set<String> role;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
+    @NotBlank(message = "The password cannot be empty!")
+    @Size(message = "The password length should between {min} - {max} chars", min = 6, max = 40)
     private String password;
+
+    @NotBlank(message = "You should enter your password again!")
+    @Size(message = "The password length should between {min} - {max} chars", min = 6, max = 40)
+    private String RePassword;
 
     public String getUsername() {
         return username;
@@ -60,5 +64,13 @@ public class SignupRequest {
 
     public void setRole(Set<String> role) {
         this.role = role;
+    }
+
+    public String getRePassword() {
+        return RePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        RePassword = rePassword;
     }
 }

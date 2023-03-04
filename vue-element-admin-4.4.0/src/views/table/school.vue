@@ -57,7 +57,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
@@ -133,9 +133,9 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        name: undefined,
-        sort: '+id'
+        size: 20
+        // name: undefined,
+        // sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,

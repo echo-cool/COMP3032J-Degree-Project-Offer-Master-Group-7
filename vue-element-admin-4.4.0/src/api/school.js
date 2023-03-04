@@ -2,14 +2,14 @@ import request from '@/utils/request'
 import { getToken } from '@/utils/auth'
 
 export function fetchList(query) {
-  console.log(query)
+  query['page'] -= 1
   return request({
     url: '/backend/rest/schools',
     method: 'get',
     headers: {
       'Authorization': getToken()
-    }
-    // params: query
+    },
+    params: query
   })
 }
 

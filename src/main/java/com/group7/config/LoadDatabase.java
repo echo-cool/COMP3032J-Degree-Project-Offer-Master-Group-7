@@ -84,6 +84,15 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(new User("test1", "me1@echo.cool", encoder.encode("111"), test1Roles)));
         log.info("Preloading " + userRepository.save(new User("test2", "me2@echo.cool", encoder.encode("111"), test2Roles)));
         log.info("Preloading " + userRepository.save(new User("test3", "me3@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test4", "me4@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test5", "me5@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test6", "me6@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test7", "me7@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test8", "me8@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test9", "me9@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test10", "me10@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test11", "me11@echo.cool", encoder.encode("111"), test3Roles)));
+        log.info("Preloading " + userRepository.save(new User("test12", "me12@echo.cool", encoder.encode("111"), test3Roles)));
 
 
         return args -> {

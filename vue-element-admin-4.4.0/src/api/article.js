@@ -2,14 +2,16 @@ import request from '@/utils/request'
 import { getToken } from '@/utils/auth'
 
 export function fetchList(query) {
-  console.log(query)
   return request({
     url: '/backend/rest/users',
     method: 'get',
     headers: {
       'Authorization': getToken()
+    },
+    params: {
+      'page': query['page'] - 1,
+      'size': query['size']
     }
-    // params: query
   })
 }
 

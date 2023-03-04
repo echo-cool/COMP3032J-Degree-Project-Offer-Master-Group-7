@@ -28,9 +28,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Size(max = 20)
     private String username;
+
     @NotBlank
     @Size(max = 50)
     @Email
@@ -39,14 +41,21 @@ public class User {
     @NotBlank
     @Size(max = 120)
     private String password;
+
+
+    @Column(nullable = false)
+    private String avatar = "profile-01.jpg";
+
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
+
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile = new Profile(this);
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -122,6 +131,14 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Profile getProfile() {
