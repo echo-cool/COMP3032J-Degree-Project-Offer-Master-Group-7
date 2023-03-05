@@ -37,7 +37,7 @@ npm-packag-front:
   - npm run build
   artifacts:
     paths:
-    - dist/
+    - dist/*
 
 npm-packag-back:
   image: node:16.19.1
@@ -48,7 +48,7 @@ npm-packag-back:
   - npm run build:prod
   artifacts:
     paths:
-    - dist/
+    - dist/*
 
 
 
