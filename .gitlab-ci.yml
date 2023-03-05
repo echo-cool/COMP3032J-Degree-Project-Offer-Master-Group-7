@@ -35,9 +35,10 @@ npm-packag-front:
   - cd vue-user/
   - npm install .
   - npm run build
+  - tar -zcvf dist-front.tar.gz dist/
   artifacts:
     paths:
-    - dist/*
+    - dist-front.tar.gz
 
 npm-packag-back:
   image: node:16.19.1
@@ -46,9 +47,10 @@ npm-packag-back:
   - cd vue-element-admin-4.4.0/
   - npm install .
   - npm run build:prod
+  - tar -zcvf dist-back.tar.gz dist/
   artifacts:
     paths:
-    - dist/*
+    - dist-back.tar.gz
 
 
 
