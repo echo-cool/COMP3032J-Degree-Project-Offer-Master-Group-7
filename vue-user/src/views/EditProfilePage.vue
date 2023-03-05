@@ -196,33 +196,34 @@
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="nuron-information">
                                     <div class="condition">
-                                        <h5 class="title">Create Your Password</h5>
+                                        <h5 class="title">Change Your Password</h5>
                                         <p class="condition">
-                                            Passwords are a critical part of information and network security. Passwords
-                                            serve to protect user accounts but a poorly chosen password, if compromised,
-                                            could put the entire network at risk.
+                                            Your password is a critical part of your account security and privacy. We recommend
+                                            you to change your password regularly through this page to ensure the security
+                                            of your account. Keep in mind that a poorly chosen password might put your privacy
+                                            at risks.
                                         </p>
                                         <hr />
                                         <div class="email-area">
                                             <label for="Email2" class="form-label">Enter Email</label>
-                                            <input id="Email2" type="email" value="">
+                                            <input id="Email2" type="email" v-model="changePasswordParams.email">
                                         </div>
                                     </div>
                                     <div class="input-two-wrapper mt--15">
                                         <div class="old-password half-wid">
                                             <label for="oldPass" class="form-label">Enter Old Password</label>
-                                            <input id="oldPass" type="password">
+                                            <input id="oldPass" type="password" v-model="changePasswordParams.oldPassword">
                                         </div>
                                         <div class="new-password half-wid">
                                             <label for="NewPass" class="form-label">Create New Password</label>
-                                            <input id="NewPass" type="password">
+                                            <input id="NewPass" type="password" v-model="changePasswordParams.newPassword">
                                         </div>
                                     </div>
                                     <div class="email-area mt--15">
-                                        <label for="rePass" class="form-label">Confirm Password</label>
-                                        <input id="rePass" type="password">
+                                        <label for="rePass" class="form-label">Confirm Your New Password</label>
+                                        <input id="rePass" type="password" v-model="changePasswordParams.reNewPassword">
                                     </div>
-                                    <a href="#" class="btn btn-primary save-btn-edit" @click="alert('Successfully Changed Password?')">Save</a>
+                                    <a href="#" class="btn btn-primary save-btn-edit" @click="changePassword()">Save</a>
                                 </div>
                             </div>
 
@@ -354,6 +355,13 @@
             return {
                 currentUser: {
                     avatar: ""
+                },
+
+                changePasswordParams: {
+                    email: "",
+                    oldPassword: "",
+                    newPassword: "",
+                    reNewPassword: ""
                 }
             }
         },
@@ -408,9 +416,31 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert(error.response.data.message);
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
                     })
 
+            },
+
+            changePassword(){
+                // call the api method
+                profileApi.changePassword(this.changePasswordParams)
+                    .then(response => {
+                        // notify user
+                        window.alert("Password changed successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
             }
 
         }

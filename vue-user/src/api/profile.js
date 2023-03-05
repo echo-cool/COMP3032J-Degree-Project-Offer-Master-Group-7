@@ -12,6 +12,15 @@ export default{
             },
             data: form
         })
+    },
+
+    // for changing password
+    changePassword(params) {
+        return request({
+            url: `/api/user/changePassword`,
+            method: 'post',
+            data: params
+        })
     }
 
 }

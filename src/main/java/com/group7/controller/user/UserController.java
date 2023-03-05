@@ -2,6 +2,7 @@ package com.group7.controller.user;
 
 
 import com.group7.controller.auth.payload.LoginRequest;
+import com.group7.controller.user.payload.ChangePasswordRequest;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtils;
@@ -9,8 +10,11 @@ import com.group7.service.UserService;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,10 +31,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private static final String[] PIC_TYPES = new String[]{"bmp", "jpg", "jpeg", "png", "gif", "svg"};
+    @Autowired
+    PasswordEncoder encoder;
 
     @Resource
     JwtUtils jwtUtils;
+
+    // The allowed picture type for uploading
+    private static final String[] PIC_TYPES = new String[]{"bmp", "jpg", "jpeg", "png", "gif", "svg"};
 
     @RequestMapping("/getUser")
     public R getUser(HttpServletRequest request) {
@@ -99,6 +107,53 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(R.ok().data("avatar", newFileName).data("user", user));
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest, BindingResult bindingResult, HttpServletRequest request){
+
+        // check login
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: You should login first."));
+        }
+
+        // check the auto validation defined in SignupRequest
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // check the email
+        if (!changePasswordRequest.getEmail().equals(user.getEmail())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: Email does not match your account!"));
+        }
+
+        // check old password
+        if (!encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: You have to enter the correct old password!"));
+        }
+
+        // check two new passwords
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getReNewPassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: Two new passwords do not match!"));
+        }
+
+        // update the password for user
+        user.setPassword(encoder.encode(changePasswordRequest.getNewPassword()));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(R.ok().data("user", user));
+
     }
 
 }
