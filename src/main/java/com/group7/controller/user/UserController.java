@@ -3,6 +3,7 @@ package com.group7.controller.user;
 
 import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.user.payload.ChangePasswordRequest;
+import com.group7.controller.user.payload.EditPersonalInfoRequest;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtils;
@@ -120,7 +121,7 @@ public class UserController {
                     .body(R.error().message("Failed: You should login first."));
         }
 
-        // check the auto validation defined in SignupRequest
+        // check the auto validation
         if(bindingResult.hasErrors()){
             return ResponseEntity
                     .badRequest()
@@ -154,6 +155,63 @@ public class UserController {
 
         return ResponseEntity.ok(R.ok().data("user", user));
 
+    }
+
+    @PostMapping("/editPersonalInfo")
+    public ResponseEntity<?> editPersonalInfo(@Valid @RequestBody EditPersonalInfoRequest editPersonalInfoRequest, BindingResult bindingResult, HttpServletRequest request){
+
+        // get the current user
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        // check the auto validation
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // get info from request
+        String username = editPersonalInfoRequest.getUsername();
+        String email = editPersonalInfoRequest.getEmail();
+        String bio = editPersonalInfoRequest.getBio();
+
+        // check the username
+        // if username changed
+        if (!username.equals(user.getUsername())){
+            // if taken by another user
+            if (userRepository.existsByUsername(username)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Failed: This username has already been taken!"));
+            }
+
+            // update username
+            user.setUsername(username);
+        }
+
+        // check the email
+        if (!email.equals(user.getEmail())){
+            // if taken by another user
+            if (userRepository.existsByEmail(email)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Failed: This email is already in use!"));
+            }
+
+            // update email
+            user.setEmail(email);
+        }
+
+        // check the bio
+        if (!bio.equals(user.getBio())){
+            // update bio
+            user.setBio(bio);
+        }
+
+        // update db
+        userRepository.save(user);
+
+        return ResponseEntity.ok(R.ok().data("user", user));
     }
 
 }

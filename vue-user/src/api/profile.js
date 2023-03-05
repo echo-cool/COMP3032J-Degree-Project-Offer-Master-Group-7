@@ -21,6 +21,14 @@ export default{
             method: 'post',
             data: params
         })
+    },
+
+    editPersonalInfo(params){
+        return request({
+            url: `/api/user/editPersonalInfo`,
+            method: 'post',
+            data: params
+        })
     }
 
 }

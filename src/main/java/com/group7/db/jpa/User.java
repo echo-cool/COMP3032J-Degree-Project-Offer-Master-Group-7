@@ -42,6 +42,8 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    @Size(max = 1200)
+    private String bio = ""; // self-intro
 
     @Column(nullable = false)
     private String avatar = "profile-01.jpg";
@@ -163,5 +165,13 @@ public class User {
 
     public void setBackgroundId(Profile backgroundId) {
         this.backgroundId = backgroundId;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

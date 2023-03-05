@@ -37,6 +37,16 @@
                                     <i class="feather-user"/> Personal Information
                                 </button>
                                 <button class="nav-link"
+                                        id="nav-background-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#nav-application-background"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="nav-application-background"
+                                        aria-selected="false">
+                                    <i class="feather-book-open"/> My Application Background
+                                </button>
+                                <button class="nav-link"
                                         id="nav-profile-tab"
                                         data-bs-toggle="tab"
                                         data-bs-target="#nav-profile"
@@ -61,6 +71,8 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-12 mt_sm--30">
                         <div class="tab-content tab-content-edit-wrapepr" id="nav-tabContent">
+
+                            <!-- Avatar Panel -->
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="nuron-information">
                                     <div class="profile-change row g-5">
@@ -120,6 +132,7 @@
                                 </div>
                             </div>
 
+                            <!-- Personal Info Panel -->
                             <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="nuron-information">
                                     <div class="profile-form-wrapper">
@@ -135,17 +148,92 @@
 <!--                                        </div>-->
                                         <div class="email-area mb--15">
                                             <label for="username" class="form-label">Change Your Username</label>
-                                            <input id="username" type="text" value="Luca">
+                                            <input id="username" type="text" v-model="currentUser.username">
                                         </div>
                                         <div class="email-area">
                                             <label for="Email" class="form-label">Edit Your Email</label>
-                                            <input id="Email" type="email" value="Luca@gmail.com">
+                                            <input id="Email" type="email" v-model="currentUser.email">
                                         </div>
                                     </div>
                                     <div class="edit-bio-area mt--30">
-                                        <label for="description" class="form-label">Edit Your Bio</label>
-                                        <textarea id="description">Hello, I am Luca who is applying for the oversea university programs...</textarea>
+                                        <label for="description" class="form-label">Edit Your Brief Introduction</label>
+                                        <textarea id="description" placeholder="e.g. Hello everyone, I am ... who is applying for the oversea university programs..." v-model="currentUser.bio"></textarea>
                                     </div>
+
+<!--                                    <div class="input-two-wrapepr-prifile">-->
+<!--                                        <div class="role-area mt&#45;&#45;15">-->
+<!--                                            <label for="gpa" class="form-label mb&#45;&#45;10">Your Graduate GPA</label>-->
+<!--                                            <input id="gpa" type="number" value="3.81">-->
+<!--                                        </div>-->
+<!--                                        <select class="profile-edit-select">-->
+<!--                                            <option selected>Select Your English Proficiency Test</option>-->
+<!--                                            <option value="1">IELTS</option>-->
+<!--                                            <option value="2">TOEFL</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Currency</option>-->
+<!--                                                <option value="1">($)USD</option>-->
+<!--                                                <option value="2">wETH</option>-->
+<!--                                                <option value="3">BIT Coin</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="PhoneNumber" class="form-label">Phone Number</label>-->
+<!--                                            <input id="PhoneNumber" type="text" value="+880100000000">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Location</option>-->
+<!--                                                <option value="1">United State</option>-->
+<!--                                                <option value="2">Katar</option>-->
+<!--                                                <option value="3">Canada</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="address" class="form-label">Address</label>-->
+<!--                                            <input id="address" type="text" value="USA Cidni">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="button-area save-btn-edit">
+<!--                                        <a href="#" class="btn btn-primary-alta mr&#45;&#45;15" @click="alert('Cancel Edit Profile?')">Cancel</a>-->
+                                        <a href="#" class="btn btn-primary" @click="editPersonalInfo()">Save</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Application Background Panel -->
+                            <div class="tab-pane fade" id="nav-application-background" role="tabpanel" aria-labelledby="nav-background-tab">
+                                <div class="nuron-information">
+<!--                                    <div class="profile-form-wrapper">-->
+<!--                                        <div class="input-two-wrapper mb&#45;&#45;15">-->
+<!--                                            <div class="first-name half-wid">-->
+<!--                                                <label for="contact-name" class="form-label">First Name</label>-->
+<!--                                                <input id="contact-name" type="text" value="Mr.">-->
+<!--                                            </div>-->
+<!--                                            <div class="last-name half-wid">-->
+<!--                                                <label for="contact-name-last" class="form-label">Last Name</label>-->
+<!--                                                <input id="contact-name-last" type="text" value="Sunayra">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="email-area mb&#45;&#45;15">-->
+<!--                                            <label for="username" class="form-label">Change Your Username</label>-->
+<!--                                            <input id="username" type="text" value="Luca">-->
+<!--                                        </div>-->
+<!--                                        <div class="email-area">-->
+<!--                                            <label for="Email" class="form-label">Edit Your Email</label>-->
+<!--                                            <input id="Email" type="email" value="Luca@gmail.com">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="edit-bio-area mt&#45;&#45;30">-->
+<!--                                        <label for="description" class="form-label">Edit Your Bio</label>-->
+<!--                                        <textarea id="description">Hello, I am Luca who is applying for the oversea university programs...</textarea>-->
+<!--                                    </div>-->
                                     <div class="input-two-wrapepr-prifile">
                                         <div class="role-area mt--15">
                                             <label for="gpa" class="form-label mb--10">Your Graduate GPA</label>
@@ -193,6 +281,7 @@
                                 </div>
                             </div>
 
+                            <!-- Password Management Panel -->
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="nuron-information">
                                     <div class="condition">
@@ -227,6 +316,7 @@
                                 </div>
                             </div>
 
+                            <!-- Notification Setting Panel -->
                             <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <div class="nuron-information">
                                     <h5 class="title">Make Sure Your Notification setting </h5>
@@ -354,7 +444,10 @@
         data(){
             return {
                 currentUser: {
-                    avatar: ""
+                    avatar: "",
+                    email: "",
+                    username: "",
+                    bio: ""
                 },
 
                 changePasswordParams: {
@@ -375,6 +468,7 @@
         },
 
         methods: {
+            // after selecting an image when changing avatar, this function would be called
             previewImage(e, id) {
                 if (e.target.files && e.target.files.length > 0) {
                     // preview
@@ -429,6 +523,31 @@
                     .then(response => {
                         // notify user
                         window.alert("Password changed successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
+            },
+
+            editPersonalInfo(){
+                // trim the spaces in the user inputs
+                this.currentUser.email = this.currentUser.email.trim();
+                this.currentUser.username = this.currentUser.username.trim();
+                this.currentUser.bio = this.currentUser.bio.trim();
+
+                // call the api method
+                profileApi.editPersonalInfo(this.currentUser)
+                    .then(response => {
+                        // notify user
+                        window.alert("Personal info changed successfully!");
 
                         // update the current_user and cookie
                         this.currentUser = response.data.user;
