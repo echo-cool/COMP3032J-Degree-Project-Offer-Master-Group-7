@@ -28,6 +28,20 @@ maven-package:
     paths:
     - target/*.jar
 
+npm-packag-front:
+  image: node:16.19.1
+  stage: build
+  script:
+  - cd vue-user/
+  - npm install .
+  - npm run build
+  artifacts:
+    paths:
+    - dist/
+
+
+
+
 #docker-image:
 #  tags:
 #    - shell
