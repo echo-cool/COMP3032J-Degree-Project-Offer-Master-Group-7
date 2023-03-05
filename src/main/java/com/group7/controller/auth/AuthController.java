@@ -1,6 +1,7 @@
 package com.group7.controller.auth;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,8 +10,10 @@ import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.auth.payload.SignupRequest;
 import com.group7.controller.user.UserDetailsImpl;
 import com.group7.db.jpa.*;
+import com.group7.service.UserService;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +22,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author: WangYuyang
@@ -53,10 +54,33 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
 
+        // check the auto validation defined in LoginRequest
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // check if the user exist
+        User user = userRepository.findByEmail(loginRequest.getEmail()).orElse(null);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: User does not exist!"));
+        }
+
+        // check the password
+        if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: Wrong password!"));
+        }
+
+        // for authentication and token generation
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -70,27 +94,45 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getAvatar(),
                 roles));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, BindingResult bindingResult) {
+
+        // check the auto validation defined in SignupRequest
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // check username duplication
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(R.error().message("Error: Username is already taken!"));
         }
 
+        // check email duplication
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(R.error().message("Error: Email is already in use!"));
         }
 
+        // check two passwords
+        if (!signUpRequest.getPassword().equals(signUpRequest.getRePassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Error: Two passwords do not match!"));
+        }
+
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                                signUpRequest.getEmail(),
+                                encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -127,7 +169,23 @@ public class AuthController {
 
         return ResponseEntity.ok(R.ok().message("User registered successfully!"));
     }
+
+    @GetMapping(value = "/getUserInfo")
+    public ResponseEntity<?> getUserByToken(HttpServletRequest request){
+        // find user from the token in request header
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Invalid token! User not found! You should login first."));
+        }
+
+        // return the user info
+        return ResponseEntity.ok(R.ok().data("user", user));
+    }
+
 }
+
 //@RestController
 //@RequestMapping(value = "/api")
 //public class AuthController {

@@ -10,9 +10,14 @@ package com.group7.utils.common;
 import java.util.Date;
 
 import com.group7.controller.user.UserDetailsImpl;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +32,9 @@ public class JwtUtils {
 
     @Value("${bezkoder.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -61,5 +69,28 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Find out the user by using the token in the request header.
+     * @param request a http request with the token in its header
+     */
+    public User getUserFromRequestByToken(HttpServletRequest request){
+        // get token from the request header
+        String token = request.getHeader("token");
+        if (!validateJwtToken(token)){
+            // user does not log in
+            return null;
+        }
+
+        // get username from token
+        String username = getUserNameFromJwtToken(token);
+        // query user from db
+        if (!userRepository.findByUsername(username).isPresent()){
+            return null;
+        }
+
+        User user = userRepository.findByUsername(username).get();
+        return user;
     }
 }
