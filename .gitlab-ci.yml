@@ -7,26 +7,26 @@
 variables:
   GIT_STRATEGY: clone
 stages:
-# - test
+- test
 - build
 #- docker
 - deploy
-# maven-test:
-#   image: maven:3.8.3-openjdk-17
-#   stage: test
-#   script:
-#   - ./mvnw clean
-#   - ./mvnw test
-#   - cat target/site/jacoco/index.html
-# maven-package:
-#   image: maven:3.8.3-openjdk-17
-#   stage: build
-#   script:
-#   - ./mvnw clean
-#   - ./mvnw package -DskipTests
-#   artifacts:
-#     paths:
-#     - target/*.jar
+maven-test:
+  image: maven:3.8.3-openjdk-17
+  stage: test
+  script:
+  - ./mvnw clean
+  - ./mvnw test
+  - cat target/site/jacoco/index.html
+maven-package:
+  image: maven:3.8.3-openjdk-17
+  stage: build
+  script:
+  - ./mvnw clean
+  - ./mvnw package -DskipTests
+  artifacts:
+    paths:
+    - target/*.jar
 
 npm-packag-front:
   image: node:16.19.1
@@ -38,7 +38,7 @@ npm-packag-front:
   - tar -zcvf dist-front.tar.gz dist/
   artifacts:
     paths:
-    - dist-front.tar.gz
+    - vue-user/dist-front.tar.gz
 
 npm-packag-back:
   image: node:16.19.1
@@ -50,7 +50,7 @@ npm-packag-back:
   - tar -zcvf dist-back.tar.gz dist/
   artifacts:
     paths:
-    - dist-back.tar.gz
+    - vue-element-admin-4.4.0/dist-back.tar.gz
 
 
 
