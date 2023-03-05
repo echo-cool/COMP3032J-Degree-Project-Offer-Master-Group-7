@@ -46,10 +46,11 @@ public class UserController {
         if (Objects.equals(request.getMethod(), "GET")) {
             String token = request.getHeader("Authorization");
 
-            String username = jwtUtils.getUserNameFromJwtToken(token.split(" ")[1]);
+//            String username = jwtUtils.getUserNameFromJwtToken(token.split(" ")[1]);
+//            User user = userRepository.findByUsername(username).orElse(null);
 
-//            String id = request.getAttribute("id").toString();
-            User user = userRepository.findByUsername(username).orElse(null);
+            long userId = jwtUtils.getUserIdFromJwtToken(token.split(" ")[1]);
+            User user = userRepository.findById(userId).orElse(null);
 
             if (user != null) {
                 return R.ok().data("data", user);

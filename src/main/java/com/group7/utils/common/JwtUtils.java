@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +40,7 @@ public class JwtUtils {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject(String.valueOf(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -50,6 +49,11 @@ public class JwtUtils {
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public long getUserIdFromJwtToken(String token){
+        String idStr = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Long.parseLong(idStr);
     }
 
     public boolean validateJwtToken(String authToken) {
@@ -83,14 +87,14 @@ public class JwtUtils {
             return null;
         }
 
-        // get username from token
-        String username = getUserNameFromJwtToken(token);
+        // get user id from token
+        long userId = getUserIdFromJwtToken(token);
         // query user from db
-        if (!userRepository.findByUsername(username).isPresent()){
+        if(!userRepository.existsById(userId)){
             return null;
         }
 
-        User user = userRepository.findByUsername(username).get();
+        User user = userRepository.findById(userId).get();
         return user;
     }
 }
