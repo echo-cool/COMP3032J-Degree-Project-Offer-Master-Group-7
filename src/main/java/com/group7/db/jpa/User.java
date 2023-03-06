@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import io.sentry.protocol.App;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -66,6 +67,14 @@ public class User {
     @OneToOne
     @JoinColumn(name = "background", referencedColumnName = "id")
     private Profile backgroundId;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_applications",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "application_id"))
+    private Set<Application> applications = new HashSet<>();
+
 
 
     public User(String username, String email, String password, Set<Role> roles) {
@@ -163,5 +172,13 @@ public class User {
 
     public void setBackgroundId(Profile backgroundId) {
         this.backgroundId = backgroundId;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 }

@@ -26,6 +26,9 @@ public class Program {
 //    @JoinColumn(name="program_id")
     private School school;
 
+    @OneToOne(mappedBy = "program")
+    private Application application;
+
     public Program(String name, School school) {
         this.name = name;
         this.school = school;
