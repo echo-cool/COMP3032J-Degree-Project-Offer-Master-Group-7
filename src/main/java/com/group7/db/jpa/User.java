@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -56,6 +57,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Profile profile = new Profile(this);
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -65,9 +67,9 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     // The applicant background of this user
-    @OneToOne
-    @JoinColumn(name = "background", referencedColumnName = "id")
-    private Profile backgroundId;
+//    @OneToOne
+//    @JoinColumn(name = "background", referencedColumnName = "id")
+//    private Profile backgroundId;
 
 
     public User(String username, String email, String password, Set<Role> roles) {
@@ -159,13 +161,13 @@ public class User {
         this.roles = roles;
     }
 
-    public Profile getBackgroundId() {
-        return backgroundId;
-    }
-
-    public void setBackgroundId(Profile backgroundId) {
-        this.backgroundId = backgroundId;
-    }
+//    public Profile getBackgroundId() {
+//        return backgroundId;
+//    }
+//
+//    public void setBackgroundId(Profile backgroundId) {
+//        this.backgroundId = backgroundId;
+//    }
 
     public String getBio() {
         return bio;

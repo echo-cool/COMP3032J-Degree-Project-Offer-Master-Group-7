@@ -237,7 +237,7 @@
                                     <div class="input-two-wrapepr-prifile">
                                         <div class="role-area mt--15">
                                             <label for="gpa" class="form-label mb--10">Your Graduate GPA</label>
-                                            <input id="gpa" type="number" value="3.81">
+                                            <input id="gpa" type="number" v-model="currentUser.profile.gpa">
                                         </div>
                                         <select class="profile-edit-select">
                                             <option selected>Select Your English Proficiency Test</option>
@@ -275,8 +275,8 @@
                                         </div>
                                     </div>
                                     <div class="button-area save-btn-edit">
-                                        <a href="#" class="btn btn-primary-alta mr--15" @click="alert('Cancel Edit Profile?')">Cancel</a>
-                                        <a href="#" class="btn btn-primary" @click="alert('Successfully Saved Your Profile?')">Save</a>
+<!--                                        <a href="#" class="btn btn-primary-alta mr&#45;&#45;15" @click="alert('Cancel Edit Profile?')">Cancel</a>-->
+                                        <a href="#" class="btn btn-primary" @click="editApplyBackground()">Save</a>
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +447,10 @@
                     avatar: "",
                     email: "",
                     username: "",
-                    bio: ""
+                    bio: "",
+                    profile: {
+                        gpa: ""
+                    }
                 },
 
                 changePasswordParams: {
@@ -548,6 +551,26 @@
                     .then(response => {
                         // notify user
                         window.alert("Personal info changed successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
+            },
+
+            editApplyBackground(){
+                // call the api method
+                profileApi.editApplyBackground(this.currentUser.profile)
+                    .then(response => {
+                        // notify user
+                        window.alert("Application background updated successfully!");
 
                         // update the current_user and cookie
                         this.currentUser = response.data.user;

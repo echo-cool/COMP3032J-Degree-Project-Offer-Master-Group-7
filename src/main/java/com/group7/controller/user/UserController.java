@@ -3,7 +3,10 @@ package com.group7.controller.user;
 
 import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.user.payload.ChangePasswordRequest;
+import com.group7.controller.user.payload.EditBackgroundRequest;
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
+import com.group7.db.jpa.Profile;
+import com.group7.db.jpa.ProfileRepository;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
 import com.group7.utils.common.JwtUtils;
@@ -28,6 +31,9 @@ public class UserController {
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private ProfileRepository profileRepository;
 
     @Autowired
     private UserService userService;
@@ -215,4 +221,24 @@ public class UserController {
         return ResponseEntity.ok(R.ok().data("user", user));
     }
 
+    @PostMapping("/editApplicationBackground")
+    public ResponseEntity<?> editApplicationBackground(@Valid @RequestBody EditBackgroundRequest editBackgroundRequest, BindingResult bindingResult, HttpServletRequest request){
+
+        // get the current user
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        // check the auto validation
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // update the background for user
+        Profile profile = user.getProfile();
+        profile.setGpa(editBackgroundRequest.getGpa());
+        profileRepository.save(profile);
+
+        return ResponseEntity.ok(R.ok().data("user", user));
+    }
 }

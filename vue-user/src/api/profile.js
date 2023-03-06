@@ -29,6 +29,14 @@ export default{
             method: 'post',
             data: params
         })
+    },
+
+    editApplyBackground(params){
+        return request({
+            url: `/api/user/editApplicationBackground`,
+            method: 'post',
+            data: params
+        })
     }
 
 }
