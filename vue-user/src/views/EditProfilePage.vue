@@ -210,70 +210,234 @@
                             <!-- Application Background Panel -->
                             <div class="tab-pane fade" id="nav-application-background" role="tabpanel" aria-labelledby="nav-background-tab">
                                 <div class="nuron-information">
-<!--                                    <div class="profile-form-wrapper">-->
-<!--                                        <div class="input-two-wrapper mb&#45;&#45;15">-->
-<!--                                            <div class="first-name half-wid">-->
-<!--                                                <label for="contact-name" class="form-label">First Name</label>-->
-<!--                                                <input id="contact-name" type="text" value="Mr.">-->
-<!--                                            </div>-->
-<!--                                            <div class="last-name half-wid">-->
-<!--                                                <label for="contact-name-last" class="form-label">Last Name</label>-->
-<!--                                                <input id="contact-name-last" type="text" value="Sunayra">-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="email-area mb&#45;&#45;15">-->
-<!--                                            <label for="username" class="form-label">Change Your Username</label>-->
-<!--                                            <input id="username" type="text" value="Luca">-->
-<!--                                        </div>-->
-<!--                                        <div class="email-area">-->
-<!--                                            <label for="Email" class="form-label">Edit Your Email</label>-->
-<!--                                            <input id="Email" type="email" value="Luca@gmail.com">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="edit-bio-area mt&#45;&#45;30">-->
-<!--                                        <label for="description" class="form-label">Edit Your Bio</label>-->
-<!--                                        <textarea id="description">Hello, I am Luca who is applying for the oversea university programs...</textarea>-->
-<!--                                    </div>-->
-                                    <div class="input-two-wrapepr-prifile">
-                                        <div class="role-area mt--15">
-                                            <label for="gpa" class="form-label mb--10">Your Graduate GPA</label>
-                                            <input id="gpa" type="number" v-model="currentUser.profile.gpa">
+
+                                    <h5 class="title">Application Target</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="apply-round" class="form-label mb--10">Application Round</label>
+                                            <select id="apply-round" class="profile-edit-select mt--0">
+                                                <option value="1">2023 - Fall</option>
+                                                <option value="1">2023 - Spring</option>
+                                                <option value="1">2023 - Summer</option>
+                                                <option value="1">2024 - Fall</option>
+                                                <option value="1">2024 - Spring</option>
+                                                <option value="1">2024 - Summer</option>
+                                                <option value="1">2025 - Fall</option>
+                                                <option value="1">2025 - Spring</option>
+                                                <option value="1">2025 - Summer</option>
+                                            </select>
                                         </div>
-                                        <select class="profile-edit-select">
-                                            <option selected>Select Your English Proficiency Test</option>
-                                            <option value="1">IELTS</option>
-                                            <option value="2">TOEFL</option>
-                                        </select>
+                                        <div class="half-wid ml--15">
+                                            <label for="apply-degree" class="form-label mb--10">Target Degree</label>
+                                            <select id="apply-degree" class="profile-edit-select mt--0">
+                                                <option value="1">PhD</option>
+                                                <option value="1">MS</option>
+                                                <option value="1">MEng</option>
+                                                <option value="1">MA</option>
+                                                <option value="1">MPhil</option>
+                                                <option value="1">MPH</option>
+                                                <option value="1">MBA</option>
+                                                <option value="1">LLM</option>
+                                                <option value="1">MEd</option>
+                                                <option value="1">JD</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="input-two-wrapper mt--15">
-                                        <div class="half-wid currency">
-                                            <select class="profile-edit-select">
-                                                <option selected>Currency</option>
-                                                <option value="1">($)USD</option>
-                                                <option value="2">wETH</option>
-                                                <option value="3">BIT Coin</option>
+                                        <div class="half-wid">
+                                            <label for="apply-major" class="form-label mb--10">Major to Apply</label>
+                                            <select id="apply-major" class="profile-edit-select mt--0">
+                                                <option value="1">CS</option>
+                                                <option value="1">MIS</option>
+                                                <option value="1">EE</option>
+                                                <option value="1">BME</option>
+                                                <option value="1">ME</option>
+                                                <option value="1">IEOR</option>
+                                                <option value="1">Stat / Biostat</option>
+                                                <option value="1">BioInfo</option>
+                                                <option value="1">MFE/Fin/FinMath</option>
+                                                <option value="1">Econ/Biz</option>
+                                                <option value="1">Math/AppliedMath</option>
+                                                <option value="1">Physics</option>
+                                                <option value="1">Accounting</option>
+                                                <option value="1">Chemical</option>
+                                                <option value="1">Material</option>
+                                                <option value="1">Education</option>
+                                                <option value="1">Computer Engineering</option>
+                                                <option value="1">HCI</option>
+                                                <option value="1">Law</option>
+                                                <option value="1">Psychology</option>
+                                                <option value="1">other</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid ml--15">
+                                            <label for="ad-type" class="form-label mb--10">Target Offer Type</label>
+                                            <select id="ad-type" class="profile-edit-select mt--0">
+                                                <option value="1">AD - With Fellowship</option>
+                                                <option value="1">AD - Without Fellowship</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="title mt--50">Undergraduate Background</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="school-classify" class="form-label mb--10">Undergraduate School Classification</label>
+                                            <select id="school-classify" class="profile-edit-select mt--0">
+                                                <option value="1">Oversea Undergraduate</option>
+                                                <option value="2">Tsinghua University / Peking University</option>
+                                                <option value="3">Top 15</option>
+                                                <option value="3">Top 30</option>
+                                                <option value="3">Other 985 / 211</option>
+                                                <option value="3">Not 985 / 211</option>
                                             </select>
                                         </div>
                                         <div class="half-wid phone-number">
-                                            <label for="PhoneNumber" class="form-label">Phone Number</label>
-                                            <input id="PhoneNumber" type="text" value="+880100000000">
+                                            <label for="school-name" class="form-label mb--10">Your Undergraduate School</label>
+                                            <input id="school-name" type="text" >
                                         </div>
                                     </div>
-                                    <div class="input-two-wrapper mt--15">
-                                        <div class="half-wid currency">
-                                            <select class="profile-edit-select">
-                                                <option selected>Location</option>
-                                                <option value="1">United State</option>
-                                                <option value="2">Katar</option>
-                                                <option value="3">Canada</option>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="gpa" class="form-label mb--10">GPA</label>
+                                                <input id="gpa" type="number" v-model="currentUser.profile.gpa">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="rank" class="form-label mb--10">Rank</label>
+                                                <input id="rank" type="number">
+                                            </div>
+                                        </div>
+                                        <div class="role-area mt--15 w-100 ml--25">
+                                            <label for="major" class="form-label mb--10">Undergraduate Major</label>
+                                            <select id="major" class="profile-edit-select w-100 mt--0 m-lg-0">
+                                                <option value="1">CS</option>
+                                                <option value="1">MIS</option>
+                                                <option value="1">EE</option>
+                                                <option value="1">BME</option>
+                                                <option value="1">ME</option>
+                                                <option value="1">IEOR</option>
+                                                <option value="1">Stat / Biostat</option>
+                                                <option value="1">BioInfo</option>
+                                                <option value="1">MFE/Fin/FinMath</option>
+                                                <option value="1">Econ/Biz</option>
+                                                <option value="1">Math/AppliedMath</option>
+                                                <option value="1">Physics</option>
+                                                <option value="1">Accounting</option>
+                                                <option value="1">Chemical</option>
+                                                <option value="1">Material</option>
+                                                <option value="1">Education</option>
+                                                <option value="1">Computer Engineering</option>
+                                                <option value="1">HCI</option>
+                                                <option value="1">Law</option>
+                                                <option value="1">Psychology</option>
+                                                <option value="1">other</option>
                                             </select>
                                         </div>
-                                        <div class="half-wid phone-number">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input id="address" type="text" value="USA Cidni">
+                                    </div>
+
+                                    <h5 class="title mt--50">English Proficiency Tests</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="score-type" class="form-label mb--10">English Proficiency Test Type</label>
+                                            <select id="score-type" class="profile-edit-select mt--0">
+                                                <option value="1">IELTS</option>
+                                                <option value="1">TOEFL</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid ml--15">
+                                            <label for="score-total" class="form-label mb--10">Total Score</label>
+                                            <input id="score-total" type="number">
                                         </div>
                                     </div>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="score-listening" class="form-label mb--10">Listening</label>
+                                                <input id="score-listening" type="number">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="score-speaking" class="form-label mb--10">Speaking</label>
+                                                <input id="score-speaking" type="number">
+                                            </div>
+                                        </div>
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="score-reading" class="form-label mb--10">Reading</label>
+                                                <input id="score-reading" type="number">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="score-writing" class="form-label mb--10">Writing</label>
+                                                <input id="score-writing" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="title mt--50">Graduate Record Examination (GRE)</h5>
+                                    <hr/>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area">
+                                                <label for="gre-total" class="form-label mb--10">Total Score</label>
+                                                <input id="gre-total" type="number">
+                                            </div>
+                                            <div class="role-area">
+                                                <label for="gre-aw" class="form-label mb--10">Analytical Writing</label>
+                                                <input id="gre-aw" type="number">
+                                            </div>
+                                        </div>
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area">
+                                                <label for="gre-v" class="form-label mb--10">Verbal</label>
+                                                <input id="gre-v" type="number">
+                                            </div>
+                                            <div class="role-area">
+                                                <label for="gre-q" class="form-label mb--10">Quantitative</label>
+                                                <input id="gre-q" type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Currency</option>-->
+<!--                                                <option value="1">($)USD</option>-->
+<!--                                                <option value="2">wETH</option>-->
+<!--                                                <option value="3">BIT Coin</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="PhoneNumber" class="form-label">Phone Number</label>-->
+<!--                                            <input id="PhoneNumber" type="text" value="+880100000000">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Location</option>-->
+<!--                                                <option value="1">United State</option>-->
+<!--                                                <option value="2">Katar</option>-->
+<!--                                                <option value="3">Canada</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="address" class="form-label">Address</label>-->
+<!--                                            <input id="address" type="text" value="USA Cidni">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+
                                     <div class="button-area save-btn-edit">
 <!--                                        <a href="#" class="btn btn-primary-alta mr&#45;&#45;15" @click="alert('Cancel Edit Profile?')">Cancel</a>-->
                                         <a href="#" class="btn btn-primary" @click="editApplyBackground()">Save</a>
