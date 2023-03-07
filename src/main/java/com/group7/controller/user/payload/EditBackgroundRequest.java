@@ -21,20 +21,21 @@ public class EditBackgroundRequest {
 
     @NotBlank(message = "You should select your target degree.")
     @Size(message = "The target degree should between {min} and {max} chars.", min = 1, max = 45)
-    private String TargetDegree;
+    private String targetDegree;
 
     @NotBlank(message = "You should select your target major.")
     @Size(message = "The target major should between {min} and {max} chars.", min = 1, max = 45)
-    private String TargetMajor;
+    private String targetMajor;
 
     @NotBlank(message = "You should select your target offer type.")
     @Size(message = "The target offer type should between {min} and {max} chars.", min = 1, max = 45)
-    private String TargetOfferType;
+    private String targetOfferType;
 
     // Undergraduate Background
 
     @NotNull(message = "You should input your GPA.")
     @Digits(message = "GPA should range from 0 to 4 with at most two decimal digits.", integer = 1, fraction = 2)
+    @Range(message = "GPA should range from {min} to {max}", min = 0, max = 4)
     private double gpa;
 
     @NotNull(message = "You should input the rank.")
@@ -60,18 +61,23 @@ public class EditBackgroundRequest {
     private String testType;
 
     @Digits(message = "IELTS score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double totalIELTS;
 
     @Digits(message = "IELTS listening score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double listeningIELTS;
 
     @Digits(message = "IELTS speaking score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double speakingIELTS;
 
     @Digits(message = "IELTS reading score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double readingIELTS;
 
     @Digits(message = "IELTS writing score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double writingIELTS;
 
     @Range(message = "The TOEFL score should range from {min} to {max}", min = 0, max = 120)
@@ -127,27 +133,27 @@ public class EditBackgroundRequest {
     }
 
     public String getTargetDegree() {
-        return TargetDegree;
+        return targetDegree;
     }
 
     public void setTargetDegree(String targetDegree) {
-        TargetDegree = targetDegree;
+        this.targetDegree = targetDegree;
     }
 
     public String getTargetMajor() {
-        return TargetMajor;
+        return targetMajor;
     }
 
     public void setTargetMajor(String targetMajor) {
-        TargetMajor = targetMajor;
+        this.targetMajor = targetMajor;
     }
 
     public String getTargetOfferType() {
-        return TargetOfferType;
+        return targetOfferType;
     }
 
     public void setTargetOfferType(String targetOfferType) {
-        TargetOfferType = targetOfferType;
+        this.targetOfferType = targetOfferType;
     }
 
     public int getRank() {

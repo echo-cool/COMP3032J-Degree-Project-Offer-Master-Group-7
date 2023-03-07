@@ -222,7 +222,7 @@ public class UserController {
     }
 
     @PostMapping("/editApplicationBackground")
-    public ResponseEntity<?> editApplicationBackground(@Valid @RequestBody EditBackgroundRequest editBackgroundRequest, BindingResult bindingResult, HttpServletRequest request){
+    public ResponseEntity<?> editApplicationBackground(@Valid @RequestBody EditBackgroundRequest ebRequest, BindingResult bindingResult, HttpServletRequest request){
 
         // get the current user
         User user = jwtUtils.getUserFromRequestByToken(request);
@@ -234,9 +234,107 @@ public class UserController {
                     .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
         }
 
-        // update the background for user
+        // get the background obj of this user
         Profile profile = user.getProfile();
-        profile.setGpa(editBackgroundRequest.getGpa());
+
+        // check English proficiency test type
+        if (ebRequest.getTestType().equals("IELTS")){
+            // get scores
+            double ieltsTotal = ebRequest.getTotalIELTS();
+            double ieltsL = ebRequest.getListeningIELTS();
+            double ieltsS = ebRequest.getSpeakingIELTS();
+            double ieltsR = ebRequest.getReadingIELTS();
+            double ieltsW = ebRequest.getWritingIELTS();
+            // get the decimal part
+            int dT = Integer.parseInt(String.valueOf(ieltsTotal).split("\\.")[1]);
+            int dL = Integer.parseInt(String.valueOf(ieltsL).split("\\.")[1]);
+            int dS = Integer.parseInt(String.valueOf(ieltsS).split("\\.")[1]);
+            int dR = Integer.parseInt(String.valueOf(ieltsR).split("\\.")[1]);
+            int dW = Integer.parseInt(String.valueOf(ieltsW).split("\\.")[1]);
+            // the decimal part can be 0 or 5 only
+            if ((dT != 0 && dT != 5) ||
+                    (dL != 0 && dL != 5) ||
+                    (dS != 0 && dS != 5) ||
+                    (dR != 0 && dR != 5) ||
+                    (dW != 0 && dW != 5)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Failed: The decimal part of IELTS score should be 0 or 5 only!"));
+            }
+            // check if the sub-scores match the total score
+            double initialTotal = (ieltsS + ieltsL + ieltsR + ieltsW) / 4;
+            double realTotal = Math.round(initialTotal * 2) / 2.0;
+            if (ieltsTotal != realTotal){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Failed: The IELTS sub-scores do not match the total score!"));
+            }
+            // update the English Proficiency Tests section (IELTS)
+            profile.setTestType(ebRequest.getTestType());
+            profile.setTotalIELTS(ieltsTotal);
+            profile.setListeningIELTS(ieltsL);
+            profile.setReadingIELTS(ieltsR);
+            profile.setSpeakingIELTS(ieltsS);
+            profile.setWritingIELTS(ieltsW);
+
+        }else if(ebRequest.getTestType().equals("TOEFL")){
+            // get scores
+            int toeflT = ebRequest.getTotalTOEFL();
+            int toeflR = ebRequest.getReadingTOEFL();
+            int toeflL = ebRequest.getListeningTOEFL();
+            int toeflS = ebRequest.getSpeakingTOEFL();
+            int toeflW = ebRequest.getWritingTOEFL();
+            // check if the sub-scores match the total score
+            if (toeflT != (toeflR + toeflL + toeflS + toeflW)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Failed: The TOEFL sub-scores do not match the total score!"));
+            }
+            // update the English Proficiency Tests section (TOEFL)
+            profile.setTestType(ebRequest.getTestType());
+            profile.setTotalTOEFL(toeflT);
+            profile.setReadingTOEFL(toeflR);
+            profile.setListeningTOEFL(toeflL);
+            profile.setSpeakingTOEFL(toeflS);
+            profile.setWritingTOEFL(toeflW);
+
+        }else{
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: English test type Error!"));
+        }
+
+        // check gre score
+        int greT = ebRequest.getGreTotal();
+        int greV = ebRequest.getGreVerbal();
+        int greQ = ebRequest.getGreQuantitative();
+        int greAW = ebRequest.getGreAnalyticalWriting();
+        if (greT != (greV + greQ + greAW)){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: The GRE sub-scores do not match the total score!"));
+        }
+
+        // update the Application Target section
+        profile.setApplicationRound(ebRequest.getApplicationRound());
+        profile.setTargetDegree(ebRequest.getTargetDegree());
+        profile.setTargetMajor(ebRequest.getTargetMajor());
+        profile.setTargetOfferType(ebRequest.getTargetOfferType());
+
+        // update the undergraduate background section
+        profile.setGpa(ebRequest.getGpa());
+        profile.setRank(ebRequest.getRank());
+        profile.setUnderGradSchoolCate(ebRequest.getUnderGradSchoolCate());
+        profile.setUnderGradSchoolName(ebRequest.getUnderGradSchoolName());
+        profile.setUnderGradMajor(ebRequest.getUnderGradMajor());
+
+        // update the GRE section
+        profile.setGreTotal(greT);
+        profile.setGreAnalyticalWriting(greAW);
+        profile.setGreVerbal(greV);
+        profile.setGreQuantitative(greQ);
+
+        // save to db
         profileRepository.save(profile);
 
         return ResponseEntity.ok(R.ok().data("user", user));

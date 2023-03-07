@@ -217,31 +217,31 @@
                                     <div class="input-two-wrapper">
                                         <div class="half-wid">
                                             <label for="apply-round" class="form-label mb--10">Application Round</label>
-                                            <select id="apply-round" class="profile-edit-select mt--0">
-                                                <option value="1">2023 - Fall</option>
-                                                <option value="1">2023 - Spring</option>
-                                                <option value="1">2023 - Summer</option>
-                                                <option value="1">2024 - Fall</option>
-                                                <option value="1">2024 - Spring</option>
-                                                <option value="1">2024 - Summer</option>
-                                                <option value="1">2025 - Fall</option>
-                                                <option value="1">2025 - Spring</option>
-                                                <option value="1">2025 - Summer</option>
+                                            <select id="apply-round" class="profile-edit-select mt--0" v-model="currentUser.profile.applicationRound">
+                                                <option value="2023 - Fall">2023 - Fall</option>
+                                                <option value="2023 - Spring">2023 - Spring</option>
+                                                <option value="2023 - Summer">2023 - Summer</option>
+                                                <option value="2024 - Fall">2024 - Fall</option>
+                                                <option value="2024 - Spring">2024 - Spring</option>
+                                                <option value="2024 - Summer">2024 - Summer</option>
+                                                <option value="2025 - Fall">2025 - Fall</option>
+                                                <option value="2025 - Spring">2025 - Spring</option>
+                                                <option value="2025 - Summer">2025 - Summer</option>
                                             </select>
                                         </div>
                                         <div class="half-wid ml--15">
                                             <label for="apply-degree" class="form-label mb--10">Target Degree</label>
-                                            <select id="apply-degree" class="profile-edit-select mt--0">
-                                                <option value="1">PhD</option>
-                                                <option value="1">MS</option>
-                                                <option value="1">MEng</option>
-                                                <option value="1">MA</option>
-                                                <option value="1">MPhil</option>
-                                                <option value="1">MPH</option>
-                                                <option value="1">MBA</option>
-                                                <option value="1">LLM</option>
-                                                <option value="1">MEd</option>
-                                                <option value="1">JD</option>
+                                            <select id="apply-degree" class="profile-edit-select mt--0" v-model="currentUser.profile.targetDegree">
+                                                <option value="PhD">PhD</option>
+                                                <option value="MS">MS</option>
+                                                <option value="MEng">MEng</option>
+                                                <option value="MA">MA</option>
+                                                <option value="MPhil">MPhil</option>
+                                                <option value="MPH">MPH</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="LLM">LLM</option>
+                                                <option value="MEd">MEd</option>
+                                                <option value="JD">JD</option>
                                             </select>
                                         </div>
                                     </div>
@@ -249,35 +249,35 @@
                                     <div class="input-two-wrapper mt--15">
                                         <div class="half-wid">
                                             <label for="apply-major" class="form-label mb--10">Major to Apply</label>
-                                            <select id="apply-major" class="profile-edit-select mt--0">
-                                                <option value="1">CS</option>
-                                                <option value="1">MIS</option>
-                                                <option value="1">EE</option>
-                                                <option value="1">BME</option>
-                                                <option value="1">ME</option>
-                                                <option value="1">IEOR</option>
-                                                <option value="1">Stat / Biostat</option>
-                                                <option value="1">BioInfo</option>
-                                                <option value="1">MFE/Fin/FinMath</option>
-                                                <option value="1">Econ/Biz</option>
-                                                <option value="1">Math/AppliedMath</option>
-                                                <option value="1">Physics</option>
-                                                <option value="1">Accounting</option>
-                                                <option value="1">Chemical</option>
-                                                <option value="1">Material</option>
-                                                <option value="1">Education</option>
-                                                <option value="1">Computer Engineering</option>
-                                                <option value="1">HCI</option>
-                                                <option value="1">Law</option>
-                                                <option value="1">Psychology</option>
-                                                <option value="1">other</option>
+                                            <select id="apply-major" class="profile-edit-select mt--0" v-model="currentUser.profile.targetMajor">
+                                                <option value="CS">CS</option>
+                                                <option value="MIS">MIS</option>
+                                                <option value="EE">EE</option>
+                                                <option value="BME">BME</option>
+                                                <option value="ME">ME</option>
+                                                <option value="IEOR">IEOR</option>
+                                                <option value="Stat / Biostat">Stat / Biostat</option>
+                                                <option value="BioInfo">BioInfo</option>
+                                                <option value="MFE / Fin / FinMath">MFE / Fin / FinMath</option>
+                                                <option value="Econ / Biz">Econ / Biz</option>
+                                                <option value="Math / AppliedMath">Math / AppliedMath</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Chemical">Chemical</option>
+                                                <option value="Material">Material</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Computer Engineering">Computer Engineering</option>
+                                                <option value="HCI">HCI</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Psychology">Psychology</option>
+                                                <option value="other">other</option>
                                             </select>
                                         </div>
                                         <div class="half-wid ml--15">
                                             <label for="ad-type" class="form-label mb--10">Target Offer Type</label>
-                                            <select id="ad-type" class="profile-edit-select mt--0">
-                                                <option value="1">AD - With Fellowship</option>
-                                                <option value="1">AD - Without Fellowship</option>
+                                            <select id="ad-type" class="profile-edit-select mt--0" v-model="currentUser.profile.targetOfferType">
+                                                <option value="AD - With Fellowship">AD - With Fellowship</option>
+                                                <option value="AD - Without Fellowship">AD - Without Fellowship</option>
                                             </select>
                                         </div>
                                     </div>
@@ -288,18 +288,18 @@
                                     <div class="input-two-wrapper">
                                         <div class="half-wid">
                                             <label for="school-classify" class="form-label mb--10">Undergraduate School Classification</label>
-                                            <select id="school-classify" class="profile-edit-select mt--0">
-                                                <option value="1">Oversea Undergraduate</option>
-                                                <option value="2">Tsinghua University / Peking University</option>
-                                                <option value="3">Top 15</option>
-                                                <option value="3">Top 30</option>
-                                                <option value="3">Other 985 / 211</option>
-                                                <option value="3">Not 985 / 211</option>
+                                            <select id="school-classify" class="profile-edit-select mt--0" v-model="currentUser.profile.underGradSchoolCate">
+                                                <option value="Oversea Undergraduate">Oversea Undergraduate</option>
+                                                <option value="Tsinghua University / Peking University">Tsinghua University / Peking University</option>
+                                                <option value="Top 15">Top 15</option>
+                                                <option value="Top 30">Top 30</option>
+                                                <option value="Other 985 / 211">Other 985 / 211</option>
+                                                <option value="Not 985 / 211">Not 985 / 211</option>
                                             </select>
                                         </div>
                                         <div class="half-wid phone-number">
                                             <label for="school-name" class="form-label mb--10">Your Undergraduate School</label>
-                                            <input id="school-name" type="text" >
+                                            <input id="school-name" type="text" v-model="currentUser.profile.underGradSchoolName">
                                         </div>
                                     </div>
 
@@ -311,33 +311,33 @@
                                             </div>
                                             <div class="role-area mt--15">
                                                 <label for="rank" class="form-label mb--10">Rank</label>
-                                                <input id="rank" type="number">
+                                                <input id="rank" type="number" v-model="currentUser.profile.rank">
                                             </div>
                                         </div>
                                         <div class="role-area mt--15 w-100 ml--25">
                                             <label for="major" class="form-label mb--10">Undergraduate Major</label>
-                                            <select id="major" class="profile-edit-select w-100 mt--0 m-lg-0">
-                                                <option value="1">CS</option>
-                                                <option value="1">MIS</option>
-                                                <option value="1">EE</option>
-                                                <option value="1">BME</option>
-                                                <option value="1">ME</option>
-                                                <option value="1">IEOR</option>
-                                                <option value="1">Stat / Biostat</option>
-                                                <option value="1">BioInfo</option>
-                                                <option value="1">MFE/Fin/FinMath</option>
-                                                <option value="1">Econ/Biz</option>
-                                                <option value="1">Math/AppliedMath</option>
-                                                <option value="1">Physics</option>
-                                                <option value="1">Accounting</option>
-                                                <option value="1">Chemical</option>
-                                                <option value="1">Material</option>
-                                                <option value="1">Education</option>
-                                                <option value="1">Computer Engineering</option>
-                                                <option value="1">HCI</option>
-                                                <option value="1">Law</option>
-                                                <option value="1">Psychology</option>
-                                                <option value="1">other</option>
+                                            <select id="major" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="currentUser.profile.underGradMajor">
+                                                <option value="CS">CS</option>
+                                                <option value="MIS">MIS</option>
+                                                <option value="EE">EE</option>
+                                                <option value="BME">BME</option>
+                                                <option value="ME">ME</option>
+                                                <option value="IEOR">IEOR</option>
+                                                <option value="Stat / Biostat">Stat / Biostat</option>
+                                                <option value="BioInfo">BioInfo</option>
+                                                <option value="MFE / Fin / FinMath">MFE / Fin / FinMath</option>
+                                                <option value="Econ / Biz">Econ / Biz</option>
+                                                <option value="Math / AppliedMath">Math / AppliedMath</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Chemical">Chemical</option>
+                                                <option value="Material">Material</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Computer Engineering">Computer Engineering</option>
+                                                <option value="HCI">HCI</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Psychology">Psychology</option>
+                                                <option value="other">other</option>
                                             </select>
                                         </div>
                                     </div>
@@ -348,14 +348,15 @@
                                     <div class="input-two-wrapper">
                                         <div class="half-wid">
                                             <label for="score-type" class="form-label mb--10">English Proficiency Test Type</label>
-                                            <select id="score-type" class="profile-edit-select mt--0">
-                                                <option value="1">IELTS</option>
-                                                <option value="1">TOEFL</option>
+                                            <select id="score-type" class="profile-edit-select mt--0" v-model="currentUser.profile.testType">
+                                                <option value="IELTS">IELTS</option>
+                                                <option value="TOEFL">TOEFL</option>
                                             </select>
                                         </div>
                                         <div class="half-wid ml--15">
                                             <label for="score-total" class="form-label mb--10">Total Score</label>
-                                            <input id="score-total" type="number">
+                                            <input v-if="currentUser.profile.testType === `IELTS`" id="score-total" type="number" v-model="currentUser.profile.totalIELTS">
+                                            <input v-if="currentUser.profile.testType === `TOEFL`" id="score-total" type="number" v-model="currentUser.profile.totalTOEFL">
                                         </div>
                                     </div>
 
@@ -363,21 +364,25 @@
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
                                                 <label for="score-listening" class="form-label mb--10">Listening</label>
-                                                <input id="score-listening" type="number">
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-listening" type="number" v-model="currentUser.profile.listeningIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-listening" type="number" v-model="currentUser.profile.listeningTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
                                                 <label for="score-speaking" class="form-label mb--10">Speaking</label>
-                                                <input id="score-speaking" type="number">
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-speaking" type="number" v-model="currentUser.profile.speakingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-speaking" type="number" v-model="currentUser.profile.speakingTOEFL">
                                             </div>
                                         </div>
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
                                                 <label for="score-reading" class="form-label mb--10">Reading</label>
-                                                <input id="score-reading" type="number">
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-reading" type="number" v-model="currentUser.profile.readingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-reading" type="number" v-model="currentUser.profile.readingTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
                                                 <label for="score-writing" class="form-label mb--10">Writing</label>
-                                                <input id="score-writing" type="number">
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-writing" type="number" v-model="currentUser.profile.writingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-writing" type="number" v-model="currentUser.profile.writingTOEFL">
                                             </div>
                                         </div>
                                     </div>
@@ -389,21 +394,21 @@
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area">
                                                 <label for="gre-total" class="form-label mb--10">Total Score</label>
-                                                <input id="gre-total" type="number">
+                                                <input id="gre-total" type="number" v-model="currentUser.profile.greTotal">
                                             </div>
                                             <div class="role-area">
                                                 <label for="gre-aw" class="form-label mb--10">Analytical Writing</label>
-                                                <input id="gre-aw" type="number">
+                                                <input id="gre-aw" type="number" v-model="currentUser.profile.greAnalyticalWriting">
                                             </div>
                                         </div>
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area">
                                                 <label for="gre-v" class="form-label mb--10">Verbal</label>
-                                                <input id="gre-v" type="number">
+                                                <input id="gre-v" type="number" v-model="currentUser.profile.greVerbal">
                                             </div>
                                             <div class="role-area">
                                                 <label for="gre-q" class="form-label mb--10">Quantitative</label>
-                                                <input id="gre-q" type="number">
+                                                <input id="gre-q" type="number" v-model="currentUser.profile.greQuantitative">
                                             </div>
                                         </div>
                                     </div>
@@ -613,7 +618,30 @@
                     username: "",
                     bio: "",
                     profile: {
-                        gpa: ""
+                        applicationRound: "",
+                        targetDegree: "",
+                        targetMajor: "",
+                        targetOfferType: "",
+                        gpa: "",
+                        rank: "",
+                        underGradSchoolCate: "",
+                        underGradSchoolName: "",
+                        underGradMajor: "",
+                        testType: "",
+                        totalIELTS: "",
+                        listeningIELTS: "",
+                        speakingIELTS: "",
+                        readingIELTS: "",
+                        writingIELTS: "",
+                        totalTOEFL: "",
+                        listeningTOEFL: "",
+                        speakingTOEFL: "",
+                        readingTOEFL: "",
+                        writingTOEFL: "",
+                        greTotal: "",
+                        greAnalyticalWriting: "",
+                        greVerbal: "",
+                        greQuantitative: ""
                     }
                 },
 
