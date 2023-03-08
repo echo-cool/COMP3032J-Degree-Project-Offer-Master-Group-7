@@ -1,8 +1,8 @@
 package com.group7.db.jpa;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +21,15 @@ public class Program {
 
     @Column(nullable = false)
     private String name = "NULL";
+
+    @Column
+    private String status;  // admitted, rejected, awaiting review, awaiting decision
+
+    @Column
+    private String degree; // Phd, MS, MEng...
+
+    @Temporal(TemporalType.DATE)
+    private Date deadLine;
 
     @ManyToOne
 //    @JoinColumn(name="program_id")
@@ -64,5 +73,37 @@ public class Program {
 
     public void setProgramSelections(Set<ProgramSelection> programSelections) {
         this.programSelections = programSelections;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public Date getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(Date deadLine) {
+        this.deadLine = deadLine;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }
