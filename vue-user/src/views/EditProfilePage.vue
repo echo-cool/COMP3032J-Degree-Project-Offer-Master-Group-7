@@ -108,26 +108,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="profile-left right col-lg-8">
-                                            <div class="profile-image mb--30">
-                                                <h6 class="title">Change Your Cover Photo</h6>
-                                                <img id="coverPhoto"
-                                                     :src="require(`@/assets/images/profile/cover-01.jpg`)"
-                                                     alt="Profile-NFT"
-                                                     @click="$refs.coverPhotoInput.click()">
-                                            </div>
-                                            <div class="button-area">
-                                                <div class="brows-file-wrapper">
-                                                    <input id="nipa"
-                                                           type="file"
-                                                           @change="previewImage($event, 'coverPhoto')"
-                                                           ref="coverPhotoInput">
-                                                    <label for="nipa" title="No File Choosen">
-                                                        <span class="text-center color-white">Upload Cover</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+<!--                                        <div class="profile-left right col-lg-8">-->
+<!--                                            <div class="profile-image mb&#45;&#45;30">-->
+<!--                                                <h6 class="title">Change Your Cover Photo</h6>-->
+<!--                                                <img id="coverPhoto"-->
+<!--                                                     :src="require(`@/assets/images/profile/cover-01.jpg`)"-->
+<!--                                                     alt="Profile-NFT"-->
+<!--                                                     @click="$refs.coverPhotoInput.click()">-->
+<!--                                            </div>-->
+<!--                                            <div class="button-area">-->
+<!--                                                <div class="brows-file-wrapper">-->
+<!--                                                    <input id="nipa"-->
+<!--                                                           type="file"-->
+<!--                                                           @change="previewImage($event, 'coverPhoto')"-->
+<!--                                                           ref="coverPhotoInput">-->
+<!--                                                    <label for="nipa" title="No File Choosen">-->
+<!--                                                        <span class="text-center color-white">Upload Cover</span>-->
+<!--                                                    </label>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
