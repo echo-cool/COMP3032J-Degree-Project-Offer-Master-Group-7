@@ -29,6 +29,10 @@ public class Program {
     @OneToOne(mappedBy = "program")
     private Application application;
 
+    @OneToMany(mappedBy = "program", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Set<ProgramSelection> programSelections;
+
+
     public Program(String name, School school) {
         this.name = name;
         this.school = school;
@@ -54,4 +58,11 @@ public class Program {
         this.name = name;
     }
 
+    public Set<ProgramSelection> getProgramSelections() {
+        return programSelections;
+    }
+
+    public void setProgramSelections(Set<ProgramSelection> programSelections) {
+        this.programSelections = programSelections;
+    }
 }

@@ -80,6 +80,10 @@ public class User {
     private Set<Application> applications = new HashSet<>();
 
 
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Set<ProgramSelection> programSelections;
+
+
 
     public User(String username, String email, String password, Set<Role> roles) {
         this.username = username;
@@ -192,5 +196,13 @@ public class User {
 
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
+    }
+
+    public Set<ProgramSelection> getProgramSelections() {
+        return programSelections;
+    }
+
+    public void setProgramSelections(Set<ProgramSelection> programSelections) {
+        this.programSelections = programSelections;
     }
 }
