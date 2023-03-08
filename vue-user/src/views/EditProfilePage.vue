@@ -37,6 +37,16 @@
                                     <i class="feather-user"/> Personal Information
                                 </button>
                                 <button class="nav-link"
+                                        id="nav-background-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#nav-application-background"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="nav-application-background"
+                                        aria-selected="false">
+                                    <i class="feather-book-open"/> My Application Background
+                                </button>
+                                <button class="nav-link"
                                         id="nav-profile-tab"
                                         data-bs-toggle="tab"
                                         data-bs-target="#nav-profile"
@@ -61,6 +71,8 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-12 mt_sm--30">
                         <div class="tab-content tab-content-edit-wrapepr" id="nav-tabContent">
+
+                            <!-- Avatar Panel -->
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="nuron-information">
                                     <div class="profile-change row g-5">
@@ -120,6 +132,7 @@
                                 </div>
                             </div>
 
+                            <!-- Personal Info Panel -->
                             <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="nuron-information">
                                     <div class="profile-form-wrapper">
@@ -135,97 +148,344 @@
 <!--                                        </div>-->
                                         <div class="email-area mb--15">
                                             <label for="username" class="form-label">Change Your Username</label>
-                                            <input id="username" type="text" value="Luca">
+                                            <input id="username" type="text" v-model="currentUser.username">
                                         </div>
                                         <div class="email-area">
                                             <label for="Email" class="form-label">Edit Your Email</label>
-                                            <input id="Email" type="email" value="Luca@gmail.com">
+                                            <input id="Email" type="email" v-model="currentUser.email">
                                         </div>
                                     </div>
                                     <div class="edit-bio-area mt--30">
-                                        <label for="description" class="form-label">Edit Your Bio</label>
-                                        <textarea id="description">Hello, I am Luca who is applying for the oversea university programs...</textarea>
-                                    </div>
-                                    <div class="input-two-wrapepr-prifile">
-                                        <div class="role-area mt--15">
-                                            <label for="gpa" class="form-label mb--10">Your Graduate GPA</label>
-                                            <input id="gpa" type="number" value="3.81">
-                                        </div>
-                                        <select class="profile-edit-select">
-                                            <option selected>Select Your English Proficiency Test</option>
-                                            <option value="1">IELTS</option>
-                                            <option value="2">TOEFL</option>
-                                        </select>
+                                        <label for="description" class="form-label">Edit Your Brief Introduction</label>
+                                        <textarea id="description" placeholder="e.g. Hello everyone, I am ... who is applying for the oversea university programs..." v-model="currentUser.bio"></textarea>
                                     </div>
 
-                                    <div class="input-two-wrapper mt--15">
-                                        <div class="half-wid currency">
-                                            <select class="profile-edit-select">
-                                                <option selected>Currency</option>
-                                                <option value="1">($)USD</option>
-                                                <option value="2">wETH</option>
-                                                <option value="3">BIT Coin</option>
-                                            </select>
-                                        </div>
-                                        <div class="half-wid phone-number">
-                                            <label for="PhoneNumber" class="form-label">Phone Number</label>
-                                            <input id="PhoneNumber" type="text" value="+880100000000">
-                                        </div>
-                                    </div>
-                                    <div class="input-two-wrapper mt--15">
-                                        <div class="half-wid currency">
-                                            <select class="profile-edit-select">
-                                                <option selected>Location</option>
-                                                <option value="1">United State</option>
-                                                <option value="2">Katar</option>
-                                                <option value="3">Canada</option>
-                                            </select>
-                                        </div>
-                                        <div class="half-wid phone-number">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input id="address" type="text" value="USA Cidni">
-                                        </div>
-                                    </div>
+<!--                                    <div class="input-two-wrapepr-prifile">-->
+<!--                                        <div class="role-area mt&#45;&#45;15">-->
+<!--                                            <label for="gpa" class="form-label mb&#45;&#45;10">Your Graduate GPA</label>-->
+<!--                                            <input id="gpa" type="number" value="3.81">-->
+<!--                                        </div>-->
+<!--                                        <select class="profile-edit-select">-->
+<!--                                            <option selected>Select Your English Proficiency Test</option>-->
+<!--                                            <option value="1">IELTS</option>-->
+<!--                                            <option value="2">TOEFL</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Currency</option>-->
+<!--                                                <option value="1">($)USD</option>-->
+<!--                                                <option value="2">wETH</option>-->
+<!--                                                <option value="3">BIT Coin</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="PhoneNumber" class="form-label">Phone Number</label>-->
+<!--                                            <input id="PhoneNumber" type="text" value="+880100000000">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Location</option>-->
+<!--                                                <option value="1">United State</option>-->
+<!--                                                <option value="2">Katar</option>-->
+<!--                                                <option value="3">Canada</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="address" class="form-label">Address</label>-->
+<!--                                            <input id="address" type="text" value="USA Cidni">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="button-area save-btn-edit">
-                                        <a href="#" class="btn btn-primary-alta mr--15" @click="alert('Cancel Edit Profile?')">Cancel</a>
-                                        <a href="#" class="btn btn-primary" @click="alert('Successfully Saved Your Profile?')">Save</a>
+<!--                                        <a href="#" class="btn btn-primary-alta mr&#45;&#45;15" @click="alert('Cancel Edit Profile?')">Cancel</a>-->
+                                        <a href="#" class="btn btn-primary" @click="editPersonalInfo()">Save</a>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Application Background Panel -->
+                            <div class="tab-pane fade" id="nav-application-background" role="tabpanel" aria-labelledby="nav-background-tab">
+                                <div class="nuron-information">
+
+                                    <h5 class="title">Application Target</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="apply-round" class="form-label mb--10">Application Round</label>
+                                            <select id="apply-round" class="profile-edit-select mt--0" v-model="currentUser.profile.applicationRound">
+                                                <option value="2023 - Fall">2023 - Fall</option>
+                                                <option value="2023 - Spring">2023 - Spring</option>
+                                                <option value="2023 - Summer">2023 - Summer</option>
+                                                <option value="2024 - Fall">2024 - Fall</option>
+                                                <option value="2024 - Spring">2024 - Spring</option>
+                                                <option value="2024 - Summer">2024 - Summer</option>
+                                                <option value="2025 - Fall">2025 - Fall</option>
+                                                <option value="2025 - Spring">2025 - Spring</option>
+                                                <option value="2025 - Summer">2025 - Summer</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid ml--15">
+                                            <label for="apply-degree" class="form-label mb--10">Target Degree</label>
+                                            <select id="apply-degree" class="profile-edit-select mt--0" v-model="currentUser.profile.targetDegree">
+                                                <option value="PhD">PhD</option>
+                                                <option value="MS">MS</option>
+                                                <option value="MEng">MEng</option>
+                                                <option value="MA">MA</option>
+                                                <option value="MPhil">MPhil</option>
+                                                <option value="MPH">MPH</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="LLM">LLM</option>
+                                                <option value="MEd">MEd</option>
+                                                <option value="JD">JD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-two-wrapper mt--15">
+                                        <div class="half-wid">
+                                            <label for="apply-major" class="form-label mb--10">Major to Apply</label>
+                                            <select id="apply-major" class="profile-edit-select mt--0" v-model="currentUser.profile.targetMajor">
+                                                <option value="CS">CS</option>
+                                                <option value="MIS">MIS</option>
+                                                <option value="EE">EE</option>
+                                                <option value="BME">BME</option>
+                                                <option value="ME">ME</option>
+                                                <option value="IEOR">IEOR</option>
+                                                <option value="Stat / Biostat">Stat / Biostat</option>
+                                                <option value="BioInfo">BioInfo</option>
+                                                <option value="MFE / Fin / FinMath">MFE / Fin / FinMath</option>
+                                                <option value="Econ / Biz">Econ / Biz</option>
+                                                <option value="Math / AppliedMath">Math / AppliedMath</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Chemical">Chemical</option>
+                                                <option value="Material">Material</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Computer Engineering">Computer Engineering</option>
+                                                <option value="HCI">HCI</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Psychology">Psychology</option>
+                                                <option value="other">other</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid ml--15">
+                                            <label for="ad-type" class="form-label mb--10">Target Offer Type</label>
+                                            <select id="ad-type" class="profile-edit-select mt--0" v-model="currentUser.profile.targetOfferType">
+                                                <option value="AD - With Fellowship">AD - With Fellowship</option>
+                                                <option value="AD - Without Fellowship">AD - Without Fellowship</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="title mt--50">Undergraduate Background</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="school-classify" class="form-label mb--10">Undergraduate School Classification</label>
+                                            <select id="school-classify" class="profile-edit-select mt--0" v-model="currentUser.profile.underGradSchoolCate">
+                                                <option value="Oversea Undergraduate">Oversea Undergraduate</option>
+                                                <option value="Tsinghua University / Peking University">Tsinghua University / Peking University</option>
+                                                <option value="Top 15">Top 15</option>
+                                                <option value="Top 30">Top 30</option>
+                                                <option value="Other 985 / 211">Other 985 / 211</option>
+                                                <option value="Not 985 / 211">Not 985 / 211</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid phone-number">
+                                            <label for="school-name" class="form-label mb--10">Your Undergraduate School</label>
+                                            <input id="school-name" type="text" v-model="currentUser.profile.underGradSchoolName">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="gpa" class="form-label mb--10">GPA</label>
+                                                <input id="gpa" type="number" v-model="currentUser.profile.gpa">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="rank" class="form-label mb--10">Rank</label>
+                                                <input id="rank" type="number" v-model="currentUser.profile.rank">
+                                            </div>
+                                        </div>
+                                        <div class="role-area mt--15 w-100 ml--25">
+                                            <label for="major" class="form-label mb--10">Undergraduate Major</label>
+                                            <select id="major" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="currentUser.profile.underGradMajor">
+                                                <option value="CS">CS</option>
+                                                <option value="MIS">MIS</option>
+                                                <option value="EE">EE</option>
+                                                <option value="BME">BME</option>
+                                                <option value="ME">ME</option>
+                                                <option value="IEOR">IEOR</option>
+                                                <option value="Stat / Biostat">Stat / Biostat</option>
+                                                <option value="BioInfo">BioInfo</option>
+                                                <option value="MFE / Fin / FinMath">MFE / Fin / FinMath</option>
+                                                <option value="Econ / Biz">Econ / Biz</option>
+                                                <option value="Math / AppliedMath">Math / AppliedMath</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Chemical">Chemical</option>
+                                                <option value="Material">Material</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Computer Engineering">Computer Engineering</option>
+                                                <option value="HCI">HCI</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Psychology">Psychology</option>
+                                                <option value="other">other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="title mt--50">English Proficiency Tests</h5>
+                                    <hr />
+
+                                    <div class="input-two-wrapper">
+                                        <div class="half-wid">
+                                            <label for="score-type" class="form-label mb--10">English Proficiency Test Type</label>
+                                            <select id="score-type" class="profile-edit-select mt--0" v-model="currentUser.profile.testType">
+                                                <option value="IELTS">IELTS</option>
+                                                <option value="TOEFL">TOEFL</option>
+                                            </select>
+                                        </div>
+                                        <div class="half-wid ml--15">
+                                            <label for="score-total" class="form-label mb--10">Total Score</label>
+                                            <input v-if="currentUser.profile.testType === `IELTS`" id="score-total" type="number" v-model="currentUser.profile.totalIELTS">
+                                            <input v-if="currentUser.profile.testType === `TOEFL`" id="score-total" type="number" v-model="currentUser.profile.totalTOEFL">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="score-listening" class="form-label mb--10">Listening</label>
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-listening" type="number" v-model="currentUser.profile.listeningIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-listening" type="number" v-model="currentUser.profile.listeningTOEFL">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="score-speaking" class="form-label mb--10">Speaking</label>
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-speaking" type="number" v-model="currentUser.profile.speakingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-speaking" type="number" v-model="currentUser.profile.speakingTOEFL">
+                                            </div>
+                                        </div>
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area mt--15">
+                                                <label for="score-reading" class="form-label mb--10">Reading</label>
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-reading" type="number" v-model="currentUser.profile.readingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-reading" type="number" v-model="currentUser.profile.readingTOEFL">
+                                            </div>
+                                            <div class="role-area mt--15">
+                                                <label for="score-writing" class="form-label mb--10">Writing</label>
+                                                <input v-if="currentUser.profile.testType === `IELTS`" id="score-writing" type="number" v-model="currentUser.profile.writingIELTS">
+                                                <input v-if="currentUser.profile.testType === `TOEFL`" id="score-writing" type="number" v-model="currentUser.profile.writingTOEFL">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="title mt--50">Graduate Record Examination (GRE)</h5>
+                                    <hr/>
+
+                                    <div class="input-two-wrapepr-prifile">
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area">
+                                                <label for="gre-total" class="form-label mb--10">Total Score</label>
+                                                <input id="gre-total" type="number" v-model="currentUser.profile.greTotal">
+                                            </div>
+                                            <div class="role-area">
+                                                <label for="gre-aw" class="form-label mb--10">Analytical Writing</label>
+                                                <input id="gre-aw" type="number" v-model="currentUser.profile.greAnalyticalWriting">
+                                            </div>
+                                        </div>
+                                        <div class="input-two-wrapepr-prifile w-100">
+                                            <div class="role-area">
+                                                <label for="gre-v" class="form-label mb--10">Verbal</label>
+                                                <input id="gre-v" type="number" v-model="currentUser.profile.greVerbal">
+                                            </div>
+                                            <div class="role-area">
+                                                <label for="gre-q" class="form-label mb--10">Quantitative</label>
+                                                <input id="gre-q" type="number" v-model="currentUser.profile.greQuantitative">
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Currency</option>-->
+<!--                                                <option value="1">($)USD</option>-->
+<!--                                                <option value="2">wETH</option>-->
+<!--                                                <option value="3">BIT Coin</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="PhoneNumber" class="form-label">Phone Number</label>-->
+<!--                                            <input id="PhoneNumber" type="text" value="+880100000000">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="input-two-wrapper mt&#45;&#45;15">-->
+<!--                                        <div class="half-wid currency">-->
+<!--                                            <select class="profile-edit-select">-->
+<!--                                                <option selected>Location</option>-->
+<!--                                                <option value="1">United State</option>-->
+<!--                                                <option value="2">Katar</option>-->
+<!--                                                <option value="3">Canada</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="half-wid phone-number">-->
+<!--                                            <label for="address" class="form-label">Address</label>-->
+<!--                                            <input id="address" type="text" value="USA Cidni">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+
+                                    <div class="button-area save-btn-edit">
+<!--                                        <a href="#" class="btn btn-primary-alta mr&#45;&#45;15" @click="alert('Cancel Edit Profile?')">Cancel</a>-->
+                                        <a href="#" class="btn btn-primary" @click="editApplyBackground()">Save</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Password Management Panel -->
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="nuron-information">
                                     <div class="condition">
-                                        <h5 class="title">Create Your Password</h5>
+                                        <h5 class="title">Change Your Password</h5>
                                         <p class="condition">
-                                            Passwords are a critical part of information and network security. Passwords
-                                            serve to protect user accounts but a poorly chosen password, if compromised,
-                                            could put the entire network at risk.
+                                            Your password is a critical part of your account security and privacy. We recommend
+                                            you to change your password regularly through this page to ensure the security
+                                            of your account. Keep in mind that a poorly chosen password might put your privacy
+                                            at risks.
                                         </p>
                                         <hr />
                                         <div class="email-area">
                                             <label for="Email2" class="form-label">Enter Email</label>
-                                            <input id="Email2" type="email" value="">
+                                            <input id="Email2" type="email" v-model="changePasswordParams.email">
                                         </div>
                                     </div>
                                     <div class="input-two-wrapper mt--15">
                                         <div class="old-password half-wid">
                                             <label for="oldPass" class="form-label">Enter Old Password</label>
-                                            <input id="oldPass" type="password">
+                                            <input id="oldPass" type="password" v-model="changePasswordParams.oldPassword">
                                         </div>
                                         <div class="new-password half-wid">
                                             <label for="NewPass" class="form-label">Create New Password</label>
-                                            <input id="NewPass" type="password">
+                                            <input id="NewPass" type="password" v-model="changePasswordParams.newPassword">
                                         </div>
                                     </div>
                                     <div class="email-area mt--15">
-                                        <label for="rePass" class="form-label">Confirm Password</label>
-                                        <input id="rePass" type="password">
+                                        <label for="rePass" class="form-label">Confirm Your New Password</label>
+                                        <input id="rePass" type="password" v-model="changePasswordParams.reNewPassword">
                                     </div>
-                                    <a href="#" class="btn btn-primary save-btn-edit" @click="alert('Successfully Changed Password?')">Save</a>
+                                    <a href="#" class="btn btn-primary save-btn-edit" @click="changePassword()">Save</a>
                                 </div>
                             </div>
 
+                            <!-- Notification Setting Panel -->
                             <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <div class="nuron-information">
                                     <h5 class="title">Make Sure Your Notification setting </h5>
@@ -353,7 +613,43 @@
         data(){
             return {
                 currentUser: {
-                    avatar: ""
+                    avatar: "",
+                    email: "",
+                    username: "",
+                    bio: "",
+                    profile: {
+                        applicationRound: "",
+                        targetDegree: "",
+                        targetMajor: "",
+                        targetOfferType: "",
+                        gpa: "",
+                        rank: "",
+                        underGradSchoolCate: "",
+                        underGradSchoolName: "",
+                        underGradMajor: "",
+                        testType: "",
+                        totalIELTS: "",
+                        listeningIELTS: "",
+                        speakingIELTS: "",
+                        readingIELTS: "",
+                        writingIELTS: "",
+                        totalTOEFL: "",
+                        listeningTOEFL: "",
+                        speakingTOEFL: "",
+                        readingTOEFL: "",
+                        writingTOEFL: "",
+                        greTotal: "",
+                        greAnalyticalWriting: "",
+                        greVerbal: "",
+                        greQuantitative: ""
+                    }
+                },
+
+                changePasswordParams: {
+                    email: "",
+                    oldPassword: "",
+                    newPassword: "",
+                    reNewPassword: ""
                 }
             }
         },
@@ -367,6 +663,7 @@
         },
 
         methods: {
+            // after selecting an image when changing avatar, this function would be called
             previewImage(e, id) {
                 if (e.target.files && e.target.files.length > 0) {
                     // preview
@@ -408,9 +705,76 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert(error.response.data.message);
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
                     })
 
+            },
+
+            changePassword(){
+                // call the api method
+                profileApi.changePassword(this.changePasswordParams)
+                    .then(response => {
+                        // notify user
+                        window.alert("Password changed successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
+            },
+
+            editPersonalInfo(){
+                // trim the spaces in the user inputs
+                this.currentUser.email = this.currentUser.email.trim();
+                this.currentUser.username = this.currentUser.username.trim();
+                this.currentUser.bio = this.currentUser.bio.trim();
+
+                // call the api method
+                profileApi.editPersonalInfo(this.currentUser)
+                    .then(response => {
+                        // notify user
+                        window.alert("Personal info changed successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
+            },
+
+            editApplyBackground(){
+                // call the api method
+                profileApi.editApplyBackground(this.currentUser.profile)
+                    .then(response => {
+                        // notify user
+                        window.alert("Application background updated successfully!");
+
+                        // update the current_user and cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        if(error.response.data.message){
+                            window.alert(error.response.data.message);
+                        }
+                    })
             }
 
         }

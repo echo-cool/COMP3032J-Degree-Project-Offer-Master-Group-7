@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.sentry.protocol.App;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -43,6 +44,8 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    @Size(max = 1200)
+    private String bio = ""; // self-intro
 
     @Column(nullable = false)
     private String avatar = "profile-01.jpg";
@@ -55,6 +58,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Profile profile = new Profile(this);
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -64,9 +68,9 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     // The applicant background of this user
-    @OneToOne
-    @JoinColumn(name = "background", referencedColumnName = "id")
-    private Profile backgroundId;
+//    @OneToOne
+//    @JoinColumn(name = "background", referencedColumnName = "id")
+//    private Profile backgroundId;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -166,12 +170,20 @@ public class User {
         this.roles = roles;
     }
 
-    public Profile getBackgroundId() {
-        return backgroundId;
+//    public Profile getBackgroundId() {
+//        return backgroundId;
+//    }
+//
+//    public void setBackgroundId(Profile backgroundId) {
+//        this.backgroundId = backgroundId;
+//    }
+
+    public String getBio() {
+        return bio;
     }
 
-    public void setBackgroundId(Profile backgroundId) {
-        this.backgroundId = backgroundId;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public Set<Application> getApplications() {
