@@ -12,6 +12,10 @@ export function fetchList(query) {
       'page': query['page'],
       'size': query['size']
     }
+    // params: {
+    //   'page': query['page'] - 1,
+    //   'size': query['size']
+    // }
   })
 }
 
@@ -61,7 +65,13 @@ export function fetchPv(pv) {
   })
 }
 
-export function createUser(data) {
+export function createUser(data, roleMap) {
+  const roleLinks = []
+  const roles = data['roles']
+  for (let i = 0; i < roles.length; i++) {
+    roleLinks.push(roleMap[roles[i]])
+  }
+  data['roles'] = roleLinks
   console.log(data)
   return request({
     url: '/backend/rest/users',
@@ -73,11 +83,17 @@ export function createUser(data) {
   })
 }
 
-export function updateUser(data) {
+export function updateUser(data, roleMap) {
+  const roleLinks = []
+  const roles = data['roles']
+  for (let i = 0; i < roles.length; i++) {
+    roleLinks.push(roleMap[roles[i]])
+  }
+  data['roles'] = roleLinks
   console.log(data)
   return request({
     url: '/backend/rest/users/' + data.id,
-    method: 'put',
+    method: 'patch',
     data: {
       'username': data.username,
       'password': data.password,

@@ -132,10 +132,10 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        name: undefined,
-        schoolID: '',
-        sort: '+id'
+        limit: 20
+        // name: undefined,
+        // schoolID: '',
+        // sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,

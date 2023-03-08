@@ -11,7 +11,7 @@ export function login(data) {
 export function getInfo(token) {
   console.log(token)
   return request({
-    url: '/backend/secure/getUser',
+    url: '/backend/api/user/getUser',
     method: 'get',
     headers: {
       'Authorization': token
