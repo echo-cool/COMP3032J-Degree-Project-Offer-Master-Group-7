@@ -167,7 +167,7 @@ import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/ar
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
-import { getRoles } from '@/api/role'
+import { getAllRoles, getRoles } from '@/api/role'
 // secondary package based on el-pagination
 
 const calendarTypeOptions = [
@@ -215,7 +215,7 @@ export default {
         // roles: undefined,
         // sort: 'username,asc'
       },
-      roles: ['USER', 'ADMIN', 'MODERATOR'],
+      roles: ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MODERATOR'],
       calendarTypeOptions,
       sortOptions: [{ label: 'Username Ascending', key: 'username,asc' }, { label: 'Username Descending', key: 'username,desc' }],
       statusOptions: ['published', 'draft', 'deleted'],
@@ -241,11 +241,14 @@ export default {
         email: [{ required: true, message: 'email is required', trigger: 'blur' }],
         roles: [{ required: true, message: 'role is required', trigger: 'change' }]
       },
-      downloadLoading: false
+      downloadLoading: false,
+      roleMap: {},
+      roleLinkMap: {}
     }
   },
   created() {
     this.getList()
+    this.getRoleMap()
   },
   methods: {
     getList() {
@@ -279,6 +282,16 @@ export default {
         //   this.listLoading = false
         //   this.tableKey = 1
         // }, 1.5 * 1000)
+      })
+    },
+    getRoleMap() {
+      getAllRoles().then(response => {
+        const roles = response['_embedded']['roles']
+        for (let i = 0; i < roles.length; i++) {
+          const role = roles[i]
+          this.roleMap[role['name']] = role['_links']['self']['href']
+          this.roleLinkMap[role['_links']['self']['href']] = role['name']
+        }
       })
     },
     handleFilter() {
@@ -323,12 +336,20 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
+    linkToRole(roleLinks) {
+      const roleNames = []
+      for (let i = 0; i < roleLinks.length; i++) {
+        roleNames.push(this.roleLinkMap[roleLinks[i]])
+      }
+      return roleNames
+    },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createUser(this.temp).then(response => {
+          createUser(this.temp, this.roleMap).then(response => {
             this.temp.id = response['id']
             this.temp.createdAt = response['createdAt']
+            this.temp.roles = this.linkToRole(this.temp.roles)
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -355,8 +376,9 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateUser(this.temp).then(() => {
+          updateUser(this.temp, this.roleMap).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
+            this.temp.roles = this.linkToRole(this.temp.roles)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
             this.$notify({

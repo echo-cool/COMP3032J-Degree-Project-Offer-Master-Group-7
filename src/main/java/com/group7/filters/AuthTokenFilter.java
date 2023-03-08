@@ -60,7 +60,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7, headerAuth.length());
+
+            if(headerAuth.contains("Bearer 20")) {
+                headerAuth = headerAuth.replace("Bearer 20", "");
+            }else{
+                headerAuth = headerAuth.substring(7);
+            }
+            logger.info(headerAuth);
+            return headerAuth;
         }
 
         return null;

@@ -18,6 +18,16 @@ export function getRoles(userID) {
   })
 }
 
+export function getAllRoles() {
+  return request({
+    url: '/backend/rest/roles',
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+
 export function addRole(data) {
   return request({
     url: '/vue-element-admin/role',
