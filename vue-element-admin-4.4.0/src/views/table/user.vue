@@ -245,6 +245,7 @@ export default {
     }
   },
   created() {
+    this.listQuery.page = 0
     this.getList()
   },
   methods: {
@@ -282,7 +283,7 @@ export default {
       })
     },
     handleFilter() {
-      this.listQuery.page = 1
+      this.listQuery.page = 0
       this.getList()
     },
     handleModifyStatus(row, status) {
