@@ -9,13 +9,9 @@ export function fetchList(query) {
       'Authorization': getToken()
     },
     params: {
-      'page': query['page'],
+      'page': query['page'] - 1,
       'size': query['size']
     }
-    // params: {
-    //   'page': query['page'] - 1,
-    //   'size': query['size']
-    // }
   })
 }
 
