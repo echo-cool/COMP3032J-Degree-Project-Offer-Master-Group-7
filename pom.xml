@@ -18,6 +18,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>io.sentry</groupId>
             <artifactId>sentry-spring-boot-starter-jakarta</artifactId>
@@ -258,6 +259,7 @@
                 </dependencies>
 
             </plugin>
+
 
 
         </plugins>

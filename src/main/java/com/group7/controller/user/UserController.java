@@ -9,6 +9,7 @@ import com.group7.db.jpa.Profile;
 import com.group7.db.jpa.ProfileRepository;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.utils.SpecificationsBuilder;
 import com.group7.utils.common.JwtUtils;
 import com.group7.service.UserService;
 import com.group7.utils.common.R;
@@ -16,12 +17,14 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -338,5 +341,12 @@ public class UserController {
         profileRepository.save(profile);
 
         return ResponseEntity.ok(R.ok().data("user", user));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/search")
+    @ResponseBody
+    public List<User> search(@RequestParam(value = "search") String search) {
+        Specification<User> spec = new SpecificationsBuilder<User>().buildSpecification(search);
+        return userRepository.findAll(spec);
     }
 }
