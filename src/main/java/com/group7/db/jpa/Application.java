@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
@@ -22,9 +23,11 @@ public class Application {
 
 
     @ManyToOne
+    @JsonBackReference
     private User user;
 
     @ManyToOne
+    @JsonBackReference
     private Program program;
 
     @Column(nullable = false)
