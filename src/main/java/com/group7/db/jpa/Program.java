@@ -29,17 +29,8 @@ public class Program {
     @Column(nullable = false)
     private String name = "NULL";
 
-    @Column
-    private String status;  // admitted, rejected, awaiting review, awaiting decision
-
-    @Column
-    private String degree; // Phd, MS, MEng...
-
-    @Temporal(TemporalType.DATE)
-    private Date deadLine;
-
     @ManyToOne
-//    @JoinColumn(name="program_id")
+    @JoinColumn(name="school")
     private School school;
 
 //    @OneToOne(mappedBy = "program")
@@ -93,30 +84,6 @@ public class Program {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDegree() {
-        return degree;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    public Date getDeadLine() {
-        return deadLine;
-    }
-
-    public void setDeadLine(Date deadLine) {
-        this.deadLine = deadLine;
-    }
-
     public School getSchool() {
         return school;
     }
@@ -132,4 +99,5 @@ public class Program {
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
     }
+
 }

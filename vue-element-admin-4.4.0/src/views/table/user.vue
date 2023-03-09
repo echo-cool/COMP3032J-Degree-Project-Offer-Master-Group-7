@@ -253,6 +253,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
+      this.listLoading
       fetchList(this.listQuery).then(response => {
         this.list = response['_embedded']['users']
         this.total = response['page']['totalElements']
