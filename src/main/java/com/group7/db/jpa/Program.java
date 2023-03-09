@@ -23,7 +23,7 @@ public class Program {
     private String name = "NULL";
 
     @ManyToOne
-//    @JoinColumn(name="program_id")
+    @JoinColumn(name="school")
     private School school;
 
     @OneToOne(mappedBy = "program")
@@ -52,6 +52,14 @@ public class Program {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 
 }
