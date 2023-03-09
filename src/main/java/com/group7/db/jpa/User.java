@@ -57,7 +57,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonBackReference("profile")
     private Profile profile = new Profile(this);
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,7 +68,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonBackReference(value = "applications")
     Set<Application> applications = new HashSet<>();
 
 

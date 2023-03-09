@@ -165,7 +165,7 @@ export default {
         name: [{ required: true, message: 'school name is required', trigger: 'blur' }]
       },
       downloadLoading: false,
-      links: []
+      schoolLink: ''
     }
   },
   created() {
@@ -173,7 +173,6 @@ export default {
     console.log(this.id)
     this.getList()
     this.getSchoolLink(this.id)
-    // console.log("54")
   },
   methods: {
     getList() {
@@ -181,9 +180,9 @@ export default {
       getPrograms(this.id).then(response => {
         this.list = response['_embedded']['programs']
         this.total = response['_embedded']['programs'].length
-        for (let i = 0; i < this.list.length; i++) {
-          this.links.push(this.list[i]['_links']['self']['href'])
-        }
+        // for (let i = 0; i < this.list.length; i++) {
+        //   this.links.push(this.list[i]['_links']['self']['href'])
+        // }
         console.log(this.list)
         // for (let i = 0; i < this.list.length; i++) {
         //   const school = this.list[i]
@@ -204,7 +203,8 @@ export default {
     },
     getSchoolLink(id) {
       getProgramSchool(id).then(response => {
-        this.temp.school = response['_links']['self']['href']
+        this.schoolLink = response['_links']['self']['href']
+        this.temp.school = this.schoolLink
       })
     },
     handleFilter() {
@@ -233,7 +233,10 @@ export default {
       this.handleFilter()
     },
     resetTemp() {
-      this.temp.name = ''
+      this.temp = {
+        name: '',
+        school: this.schoolLink
+      }
     },
     handleCreate() {
       this.resetTemp()

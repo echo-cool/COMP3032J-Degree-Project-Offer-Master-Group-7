@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
@@ -23,11 +24,11 @@ public class Application {
 
 
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference(value = "user")
     private User user;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     private Program program;
 
     @Column(nullable = false)
