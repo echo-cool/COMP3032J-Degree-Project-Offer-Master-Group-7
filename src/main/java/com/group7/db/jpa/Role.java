@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.group7.db.jpa.utils.ERole;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -15,36 +16,35 @@ import java.util.Set;
 @Entity
 public class Application {
 
-    @EmbeddedId
-    ApplicationKey id = new ApplicationKey();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
     @ManyToOne
-    @MapsId("programId")
-    @JoinColumn(name = "program_id")
-    Program program;
+    private Program program;
+
+    @Column(nullable = false)
+    private EStatus eStatus = EStatus.NULL;
 
 
-    public Application(ApplicationKey id, User user, Program program) {
-        this.id = id;
+    public Application(User user, Program program) {
         this.user = user;
         this.program = program;
+    }
+
+    public Application(User user, Program program, EStatus eStatus) {
+        this.user = user;
+        this.program = program;
+        this.eStatus = eStatus;
     }
 
     public Application() {
     }
 
-    public ApplicationKey getId() {
-        return id;
-    }
-
-    public void setId(ApplicationKey id) {
-        this.id = id;
-    }
 
     public User getUser() {
         return user;
@@ -60,5 +60,13 @@ public class Application {
 
     public void setProgram(Program program) {
         this.program = program;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

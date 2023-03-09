@@ -1,7 +1,6 @@
 package com.group7.controller.auth;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,7 +9,7 @@ import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.auth.payload.SignupRequest;
 import com.group7.controller.user.UserDetailsImpl;
 import com.group7.db.jpa.*;
-import com.group7.service.UserService;
+import com.group7.db.jpa.utils.ERole;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author: WangYuyang

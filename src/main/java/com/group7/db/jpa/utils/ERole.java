@@ -1,4 +1,4 @@
-package com.group7.db.jpa;
+package com.group7.db.jpa.utils;
 
 /**
  * @Author: WangYuyang

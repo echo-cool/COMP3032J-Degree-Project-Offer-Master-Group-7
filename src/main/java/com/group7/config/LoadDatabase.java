@@ -1,6 +1,8 @@
 package com.group7.config;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.ERole;
+import com.group7.db.jpa.utils.EStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,30 +101,6 @@ class LoadDatabase {
         User user11 = new User("test11", "me11@echo.cool", encoder.encode("111"), test3Roles);
         User user12 = new User("test12", "me12@echo.cool", encoder.encode("111"), test3Roles);
 
-//        HashSet<ProgramSelection> programSelections1 = new HashSet<>();
-//        programSelections1.add(new ProgramSelection(user1, program1));
-//        programSelections1.add(new ProgramSelection(user1, program2));
-//        programSelections1.add(new ProgramSelection(user1, program3));
-//        programSelections1.add(new ProgramSelection(user1, program4));
-//        user1.setProgramSelections(programSelections1);
-
-//        Set<Program> programs = new HashSet<>();
-//        programs.add(program1);
-//        programs.add(program2);
-//        programs.add(program3);
-//        user1.setSelectedPrograms(programs);
-
-//        Set<User> users = new HashSet<>();
-//        users.add(user1);
-//        program1.setUsers(users);
-//        program2.setUsers(users);
-//        program3.setUsers(users);
-//        program4.setUsers(users);
-//        programRepository.save(program1);
-//        programRepository.save(program2);
-//        programRepository.save(program3);
-//        programRepository.save(program4);
-
         log.info("Preloading " + userRepository.save(user1));
         log.info("Preloading " + userRepository.save(user2));
         log.info("Preloading " + userRepository.save(user3));
@@ -136,33 +114,12 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        // application key
-//        ApplicationKey ak1 = new ApplicationKey(user1.getId(), program1.getId());
-//        ApplicationKey ak2 = new ApplicationKey(user1.getId(), program2.getId());
-//        ApplicationKey ak3 = new ApplicationKey(user1.getId(), program3.getId());
-//        ApplicationKey ak4 = new ApplicationKey(user1.getId(), program4.getId());
-//
-//        Application application1 = new Application(ak1, user1, program1);
-//        Application application2 = new Application(ak2, user1, program2);
-//        Application application3 = new Application(ak3, user1, program3);
-//        Application application4 = new Application(ak4, user1, program4);
-//
-//        applicationRepository.save(application1);
-//        applicationRepository.save(application2);
-//        applicationRepository.save(application3);
-//        applicationRepository.save(application4);
+        Application appli = new Application(user1, program1);
+        applicationRepository.save(appli);
 
-        user1.getApplications().add(new Application(new ApplicationKey(user1.getId(), program1.getId()), user1, program1));
-        userRepository.save(user1);
+        Application appli2 = new Application(user2, program1, EStatus.ADMITTED);
+        applicationRepository.save(appli2);
 
-//        ApplicationKey applicationKey1 = new ApplicationKey();
-//        applicationKey1.setUserId(user1.getId());
-//        applicationKey1.setProgramId(program1.getId());
-//        Application application1 = new Application();
-//        application1.setId(applicationKey1);
-//        application1.setUser(user1);
-//        application1.setProgram(program1);
-//        applicationRepository.save(application1);
 
 
         return args -> {
