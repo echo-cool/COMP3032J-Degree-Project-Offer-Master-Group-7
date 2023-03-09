@@ -16,9 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import static com.group7.utils.common.JwtUtils.getJwtString;
 
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -57,19 +57,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-
-            if(headerAuth.contains("Bearer 20")) {
-                headerAuth = headerAuth.replace("Bearer 20", "");
-            }else{
-                headerAuth = headerAuth.substring(7);
-            }
-            logger.info(headerAuth);
-            return headerAuth;
-        }
-
-        return null;
+        return getJwtString(request, logger);
     }
 }
