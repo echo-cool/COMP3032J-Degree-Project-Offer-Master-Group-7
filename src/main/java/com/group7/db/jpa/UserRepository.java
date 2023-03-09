@@ -1,7 +1,10 @@
 package com.group7.db.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -16,7 +19,7 @@ import java.util.Optional;
  * @Description:
  **/
 @RepositoryRestResource
-public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long>, ListCrudRepository<User, Long>, JpaSpecificationExecutor<User> {
     Optional<User> findByUsername(String username);
 
     Boolean existsByUsername(String username);

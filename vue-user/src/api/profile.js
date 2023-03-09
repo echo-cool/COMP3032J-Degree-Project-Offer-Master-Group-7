@@ -12,6 +12,31 @@ export default{
             },
             data: form
         })
+    },
+
+    // for changing password
+    changePassword(params) {
+        return request({
+            url: `/api/user/changePassword`,
+            method: 'post',
+            data: params
+        })
+    },
+
+    editPersonalInfo(params){
+        return request({
+            url: `/api/user/editPersonalInfo`,
+            method: 'post',
+            data: params
+        })
+    },
+
+    editApplyBackground(params){
+        return request({
+            url: `/api/user/editApplicationBackground`,
+            method: 'post',
+            data: params
+        })
     }
 
 }

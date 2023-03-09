@@ -1,125 +1,120 @@
-package com.group7.db.jpa;
+package com.group7.controller.user.payload;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Range;
 
-
-@Entity
-public class Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne(mappedBy = "profile")
-    @JsonBackReference
-    private User user;
+/**
+ * @Author: LiuZhe
+ * @Date: 2023/3/7 - 1:27
+ */
+public class EditBackgroundRequest {
 
     // Application Target
 
-    @Column(length = 45)
+    @NotBlank(message = "You should select your application round.")
+    @Size(message = "The application round should between {min} and {max} chars.", min = 1, max = 45)
     private String applicationRound;
 
-    @Column(length = 45)
-    private String TargetDegree;
+    @NotBlank(message = "You should select your target degree.")
+    @Size(message = "The target degree should between {min} and {max} chars.", min = 1, max = 45)
+    private String targetDegree;
 
-    @Column(length = 45)
-    private String TargetMajor;
+    @NotBlank(message = "You should select your target major.")
+    @Size(message = "The target major should between {min} and {max} chars.", min = 1, max = 45)
+    private String targetMajor;
 
-    @Column(length = 45)
-    private String TargetOfferType;
+    @NotBlank(message = "You should select your target offer type.")
+    @Size(message = "The target offer type should between {min} and {max} chars.", min = 1, max = 45)
+    private String targetOfferType;
 
     // Undergraduate Background
 
-    @Column
+    @NotNull(message = "You should input your GPA.")
+    @Digits(message = "GPA should range from 0 to 4 with at most two decimal digits.", integer = 1, fraction = 2)
+    @Range(message = "GPA should range from {min} to {max}", min = 0, max = 4)
     private double gpa;
 
-    @Column
+    @NotNull(message = "You should input the rank.")
+    @Range(message = "The rank should larger than or equal to {min}", min = 1)
     private int rank;
 
-    @Column(length = 45)
+    @NotBlank(message = "You should select the classification for your undergraduate school.")
+    @Size(message = "The classification should between {min} and {max} chars.", min = 1, max = 45)
     private String underGradSchoolCate;
 
-    @Column(length = 64)
+    @NotBlank(message = "You should input your undergraduate school.")
+    @Size(message = "The school name should between {min} and {max} chars.", min = 1, max = 64)
     private String underGradSchoolName;
 
-    @Column(length = 45)
+    @NotBlank(message = "You should select the your undergraduate major.")
+    @Size(message = "The undergrad major should between {min} and {max} chars.", min = 1, max = 45)
     private String underGradMajor;
 
     // English Proficiency Tests
 
-    @Column(length = 6)
+    @NotBlank(message = "You should select your English Proficiency Test type.")
+    @Size(message = "The English Proficiency Test type should between {min} and {max} chars.", min = 1, max = 6)
     private String testType;
 
-    @Column
+    @Digits(message = "IELTS score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double totalIELTS;
 
-    @Column
+    @Digits(message = "IELTS listening score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double listeningIELTS;
 
-    @Column
+    @Digits(message = "IELTS speaking score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double speakingIELTS;
 
-    @Column
+    @Digits(message = "IELTS reading score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double readingIELTS;
 
-    @Column
+    @Digits(message = "IELTS writing score should range from 0 to 9 with at most one decimal digits.", integer = 1, fraction = 1)
+    @Range(message = "IELTS score should range from {min} to {max}", min = 0, max = 9)
     private double writingIELTS;
 
-    @Column
+    @Range(message = "The TOEFL score should range from {min} to {max}", min = 0, max = 120)
     private int totalTOEFL;
 
-    @Column
+    @Range(message = "The TOEFL listening score should range from {min} to {max}", min = 0, max = 30)
     private int listeningTOEFL;
 
-    @Column
+    @Range(message = "The TOEFL speaking score should range from {min} to {max}", min = 0, max = 30)
     private int speakingTOEFL;
 
-    @Column
+    @Range(message = "The TOEFL reading score should range from {min} to {max}", min = 0, max = 30)
     private int readingTOEFL;
 
-    @Column
+    @Range(message = "The TOEFL writing score should range from {min} to {max}", min = 0, max = 30)
     private int writingTOEFL;
 
     // GRE scores
 
-    @Column
+    @NotNull(message = "You should input your total GRE score.")
+    @Range(message = "The GRE score should range from {min} to {max}", min = 260, max = 346)
     private int greTotal;
 
-    @Column
+    @NotNull(message = "You should input your GRE Analytical Writing score.")
+    @Range(message = "The GRE Analytical Writing score should range from {min} to {max}", min = 0, max = 6)
     private int greAnalyticalWriting;
 
-    @Column
+    @NotNull(message = "You should input your GRE Verbal score.")
+    @Range(message = "The GRE Verbal score should range from {min} to {max}", min = 130, max = 170)
     private int greVerbal;
 
-    @Column
+    @NotNull(message = "You should input your GRE Quantitative score.")
+    @Range(message = "The GRE Quantitative score should range from {min} to {max}", min = 130, max = 170)
     private int greQuantitative;
 
 
-
-    public Profile(User user) {
-        this.user = user;
-    }
-
-    public Profile() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    /* ----------------------------------------------------------- */
 
     public double getGpa() {
         return gpa;
@@ -138,27 +133,27 @@ public class Profile {
     }
 
     public String getTargetDegree() {
-        return TargetDegree;
+        return targetDegree;
     }
 
     public void setTargetDegree(String targetDegree) {
-        TargetDegree = targetDegree;
+        this.targetDegree = targetDegree;
     }
 
     public String getTargetMajor() {
-        return TargetMajor;
+        return targetMajor;
     }
 
     public void setTargetMajor(String targetMajor) {
-        TargetMajor = targetMajor;
+        this.targetMajor = targetMajor;
     }
 
     public String getTargetOfferType() {
-        return TargetOfferType;
+        return targetOfferType;
     }
 
     public void setTargetOfferType(String targetOfferType) {
-        TargetOfferType = targetOfferType;
+        this.targetOfferType = targetOfferType;
     }
 
     public int getRank() {

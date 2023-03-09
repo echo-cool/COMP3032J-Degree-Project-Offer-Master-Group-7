@@ -36,9 +36,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+//                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+//                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                long userId = jwtUtils.getUserIdFromJwtToken(jwt);
+                UserDetails userDetails = userDetailsService.loadUserById(userId);
+
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -56,7 +60,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7, headerAuth.length());
+
+            if(headerAuth.contains("Bearer 20")) {
+                headerAuth = headerAuth.replace("Bearer 20", "");
+            }else{
+                headerAuth = headerAuth.substring(7);
+            }
+            logger.info(headerAuth);
+            return headerAuth;
         }
 
         return null;

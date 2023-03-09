@@ -60,7 +60,7 @@
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="150px" style="width: 400px; margin-left:50px;">
         <el-form-item label="SchoolName" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
@@ -231,7 +231,6 @@ export default {
         if (valid) {
           createSchool(this.temp).then(response => {
             this.temp.id = response['id']
-            this.temp.createdAt = response['createdAt']
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({

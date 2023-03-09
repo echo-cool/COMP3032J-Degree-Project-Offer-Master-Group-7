@@ -19,18 +19,20 @@ export function getPrograms(schoolID) {
 }
 
 export function fetchList(query) {
-  console.log(query)
   return request({
     url: '/backend/rest/programs',
     method: 'get',
     headers: {
       'Authorization': getToken()
+    },
+    params: {
+      'page': query['page'] - 1,
+      'size': query['size']
     }
-    // params: query
   })
 }
 
-export function deleteSchool(programID) {
+export function deleteProgram(programID) {
   console.log(programID)
   return request({
     url: 'backend/rest/programs/' + programID,
@@ -78,6 +80,29 @@ export function updateProgram(data) {
     data: {
       'name': data.name
     },
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+
+// export function addProgramToSchool(links, schoolID) {
+//   request({
+//     url: '/backend/rest/schools/' + schoolID,
+//     method: 'patch',
+//     headers: {
+//       'Authorization': getToken()
+//     },
+//     data: {
+//       'programs': links
+//     }
+//   })
+// }
+
+export function getProgramSchool(schoolID) {
+  return request({
+    url: '/backend/rest/schools/' + schoolID,
+    method: 'get',
     headers: {
       'Authorization': getToken()
     }

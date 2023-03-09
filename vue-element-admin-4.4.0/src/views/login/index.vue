@@ -6,15 +6,15 @@
         <h3 class="title">Login Form</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="email" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="email"
+          v-model="loginForm.email"
+          placeholder="Email"
+          name="email"
           type="text"
           tabindex="1"
           autocomplete="on"
@@ -99,11 +99,11 @@ export default {
     }
     return {
       loginForm: {
-        username: '111',
+        email: 'me1@echo.cool',
         password: '111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        email: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',

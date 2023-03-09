@@ -10,4 +10,6 @@ public interface UserService {
 
     public String uploadAvatar(MultipartFile file);
 
+//    public void changePassword();
+
 }
