@@ -80,27 +80,8 @@ public class UserController {
                     .body(R.error().message("Upload failed - You should login first."));
         }
 
-        // for test
-//        Set<Program> testset = new HashSet<>();
-//        testset.add(programRepository.findById(1L).get());
-//        testset.add(programRepository.findById(2L).get());
-//        testset.add(programRepository.findById(3L).get());
-
-        Set<User> testset = new HashSet<>();
-        testset.add(userRepository.findById(1L).get());
-        testset.add(userRepository.findById(2L).get());
-        testset.add(userRepository.findById(3L).get());
-
-        return ResponseEntity.ok(R.ok().data("user", user).data("selectedPrograms", testset));
+        return ResponseEntity.ok(R.ok().data("user", user));
     }
-
-//    private Set<Program> getSelectedPrograms(User user){
-//        Set<Program> programs = new HashSet<>();
-//        for (ProgramSelection ps : user.getProgramSelections()){
-//            programs.add(ps.getProgram());
-//        }
-//        return programs;
-//    }
 
     @PostMapping("/uploadAvatar")
     public ResponseEntity<?> uploadAvatar(MultipartFile file, HttpServletRequest request){

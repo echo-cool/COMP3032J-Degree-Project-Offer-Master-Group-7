@@ -114,12 +114,15 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        Application appli = new Application(user1, program1);
-        applicationRepository.save(appli);
+        Application application1 = new Application(user1, program1);
+        Application application2 = new Application(user1, program1, EStatus.ADMITTED);
+        Application application3 = new Application(user1, program1, EStatus.AWAITING_DECISION);
+        Application application4 = new Application(user1, program1, EStatus.AWAITING_REVIEW);
 
-        Application appli2 = new Application(user2, program1, EStatus.ADMITTED);
-        applicationRepository.save(appli2);
-
+        applicationRepository.save(application1);
+        applicationRepository.save(application2);
+        applicationRepository.save(application3);
+        applicationRepository.save(application4);
 
 
         return args -> {
