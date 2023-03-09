@@ -32,6 +32,7 @@ public class Program {
     private School school;
 
     @OneToMany(mappedBy = "program")
+    @JsonManagedReference
     Set<Application> applications = new HashSet<>();
 
 

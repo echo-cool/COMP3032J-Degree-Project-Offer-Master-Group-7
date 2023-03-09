@@ -68,6 +68,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     Set<Application> applications = new HashSet<>();
 
 
