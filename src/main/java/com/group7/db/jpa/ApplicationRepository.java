@@ -11,5 +11,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Package: com.group7.db.jpa
  * @Description:
  **/
-public interface ApplicationRepository extends JpaRepository<Application, Long>, PagingAndSortingRepository<Application, Long>, CrudRepository<Application, Long> {
+public interface ApplicationRepository extends JpaRepository<Application, ApplicationKey>, PagingAndSortingRepository<Application, ApplicationKey>, CrudRepository<Application, ApplicationKey> {
 }

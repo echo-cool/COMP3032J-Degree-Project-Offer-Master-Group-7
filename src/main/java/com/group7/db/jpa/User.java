@@ -1,6 +1,6 @@
 package com.group7.db.jpa;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import io.sentry.protocol.App;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -26,6 +26,7 @@ import java.util.Set;
 //                @UniqueConstraint(columnNames = "username"),
 //                @UniqueConstraint(columnNames = "email")
         })
+@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,17 +74,36 @@ public class User {
 //    private Profile backgroundId;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_applications",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "application_id"))
-    private Set<Application> applications = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "user_applications",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "application_id"))
+//    private Set<Application> applications = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private Set<ProgramSelection> programSelections;
+//    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JsonManagedReference
+//    private Set<ProgramSelection> programSelections;
 
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+//    @JoinTable(name = "user_programs",
+//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "program_id", referencedColumnName = "id")})
+//    private Set<Program> selectedPrograms = new HashSet<>();
 
+//    @JsonManagedReference
+//    @ManyToMany
+//    @JoinTable(name = "user_programs",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "program_id"))
+//    private Set<Program> selectedPrograms = new HashSet<>();
+
+//    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER, cascade = {CascadeType.MERGE}) //建议MERGE//mappedBy对方配置关系的属性名称,表示由对方来维护中间表关系
+//    private Set<Program> selectedPrograms = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Application> applications = new HashSet<>();
 
     public User(String username, String email, String password, Set<Role> roles) {
         this.username = username;
@@ -174,14 +194,6 @@ public class User {
         this.roles = roles;
     }
 
-//    public Profile getBackgroundId() {
-//        return backgroundId;
-//    }
-//
-//    public void setBackgroundId(Profile backgroundId) {
-//        this.backgroundId = backgroundId;
-//    }
-
     public String getBio() {
         return bio;
     }
@@ -198,11 +210,4 @@ public class User {
         this.applications = applications;
     }
 
-    public Set<ProgramSelection> getProgramSelections() {
-        return programSelections;
-    }
-
-    public void setProgramSelections(Set<ProgramSelection> programSelections) {
-        this.programSelections = programSelections;
-    }
 }

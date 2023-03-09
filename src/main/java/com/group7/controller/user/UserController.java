@@ -5,10 +5,7 @@ import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.user.payload.ChangePasswordRequest;
 import com.group7.controller.user.payload.EditBackgroundRequest;
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
-import com.group7.db.jpa.Profile;
-import com.group7.db.jpa.ProfileRepository;
-import com.group7.db.jpa.User;
-import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.SpecificationsBuilder;
 import com.group7.utils.common.JwtUtils;
 import com.group7.service.UserService;
@@ -24,8 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -37,6 +33,9 @@ public class UserController {
 
     @Resource
     private ProfileRepository profileRepository;
+
+    @Resource
+    private  ProgramRepository programRepository;
 
     @Autowired
     private UserService userService;
@@ -70,6 +69,38 @@ public class UserController {
             return R.error().message("error");
         }
     }
+
+    @GetMapping("/getSelectedPrograms")
+    public ResponseEntity<?> getSelectedPrograms(HttpServletRequest request){
+
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Upload failed - You should login first."));
+        }
+
+        // for test
+//        Set<Program> testset = new HashSet<>();
+//        testset.add(programRepository.findById(1L).get());
+//        testset.add(programRepository.findById(2L).get());
+//        testset.add(programRepository.findById(3L).get());
+
+        Set<User> testset = new HashSet<>();
+        testset.add(userRepository.findById(1L).get());
+        testset.add(userRepository.findById(2L).get());
+        testset.add(userRepository.findById(3L).get());
+
+        return ResponseEntity.ok(R.ok().data("user", user).data("selectedPrograms", testset));
+    }
+
+//    private Set<Program> getSelectedPrograms(User user){
+//        Set<Program> programs = new HashSet<>();
+//        for (ProgramSelection ps : user.getProgramSelections()){
+//            programs.add(ps.getProgram());
+//        }
+//        return programs;
+//    }
 
     @PostMapping("/uploadAvatar")
     public ResponseEntity<?> uploadAvatar(MultipartFile file, HttpServletRequest request){

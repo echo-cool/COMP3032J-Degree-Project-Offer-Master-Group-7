@@ -14,19 +14,44 @@ import java.util.Set;
  **/
 @Entity
 public class Application {
-    @Id
-    @GeneratedValue
-    private Long id;
 
-    @OneToOne
-    private Program program;
+    @EmbeddedId
+    ApplicationKey id = new ApplicationKey();
 
-    public void setId(Long id) {
+    @ManyToOne
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
+    User user;
+
+    @ManyToOne
+    @MapsId("programId")
+    @JoinColumn(name = "program_id")
+    Program program;
+
+
+    public Application(ApplicationKey id, User user, Program program) {
+        this.id = id;
+        this.user = user;
+        this.program = program;
+    }
+
+    public Application() {
+    }
+
+    public ApplicationKey getId() {
+        return id;
+    }
+
+    public void setId(ApplicationKey id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Program getProgram() {

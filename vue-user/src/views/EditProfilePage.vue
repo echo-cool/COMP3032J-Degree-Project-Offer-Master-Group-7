@@ -716,7 +716,10 @@
                         greAnalyticalWriting: "",
                         greVerbal: "",
                         greQuantitative: ""
-                    }
+                    },
+                    selectedPrograms: [
+
+                    ]
                 },
 
                 changePasswordParams: {
@@ -725,6 +728,8 @@
                     newPassword: "",
                     reNewPassword: ""
                 },
+
+                selectedPrograms: [],
 
                 projects: [
                     {
@@ -1184,6 +1189,12 @@
 
             this.getCurrentUser();
             // this.currentUser = userLoader.getCurrentUser();
+
+            // update the program list of this user
+            // this.getSelectedPrograms();
+
+            // for test
+            console.log("selected programs: " + this.currentUser);
         },
 
         computed: {
@@ -1230,6 +1241,20 @@
                     window.alert("You should login first!");
                     router.push({path: '/login'});
                 }
+            },
+
+            // get selected program list of this user
+            getSelectedPrograms(){
+                profileApi.getSelectedPrograms()
+                    .then(response => {
+                        // update the selectedProgram and cookie
+                        this.selectedPrograms = response.data.selectedPrograms;
+                        cookie.set("selected_programs", JSON.stringify(this.selectedPrograms), { domain: 'localhost' });
+
+                    })
+                    .catch(error => {
+                        console.log("getSelectedPrograms error: " + error.response.data.message);
+                    })
             },
 
             uploadAvatar(file){

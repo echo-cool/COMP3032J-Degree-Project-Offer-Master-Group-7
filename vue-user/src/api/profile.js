@@ -37,6 +37,14 @@ export default{
             method: 'post',
             data: params
         })
+    },
+
+    // for get selected program list of this user
+    getSelectedPrograms(){
+        return request({
+            url: `/api/user/getSelectedPrograms`,
+            method: 'get',
+        })
     }
 
 }

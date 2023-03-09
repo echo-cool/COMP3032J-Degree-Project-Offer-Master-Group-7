@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -14,6 +15,12 @@ import java.util.Set;
  * @Description:
  **/
 @Entity
+@Table(name = "program",
+        uniqueConstraints = {
+//                @UniqueConstraint(columnNames = "username"),
+//                @UniqueConstraint(columnNames = "email")
+        })
+@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class Program {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +42,30 @@ public class Program {
 //    @JoinColumn(name="program_id")
     private School school;
 
-    @OneToOne(mappedBy = "program")
-    private Application application;
+//    @OneToOne(mappedBy = "program")
+//    private Application application;
 
-    @OneToMany(mappedBy = "program", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private Set<ProgramSelection> programSelections;
+//    @OneToMany(mappedBy = "program", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JsonManagedReference
+//    private Set<ProgramSelection> programSelections;
+
+    // who selected this program in their list
+//    @ManyToMany(mappedBy = "selectedPrograms",fetch = FetchType.EAGER, cascade = {CascadeType.MERGE}) //建议MERGE//mappedBy对方配置关系的属性名称,表示由对方来维护中间表关系
+//    private Set<User> users = new HashSet<>();
+
+//    @JsonBackReference
+//    @ManyToMany(mappedBy = "selectedPrograms") //建议MERGE//mappedBy对方配置关系的属性名称,表示由对方来维护中间表关系
+//    private Set<User> users = new HashSet<>();
+
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+//    @JoinTable(name = "user_programs",
+//            joinColumns = {@JoinColumn(name = "program_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+//    private Set<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "program")
+    Set<Application> applications = new HashSet<>();
 
 
     public Program(String name, School school) {
@@ -65,14 +91,6 @@ public class Program {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<ProgramSelection> getProgramSelections() {
-        return programSelections;
-    }
-
-    public void setProgramSelections(Set<ProgramSelection> programSelections) {
-        this.programSelections = programSelections;
     }
 
     public String getStatus() {
@@ -105,5 +123,13 @@ public class Program {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 }
