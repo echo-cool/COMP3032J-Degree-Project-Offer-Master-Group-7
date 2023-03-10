@@ -24,7 +24,7 @@ import java.util.Set;
 @Table(name = "user",
         uniqueConstraints = {
         })
-@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
+//@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,10 +68,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
     Set<Application> applications = new HashSet<>();
-
-
 
 
     public User(String username, String email, String password, Set<Role> roles) {

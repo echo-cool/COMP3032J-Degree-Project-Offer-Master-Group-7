@@ -32,7 +32,7 @@ public class Program {
     private School school;
 
     @OneToMany(mappedBy = "program")
-    @JsonManagedReference
+    @JsonIgnore
     Set<Application> applications = new HashSet<>();
 
 

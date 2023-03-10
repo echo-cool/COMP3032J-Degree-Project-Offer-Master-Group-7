@@ -1,6 +1,6 @@
 package com.group7.db.jpa;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
@@ -15,6 +15,7 @@ import java.util.Set;
  * @Description:
  **/
 @Entity
+//@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class Application {
 
     @Id
@@ -23,11 +24,10 @@ public class Application {
 
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JsonBackReference
     private Program program;
 
     @Column(nullable = false)

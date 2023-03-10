@@ -717,7 +717,7 @@
                         greVerbal: "",
                         greQuantitative: ""
                     },
-                    selectedPrograms: [
+                    applications: [
 
                     ]
                 },
@@ -1189,12 +1189,6 @@
 
             this.getCurrentUser();
             // this.currentUser = userLoader.getCurrentUser();
-
-            // update the program list of this user
-            // this.getSelectedPrograms();
-
-            // for test
-            console.log("selected programs: " + this.currentUser);
         },
 
         computed: {
@@ -1271,6 +1265,7 @@
                         // update the current_user and cookie
                         this.currentUser = response.data.user;
                         cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+
                     })
                     .catch(error => {
                         // notify user
