@@ -45,6 +45,23 @@ export default{
             url: `/api/user/getSelectedPrograms`,
             method: 'get',
         })
+    },
+
+    // get user applications by id
+    getApplicationsByUid(uid){
+        return request({
+            url: `/rest/users/${uid}/applications`,
+            method: 'get'
+        })
+    },
+
+    // get a program, school, user, application, etc. by rest url
+    getByRestURL(url){
+        return request({
+            url: url,
+            method: 'get'
+        })
     }
+
 
 }

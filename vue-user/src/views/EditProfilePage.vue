@@ -462,19 +462,19 @@
 
                             <!-- My program list Panel -->
                             <div class="tab-pane fade" id="nav-program-list" role="tabpanel" aria-labelledby="nav-program-list-tab">
-                                <div class="nuron-information">
+<!--                                <div class="nuron-information">-->
 
                                     <div class="rn-upcoming-area rn-section-gap">
-                                        <div class="container">
+<!--                                        <div class="container">-->
 
                                             <div class="box-table table-responsive">
                                                 <table class="table upcoming-projects">
                                                     <thead>
                                                     <tr>
-                                                        <template v-for="(th, thIndex) in Object.keys(projects[0])"
+                                                        <template v-for="(th, thIndex) in Object.keys(programListHeader)"
                                                                   :key="`th-${thIndex}`">
-                                                            <th v-if="thIndex !== 0">
-                                                                <span class="text-capitalize">{{ th }}</span>
+                                                            <th>
+                                                                <span class="text-capitalize">{{th}}</span>
                                                             </th>
                                                         </template>
                                                     </tr>
@@ -483,11 +483,11 @@
                                                     <tr :class="{'color-light': rowIndex%2 === 0}"
                                                         v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                         :key="`row-${rowIndex}`">
-                                                        <td><span>{{ row.project }}</span></td>
-                                                        <td><span class="color-green">{{ row.time }}</span></td>
-                                                        <td><span class="color-danger">{{ row.count }}</span></td>
-                                                        <td><span class="color-info">{{ row.price }}</span></td>
-                                                        <td><span>{{ row.extras }}</span></td>
+                                                        <td><span>{{ row.program.name }}</span></td>
+                                                        <td><span class="color-green">{{ row.program.school.name }}</span></td>
+                                                        <td><span class="color-danger">{{ row.degree }}</span></td>
+                                                        <td><span class="color-info">{{ row.eStatus }}</span></td>
+                                                        <td><span>{{ row.deadline }}</span></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -518,10 +518,10 @@
                                                     </li>
                                                 </ul>
                                             </nav>
-                                        </div>
+<!--                                        </div>-->
                                     </div>
 
-                                </div>
+<!--                                </div>-->
                             </div>
 
                             <!-- Password Management Panel -->
@@ -729,7 +729,30 @@
                     reNewPassword: ""
                 },
 
-                selectedPrograms: [],
+                applications: [
+                    {
+                        id: "",
+                        eStatus: "",
+                        deadline: "",
+                        degree: null,
+                        program:{
+                            id: "",
+                            name: "",
+                            school:{
+                                id: "",
+                                name: ""
+                            }
+                        }
+                    }
+                ],
+
+                programListHeader: {
+                    Program: "",
+                    School: "",
+                    Degree: "",
+                    Status: "",
+                    ApplyDeadline: ""
+                },
 
                 projects: [
                     {
@@ -813,370 +836,6 @@
                         extras: 'If SOL is above $200'
                     }
                 ],
-
-                // upcomingProjects: [
-                //     {
-                //         date: 'December 18th',
-                //         projects: [
-                //             {
-                //                 id: 1,
-                //                 project: 'Secure 25',
-                //                 time: '10 PM UTC',
-                //                 count: '100%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 2,
-                //                 project: 'Portable Fire',
-                //                 time: '12 PM UTC',
-                //                 count: '10%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 3,
-                //                 project: 'Buddistras',
-                //                 time: '10 PM UTC',
-                //                 count: '900%',
-                //                 price: '$200',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 4,
-                //                 project: 'Mopsquersd',
-                //                 time: '11 PM UTC',
-                //                 count: '200%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 5,
-                //                 project: 'Trads562',
-                //                 time: '2 PM UTC',
-                //                 count: '300%',
-                //                 price: '$560',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 6,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$600',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 7,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 8,
-                //                 project: 'TheEnd',
-                //                 time: '5 PM UTC',
-                //                 count: '85%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 9,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 10,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         date: 'December 17th',
-                //         projects: [
-                //             {
-                //                 id: 1,
-                //                 project: 'Secure 25',
-                //                 time: '10 PM UTC',
-                //                 count: '100%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 2,
-                //                 project: 'Portable Fire',
-                //                 time: '12 PM UTC',
-                //                 count: '10%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 3,
-                //                 project: 'Buddistras',
-                //                 time: '10 PM UTC',
-                //                 count: '900%',
-                //                 price: '$200',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 4,
-                //                 project: 'Mopsquersd',
-                //                 time: '11 PM UTC',
-                //                 count: '200%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 5,
-                //                 project: 'Trads562',
-                //                 time: '2 PM UTC',
-                //                 count: '300%',
-                //                 price: '$560',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 6,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$600',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 7,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 8,
-                //                 project: 'TheEnd',
-                //                 time: '5 PM UTC',
-                //                 count: '85%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         date: 'December 16th',
-                //         projects: [
-                //             {
-                //                 id: 1,
-                //                 project: 'Secure 25',
-                //                 time: '10 PM UTC',
-                //                 count: '100%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 2,
-                //                 project: 'Portable Fire',
-                //                 time: '12 PM UTC',
-                //                 count: '10%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 3,
-                //                 project: 'Buddistras',
-                //                 time: '10 PM UTC',
-                //                 count: '900%',
-                //                 price: '$200',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 4,
-                //                 project: 'Mopsquersd',
-                //                 time: '11 PM UTC',
-                //                 count: '200%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 5,
-                //                 project: 'Trads562',
-                //                 time: '2 PM UTC',
-                //                 count: '300%',
-                //                 price: '$560',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 6,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$600',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 7,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 8,
-                //                 project: 'TheEnd',
-                //                 time: '5 PM UTC',
-                //                 count: '85%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         date: 'December 15th',
-                //         projects: [
-                //             {
-                //                 id: 1,
-                //                 project: 'Secure 25',
-                //                 time: '10 PM UTC',
-                //                 count: '100%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 2,
-                //                 project: 'Portable Fire',
-                //                 time: '12 PM UTC',
-                //                 count: '10%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 3,
-                //                 project: 'Buddistras',
-                //                 time: '10 PM UTC',
-                //                 count: '900%',
-                //                 price: '$200',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 4,
-                //                 project: 'Mopsquersd',
-                //                 time: '11 PM UTC',
-                //                 count: '200%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 5,
-                //                 project: 'Trads562',
-                //                 time: '2 PM UTC',
-                //                 count: '300%',
-                //                 price: '$560',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 6,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$600',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 7,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 8,
-                //                 project: 'TheEnd',
-                //                 time: '5 PM UTC',
-                //                 count: '85%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             }
-                //         ]
-                //     },
-                //     {
-                //         date: 'December 14th',
-                //         projects: [
-                //             {
-                //                 id: 1,
-                //                 project: 'Secure 25',
-                //                 time: '10 PM UTC',
-                //                 count: '100%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 2,
-                //                 project: 'Portable Fire',
-                //                 time: '12 PM UTC',
-                //                 count: '10%',
-                //                 price: '$190',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 3,
-                //                 project: 'Buddistras',
-                //                 time: '10 PM UTC',
-                //                 count: '900%',
-                //                 price: '$200',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 4,
-                //                 project: 'Mopsquersd',
-                //                 time: '11 PM UTC',
-                //                 count: '200%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 5,
-                //                 project: 'Trads562',
-                //                 time: '2 PM UTC',
-                //                 count: '300%',
-                //                 price: '$560',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 6,
-                //                 project: 'Raresable',
-                //                 time: '10 PM UTC',
-                //                 count: '600%',
-                //                 price: '$600',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 7,
-                //                 project: 'Firetab',
-                //                 time: '6 PM UTC',
-                //                 count: '100%',
-                //                 price: '$85',
-                //                 extras: 'If SOL is above $200'
-                //             },
-                //             {
-                //                 id: 8,
-                //                 project: 'TheEnd',
-                //                 time: '5 PM UTC',
-                //                 count: '85%',
-                //                 price: '$90',
-                //                 extras: 'If SOL is above $200'
-                //             }
-                //         ]
-                //     }
-                // ],
                 currPage: 1,
                 countOfPage: 3  // number of items per page
 
@@ -1189,17 +848,19 @@
 
             this.getCurrentUser();
             // this.currentUser = userLoader.getCurrentUser();
+
+            this.getApplications();
         },
 
         computed: {
             filteredRows() {
-                return this.projects;
+                return this.applications;
             },
             pageStart() {
                 return (this.currPage - 1) * this.countOfPage;
             },
             totalPage() {
-                return Math.ceil(this.projects.length / this.countOfPage);
+                return Math.ceil(this.applications.length / this.countOfPage);
             }
         },
 
@@ -1339,6 +1000,56 @@
                             window.alert(error.response.data.message);
                         }
                     })
+            },
+
+            // get the applications (program list) of current user
+            getApplications(){
+                // call the api method
+                profileApi.getApplicationsByUid(this.currentUser.id)
+                    .then(response => {
+
+                        // update the programs list
+                        this.applications = response._embedded.applications;
+
+                        // for each of the application, send request to get the program info
+                        for (let k in this.applications) {
+                            // create the request url for this program
+                            let programURL = `/rest/applications/${this.applications[k].id}/program`;
+                            // call api method
+                            profileApi.getByRestURL(programURL)
+                                .then(response => { // response is the program
+
+                                    // update the program of this application
+                                    this.applications[k].program = response;
+
+                                    // create the request url for the school of this program
+                                    let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`;
+
+                                    // send request to update the school info of this program
+                                    profileApi.getByRestURL(schoolURL)
+                                        .then(response => { // response is the school
+
+                                            // update the school of this program
+                                            this.applications[k].program.school = response;
+
+                                        })
+
+                                })
+                        }
+
+
+                    })
+
+                // for test
+                // console.log("applications: " + this.applications.length);
+
+                // for test
+                // console.log("applications: " + this.applications[0].eStatus);
+                // console.log("applications: " + this.applications[0].deadline);
+                // console.log("applications: " + this.applications[0].degree);
+                // console.log("applications: " + this.applications[0].program.name);
+                // console.log("applications: " + this.applications[0].program.school.name);
+                // console.log("applications: " + this.applications.length);
             }
 
         }

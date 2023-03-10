@@ -13,7 +13,7 @@ public class Profile {
     private Long id;
 
     @OneToOne(mappedBy = "profile")
-    @JsonManagedReference
+    @JsonBackReference
     private User user;
 
     // Application Target

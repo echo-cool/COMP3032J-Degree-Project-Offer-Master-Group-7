@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,9 @@ import java.util.Set;
  * @Description:
  **/
 @Entity
+@Table(name = "application",
+        uniqueConstraints = {
+        })
 public class Application {
 
     @Id
@@ -34,6 +38,12 @@ public class Application {
     @Column(nullable = false)
     private EStatus eStatus = EStatus.NULL;
 
+    @Temporal(TemporalType.DATE)
+    private Date deadline = new Date();
+
+    @Column
+    private String degree;
+
 
     public Application(User user, Program program) {
         this.user = user;
@@ -44,6 +54,13 @@ public class Application {
         this.user = user;
         this.program = program;
         this.eStatus = eStatus;
+    }
+
+    public Application(User user, Program program, EStatus eStatus, String degree) {
+        this.user = user;
+        this.program = program;
+        this.eStatus = eStatus;
+        this.degree = degree;
     }
 
     public Application() {
@@ -66,11 +83,35 @@ public class Application {
         this.program = program;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public EStatus geteStatus() {
+        return eStatus;
+    }
+
+    public void seteStatus(EStatus eStatus) {
+        this.eStatus = eStatus;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 }
