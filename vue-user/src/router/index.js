@@ -62,7 +62,7 @@ const routes = [
         name: 'HomePageOne',
         component: HomePageOne,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -70,7 +70,7 @@ const routes = [
         name: 'HomePageTwo',
         component: HomePageTwo,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -78,7 +78,7 @@ const routes = [
         name: 'HomePageThree',
         component: HomePageThree,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -86,7 +86,7 @@ const routes = [
         name: 'HomePageFour',
         component: HomePageFour,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -94,7 +94,7 @@ const routes = [
         name: 'HomePageFive',
         component: HomePageFive,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -102,7 +102,7 @@ const routes = [
         name: 'HomePageSix',
         component: HomePageSix,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -110,7 +110,7 @@ const routes = [
         name: 'HomePageSeven',
         component: HomePageSeven,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -118,7 +118,7 @@ const routes = [
         name: 'HomePageEight',
         component: HomePageEight,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -126,7 +126,7 @@ const routes = [
         name: 'HomePageNine',
         component: HomePageNine,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -134,7 +134,7 @@ const routes = [
         name: 'HomePageTen',
         component: HomePageTen,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -142,7 +142,7 @@ const routes = [
         name: 'HomePageEleven',
         component: HomePageEleven,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -150,7 +150,7 @@ const routes = [
         name: 'HomePageTwelve',
         component: HomePageTwelve,
         meta: {
-            title: 'Nuron - NFT Marketplace Template',
+            title: 'OfferMaster',
         },
     },
     {
@@ -158,7 +158,7 @@ const routes = [
         name: 'CreateProduct',
         component: CreateProduct,
         meta: {
-            title: 'Create || Nuron - NFT Marketplace Template',
+            title: 'Create || OfferMaster',
         },
     },
     {
@@ -166,7 +166,7 @@ const routes = [
         name: 'ProductDetails',
         component: ProductDetails,
         meta: {
-            title: 'Product Details || Nuron - NFT Marketplace Template',
+            title: 'Product Details || OfferMaster',
         },
     },
     {
@@ -174,7 +174,7 @@ const routes = [
         name: 'Connect',
         component: Connect,
         meta: {
-            title: 'Connect || Nuron - NFT Marketplace Template',
+            title: 'Connect || OfferMaster',
         },
     },
     {
@@ -182,7 +182,7 @@ const routes = [
         name: 'Collection',
         component: Collection,
         meta: {
-            title: 'Author || Nuron - NFT Marketplace Template',
+            title: 'Author || OfferMaster',
         },
     },
     {
@@ -190,7 +190,7 @@ const routes = [
         name: 'Creators',
         component: Creators,
         meta: {
-            title: 'Collection || Nuron - NFT Marketplace Template',
+            title: 'Collection || OfferMaster',
         },
     },
     {
@@ -198,7 +198,7 @@ const routes = [
         name: 'AuthorDetails',
         component: AuthorDetails,
         meta: {
-            title: 'Author Details || Nuron - NFT Marketplace Template',
+            title: 'Author Details || OfferMaster',
         },
     },
     {
@@ -206,7 +206,7 @@ const routes = [
         name: 'EditProfilePage',
         component: EditProfilePage,
         meta: {
-            title: 'Edit Profile || Nuron - NFT Marketplace Template',
+            title: 'Personal Profile || OfferMaster',
         },
     },
     {
@@ -214,7 +214,7 @@ const routes = [
         name: 'About',
         component: About,
         meta: {
-            title: 'About || Nuron - NFT Marketplace Template',
+            title: 'About || OfferMaster',
         },
     },
     {
@@ -222,7 +222,7 @@ const routes = [
         name: 'Contact',
         component: Contact,
         meta: {
-            title: 'Contact || Nuron - NFT Marketplace Template',
+            title: 'Contact || OfferMaster',
         },
     },
     {
@@ -230,7 +230,7 @@ const routes = [
         name: 'BlogCategoryPosts',
         component: BlogCategoryPosts,
         meta: {
-            title: 'Blog Category List || Nuron - NFT Marketplace Template',
+            title: 'Blog Category List || OfferMaster',
         },
     },
     {
@@ -238,7 +238,7 @@ const routes = [
         name: 'BlogTagPosts',
         component: BlogTagPosts,
         meta: {
-            title: 'Blog Tag List || Nuron - NFT Marketplace Template',
+            title: 'Blog Tag List || OfferMaster',
         },
     },
     {
@@ -246,7 +246,7 @@ const routes = [
         name: 'BlogDetails',
         component: BlogDetails,
         meta: {
-            title: 'Blog Details || Nuron - NFT Marketplace Template',
+            title: 'Blog Details || OfferMaster',
         },
     },
     {
@@ -254,7 +254,7 @@ const routes = [
         name: 'BlogSingleColumn',
         component: BlogSingleColumn,
         meta: {
-            title: 'Blog Single Column || Nuron - NFT Marketplace Template',
+            title: 'Blog Single Column || OfferMaster',
         },
     },
     {
@@ -262,7 +262,7 @@ const routes = [
         name: 'BlogTwoColumn',
         component: BlogTwoColumn,
         meta: {
-            title: 'Blog Two Column || Nuron - NFT Marketplace Template',
+            title: 'Blog Two Column || OfferMaster',
         },
     },
     {
@@ -270,7 +270,7 @@ const routes = [
         name: 'BlogThreeColumn',
         component: BlogThreeColumn,
         meta: {
-            title: 'Blog Three Column || Nuron - NFT Marketplace Template',
+            title: 'Blog Three Column || OfferMaster',
         },
     },
     {
@@ -278,7 +278,7 @@ const routes = [
         name: 'BlogFourColumn',
         component: BlogFourColumn,
         meta: {
-            title: 'Blog Four Column || Nuron - NFT Marketplace Template',
+            title: 'Blog Four Column || OfferMaster',
         },
     },
     {
@@ -286,7 +286,7 @@ const routes = [
         name: 'ExploreOne',
         component: ExploreOne,
         meta: {
-            title: 'Explore Filter || Nuron - NFT Marketplace Template',
+            title: 'Explore Filter || OfferMaster',
         },
     },
     {
@@ -294,7 +294,7 @@ const routes = [
         name: 'ExploreTwo',
         component: ExploreTwo,
         meta: {
-            title: 'Explore Isotop || Nuron - NFT Marketplace Template',
+            title: 'Explore Isotop || OfferMaster',
         },
     },
     {
@@ -302,7 +302,7 @@ const routes = [
         name: 'ExploreThree',
         component: ExploreThree,
         meta: {
-            title: 'Explore Carousel || Nuron - NFT Marketplace Template',
+            title: 'Explore Carousel || OfferMaster',
         },
     },
     {
@@ -310,7 +310,7 @@ const routes = [
         name: 'ExploreFour',
         component: ExploreFour,
         meta: {
-            title: 'Explore Simple || Nuron - NFT Marketplace Template',
+            title: 'Explore Simple || OfferMaster',
         },
     },
     {
@@ -318,7 +318,7 @@ const routes = [
         name: 'ExploreFive',
         component: ExploreFive,
         meta: {
-            title: 'Explore With Place Bid || Nuron - NFT Marketplace Template',
+            title: 'Explore With Place Bid || OfferMaster',
         },
     },
     {
@@ -326,7 +326,7 @@ const routes = [
         name: 'ExploreSix',
         component: ExploreSix,
         meta: {
-            title: 'Place Bid With Filter || Nuron - NFT Marketplace Template',
+            title: 'Place Bid With Filter || OfferMaster',
         },
     },
     {
@@ -334,7 +334,7 @@ const routes = [
         name: 'ExploreSeven',
         component: ExploreSeven,
         meta: {
-            title: 'Place Bid With Carousel || Nuron - NFT Marketplace Template',
+            title: 'Place Bid With Carousel || OfferMaster',
         },
     },
     {
@@ -342,7 +342,7 @@ const routes = [
         name: 'ExploreEight',
         component: ExploreEight,
         meta: {
-            title: 'Explore Carousel || Nuron - NFT Marketplace Template',
+            title: 'Explore Carousel || OfferMaster',
         },
     },
     {
@@ -350,7 +350,7 @@ const routes = [
         name: 'ExploreNine',
         component: ExploreNine,
         meta: {
-            title: 'Explore List Style || Nuron - NFT Marketplace Template',
+            title: 'Explore List Style || OfferMaster',
         },
     },
     {
@@ -358,7 +358,7 @@ const routes = [
         name: 'ExploreTen',
         component: ExploreTen,
         meta: {
-            title: 'Explore List Column Two || Nuron - NFT Marketplace Template',
+            title: 'Explore List Column Two || OfferMaster',
         },
     },
     {
@@ -366,7 +366,7 @@ const routes = [
         name: 'ExploreEleven',
         component: ExploreEleven,
         meta: {
-            title: 'Live Explore || Nuron - NFT Marketplace Template',
+            title: 'Live Explore || OfferMaster',
         },
     },
     {
@@ -374,7 +374,7 @@ const routes = [
         name: 'ExploreTwelve',
         component: ExploreTwelve,
         meta: {
-            title: 'Live Explore Carousel || Nuron - NFT Marketplace Template',
+            title: 'Live Explore Carousel || OfferMaster',
         },
     },
     {
@@ -382,7 +382,7 @@ const routes = [
         name: 'ExploreThirteen',
         component: ExploreThirteen,
         meta: {
-            title: 'Live With Place Bid || Nuron - NFT Marketplace Template',
+            title: 'Live With Place Bid || OfferMaster',
         },
     },
     {
@@ -390,7 +390,7 @@ const routes = [
         name: 'ExploreFourteen',
         component: ExploreFourteen,
         meta: {
-            title: 'Explore Filter Left || Nuron - NFT Marketplace Template',
+            title: 'Explore Filter Left || OfferMaster',
         },
     },
     {
@@ -398,7 +398,7 @@ const routes = [
         name: 'UploadVariants',
         component: UploadVariants,
         meta: {
-            title: 'Upload Variants || Nuron - NFT Marketplace Template',
+            title: 'Upload Variants || OfferMaster',
         },
     },
     {
@@ -406,7 +406,7 @@ const routes = [
         name: 'Activity',
         component: Activity,
         meta: {
-            title: 'Activity || Nuron - NFT Marketplace Template',
+            title: 'Activity || OfferMaster',
         },
     },
     {
@@ -414,7 +414,7 @@ const routes = [
         name: 'UpcomingProjects',
         component: UpcomingProjects,
         meta: {
-            title: 'Upcoming Projects || Nuron - NFT Marketplace Template',
+            title: 'Upcoming Projects || OfferMaster',
         },
     },
     {
@@ -422,7 +422,7 @@ const routes = [
         name: 'Login',
         component: Login,
         meta: {
-            title: 'Login || Nuron - NFT Marketplace Template',
+            title: 'Login || OfferMaster',
         },
     },
     {
@@ -430,7 +430,7 @@ const routes = [
         name: 'Signup',
         component: Signup,
         meta: {
-            title: 'Signup || Nuron - NFT Marketplace Template',
+            title: 'Signup || OfferMaster',
         },
     },
     {
@@ -438,7 +438,7 @@ const routes = [
         name: 'ForgetPassword',
         component: ForgetPassword,
         meta: {
-            title: 'Forget Password || Nuron - NFT Marketplace Template',
+            title: 'Forget Password || OfferMaster',
         },
     },
     {
@@ -446,7 +446,7 @@ const routes = [
         name: 'PrivacyPolicy',
         component: PrivacyPolicy,
         meta: {
-            title: 'Privacy Policy || Nuron - NFT Marketplace Template',
+            title: 'Privacy Policy || OfferMaster',
         },
     },
     {
@@ -454,7 +454,7 @@ const routes = [
         name: 'Products',
         component: Products,
         meta: {
-            title: 'Product || Nuron - NFT Marketplace Template',
+            title: 'Product || OfferMaster',
         },
     },
     {
@@ -462,7 +462,7 @@ const routes = [
         name: 'Ranking',
         component: Ranking,
         meta: {
-            title: 'Ranking || Nuron - NFT Marketplace Template',
+            title: 'Ranking || OfferMaster',
         },
     },
     {
@@ -470,7 +470,7 @@ const routes = [
         name: 'NotFound',
         component: NotFound,
         meta: {
-            title: '404 || Nuron - NFT Marketplace Template',
+            title: '404 || OfferMaster',
         },
     },
     {
@@ -478,7 +478,7 @@ const routes = [
         name: 'Support',
         component: Support,
         meta: {
-            title: 'Ranking || Nuron - NFT Marketplace Template',
+            title: 'Ranking || OfferMaster',
         },
     },
     {
@@ -486,7 +486,7 @@ const routes = [
         name: 'TermsCondition',
         component: TermsCondition,
         meta: {
-            title: 'Terms & Condition || Nuron - NFT Marketplace Template',
+            title: 'Terms & Condition || OfferMaster',
         },
     },
     {
@@ -494,7 +494,7 @@ const routes = [
         name: 'ComingSoon',
         component: ComingSoon,
         meta: {
-            title: 'Coming Soon || Nuron - NFT Marketplace Template',
+            title: 'Coming Soon || OfferMaster',
         },
     },
     {
@@ -502,7 +502,7 @@ const routes = [
         name: 'Maintenance',
         component: Maintenance,
         meta: {
-            title: 'Maintenance || Nuron - NFT Marketplace Template',
+            title: 'Maintenance || OfferMaster',
         },
     },
 ]
