@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Nuron Login" current="Nuron Login"/>
+        <breadcrumb title="OfferMaster Login" current="OfferMaster Login"/>
 
         <div class="login-area rn-section-gapTop">
             <div class="container">
@@ -116,7 +116,7 @@
                         cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
 
                         // redirect to the index page
-                        window.location.href = "/";
+                        window.location.href = "/edit-profile";
 
                     })
                     .catch(error => {
