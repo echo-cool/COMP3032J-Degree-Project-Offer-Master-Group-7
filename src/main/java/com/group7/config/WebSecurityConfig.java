@@ -73,7 +73,6 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/*").permitAll()
-                .requestMatchers("/rest/**").permitAll()
                 .requestMatchers("/instances/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/assets/**").permitAll()
@@ -84,6 +83,9 @@ public class WebSecurityConfig {
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated();
+//                .requestMatchers("/rest/**").permitAll()
+//                .requestMatchers("/secure/getUser").permitAll()
+
 //
 //                .requestMatchers("/secure/getUser").permitAll()
 

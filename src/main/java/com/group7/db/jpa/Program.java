@@ -32,7 +32,7 @@ public class Program {
     private School school;
 
     @OneToMany(mappedBy = "program")
-    @JsonIgnore
+    @JsonBackReference(value = "applications")
     Set<Application> applications = new HashSet<>();
 
 
@@ -68,13 +68,4 @@ public class Program {
     public void setSchool(School school) {
         this.school = school;
     }
-
-    public Set<Application> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(Set<Application> applications) {
-        this.applications = applications;
-    }
-
 }

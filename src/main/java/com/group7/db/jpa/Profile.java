@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class Profile {
     private Long id;
 
     @OneToOne(mappedBy = "profile")
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
 
     // Application Target

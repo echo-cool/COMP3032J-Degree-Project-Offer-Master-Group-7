@@ -24,7 +24,7 @@ import java.util.Set;
 @Table(name = "user",
         uniqueConstraints = {
         })
-//@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
+@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +57,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonBackReference("profile")
     private Profile profile = new Profile(this);
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,7 +68,10 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference(value = "applications")
     Set<Application> applications = new HashSet<>();
+
+
 
 
     public User(String username, String email, String password, Set<Role> roles) {

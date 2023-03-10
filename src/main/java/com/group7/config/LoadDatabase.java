@@ -62,6 +62,10 @@ class LoadDatabase {
         School school4 = new School("University of British Columbia");
         School school5 = new School("Stanford University");
         School school6 = new School("University of California, Berkeley");
+        School school7 = new School("Princeton University");
+        School school8 = new School("Harvard University");
+        School school9 = new School("Yale University");
+        School school10 = new School("Dartmouth College");
 
         log.info("Preloading " + schoolRepository.save(school1));
         log.info("Preloading " + schoolRepository.save(school2));
@@ -69,17 +73,37 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school4));
         log.info("Preloading " + schoolRepository.save(school5));
         log.info("Preloading " + schoolRepository.save(school6));
+        log.info("Preloading " + schoolRepository.save(school7));
+        log.info("Preloading " + schoolRepository.save(school8));
+        log.info("Preloading " + schoolRepository.save(school9));
+        log.info("Preloading " + schoolRepository.save(school10));
 
         Program program1 = new Program("Computer Science", school1);
         Program program2 = new Program("Computer Engineering", school3);
         Program program3 = new Program("Software Engineering", school2);
         Program program4 = new Program("Computer Science", school6);
+        Program program5 = new Program("Statistical Science", school1);
+        Program program6 = new Program("Electrical and Computer Engineering", school1);
+        Program program7 = new Program("Software Engineering", school7);
+        Program program8 = new Program("Software Engineering", school8);
+        Program program9 = new Program("Software Engineering", school3);
+        Program program10 = new Program("Quantitative Management", school1);
+        Program program11 = new Program("Financial Technology", school1);
+
+
 
 
         log.info("Preloading " + programRepository.save(program1));
         log.info("Preloading " + programRepository.save(program2));
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
+        log.info("Preloading " + programRepository.save(program5));
+        log.info("Preloading " + programRepository.save(program6));
+        log.info("Preloading " + programRepository.save(program7));
+        log.info("Preloading " + programRepository.save(program8));
+        log.info("Preloading " + programRepository.save(program9));
+        log.info("Preloading " + programRepository.save(program10));
+        log.info("Preloading " + programRepository.save(program11));
 
         Set<Role> test1Roles = new HashSet<>();
         test1Roles.add(role1);

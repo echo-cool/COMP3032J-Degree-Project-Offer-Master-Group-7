@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
+import org.springframework.util.StringUtils;
 
 @Component
 public class JwtUtils {
@@ -76,17 +77,34 @@ public class JwtUtils {
         return false;
     }
 
+    private String parseJwt(HttpServletRequest request) {
+        return getJwtString(request, logger);
+    }
+
+    public static String getJwtString(HttpServletRequest request, Logger logger) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+
+            if(headerAuth.contains("Bearer 20")) {
+                headerAuth = headerAuth.replace("Bearer 20", "");
+            }else{
+                headerAuth = headerAuth.substring(7);
+            }
+            logger.info(headerAuth);
+            return headerAuth;
+        }
+
+        return null;
+    }
+
     /**
      * Find out the user by using the token in the request header.
      * @param request a http request with the token in its header
      */
     public User getUserFromRequestByToken(HttpServletRequest request){
         // get token from the request header
-        String token = request.getHeader("token");
-        if (!validateJwtToken(token)){
-            // user does not log in
-            return null;
-        }
+        String token = parseJwt(request);
 
         // get user id from token
         long userId = getUserIdFromJwtToken(token);
@@ -94,8 +112,11 @@ public class JwtUtils {
         if(!userRepository.existsById(userId)){
             return null;
         }
-
-        User user = userRepository.findById(userId).get();
-        return user;
+        if(userRepository.findById(userId).isPresent()){
+            return userRepository.findById(userId).get();
+        }
+        else{
+            return null;
+        }
     }
 }
