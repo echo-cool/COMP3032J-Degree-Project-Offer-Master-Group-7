@@ -198,14 +198,17 @@ export default {
       } else {
         schoolQuery.sort = true
       }
-      console.log(schoolQuery)
-      console.log(this.listQuery)
+      // console.log(schoolQuery)
+      // console.log(this.listQuery)
+      this.listLoading = true
       pageSchoolListCondition(this.listQuery.page, this.listQuery.size, schoolQuery)
         .then(response => {
           // response接口返回的数据
-          console.log(response)
-          // this.list = response.data.rows
-          // this.total = response.data.total
+          // console.log(response)
+          this.list = response.data.data.content
+          this.total = response.data.data.size
+          console.log(this.list)
+          this.listLoading = false
         })
         .catch(error => {
           console.log(error)

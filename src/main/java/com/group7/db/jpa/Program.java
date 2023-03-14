@@ -61,6 +61,7 @@ public class Program {
         this.name = name;
     }
 
+    @JsonBackReference
     public School getSchool() {
         return school;
     }

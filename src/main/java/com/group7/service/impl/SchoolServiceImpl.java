@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -30,16 +29,13 @@ public class SchoolServiceImpl implements SchoolService {
         }
         Pageable pageable = PageRequest.of((int)current, (int)limit, sort);
         if (!schoolQueryVo.getName().isBlank()) {
-            System.out.println("name");
-            List<School> schools = schoolRepository.findByNameLike(schoolQueryVo.getName(),sort);
+            List<School> schools = schoolRepository.findByNameContaining(schoolQueryVo.getName(),sort);
             schoolList = listToPage(schools, pageable);
         }
         else{
-            System.out.println("name2");
             schoolList = schoolRepository.findAll(pageable);
         }
 
-        // conditio
         System.out.println(schoolList);
         return schoolList;
     }

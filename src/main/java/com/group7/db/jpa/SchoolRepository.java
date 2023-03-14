@@ -3,6 +3,7 @@ package com.group7.db.jpa;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -17,6 +18,6 @@ import java.util.List;
  * @Description:
  **/
 @RepositoryRestResource
-public interface SchoolRepository extends JpaRepository<School, Long>, PagingAndSortingRepository<School, Long>, CrudRepository<School, Long> {
-    List<School> findByNameLike(String name, Sort sort);
+public interface SchoolRepository extends JpaRepository<School, Long>, PagingAndSortingRepository<School, Long>, CrudRepository<School, Long>, JpaSpecificationExecutor<School> {
+    List<School> findByNameContaining(String name, Sort sort);
 }
