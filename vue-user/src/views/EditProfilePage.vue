@@ -364,7 +364,7 @@
                                             </select>
                                         </div>
                                         <div class="half-wid ml--15">
-                                            <label for="score-total" class="form-label mb--10">Total Score</label>
+                                            <label v-if="currentUser.profile.testType" for="score-total" class="form-label mb--10">Total Score</label>
                                             <input v-if="currentUser.profile.testType === `IELTS`" id="score-total" type="number" v-model="currentUser.profile.totalIELTS">
                                             <input v-if="currentUser.profile.testType === `TOEFL`" id="score-total" type="number" v-model="currentUser.profile.totalTOEFL">
                                         </div>
@@ -373,24 +373,24 @@
                                     <div class="input-two-wrapepr-prifile">
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
-                                                <label for="score-listening" class="form-label mb--10">Listening</label>
+                                                <label v-if="currentUser.profile.testType" for="score-listening" class="form-label mb--10">Listening</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-listening" type="number" v-model="currentUser.profile.listeningIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-listening" type="number" v-model="currentUser.profile.listeningTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
-                                                <label for="score-speaking" class="form-label mb--10">Speaking</label>
+                                                <label v-if="currentUser.profile.testType" for="score-speaking" class="form-label mb--10">Speaking</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-speaking" type="number" v-model="currentUser.profile.speakingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-speaking" type="number" v-model="currentUser.profile.speakingTOEFL">
                                             </div>
                                         </div>
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
-                                                <label for="score-reading" class="form-label mb--10">Reading</label>
+                                                <label v-if="currentUser.profile.testType" for="score-reading" class="form-label mb--10">Reading</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-reading" type="number" v-model="currentUser.profile.readingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-reading" type="number" v-model="currentUser.profile.readingTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
-                                                <label for="score-writing" class="form-label mb--10">Writing</label>
+                                                <label v-if="currentUser.profile.testType" for="score-writing" class="form-label mb--10">Writing</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-writing" type="number" v-model="currentUser.profile.writingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-writing" type="number" v-model="currentUser.profile.writingTOEFL">
                                             </div>
