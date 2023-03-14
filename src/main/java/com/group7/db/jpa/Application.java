@@ -36,6 +36,7 @@ public class Application {
     private Program program;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private EStatus eStatus = EStatus.NULL;
 
     @Temporal(TemporalType.DATE)
