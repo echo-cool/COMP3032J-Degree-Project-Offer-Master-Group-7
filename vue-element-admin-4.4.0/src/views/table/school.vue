@@ -88,10 +88,11 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, deleteSchool, createSchool, updateSchool } from '@/api/school'
+import { fetchList, fetchPv, deleteSchool, createSchool, updateSchool, pageSchoolListCondition } from '@/api/school'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
+
 // import { getPrograms } from '@/api/program'
 // secondary package based on el-pagination
 
@@ -133,9 +134,9 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        size: 20
-        // name: undefined,
-        // sort: '+id'
+        size: 20,
+        name: '',
+        sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
@@ -189,8 +190,28 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getList()
+      console.log(this.listQuery)
+      var schoolQuery = {}
+      schoolQuery.name = this.listQuery.name
+      if (this.listQuery.sort === '-id') {
+        schoolQuery.sort = false
+      } else {
+        schoolQuery.sort = true
+      }
+      console.log(schoolQuery)
+      console.log(this.listQuery)
+      pageSchoolListCondition(this.listQuery.page, this.listQuery.size, schoolQuery)
+        .then(response => {
+          // response接口返回的数据
+          console.log(response)
+          // this.list = response.data.rows
+          // this.total = response.data.total
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
+
     handleModifyStatus(row, status) {
       this.$message({
         message: '操作Success',

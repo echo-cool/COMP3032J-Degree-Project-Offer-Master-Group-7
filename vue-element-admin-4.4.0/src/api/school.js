@@ -68,3 +68,14 @@ export function updateSchool(data) {
     }
   })
 }
+export function pageSchoolListCondition(current, limit, schoolQueryVo) {
+  return request({
+    url: `/backend/api/school/condition-query/${current}/${limit}`,
+    method: 'post',
+    data: schoolQueryVo,
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+
