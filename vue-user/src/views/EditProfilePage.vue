@@ -484,9 +484,13 @@
                                                         v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                         :key="`row-${rowIndex}`">
                                                         <td><span>{{ row.program.name }}</span></td>
-                                                        <td><span class="color-green">{{ row.program.school.name }}</span></td>
-                                                        <td><span class="color-danger">{{ row.degree }}</span></td>
-                                                        <td><span class="color-info">{{ row.eStatus }}</span></td>
+                                                        <td><span class="color-purple">{{ row.program.school.name }}</span></td>
+                                                        <td><span>{{ row.degree }}</span></td>
+                                                        <!-- status different color -->
+                                                        <td v-if="row.eStatus === `REJECTED`"><span class="color-danger">{{ row.eStatus }}</span></td>
+                                                        <td v-else-if="row.eStatus === `ADMITTED`"><span class="color-green">{{ row.eStatus }}</span></td>
+                                                        <td v-else><span class="color-info">{{ row.eStatus }}</span></td>
+
                                                         <td><span>{{ row.deadline }}</span></td>
                                                     </tr>
                                                     </tbody>
@@ -754,88 +758,6 @@
                     ApplyDeadline: ""
                 },
 
-                projects: [
-                    {
-                        id: 1,
-                        project: 'Secure 25',
-                        time: '10 PM UTC',
-                        count: '100%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 2,
-                        project: 'Portable Fire',
-                        time: '12 PM UTC',
-                        count: '10%',
-                        price: '$190',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 3,
-                        project: 'Buddistras',
-                        time: '10 PM UTC',
-                        count: '900%',
-                        price: '$200',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 4,
-                        project: 'Mopsquersd',
-                        time: '11 PM UTC',
-                        count: '200%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 5,
-                        project: 'Trads562',
-                        time: '2 PM UTC',
-                        count: '300%',
-                        price: '$560',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 6,
-                        project: 'Raresable',
-                        time: '10 PM UTC',
-                        count: '600%',
-                        price: '$600',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 7,
-                        project: 'Firetab',
-                        time: '6 PM UTC',
-                        count: '100%',
-                        price: '$85',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 8,
-                        project: 'TheEnd',
-                        time: '5 PM UTC',
-                        count: '85%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 9,
-                        project: 'Firetab',
-                        time: '6 PM UTC',
-                        count: '100%',
-                        price: '$85',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 10,
-                        project: 'Raresable',
-                        time: '10 PM UTC',
-                        count: '600%',
-                        price: '$190',
-                        extras: 'If SOL is above $200'
-                    }
-                ],
                 currPage: 1,
                 countOfPage: 3  // number of items per page
 
@@ -1037,19 +959,7 @@
                                 })
                         }
 
-
                     })
-
-                // for test
-                // console.log("applications: " + this.applications.length);
-
-                // for test
-                // console.log("applications: " + this.applications[0].eStatus);
-                // console.log("applications: " + this.applications[0].deadline);
-                // console.log("applications: " + this.applications[0].degree);
-                // console.log("applications: " + this.applications[0].program.name);
-                // console.log("applications: " + this.applications[0].program.school.name);
-                // console.log("applications: " + this.applications.length);
             }
 
         }

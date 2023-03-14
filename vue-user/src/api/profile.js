@@ -55,7 +55,7 @@ export default{
         })
     },
 
-    // get a program, school, user, application, etc. by rest url
+    // get a program, school, user, application, etc. by rest url "/rest/..."
     getByRestURL(url){
         return request({
             url: url,
