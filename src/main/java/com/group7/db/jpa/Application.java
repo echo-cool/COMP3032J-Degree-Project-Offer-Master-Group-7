@@ -28,11 +28,11 @@ public class Application {
 
 
     @ManyToOne
-    @JsonManagedReference(value = "user")
+    @JsonBackReference
     private User user;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     private Program program;
 
     @Column(nullable = false)

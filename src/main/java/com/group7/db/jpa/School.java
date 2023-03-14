@@ -27,6 +27,7 @@ public class School {
     private String name = "NULL";
 
     @OneToMany(mappedBy="school")
+    @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
 
     public School(String name, Set<Program> programs) {
