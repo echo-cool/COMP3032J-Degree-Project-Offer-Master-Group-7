@@ -55,6 +55,9 @@ import Support from '../views/Support'
 import TermsCondition from '../views/TermsCondition'
 import ComingSoon from '../views/ComingSoon'
 import Maintenance from '../views/Maintenance'
+// self
+import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
+
 
 const routes = [
     {
@@ -503,6 +506,17 @@ const routes = [
         component: Maintenance,
         meta: {
             title: 'Maintenance || OfferMaster',
+        },
+    },
+
+    // ------------------------------ self ------------------------------
+
+    {
+        path: '/program-selection',
+        name: 'ProgramSelection',
+        component: ProgramSelection,
+        meta: {
+            title: 'Program Selection || OfferMaster',
         },
     },
 ]

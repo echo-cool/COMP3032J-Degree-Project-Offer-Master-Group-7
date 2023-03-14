@@ -157,7 +157,19 @@ export default {
                     title: 'Contact',
                     hasDropdown: false,
                     megamenu: false,
-                }
+                },
+
+                // ------ for testing ------
+
+                {
+                    link: '#',
+                    title: 'Testing',
+                    hasDropdown: true,
+                    megamenu: false,
+                    dropdownItems: [
+                        {link: '/program-selection', title: 'Test - program selection', icon: 'fast-forward'},
+                    ]
+                },
             ]
         }
     }
