@@ -53,15 +53,6 @@ export default{
             url: `/rest/users/${uid}/applications`,
             method: 'get'
         })
-    },
-
-    // get a program, school, user, application, etc. by rest url "/rest/..."
-    getByRestURL(url){
-        return request({
-            url: url,
-            method: 'get'
-        })
     }
-
 
 }

@@ -48,167 +48,17 @@
 
 <script>
     import NiceSelect from '@/components/select/NiceSelect'
-    import profileApi from "@/api/profile";
     import cookie from "js-cookie";
     import router from "@/router";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
 
     export default {
-        name: 'NotificationListSidebar',
+        name: 'MyProgramListSidebar',
         components: {NiceSelect},
         mixins: [ApplicationListMixin],
         data() {
             return {
                 currentUser: {},
-
-                // applications: [
-                //     {
-                //         id: "",
-                //         eStatus: "",
-                //         deadline: "",
-                //         degree: null,
-                //         program:{
-                //             id: "",
-                //             name: "",
-                //             school:{
-                //                 id: "",
-                //                 name: "",
-                //                 img: ""
-                //             }
-                //         }
-                //     }
-                // ],
-
-                notificationList: [
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/icons/meta.svg`),
-                        title: 'Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-4.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-5.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-6.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-6.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-7.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-8.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-9.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-10.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-11.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-1.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-2.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-3.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-4.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-5.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                    {
-                        url: '/connect',
-                        img: require(`@/assets/images/client/client-6.png`),
-                        title: 'Sold Darken Forever Quick',
-                        description: 'Has been sold by 1221 ETH',
-                        date: '15 July',
-                        time: '10:32 PM'
-                    },
-                ],
             }
         },
 
@@ -236,44 +86,6 @@
                     router.push({path: '/login'});
                 }
             },
-
-            // get the applications (program list) of current user
-            // getApplications(){
-            //     // call the api method
-            //     profileApi.getApplicationsByUid(this.currentUser.id)
-            //         .then(response => {
-            //
-            //             // update the programs list
-            //             this.applications = response._embedded.applications;
-            //
-            //             // for each of the application, send request to get the program info
-            //             for (let k in this.applications) {
-            //                 // create the request url for this program
-            //                 let programURL = `/rest/applications/${this.applications[k].id}/program`;
-            //                 // call api method
-            //                 profileApi.getByRestURL(programURL)
-            //                     .then(response => { // response is the program
-            //
-            //                         // update the program of this application
-            //                         this.applications[k].program = response;
-            //
-            //                         // create the request url for the school of this program
-            //                         let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`;
-            //
-            //                         // send request to update the school info of this program
-            //                         profileApi.getByRestURL(schoolURL)
-            //                             .then(response => { // response is the school
-            //
-            //                                 // update the school of this program
-            //                                 this.applications[k].program.school = response;
-            //
-            //                             })
-            //
-            //                     })
-            //             }
-            //
-            //         })
-            // },
 
             editApplication(){
                 // for test

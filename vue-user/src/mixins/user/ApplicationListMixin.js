@@ -1,4 +1,5 @@
 import profileApi from "@/api/profile";
+import commonApi from "@/api/common";
 import cookie from "js-cookie";
 import router from "@/router";
 
@@ -44,7 +45,7 @@ export default {
                         // create the request url for this program
                         let programURL = `/rest/applications/${this.applications[k].id}/program`;
                         // call api method
-                        profileApi.getByRestURL(programURL)
+                        commonApi.getByRestURL(programURL)
                             .then(response => { // response is the program
 
                                 // update the program of this application
@@ -54,7 +55,7 @@ export default {
                                 let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`;
 
                                 // send request to update the school info of this program
-                                profileApi.getByRestURL(schoolURL)
+                                commonApi.getByRestURL(schoolURL)
                                     .then(response => { // response is the school
 
                                         // update the school of this program

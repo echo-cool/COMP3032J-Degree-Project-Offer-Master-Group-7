@@ -1,31 +1,30 @@
 <template>
     <h2 class="text-left mb--50">All GRADUATE PROGRAMS</h2>
-    <nav class="product-tab-nav">
-        <div class="nav" id="nav-tab" role="tablist">
-            <button :class="[`nav-link`, {'active': activeTabIndex === index}]"
-                    :id="`nav-${filterName(navLink.name)}-tab`"
-                    data-bs-toggle="tab"
-                    :data-bs-target="`#nav-${filterName(navLink.name)}`"
-                    type="button"
-                    role="tab"
-                    :aria-controls="`nav-${filterName(navLink.name)}`"
-                    :aria-selected="index === activeTabIndex ? 'true' : 'false'"
-                    v-for="(navLink, index) in listItemsTab"
-                    :key="`nav-link-${index}`">
-                {{ navLink.name }}
-            </button>
-        </div>
-    </nav>
+<!--    <nav class="product-tab-nav">-->
+<!--        <div class="nav" id="nav-tab" role="tablist">-->
+<!--            <button :class="[`nav-link`, {'active': activeTabIndex === index}]"-->
+<!--                    :id="`nav-${filterName(navLink.name)}-tab`"-->
+<!--                    data-bs-toggle="tab"-->
+<!--                    :data-bs-target="`#nav-${filterName(navLink.name)}`"-->
+<!--                    type="button"-->
+<!--                    role="tab"-->
+<!--                    :aria-controls="`nav-${filterName(navLink.name)}`"-->
+<!--                    :aria-selected="index === activeTabIndex ? 'true' : 'false'"-->
+<!--                    v-for="(navLink, index) in listItemsTab"-->
+<!--                    :key="`nav-link-${index}`">-->
+<!--                {{ navLink.name }}-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </nav>-->
     <div class="tab-content" id="nav-tabContent">
         <div :class="[`lg-product_tab-pane tab-pane fade`, {'show active': activeTabIndex === index}, {'lg-product-col-2': isTwoColumn}]"
-             :id="`nav-${filterName(tabPane.name)}`"
+             :id="`program-${filterName(tabPane.name)}`"
              role="tabpanel"
-             :aria-labelledby="`nav-${filterName(tabPane.name)}-tab`"
              v-for="(tabPane, index) in listItemsTab"
-             :key="`nav-link-${index}`">
+             :key="`program-link-${index}`">
             <template v-for="(product, index) in tabPane.items"
                       :key="`product-${index}`">
-                <product-list-card :product-date="product" :show-two-column="isTwoColumn"/>
+                <program-list-card :product-date="product" :show-two-column="isTwoColumn"/>
             </template>
         </div>
     </div>
@@ -34,10 +33,11 @@
 <script>
     import ProductMixin from '@/mixins/ProductMixin'
     import ProductListCard from '@/components/product/ProductListCard'
+    import ProgramListCard from "@/components/myComp/ProgramListCard.vue";
 
     export default {
         name: 'ExploreListStyle',
-        components: {ProductListCard},
+        components: {ProgramListCard},
         mixins: [ProductMixin],
         props: {
             isTwoColumn: {
@@ -64,11 +64,6 @@
                 ]
             }
         },
-        methods: {
-            filterName(name) {
-                return name.toLowerCase().replace(' ', '-')
-            }
-        },
         mounted() {
             this.filterName('All Products')
         },
@@ -82,6 +77,17 @@
                     item.items = this.products;
                 }
             });
+        },
+
+        methods: {
+            filterName(name) {
+                return name.toLowerCase().replace(' ', '-')
+            },
+
+            // get all the programs
+            getPrograms(){
+
+            }
         }
     }
 </script>
