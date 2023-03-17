@@ -684,6 +684,8 @@
     import profileApi from "@/api/profile";
     import router from "@/router/index";
     import userLoader from "@/utils/userloader";
+    import applicationLoader from "@/utils/applicationLoader";
+
 
     export default {
         name: 'EditProfilePage',
@@ -772,6 +774,9 @@
             // this.currentUser = userLoader.getCurrentUser();
 
             this.getApplications();
+            // this.applications = applicationLoader.getApplications(this.currentUser.id);
+            // console.log("applications: " + this.applications)
+
         },
 
         computed: {

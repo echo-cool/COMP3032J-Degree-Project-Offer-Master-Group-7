@@ -11,12 +11,16 @@
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt--95 mt_md--20 mt_sm--15">
                             <!-- Notification area -->
-                            <notification-list-sidebar/>
+<!--                            <notification-list-sidebar/>-->
                             <!-- Notification area End -->
 
                             <!-- Start creators area -->
 <!--                            <creator-list-sidebar/>-->
                             <!-- End creators area -->
+
+                            <!-- Start My Program List area -->
+                            <my-program-list-sidebar/>
+                            <!-- End My Program List area -->
                         </div>
                     </div>
                 </div>
@@ -40,6 +44,8 @@
     import ExploreListStyle from '@/components/explore/ExploreListStyle'
     import ShareModal from '@/components/modal/ShareModal'
     import ReportModal from '@/components/modal/ReportModal'
+    // self
+    import MyProgramListSidebar from "@/components/myComp/MyProgramListSidebar.vue";
 
     export default {
         name: 'ExploreNine',
@@ -51,7 +57,8 @@
             CreatorListSidebar,
             NotificationListSidebar,
             Breadcrumb,
-            Layout
+            Layout,
+            MyProgramListSidebar
         }
     }
 </script>
