@@ -1,12 +1,13 @@
 <template>
     <layout>
-        <breadcrumb title="Explore Style List" current="Explore Style List"/>
+        <breadcrumb title="Program Selection List" current="Program Selection List"/>
 
         <div class="rn-product-area rn-section-gapTop">
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-8 custom-product-col">
-                        <explore-list-style/>
+<!--                        <explore-list-style/>-->
+                        <program-listing/>
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt--95 mt_md--20 mt_sm--15">
@@ -46,6 +47,7 @@
     import ReportModal from '@/components/modal/ReportModal'
     // self
     import MyProgramListSidebar from "@/components/myComp/MyProgramListSidebar.vue";
+    import ProgramListing from "@/components/myComp/ProgramListing.vue";
 
     export default {
         name: 'ExploreNine',
@@ -58,7 +60,8 @@
             NotificationListSidebar,
             Breadcrumb,
             Layout,
-            MyProgramListSidebar
+            MyProgramListSidebar,
+            ProgramListing
         }
     }
 </script>
