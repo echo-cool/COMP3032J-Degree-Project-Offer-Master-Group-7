@@ -32,8 +32,8 @@ public class Program {
     private School school;
 
     @OneToMany(mappedBy = "program")
-    @JsonBackReference(value = "applications")
-    Set<Application> applications = new HashSet<>();
+    @JsonManagedReference(value = "program")
+    private Set<Application> applications = new HashSet<>();
 
 
     public Program(String name, School school) {
@@ -61,6 +61,7 @@ public class Program {
         this.name = name;
     }
 
+    @JsonBackReference
     public School getSchool() {
         return school;
     }

@@ -1,5 +1,7 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,6 +27,7 @@ public class School {
     private String name = "NULL";
 
     @OneToMany(mappedBy="school")
+    @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
 
     public School(String name, Set<Program> programs) {
@@ -56,6 +59,7 @@ public class School {
         this.name = name;
     }
 
+    @JsonManagedReference
     public Set<Program> getPrograms() {
         return programs;
     }
