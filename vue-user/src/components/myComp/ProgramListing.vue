@@ -40,7 +40,7 @@
     import commonApi from "@/api/common";
     import profileApi from "@/api/profile";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
-    import program from "@/api/program";
+    import program from "@/api/programSelection";
 
     export default {
         name: 'ProgramListing',
@@ -164,11 +164,7 @@
 
             // check whether the application list contains a program
             isProgramSelected(programId){
-                if (this.selectedProgramIDs.includes(programId)){
-                    return true;
-                }else {
-                    return false;
-                }
+                return this.selectedProgramIDs.includes(programId);
             }
         }
     }
