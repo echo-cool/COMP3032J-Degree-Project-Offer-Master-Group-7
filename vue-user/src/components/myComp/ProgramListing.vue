@@ -22,9 +22,12 @@
              role="tabpanel"
              v-for="(tabPane, index) in listItemsTab"
              :key="`program-link-${index}`">
-            <template v-for="(product, index) in tabPane.items"
-                      :key="`product-${index}`">
-                <program-list-card :product-date="product" :show-two-column="isTwoColumn"/>
+
+            <!-- !!! we must load this component after loading all the schools !!! -->
+            <!-- !!! Otherwise, the schools would be undefined !!! -->
+            <template v-if="schoolLoadNum === programs.length" v-for="(program, index) in programs"
+                      :key="`program-${index}`">
+                <program-list-card :program="program" :is-program-selected="isProgramSelected(program.id)" :show-two-column="isTwoColumn"/>
             </template>
         </div>
     </div>
@@ -34,15 +37,26 @@
     import ProductMixin from '@/mixins/ProductMixin'
     import ProductListCard from '@/components/product/ProductListCard'
     import ProgramListCard from "@/components/myComp/ProgramListCard.vue";
+    import commonApi from "@/api/common";
+    import profileApi from "@/api/profile";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import program from "@/api/program";
 
     export default {
-        name: 'ExploreListStyle',
+        name: 'ProgramListing',
         components: {ProgramListCard},
-        mixins: [ProductMixin],
+        mixins: [ProductMixin, ApplicationListMixin],
         props: {
             isTwoColumn: {
                 type: Boolean,
                 default: false
+            },
+            currentUser: {},
+            applications: {
+                type: Array,
+                default: function () {
+                    return [];
+                }
             }
         },
         data() {
@@ -61,7 +75,25 @@
                         name: 'Rare Reals',
                         items: ''
                     }
-                ]
+                ],
+
+                programs: [
+                    {
+                        id: "",
+                        name: "",
+                        school:{
+                            id: "",
+                            name: "",
+                            img: ""
+                        }
+                    }
+                ],
+
+                selectedPrograms: [],
+                selectedProgramIDs: [],
+
+                schoolLoadNum: 0    // number of schools finished loading
+
             }
         },
         mounted() {
@@ -77,6 +109,12 @@
                     item.items = this.products;
                 }
             });
+
+            // fetch data of programs
+            this.getPrograms();
+            // fetch data of user selected programs
+            this.getUserSelectedPrograms();
+
         },
 
         methods: {
@@ -86,7 +124,51 @@
 
             // get all the programs
             getPrograms(){
+                // call the api method
+                commonApi.getByRestURL("/rest/programs")
+                    .then(response => {
+                        // update the programs list
+                        this.programs = response._embedded.programs;
 
+                        // for each of the program, send request to get the school info
+                        for (let k in this.programs){
+                            // create the request url for the school of this program
+                            let schoolURL = `/rest/programs/${this.programs[k].id}/school`;
+
+                            // send request to update the school info of this program
+                            commonApi.getByRestURL(schoolURL)
+                                .then(response => { // response is the school
+                                    // update the school of this program
+                                    this.programs[k].school = response;
+                                    // update the number of finished loading schools
+                                    this.schoolLoadNum += 1;
+                                })
+                        }
+                    })
+            },
+
+            getUserSelectedPrograms(){
+                // call the api method
+                profileApi.getSelectedPrograms()
+                    .then(response => {
+
+                        // get the list of user selected programs
+                        this.selectedPrograms = response.data.selectedPrograms;
+                        // initialize the list of selected program id
+                        for (let k in this.selectedPrograms){
+                            this.selectedProgramIDs.push(this.selectedPrograms[k].id);
+                        }
+
+                    })
+            },
+
+            // check whether the application list contains a program
+            isProgramSelected(programId){
+                if (this.selectedProgramIDs.includes(programId)){
+                    return true;
+                }else {
+                    return false;
+                }
             }
         }
     }

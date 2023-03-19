@@ -48,44 +48,30 @@
 
 <script>
     import NiceSelect from '@/components/select/NiceSelect'
-    import cookie from "js-cookie";
-    import router from "@/router";
-    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
 
     export default {
         name: 'MyProgramListSidebar',
         components: {NiceSelect},
-        mixins: [ApplicationListMixin],
+        props: {
+            currentUser: {},
+            applications: {
+                type: Array,
+                default: function () {
+                    return [];
+                }
+            }
+        },
         data() {
             return {
-                currentUser: {},
+
             }
         },
 
         created() {
 
-            // load the current user info as this page is created
-            this.getCurrentUser();
-            // load the applications of this user
-            this.getApplications(this.currentUser.id);
-
         },
 
         methods:{
-
-            // get current user info from cookie
-            getCurrentUser(){
-                // we have stored this when logging in
-                let userStr = cookie.get("current_user");
-                // turn json string to json obj
-                if (userStr){
-                    this.currentUser = JSON.parse(userStr);
-                }else{
-                    // user should be redirected to the login page if not logged in
-                    window.alert("You should login first!");
-                    router.push({path: '/login'});
-                }
-            },
 
             editApplication(){
                 // for test

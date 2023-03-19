@@ -75,12 +75,18 @@ public class UserController {
 
         User user = jwtUtils.getUserFromRequestByToken(request);
         if (user == null){
-            return ResponseEntity
-                    .badRequest()
-                    .body(R.error().message("Upload failed - You should login first."));
+            // user dose not login
+            return ResponseEntity.ok(R.ok().data("isLogin", false));
         }
 
-        return ResponseEntity.ok(R.ok().data("user", user));
+        // get a list of selected programs of this user
+        Set<Application> applications = user.getApplications();
+        Set<Program> selectedPrograms = new HashSet<>();
+        for (Application ap : applications){
+            selectedPrograms.add(ap.getProgram());
+        }
+
+        return ResponseEntity.ok(R.ok().data("isLogin", true).data("selectedPrograms", selectedPrograms));
     }
 
     @PostMapping("/uploadAvatar")

@@ -7,7 +7,7 @@
                 <div class="row g-5">
                     <div class="col-lg-8 custom-product-col">
 <!--                        <explore-list-style/>-->
-                        <program-listing/>
+                        <program-listing :current-user="currentUser" :applications="applications"/>
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt--95 mt_md--20 mt_sm--15">
@@ -20,7 +20,7 @@
                             <!-- End creators area -->
 
                             <!-- Start My Program List area -->
-                            <my-program-list-sidebar/>
+                            <my-program-list-sidebar :current-user="currentUser" :applications="applications"/>
                             <!-- End My Program List area -->
                         </div>
                     </div>
@@ -48,6 +48,10 @@
     // self
     import MyProgramListSidebar from "@/components/myComp/MyProgramListSidebar.vue";
     import ProgramListing from "@/components/myComp/ProgramListing.vue";
+    import cookie from "js-cookie";
+    import router from "@/router";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+
 
     export default {
         name: 'ExploreNine',
@@ -62,6 +66,34 @@
             Layout,
             MyProgramListSidebar,
             ProgramListing
+        },
+        mixins: [ApplicationListMixin],
+        data(){
+            return{
+                currentUser: {}
+            }
+        },
+        created() {
+
+            this.getCurrentUser();
+            // load the applications of this user
+            this.getApplications(this.currentUser.id);
+
+        },
+        methods: {
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                }else{
+                    // user should be redirected to the login page if not logged in
+                    window.alert("You should login first!");
+                    router.push({path: '/login'});
+                }
+            }
         }
     }
 </script>
