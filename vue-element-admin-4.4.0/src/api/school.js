@@ -55,14 +55,12 @@ export function createSchool(data) {
   })
 }
 
-export function updateSchool(data) {
-  console.log(data)
+export function updateSchool(id, school) {
+  console.log(school)
   return request({
-    url: '/backend/rest/schools/' + data.id,
-    method: 'put',
-    data: {
-      'name': data.name
-    },
+    url: `/backend/api/school/update/${id}`,
+    method: 'post',
+    data: school,
     headers: {
       'Authorization': getToken()
     }
