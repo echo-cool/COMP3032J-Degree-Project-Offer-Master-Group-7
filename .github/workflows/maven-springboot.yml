@@ -61,12 +61,12 @@ jobs:
       - name: Build with Maven
         run: mvn package -DskipTests --file pom.xml
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ github.actor }}/fyp/fyp_offer_master_springboot:latest
+        run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_springboot:latest
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: echo-cool
           password: ${{ secrets.PACKAGE_TOKEN }}
 
-      - run: docker image push ${{ env.REGISTRY }}/${{ github.actor }}/fyp/fyp_offer_master_springboot:latest
+      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_springboot:latest
