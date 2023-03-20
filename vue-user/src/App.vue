@@ -12,7 +12,7 @@
             }
         },
         beforeMount() {
-            this.AppFunctions.addClass('body', 'active-dark-mode');
+            this.AppFunctions.addClass('body', 'active-light-mode');
         },
         watch: {
             '$route': function (value) {

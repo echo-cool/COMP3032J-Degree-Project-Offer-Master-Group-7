@@ -29,7 +29,7 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="ProgramName" width="350px" align="center">
+      <el-table-column label="Program Name" width="350px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
         </template>
@@ -55,13 +55,13 @@
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="ProgramName" prop="name">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="150px" style="width: 400px; margin-left:50px;">
+        <el-form-item label="Program Name" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
-        <el-form-item label="SchoolID" prop="name">
-          <el-input v-model="temp.schoolID" />
-        </el-form-item>
+        <!--        <el-form-item label="SchoolID" prop="name">-->
+        <!--          <el-input v-model="temp.schoolID" />-->
+        <!--        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -86,7 +86,14 @@
 </template>
 
 <script>
-import { fetchPv, deleteProgram, createProgram, updateProgram, getPrograms } from '@/api/program'
+import {
+  fetchPv,
+  deleteProgram,
+  createProgram,
+  updateProgram,
+  getPrograms,
+  getProgramSchool
+} from '@/api/program'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
@@ -132,10 +139,10 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
-        name: undefined,
-        schoolID: '',
-        sort: '+id'
+        limit: 20
+        // name: undefined,
+        // schoolID: '',
+        // sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
@@ -144,7 +151,7 @@ export default {
       showReviewer: false,
       temp: {
         name: '',
-        schoolID: ''
+        school: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -157,15 +164,15 @@ export default {
       rules: {
         name: [{ required: true, message: 'school name is required', trigger: 'blur' }]
       },
-      downloadLoading: false
+      downloadLoading: false,
+      schoolLink: ''
     }
   },
   created() {
     this.id = this.$route.params.id
-    this.listQuery.schoolID = this.id
     console.log(this.id)
     this.getList()
-    // console.log("54")
+    this.getSchoolLink(this.id)
   },
   methods: {
     getList() {
@@ -173,6 +180,9 @@ export default {
       getPrograms(this.id).then(response => {
         this.list = response['_embedded']['programs']
         this.total = response['_embedded']['programs'].length
+        // for (let i = 0; i < this.list.length; i++) {
+        //   this.links.push(this.list[i]['_links']['self']['href'])
+        // }
         console.log(this.list)
         // for (let i = 0; i < this.list.length; i++) {
         //   const school = this.list[i]
@@ -189,6 +199,12 @@ export default {
         //   })
         // }
         this.listLoading = false
+      })
+    },
+    getSchoolLink(id) {
+      getProgramSchool(id).then(response => {
+        this.schoolLink = response['_links']['self']['href']
+        this.temp.school = this.schoolLink
       })
     },
     handleFilter() {
@@ -219,7 +235,7 @@ export default {
     resetTemp() {
       this.temp = {
         name: '',
-        icon: ''
+        school: this.schoolLink
       }
     },
     handleCreate() {
@@ -234,8 +250,10 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createProgram(this.temp).then(response => {
+            // const link = response['_links']['self']['href']
+            // this.links.push(link)
+            // addProgramToSchool(this.links, this.$route.params.id)
             this.temp.id = response['id']
-            this.temp.createdAt = response['createdAt']
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({

@@ -22,6 +22,7 @@ service.interceptors.request.use(
         // check weather there is a token in the cookie
         if(cookie.get("user_token")){
             // put the token into the header of this request
+            config.headers['Authorization'] = 'Bearer ' + cookie.get("user_token");
             config.headers['token'] = cookie.get("user_token");
         }
 
@@ -49,6 +50,13 @@ service.interceptors.response.use(
     function (error) {
         // 超出 2xx 范围的状态码都会触发该函数。
         // 对响应错误做点什么
+
+        // if unauthorized (401) we need to let user login
+        if (error.response.status === 401){
+            window.alert("You should login first!");
+            window.location.href = "/login";
+        }
+
         console.log(error)
         return Promise.reject(error)
     }

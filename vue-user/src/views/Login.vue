@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Nuron Login" current="Nuron Login"/>
+        <breadcrumb title="OfferMaster Login" current="OfferMaster Login"/>
 
         <div class="login-area rn-section-gapTop">
             <div class="container">
@@ -83,40 +83,45 @@
             login(){
                 // call the method defined in the api
                 loginApi.login(this.params)
+                    .then(response => {     // this response is response.data
+
+                        // get the token from response
+                        // and store it into the cookie
+                        cookie.set("user_token", response.accessToken, { domain: 'localhost' });
+
+                        // store user info into the cookie
+                        this.getUserInfo();
+
+                    })
+                    .catch(error => {
+                        // notify user
+                        window.alert(error.response.data.message);
+                    })
+            },
+
+            // get user info by token immediately after login
+            getUserInfo(){
+                // (also viable to get user info from login VO)
+                // this.currentUser = response.data.data.user;
+
+                // get the user info from backend by token
+                // no parameter is required
+                // because the token has been configured into the request header
+                loginApi.getUserInfoByToken()
                     .then(response => {     // this response is R
 
-                        if (response.success){
-                            // get the token from response
-                            // and store it into the cookie
-                            cookie.set("user_token", response.data.token, { domain: 'localhost' });
+                        // get the current user info
+                        // and store it into the cookie
+                        this.currentUser = response.data.user;
+                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
 
-                            // (also viable to get user info from VO)
-                            // this.currentUser = response.data.data.user;
+                        // redirect to the index page
+                        window.location.href = "/edit-profile";
 
-                            // get the user info from backend by token
-                            // no parameter is required
-                            // because the token has been configured into the request header
-                            loginApi.getUserInfoByToken()
-                                .then(response => {     // this response is R
-
-                                    if(response.success){
-                                        // get the current user info
-                                        // and store it into the cookie
-                                        this.currentUser = response.data.user;
-                                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
-
-                                        // redirect to the index page
-                                        window.location.href = "/";
-                                    }else{
-                                        // notify user
-                                        window.alert(response.message);
-                                    }
-
-                                })
-
-                        }else{
-                            window.alert(response.message);
-                        }
+                    })
+                    .catch(error => {
+                        // notify user
+                        window.alert(error.response.data.message);
                     })
             }
         }

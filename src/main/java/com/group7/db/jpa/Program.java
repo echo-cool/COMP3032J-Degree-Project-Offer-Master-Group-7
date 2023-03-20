@@ -1,8 +1,9 @@
 package com.group7.db.jpa;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.Data;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,10 @@ import java.util.Set;
  * @Description:
  **/
 @Entity
+@Table(name = "program",
+        uniqueConstraints = {
+        })
+//@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class Program {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +28,13 @@ public class Program {
     private String name = "NULL";
 
     @ManyToOne
-//    @JoinColumn(name="program_id")
+    @JoinColumn(name="school")
     private School school;
+
+    @OneToMany(mappedBy = "program")
+    @JsonManagedReference(value = "program")
+    private Set<Application> applications = new HashSet<>();
+
 
     public Program(String name, School school) {
         this.name = name;
@@ -51,4 +61,12 @@ public class Program {
         this.name = name;
     }
 
+    @JsonBackReference
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
 }

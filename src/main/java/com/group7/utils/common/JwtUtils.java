@@ -10,13 +10,18 @@ package com.group7.utils.common;
 import java.util.Date;
 
 import com.group7.controller.user.UserDetailsImpl;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
+import org.springframework.util.StringUtils;
 
 @Component
 public class JwtUtils {
@@ -28,12 +33,15 @@ public class JwtUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject(String.valueOf(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -44,6 +52,11 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    public long getUserIdFromJwtToken(String token){
+        String idStr = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Long.parseLong(idStr);
+    }
+
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
@@ -51,6 +64,7 @@ public class JwtUtils {
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
+            logger.error(authToken);
             logger.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
             logger.error("JWT token is expired: {}", e.getMessage());
@@ -61,5 +75,48 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+    private String parseJwt(HttpServletRequest request) {
+        return getJwtString(request, logger);
+    }
+
+    public static String getJwtString(HttpServletRequest request, Logger logger) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+
+            if(headerAuth.contains("Bearer 20")) {
+                headerAuth = headerAuth.replace("Bearer 20", "");
+            }else{
+                headerAuth = headerAuth.substring(7);
+            }
+            logger.info(headerAuth);
+            return headerAuth;
+        }
+
+        return null;
+    }
+
+    /**
+     * Find out the user by using the token in the request header.
+     * @param request a http request with the token in its header
+     */
+    public User getUserFromRequestByToken(HttpServletRequest request){
+        // get token from the request header
+        String token = parseJwt(request);
+
+        // get user id from token
+        long userId = getUserIdFromJwtToken(token);
+        // query user from db
+        if(!userRepository.existsById(userId)){
+            return null;
+        }
+        if(userRepository.findById(userId).isPresent()){
+            return userRepository.findById(userId).get();
+        }
+        else{
+            return null;
+        }
     }
 }

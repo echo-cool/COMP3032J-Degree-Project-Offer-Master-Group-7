@@ -5,7 +5,7 @@ export default{
     // for submitting the login form
     login(form){
         return request({
-            url: `/api/login`,
+            url: `/api/auth/signin`,
             method: 'post',
             data: form
         })
@@ -14,7 +14,7 @@ export default{
     // for getting the logged-in user info by their token
     getUserInfoByToken(){
         return request({
-            url: `/api/getUserInfo`,
+            url: `/api/auth/getUserInfo`,
             method: "get"
         })
     }

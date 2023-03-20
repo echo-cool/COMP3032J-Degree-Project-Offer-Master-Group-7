@@ -9,8 +9,10 @@ import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.auth.payload.SignupRequest;
 import com.group7.controller.user.UserDetailsImpl;
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.ERole;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
 
 /**
@@ -54,10 +52,33 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
 
+        // check the auto validation defined in LoginRequest
+        if(bindingResult.hasErrors()){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+
+        // check if the user exist
+        User user = userRepository.findByEmail(loginRequest.getEmail()).orElse(null);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: User does not exist!"));
+        }
+
+        // check the password
+        if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: Wrong password!"));
+        }
+
+        // for authentication and token generation
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -71,6 +92,7 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getAvatar(),
                 roles));
     }
 
@@ -120,22 +142,21 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "admin" -> {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
-                        break;
-                    case "mod":
+                    }
+                    case "mod" -> {
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-
-                        break;
-                    default:
+                    }
+                    default -> {
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                    }
                 }
             });
         }
@@ -145,7 +166,23 @@ public class AuthController {
 
         return ResponseEntity.ok(R.ok().message("User registered successfully!"));
     }
+
+    @GetMapping(value = "/getUserInfo")
+    public ResponseEntity<?> getUserByToken(HttpServletRequest request){
+        // find user from the token in request header
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        if (user == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Invalid token! User not found! You should login first."));
+        }
+
+        // return the user info
+        return ResponseEntity.ok(R.ok().data("user", user));
+    }
+
 }
+
 //@RestController
 //@RequestMapping(value = "/api")
 //public class AuthController {

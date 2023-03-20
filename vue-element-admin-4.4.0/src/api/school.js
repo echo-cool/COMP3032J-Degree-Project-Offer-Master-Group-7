@@ -2,14 +2,16 @@ import request from '@/utils/request'
 import { getToken } from '@/utils/auth'
 
 export function fetchList(query) {
-  query['page'] -= 1
   return request({
     url: '/backend/rest/schools',
     method: 'get',
     headers: {
       'Authorization': getToken()
     },
-    params: query
+    params: {
+      'page': query['page'] - 1,
+      'size': query['size']
+    }
   })
 }
 
@@ -66,3 +68,14 @@ export function updateSchool(data) {
     }
   })
 }
+export function pageSchoolListCondition(current, limit, schoolQueryVo) {
+  return request({
+    url: `/backend/api/school/condition-query/${current}/${limit}`,
+    method: 'post',
+    data: schoolQueryVo,
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+

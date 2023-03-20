@@ -25,11 +25,11 @@
                             <div class="footer-left">
                                 <logo/>
                                 <p class="rn-footer-describe">
-                                    Created with the collaboration of over 60 of the world's best Nuron Artists.
+                                    Created with the collaboration of over 60 of the world's best Graduate Schools.
                                 </p>
                             </div>
                             <div class="widget-bottom mt--40 pt--40">
-                                <h6 class="title">Get The Latest Nuron Updates </h6>
+                                <h6 class="title">Get The Latest OfferMaster Updates </h6>
                                 <div class="input-group">
                                     <input type="text"
                                            class="form-control bg-color--2"
@@ -50,7 +50,7 @@
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_mobile--40">
                         <div class="footer-widget widget-quicklink">
-                            <h6 class="widget-title">Nuron</h6>
+                            <h6 class="widget-title">OfferMaster</h6>
                             <ul class="footer-list-one">
                                 <li class="single-list">
                                     <router-link to="#">Protocol Explore</router-link>
@@ -169,7 +169,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="copyright-left">
-                            <span>©2022 Nuron, Inc. All rights reserved.</span>
+                            <span>©2023 OfferMaster, Inc. All rights reserved.</span>
                             <ul class="privacy">
                                 <li>
                                     <router-link to="/terms-condition">Terms</router-link>
