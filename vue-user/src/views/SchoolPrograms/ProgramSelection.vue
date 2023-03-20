@@ -9,7 +9,8 @@
 <!--                        <explore-list-style/>-->
                         <program-listing :current-user="currentUser"
                                          :applications="applications"
-                                         @reloadData="reloadData"/>
+                                         @reloadData="reloadData"
+                                         ref="childCompProgramListing"/>
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt--95 mt_md--20 mt_sm--15">
@@ -22,7 +23,9 @@
                             <!-- End creators area -->
 
                             <!-- Start My Program List area -->
-                            <my-program-list-sidebar :current-user="currentUser" :applications="applications"/>
+                            <my-program-list-sidebar :current-user="currentUser"
+                                                     :applications="applications"
+                                                     @reloadData="reloadData"/>
                             <!-- End My Program List area -->
                         </div>
                     </div>
@@ -102,6 +105,8 @@
                 // get the current user and their applications again
                 this.getCurrentUser();
                 this.getApplications(this.currentUser.id);
+                // update the user selected programs (for the left listing part)
+                this.$refs.childCompProgramListing.getUserSelectedPrograms();
             }
         }
     }
