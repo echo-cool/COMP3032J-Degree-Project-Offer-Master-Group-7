@@ -1,9 +1,7 @@
 package com.group7.controller.application;
 
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
-import com.group7.db.jpa.Application;
-import com.group7.db.jpa.ApplicationRepository;
-import com.group7.db.jpa.User;
+import com.group7.db.jpa.*;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import io.sentry.protocol.App;
@@ -14,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -28,6 +27,9 @@ public class ApplicationController {
 
     @Resource
     ApplicationRepository applicationRepository;
+
+    @Resource
+    ProgramRepository programRepository;
 
     @Resource
     JwtUtils jwtUtils;
@@ -51,6 +53,28 @@ public class ApplicationController {
         return ResponseEntity
                 .badRequest()
                 .body(R.error().message("Failed: The user does not have application of this program."));
+    }
+
+    @PostMapping("/addApplication/{programId}")
+    public ResponseEntity<?> addApplication(@PathVariable("programId") long programId, HttpServletRequest request){
+        // get the current user
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        // get the program by id
+        Program program = programRepository.findById(programId).orElse(null);
+
+        // check the program
+        if (program == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Failed: No program with this ID."));
+        }
+
+        // create a new application
+        Application application = new Application(user, program);
+        applicationRepository.save(application);
+
+        return ResponseEntity.ok(R.ok());
     }
 
 
