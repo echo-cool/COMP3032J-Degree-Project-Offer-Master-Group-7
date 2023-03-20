@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  # Proxies requests to internal services
+  reverse-proxy:
+    image: nginx:1.17.10
+    container_name: reverse_proxy_demo
+    depends_on:
+      - fyp_offer_master_springboot
+      - fyp_offer_master_vue_user
+      - fyp_offer_master_vue_admin
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    networks:
+      - offer_master_network
+
+  # springboot backend
+  fyp_offer_master_springboot:
+    image: ghcr.io/echo-cool/fyp/fyp_offer_master_springboot:latest
+    container_name: fyp_offer_master_springboot
+    build:
+      context: .
+    depends_on:
+      - fyp_offer_master_vue_user
+      - fyp_offer_master_vue_admin
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # user portal
+  fyp_offer_master_vue_user:
+    image: ghcr.io/echo-cool/fyp/fyp_offer_master_vue_user:latest
+    container_name: ./fyp_offer_master_vue_user
+    build:
+      context: ./vue-user
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # admin portal
+  fyp_offer_master_vue_admin:
+    image: ghcr.io/echo-cool/fyp/fyp_offer_master_vue_admin:latest
+    container_name: fyp_offer_master_vue_admin
+    build:
+      context: ./vue-admin
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+networks:
+  offer_master_network:
