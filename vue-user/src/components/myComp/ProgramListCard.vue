@@ -70,7 +70,7 @@
             <button v-else
                     type="button"
                     class="btn btn-primary-alta mr--30"
-                    @click="addProgramIntoUserApplications()">
+                    @click="addProgramIntoUserApplications(program.id)">
                 Add to My Program List
             </button>
 
@@ -125,8 +125,14 @@
             },
 
             // add a program into user application list
-            addProgramIntoUserApplications(){
-
+            addProgramIntoUserApplications(programId){
+                programSelectionApi.addApplication(programId)
+                    .then(response => {
+                        // add successfully
+                        window.alert("The program added successfully!")
+                        // tell the parent component to reload data for updating showing
+                        this.$emit("reloadData");
+                    })
             }
         }
     }
