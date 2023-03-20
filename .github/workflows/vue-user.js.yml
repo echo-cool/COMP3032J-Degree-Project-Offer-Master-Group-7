@@ -16,31 +16,31 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: vue-user/package.json
-    - run: npm install
-    - run: npm run build
-    - run: tar -zcvf dist-front.tar.gz dist/
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: final_year_project_vue_user
-        path: vue-user/dist-front.tar.gz
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [16.x]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Use Node.js ${{ matrix.node-version }}
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: ${{ matrix.node-version }}
+#        cache: 'npm'
+#        cache-dependency-path: vue-user/package.json
+#    - run: npm install
+#    - run: npm run build
+#    - run: tar -zcvf dist-front.tar.gz dist/
+#
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: final_year_project_vue_user
+#        path: vue-user/dist-front.tar.gz
 
   build-docker:
     runs-on: ubuntu-latest
