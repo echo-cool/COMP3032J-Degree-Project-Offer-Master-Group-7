@@ -119,7 +119,8 @@
                     .then(response => {
                         // delete successfully
                         // update the showing
-                        
+                        // this.isProgramSelected = false;
+
                     })
             },
 
