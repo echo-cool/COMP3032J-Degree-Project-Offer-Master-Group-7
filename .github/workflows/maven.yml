@@ -53,5 +53,5 @@ jobs:
         path: target/*.jar
       
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag FYP_OfferMaster:$(date +%s)
+      run: docker build . --file Dockerfile --tag fyp_offer_master_springboot:$(date +%s)
 

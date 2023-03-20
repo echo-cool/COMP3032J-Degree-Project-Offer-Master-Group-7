@@ -39,4 +39,4 @@ jobs:
         path: vue-user/dist-front.tar.gz
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag FYP_OfferMaster:$(date +%s)
+      run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:$(date +%s)
