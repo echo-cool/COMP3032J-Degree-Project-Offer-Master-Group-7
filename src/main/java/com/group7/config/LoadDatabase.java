@@ -93,6 +93,7 @@ class LoadDatabase {
 
 
 
+
         log.info("Preloading " + programRepository.save(program1));
         log.info("Preloading " + programRepository.save(program2));
         log.info("Preloading " + programRepository.save(program3));
@@ -124,6 +125,7 @@ class LoadDatabase {
         User user10 = new User("test10", "me10@echo.cool", encoder.encode("111"), test3Roles);
         User user11 = new User("test11", "me11@echo.cool", encoder.encode("111"), test3Roles);
         User user12 = new User("test12", "me12@echo.cool", encoder.encode("111"), test3Roles);
+        User user13 = new User("test13", "me13@echo.cool", encoder.encode("111"), test3Roles);
 
         log.info("Preloading " + userRepository.save(user1));
         log.info("Preloading " + userRepository.save(user2));
