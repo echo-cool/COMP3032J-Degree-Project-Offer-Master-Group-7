@@ -63,12 +63,14 @@
 <!--            </button>-->
             <button v-if="isProgramSelected"
                     type="button"
-                    class="btn btn-primary-alta mr--30">
+                    class="btn btn-primary-alta mr--30"
+                    @click="removeProgramFromUserApplications(program.id)">
                 Remove from the list
             </button>
             <button v-else
                     type="button"
-                    class="btn btn-primary-alta mr--30">
+                    class="btn btn-primary-alta mr--30"
+                    @click="addProgramIntoUserApplications()">
                 Add to My Program List
             </button>
 
@@ -78,6 +80,7 @@
 
 <script>
     import Countdown from '@/components/product/Countdown'
+    import programSelectionApi from "@/api/programSelection";
 
     export default {
         name: 'ProductListCard',
@@ -99,6 +102,31 @@
             isProgramSelected: {
                 type: Boolean,
                 default: false
+            }
+        },
+        data(){
+            return{
+
+            }
+        },
+        created() {
+
+        },
+        methods:{
+            // remove a program from user application list
+            removeProgramFromUserApplications(programId){
+                programSelectionApi.deleteApplicationByProgramId(programId)
+                    .then(response => {
+                        // delete successfully
+                        // update the showing
+                        // this.isProgramSelected = false;
+
+                    })
+            },
+
+            // add a program into user application list
+            addProgramIntoUserApplications(){
+
             }
         }
     }
