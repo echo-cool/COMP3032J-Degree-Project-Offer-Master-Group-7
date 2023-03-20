@@ -330,7 +330,7 @@ public class UserController {
         int greV = ebRequest.getGreVerbal();
         int greQ = ebRequest.getGreQuantitative();
         int greAW = ebRequest.getGreAnalyticalWriting();
-        if (greT != (greV + greQ + greAW)){
+        if (greT != (greV + greQ)){
             return ResponseEntity
                     .badRequest()
                     .body(R.error().message("Failed: The GRE sub-scores do not match the total score!"));
