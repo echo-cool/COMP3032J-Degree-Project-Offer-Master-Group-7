@@ -5,7 +5,7 @@ services:
   # Proxies requests to internal services
   reverse-proxy:
     image: nginx:1.17.10
-    container_name: reverse_proxy_demo
+    container_name: reverse_proxy_offer_master
     depends_on:
       - fyp_offer_master_springboot
       - fyp_offer_master_vue_user
@@ -36,7 +36,7 @@ services:
   # user portal
   fyp_offer_master_vue_user:
     image: ghcr.io/echo-cool/fyp/fyp_offer_master_vue_user:latest
-    container_name: ./fyp_offer_master_vue_user
+    container_name: fyp_offer_master_vue_user
     build:
       context: ./vue-user
     expose:
