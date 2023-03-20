@@ -60,26 +60,34 @@ export function fetchPv(pv) {
   })
 }
 
-export function createProgram(data) {
-  console.log(data)
+export function createProgram(program) {
+  console.log(program)
   return request({
-    url: '/backend/rest/programs',
+    url: '/backend/api/program/create',
     method: 'post',
-    data,
+    data: program,
     headers: {
       'Authorization': getToken()
     }
   })
 }
 
-export function updateProgram(data) {
-  console.log(data)
+export function updateProgram(id, program) {
+  console.log(program)
   return request({
-    url: '/backend/rest/programs/' + data.id,
-    method: 'put',
-    data: {
-      'name': data.name
-    },
+    url: `/backend/api/program/update/${id}`,
+    method: 'post',
+    data: program,
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+export function pageProgramListCondition(current, limit, programQueryVo) {
+  return request({
+    url: `/backend/api/program/condition-query/${current}/${limit}`,
+    method: 'post',
+    data: programQueryVo,
     headers: {
       'Authorization': getToken()
     }
