@@ -11,6 +11,10 @@ on:
 defaults:
   run:
     working-directory: vue-user
+
+env:
+  REGISTRY: ghcr.io
+
 jobs:
   build:
 
@@ -43,4 +47,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:$(date +%s)
+        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:latest
