@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.name" placeholder="SchoolName" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.name" placeholder="ProgramName" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
@@ -92,7 +92,8 @@ import {
   createProgram,
   updateProgram,
   getPrograms,
-  getProgramSchool
+  getProgramSchool,
+  pageProgramListCondition
 } from '@/api/program'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
@@ -114,7 +115,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'School',
+  name: 'Program',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -139,14 +140,13 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
-        // name: undefined,
-        // schoolID: '',
-        // sort: '+id'
+        size: 20,
+        name: '',
+        sort: '+id'
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Program Name Ascending', key: '+id' }, { label: 'School Name Descending', key: '-id' }],
+      sortOptions: [{ label: 'Program Name Ascending', key: '+id' }, { label: 'Program Name Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
@@ -209,7 +209,29 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      this.getList()
+      console.log(this.listQuery)
+      var programQuery = {}
+      programQuery.name = this.listQuery.name
+      if (this.listQuery.sort === '-id') {
+        programQuery.sort = false
+      } else {
+        programQuery.sort = true
+      }
+      // console.log(schoolQuery)
+      // console.log(this.listQuery)
+      this.listLoading = true
+      pageProgramListCondition(this.listQuery.page, this.listQuery.size, programQuery)
+        .then(response => {
+          // response接口返回的数据
+          // console.log(response)
+          this.list = response.data.data.content
+          this.total = response.data.data.size
+          console.log(this.list)
+          this.listLoading = false
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     handleModifyStatus(row, status) {
       this.$message({
@@ -249,16 +271,21 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createProgram(this.temp).then(response => {
-            // const link = response['_links']['self']['href']
-            // this.links.push(link)
-            // addProgramToSchool(this.links, this.$route.params.id)
-            this.temp.id = response['id']
+          const program = {}
+          program.name = this.temp.name
+          program.schoolID = this.id
+          console.log(program)
+          console.log('11111')
+          // const tempData = Object.assign({}, this.temp)
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          createProgram(program).then(response => {
+            console.log(response)
+            this.temp.id = response.data.id
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
-              message: 'Created Successfully',
+              message: 'Create Successfully',
               type: 'success',
               duration: 2000
             })
@@ -278,9 +305,16 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          const program = {}
+          program.id = this.temp.id
+          program.name = this.temp.name
+          program.schoolID = this.id
+          console.log(program)
+          console.log('11111')
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateProgram(this.temp).then(() => {
+          updateProgram(this.temp.id, program).then(() => {
+            console.log(program)
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false

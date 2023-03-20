@@ -27,7 +27,10 @@
             <!-- !!! Otherwise, the schools would be undefined !!! -->
             <template v-if="schoolLoadNum === programs.length" v-for="(program, index) in programs"
                       :key="`program-${index}`">
-                <program-list-card :program="program" :is-program-selected="isProgramSelected(program.id)" :show-two-column="isTwoColumn"/>
+                <program-list-card :program="program"
+                                   :is-program-selected="isProgramSelected(program.id)"
+                                   :show-two-column="isTwoColumn"
+                                    @reloadData="reloadData"/>
             </template>
         </div>
     </div>
@@ -154,6 +157,8 @@
 
                         // get the list of user selected programs
                         this.selectedPrograms = response.data.selectedPrograms;
+                        // reset the selectedProgramIDs list to empty
+                        this.selectedProgramIDs = [];
                         // initialize the list of selected program id
                         for (let k in this.selectedPrograms){
                             this.selectedProgramIDs.push(this.selectedPrograms[k].id);
@@ -165,6 +170,14 @@
             // check whether the application list contains a program
             isProgramSelected(programId){
                 return this.selectedProgramIDs.includes(programId);
+            },
+
+            reloadData(){
+                // fetch the user selected programs again
+                this.getUserSelectedPrograms();
+
+                // tell the parent to fetch data again
+                this.$emit("reloadData");
             }
         }
     }

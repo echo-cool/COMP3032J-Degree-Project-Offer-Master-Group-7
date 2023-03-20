@@ -15,6 +15,13 @@ export default{
             url: `/api/application/deleteApplicationByProgramId/${programId}`,
             method: 'delete'
         })
+    },
+
+    addApplication(programId){
+        return request({
+            url: `/api/application/addApplication/${programId}`,
+            method: 'post'
+        })
     }
 
 }

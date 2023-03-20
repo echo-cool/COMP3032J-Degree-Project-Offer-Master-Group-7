@@ -253,13 +253,20 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createSchool(this.temp).then(response => {
-            this.temp.id = response['id']
+          const school = {}
+          school.name = this.temp.name
+          console.log(school)
+          console.log('11111')
+          // const tempData = Object.assign({}, this.temp)
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          createSchool(school).then(response => {
+            console.log(response)
+            this.temp.id = response.data.id
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
-              message: 'Created Successfully',
+              message: 'Create Successfully',
               type: 'success',
               duration: 2000
             })
@@ -279,9 +286,15 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
+          const school = {}
+          school.id = this.temp.id
+          school.name = this.temp.name
+          console.log(school)
+          console.log('11111')
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateSchool(this.temp).then(() => {
+          updateSchool(this.temp.id, school).then(() => {
+            console.log(school)
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
