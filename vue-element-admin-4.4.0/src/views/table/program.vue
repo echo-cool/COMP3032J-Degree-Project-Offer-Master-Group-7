@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.name" placeholder="SchoolName" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.name" placeholder="ProgramName" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
@@ -114,7 +114,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'School',
+  name: 'Program',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -146,7 +146,7 @@ export default {
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Program Name Ascending', key: '+id' }, { label: 'School Name Descending', key: '-id' }],
+      sortOptions: [{ label: 'Program Name Ascending', key: '+id' }, { label: 'Program Name Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {

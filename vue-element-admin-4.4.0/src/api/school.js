@@ -43,12 +43,12 @@ export function fetchPv(pv) {
   })
 }
 
-export function createSchool(data) {
-  console.log(data)
+export function createSchool(school) {
+  console.log(school)
   return request({
-    url: '/backend/rest/schools',
+    url: '/backend/api/school/create',
     method: 'post',
-    data,
+    data: school,
     headers: {
       'Authorization': getToken()
     }

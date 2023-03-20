@@ -253,13 +253,20 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createSchool(this.temp).then(response => {
-            this.temp.id = response['id']
+          const school = {}
+          school.name = this.temp.name
+          console.log(school)
+          console.log('11111')
+          // const tempData = Object.assign({}, this.temp)
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          createSchool(school).then(response => {
+            console.log(response)
+            this.temp.id = response.data.id
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: 'Success',
-              message: 'Created Successfully',
+              message: 'Create Successfully',
               type: 'success',
               duration: 2000
             })
