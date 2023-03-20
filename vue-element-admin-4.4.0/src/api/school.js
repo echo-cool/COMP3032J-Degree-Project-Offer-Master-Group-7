@@ -43,26 +43,24 @@ export function fetchPv(pv) {
   })
 }
 
-export function createSchool(data) {
-  console.log(data)
+export function createSchool(school) {
+  console.log(school)
   return request({
-    url: '/backend/rest/schools',
+    url: '/backend/api/school/create',
     method: 'post',
-    data,
+    data: school,
     headers: {
       'Authorization': getToken()
     }
   })
 }
 
-export function updateSchool(data) {
-  console.log(data)
+export function updateSchool(id, school) {
+  console.log(school)
   return request({
-    url: '/backend/rest/schools/' + data.id,
-    method: 'put',
-    data: {
-      'name': data.name
-    },
+    url: `/backend/api/school/update/${id}`,
+    method: 'post',
+    data: school,
     headers: {
       'Authorization': getToken()
     }
