@@ -33,6 +33,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: vue-admin/package.json
 
-    - run: npm ci
+    - run: npm install
     - run: npm run build --if-present
     - run: npm test
