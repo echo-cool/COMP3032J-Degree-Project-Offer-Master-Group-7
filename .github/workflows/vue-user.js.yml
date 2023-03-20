@@ -1,50 +1,50 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI for vue-user
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-defaults:
-  run:
-    working-directory: vue-user
-
-env:
-  REGISTRY: ghcr.io
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: vue-user/package.json
-    - run: npm install
-    - run: npm run build
-    - run: tar -zcvf dist-front.tar.gz dist/
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: final_year_project_vue_user
-        path: vue-user/dist-front.tar.gz
-
-  build-docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:latest
+## This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+## For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+#
+#name: Node.js CI for vue-user
+#
+#on:
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+#defaults:
+#  run:
+#    working-directory: vue-user
+#
+#env:
+#  REGISTRY: ghcr.io
+#
+#jobs:
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [16.x]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Use Node.js ${{ matrix.node-version }}
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: ${{ matrix.node-version }}
+#        cache: 'npm'
+#        cache-dependency-path: vue-user/package.json
+#    - run: npm install
+#    - run: npm run build
+#    - run: tar -zcvf dist-front.tar.gz dist/
+#
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: final_year_project_vue_user
+#        path: vue-user/dist-front.tar.gz
+#
+#  build-docker:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Build the Docker image
+#        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:latest
