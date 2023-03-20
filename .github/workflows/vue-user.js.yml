@@ -36,4 +36,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: final_year_project_vue_user
-        path: dist-front.tar.gz
+        path: vue-user/dist-front.tar.gz

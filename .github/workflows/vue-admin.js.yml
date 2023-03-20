@@ -40,5 +40,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: final_year_project_vue_admin
-        path: dist-back.tar.gz
+        path: vue-admin/dist-back.tar.gz
 
