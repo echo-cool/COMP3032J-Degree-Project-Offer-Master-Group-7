@@ -118,7 +118,7 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        window.alert("The program removed successfully!")
+                        window.alert("Program removed successfully from your list!")
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
                     })
@@ -129,7 +129,7 @@
                 programSelectionApi.addApplication(programId)
                     .then(response => {
                         // add successfully
-                        window.alert("The program added successfully!")
+                        window.alert("The program added successfully into your list!")
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
                     })
