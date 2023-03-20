@@ -364,7 +364,7 @@
                                             </select>
                                         </div>
                                         <div class="half-wid ml--15">
-                                            <label for="score-total" class="form-label mb--10">Total Score</label>
+                                            <label v-if="currentUser.profile.testType" for="score-total" class="form-label mb--10">Total Score</label>
                                             <input v-if="currentUser.profile.testType === `IELTS`" id="score-total" type="number" v-model="currentUser.profile.totalIELTS">
                                             <input v-if="currentUser.profile.testType === `TOEFL`" id="score-total" type="number" v-model="currentUser.profile.totalTOEFL">
                                         </div>
@@ -373,24 +373,24 @@
                                     <div class="input-two-wrapepr-prifile">
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
-                                                <label for="score-listening" class="form-label mb--10">Listening</label>
+                                                <label v-if="currentUser.profile.testType" for="score-listening" class="form-label mb--10">Listening</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-listening" type="number" v-model="currentUser.profile.listeningIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-listening" type="number" v-model="currentUser.profile.listeningTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
-                                                <label for="score-speaking" class="form-label mb--10">Speaking</label>
+                                                <label v-if="currentUser.profile.testType" for="score-speaking" class="form-label mb--10">Speaking</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-speaking" type="number" v-model="currentUser.profile.speakingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-speaking" type="number" v-model="currentUser.profile.speakingTOEFL">
                                             </div>
                                         </div>
                                         <div class="input-two-wrapepr-prifile w-100">
                                             <div class="role-area mt--15">
-                                                <label for="score-reading" class="form-label mb--10">Reading</label>
+                                                <label v-if="currentUser.profile.testType" for="score-reading" class="form-label mb--10">Reading</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-reading" type="number" v-model="currentUser.profile.readingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-reading" type="number" v-model="currentUser.profile.readingTOEFL">
                                             </div>
                                             <div class="role-area mt--15">
-                                                <label for="score-writing" class="form-label mb--10">Writing</label>
+                                                <label v-if="currentUser.profile.testType" for="score-writing" class="form-label mb--10">Writing</label>
                                                 <input v-if="currentUser.profile.testType === `IELTS`" id="score-writing" type="number" v-model="currentUser.profile.writingIELTS">
                                                 <input v-if="currentUser.profile.testType === `TOEFL`" id="score-writing" type="number" v-model="currentUser.profile.writingTOEFL">
                                             </div>
@@ -484,9 +484,13 @@
                                                         v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                         :key="`row-${rowIndex}`">
                                                         <td><span>{{ row.program.name }}</span></td>
-                                                        <td><span class="color-green">{{ row.program.school.name }}</span></td>
-                                                        <td><span class="color-danger">{{ row.degree }}</span></td>
-                                                        <td><span class="color-info">{{ row.eStatus }}</span></td>
+                                                        <td><span class="color-purple">{{ row.program.school.name }}</span></td>
+                                                        <td><span>{{ row.degree }}</span></td>
+                                                        <!-- status different color -->
+                                                        <td v-if="row.eStatus === `REJECTED`"><span class="color-danger">{{ row.eStatus }}</span></td>
+                                                        <td v-else-if="row.eStatus === `ADMITTED`"><span class="color-green">{{ row.eStatus }}</span></td>
+                                                        <td v-else><span class="color-info">{{ row.eStatus }}</span></td>
+
                                                         <td><span>{{ row.deadline }}</span></td>
                                                     </tr>
                                                     </tbody>
@@ -680,10 +684,14 @@
     import profileApi from "@/api/profile";
     import router from "@/router/index";
     import userLoader from "@/utils/userloader";
+    import applicationLoader from "@/utils/applicationLoader";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+
 
     export default {
         name: 'EditProfilePage',
         components: {Breadcrumb, Layout},
+        mixins: [ApplicationListMixin],
         data(){
             return {
                 currentUser: {
@@ -729,22 +737,22 @@
                     reNewPassword: ""
                 },
 
-                applications: [
-                    {
-                        id: "",
-                        eStatus: "",
-                        deadline: "",
-                        degree: null,
-                        program:{
-                            id: "",
-                            name: "",
-                            school:{
-                                id: "",
-                                name: ""
-                            }
-                        }
-                    }
-                ],
+                // applications: [
+                //     {
+                //         id: "",
+                //         eStatus: "",
+                //         deadline: "",
+                //         degree: null,
+                //         program:{
+                //             id: "",
+                //             name: "",
+                //             school:{
+                //                 id: "",
+                //                 name: ""
+                //             }
+                //         }
+                //     }
+                // ],
 
                 programListHeader: {
                     Program: "",
@@ -754,88 +762,6 @@
                     ApplyDeadline: ""
                 },
 
-                projects: [
-                    {
-                        id: 1,
-                        project: 'Secure 25',
-                        time: '10 PM UTC',
-                        count: '100%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 2,
-                        project: 'Portable Fire',
-                        time: '12 PM UTC',
-                        count: '10%',
-                        price: '$190',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 3,
-                        project: 'Buddistras',
-                        time: '10 PM UTC',
-                        count: '900%',
-                        price: '$200',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 4,
-                        project: 'Mopsquersd',
-                        time: '11 PM UTC',
-                        count: '200%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 5,
-                        project: 'Trads562',
-                        time: '2 PM UTC',
-                        count: '300%',
-                        price: '$560',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 6,
-                        project: 'Raresable',
-                        time: '10 PM UTC',
-                        count: '600%',
-                        price: '$600',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 7,
-                        project: 'Firetab',
-                        time: '6 PM UTC',
-                        count: '100%',
-                        price: '$85',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 8,
-                        project: 'TheEnd',
-                        time: '5 PM UTC',
-                        count: '85%',
-                        price: '$90',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 9,
-                        project: 'Firetab',
-                        time: '6 PM UTC',
-                        count: '100%',
-                        price: '$85',
-                        extras: 'If SOL is above $200'
-                    },
-                    {
-                        id: 10,
-                        project: 'Raresable',
-                        time: '10 PM UTC',
-                        count: '600%',
-                        price: '$190',
-                        extras: 'If SOL is above $200'
-                    }
-                ],
                 currPage: 1,
                 countOfPage: 3  // number of items per page
 
@@ -849,7 +775,10 @@
             this.getCurrentUser();
             // this.currentUser = userLoader.getCurrentUser();
 
-            this.getApplications();
+            this.getApplications(this.currentUser.id);
+            // this.applications = applicationLoader.getApplications(this.currentUser.id);
+            // console.log("applications: " + this.applications)
+
         },
 
         computed: {
@@ -1000,56 +929,6 @@
                             window.alert(error.response.data.message);
                         }
                     })
-            },
-
-            // get the applications (program list) of current user
-            getApplications(){
-                // call the api method
-                profileApi.getApplicationsByUid(this.currentUser.id)
-                    .then(response => {
-
-                        // update the programs list
-                        this.applications = response._embedded.applications;
-
-                        // for each of the application, send request to get the program info
-                        for (let k in this.applications) {
-                            // create the request url for this program
-                            let programURL = `/rest/applications/${this.applications[k].id}/program`;
-                            // call api method
-                            profileApi.getByRestURL(programURL)
-                                .then(response => { // response is the program
-
-                                    // update the program of this application
-                                    this.applications[k].program = response;
-
-                                    // create the request url for the school of this program
-                                    let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`;
-
-                                    // send request to update the school info of this program
-                                    profileApi.getByRestURL(schoolURL)
-                                        .then(response => { // response is the school
-
-                                            // update the school of this program
-                                            this.applications[k].program.school = response;
-
-                                        })
-
-                                })
-                        }
-
-
-                    })
-
-                // for test
-                // console.log("applications: " + this.applications.length);
-
-                // for test
-                // console.log("applications: " + this.applications[0].eStatus);
-                // console.log("applications: " + this.applications[0].deadline);
-                // console.log("applications: " + this.applications[0].degree);
-                // console.log("applications: " + this.applications[0].program.name);
-                // console.log("applications: " + this.applications[0].program.school.name);
-                // console.log("applications: " + this.applications.length);
             }
 
         }
