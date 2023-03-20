@@ -60,10 +60,6 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn package -DskipTests --file pom.xml
-      - uses: actions/upload-artifact@v3
-        with:
-          name: final_year_project_springboot_backend
-          path: target/*.jar
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/fyp_offer_master_springboot:latest
       - name: Log in to the Container registry
