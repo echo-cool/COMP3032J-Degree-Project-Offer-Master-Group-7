@@ -1,5 +1,5 @@
 FROM node:16
-
+LABEL org.opencontainers.image.source="https://github.com/echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7"
 # install simple http server for serving static content
 RUN npm install -g http-server
 

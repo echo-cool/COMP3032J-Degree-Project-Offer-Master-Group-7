@@ -1,52 +1,62 @@
-## This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-## For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-#
-#name: Node.js CI for vue-admin
-#
-#on:
-#  push:
-#    branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
-#
-#defaults:
-#  run:
-#    working-directory: vue-admin
-#
-#
-#env:
-#  REGISTRY: ghcr.io
-#
-#jobs:
-#  build:
-#
-#    runs-on: ubuntu-latest
-#
-#    strategy:
-#      matrix:
-#        node-version: [16.x]
-#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-#
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Use Node.js ${{ matrix.node-version }}
-#      uses: actions/setup-node@v3
-#      with:
-#        node-version: ${{ matrix.node-version }}
-#        cache: 'npm'
-#        cache-dependency-path: vue-admin/package.json
-#
-#    - run: npm install
-#    - run: npm run build:prod
-#    - run: tar -zcvf dist-back.tar.gz dist/
-#
-#    - uses: actions/upload-artifact@v3
-#      with:
-#        name: final_year_project_vue_admin
-#        path: vue-admin/dist-back.tar.gz
-#  build-docker:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Build the Docker image
-#        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_admin:latest
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI for vue-admin
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+defaults:
+  run:
+    working-directory: vue-admin
+
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: vue-admin/package.json
+
+    - run: npm install
+    - run: npm run build:prod
+    - run: tar -zcvf dist-back.tar.gz dist/
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: final_year_project_vue_admin
+        path: vue-admin/dist-back.tar.gz
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_admin:latest
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ github.actor }}/fyp/fyp_offer_master_vue_admin:latest
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_TOKEN }}
+
+      - run: docker image push ${{ env.REGISTRY }}/${{ github.actor }}/fyp/fyp_offer_master_vue_admin:latest
