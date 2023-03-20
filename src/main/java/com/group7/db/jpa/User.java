@@ -46,8 +46,8 @@ public class User {
     @Size(max = 1200)
     private String bio = ""; // self-intro
 
-    @Column(nullable = false)
-    private String avatar = "profile-01.jpg";
+    @Column
+    private String avatar;
 
     @Column(nullable = false, length = 45)
     private String openId = "NULL";

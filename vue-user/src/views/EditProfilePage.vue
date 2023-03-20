@@ -94,15 +94,20 @@
                                                 <!-- 2. for that @..., we must use the dir of /assets/images/profile/..., don't know why -->
                                                 <!-- 3. this two <img> must use the same id here, because preview function would be called again -->
                                                 <!-- after the user upload an avatar (no avatar -> has avatar) -->
+<!--                                                <img v-if="currentUser.avatar"-->
+<!--                                                     id="profilePicture"-->
+<!--                                                     :src="require(`@/assets/images/profile/upload/avatar/` + currentUser.avatar)"-->
+<!--                                                     alt="Profile-NFT"-->
+<!--                                                     @click="$refs.profileImageInput.click()">-->
                                                 <img v-if="currentUser.avatar"
                                                      id="profilePicture"
-                                                     :src="require(`@/assets/images/profile/upload/avatar/` + currentUser.avatar)"
-                                                     alt="Profile-NFT"
+                                                     :src="currentUser.avatar"
+                                                     alt="User-Avatar"
                                                      @click="$refs.profileImageInput.click()">
                                                 <img v-else
                                                      id="profilePicture"
                                                      :src="require(`@/assets/images/profile/profile-01.jpg`)"
-                                                     alt="Profile-NFT"
+                                                     alt="User-Avatar"
                                                      @click="$refs.profileImageInput.click()">
                                             </div>
                                             <div class="button-area">
