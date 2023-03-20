@@ -30,5 +30,10 @@ jobs:
         cache: 'npm'
         cache-dependency-path: vue-user/package.json
     - run: npm install
-    - run: npm run build --if-present
-    - run: npm test
+    - run: npm run build
+    - run: tar -zcvf dist-front.tar.gz dist/
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: final_year_project_vue_user
+        path: dist-front.tar.gz
