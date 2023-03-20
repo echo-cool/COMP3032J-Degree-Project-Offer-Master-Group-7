@@ -33,4 +33,4 @@ jobs:
 
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag FYP_OfferMaster:$(date +%s)
+      run: docker build . --file Dockerfile --tag offer_master_project:$(date +%s)
