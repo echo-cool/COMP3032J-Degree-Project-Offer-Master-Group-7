@@ -3,7 +3,7 @@
 ## Project Description
 We aim to build web application with excellent user experience, high performance, and stability. Our potential users are who aim to apply to overseas universities. Our platform will help the users with school applications by providing them with one-stop application tools, such as program selection and admission community. Especially the program recommendation based on applicants' backgrounds is the key feature of our platform.
 
-![logo.png](images/logo.png)
+![logo.png](images/logo.jpg)
 
 ## Build this project
 ### Backend (Springboot)
