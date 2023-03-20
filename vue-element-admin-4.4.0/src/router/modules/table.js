@@ -12,24 +12,24 @@ const tableRouter = {
     icon: 'table'
   },
   children: [
-    {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'Dynamic Table' }
-    },
-    {
-      path: 'drag-table',
-      component: () => import('@/views/table/drag-table'),
-      name: 'DragTable',
-      meta: { title: 'Drag Table' }
-    },
-    {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'Inline Edit' }
-    },
+    // {
+    //   path: 'dynamic-table',
+    //   component: () => import('@/views/table/dynamic-table/index'),
+    //   name: 'DynamicTable',
+    //   meta: { title: 'Dynamic Table' }
+    // },
+    // {
+    //   path: 'drag-table',
+    //   component: () => import('@/views/table/drag-table'),
+    //   name: 'DragTable',
+    //   meta: { title: 'Drag Table' }
+    // },
+    // {
+    //   path: 'inline-edit-table',
+    //   component: () => import('@/views/table/inline-edit-table'),
+    //   name: 'InlineEditTable',
+    //   meta: { title: 'Inline Edit' }
+    // },
     {
       path: 'user',
       component: () => import('@/views/table/user'),
@@ -47,6 +47,13 @@ const tableRouter = {
       component: () => import('@/views/table/program'),
       name: 'Program',
       meta: { title: 'Program' },
+      hidden: true
+    },
+    {
+      path: 'application/:id',
+      component: () => import('@/views/table/application'),
+      name: 'Application',
+      meta: { title: 'Application' },
       hidden: true
     }
   ]

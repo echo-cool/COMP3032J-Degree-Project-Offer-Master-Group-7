@@ -29,9 +29,19 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="Program Name" width="350px" align="center">
+      <el-table-column label="Status" width="350px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
+          <span>{{ row.eStatus }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Deadline" width="350px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.deadline }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Deadline" width="350px" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.degree }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Actions" align="center" min-width="230" class-name="small-padding fixed-width">
@@ -56,8 +66,11 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="150px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Program Name" prop="name">
-          <el-input v-model="temp.name" />
+        <el-form-item label="Status" prop="eStatus">
+          <el-input v-model="temp.eStatus" />
+        </el-form-item>
+        <el-form-item label="Degree" prop="degree">
+          <el-input v-model="temp.degree" />
         </el-form-item>
         <!--        <el-form-item label="SchoolID" prop="name">-->
         <!--          <el-input v-model="temp.schoolID" />-->
@@ -86,18 +99,18 @@
 </template>
 
 <script>
-import {
-  fetchPv,
-  deleteProgram,
-  createProgram,
-  updateProgram,
-  getPrograms,
-  getProgramSchool
-} from '@/api/program'
+
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
-// import { getPrograms } from '@/api/program'
+import {
+  createApplication,
+  deleteApplication,
+  getApplications,
+  getApplicationUser,
+  updateApplication,
+  fetchPv
+} from '@/api/application'
 // secondary package based on el-pagination
 
 const calendarTypeOptions = [
@@ -146,12 +159,13 @@ export default {
       },
       roles: ['USER', 'ADMIN'],
       calendarTypeOptions,
-      sortOptions: [{ label: 'Program Name Ascending', key: '+id' }, { label: 'School Name Descending', key: '-id' }],
+      sortOptions: [{ label: 'Deadline Ascending', key: '+id' }, { label: 'Deadline Descending', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
-        name: '',
-        school: ''
+        eStatus: '',
+        deadline: '',
+        degree: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -165,44 +179,28 @@ export default {
         name: [{ required: true, message: 'school name is required', trigger: 'blur' }]
       },
       downloadLoading: false,
-      schoolLink: ''
+      userLink: ''
     }
   },
   created() {
     this.id = this.$route.params.id
     console.log(this.id)
     this.getList()
-    this.getSchoolLink(this.id)
   },
   methods: {
     getList() {
       this.listLoading = true
-      getPrograms(this.id).then(response => {
-        this.list = response['_embedded']['programs']
-        this.total = response['_embedded']['programs'].length
-        // for (let i = 0; i < this.list.length; i++) {
-        //   this.links.push(this.list[i]['_links']['self']['href'])
-        // }
+      getApplications(this.id).then(response => {
+        this.list = response['_embedded']['applications']
+        this.total = response['_embedded']['applications'].length
+
         console.log(this.list)
-        // for (let i = 0; i < this.list.length; i++) {
-        //   const school = this.list[i]
-        //   school['programs'] = []
-        //   getPrograms(school['id']).then(roleResponse => {
-        //     const roles = roleResponse['_embedded']['programs']
-        //     for (const index in roles) {
-        //       user['roles'].push(roles[index]['name'])
-        //     }
-        //     if (i === this.list.length - 1) {
-        //       this.listLoading = false
-        //       this.tableKey = 1
-        //     }
-        //   })
-        // }
+
         this.listLoading = false
       })
     },
     getSchoolLink(id) {
-      getProgramSchool(id).then(response => {
+      getApplicationUser(id).then(response => {
         this.schoolLink = response['_links']['self']['href']
         this.temp.school = this.schoolLink
       })
@@ -234,8 +232,9 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        name: '',
-        school: this.schoolLink
+        eStatus: '',
+        deadline: '',
+        degree: ''
       }
     },
     handleCreate() {
@@ -249,7 +248,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createProgram(this.temp).then(response => {
+          createApplication(this.temp).then(response => {
             // const link = response['_links']['self']['href']
             // this.links.push(link)
             // addProgramToSchool(this.links, this.$route.params.id)
@@ -268,6 +267,7 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
+      console.log(this.temp)
       // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
@@ -280,7 +280,7 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateProgram(this.temp).then(() => {
+          updateApplication(this.temp).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
@@ -295,7 +295,7 @@ export default {
       })
     },
     handleDelete(row, index) {
-      deleteProgram(row.id)
+      deleteApplication(row.id)
       this.$notify({
         title: 'Success',
         message: 'Delete Successfully',

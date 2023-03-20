@@ -88,6 +88,12 @@
       <!--      </el-table-column>-->
       <el-table-column label="Actions" align="center" min-width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
+          <router-link class="rl" :to="'/table/application/' + row.id">
+            <el-button type="primary" size="mini">
+              Applications
+            </el-button>
+          </router-link>
+
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>

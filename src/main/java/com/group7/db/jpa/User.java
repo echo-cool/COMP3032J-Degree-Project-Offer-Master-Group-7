@@ -57,8 +57,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
-//    @JsonBackReference("profile")
-    @JsonBackReference(value = "profile")
+    @JsonManagedReference
     private Profile profile = new Profile(this);
 
     @ManyToMany(fetch = FetchType.EAGER)
