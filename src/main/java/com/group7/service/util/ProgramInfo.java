@@ -25,13 +25,12 @@ public class ProgramInfo {
 
     public void setEntry(String entryName, Double value) {
         switch (entryName) {
-            case "gpa":
-                this.setAvgGPA(value);
-                break;
-            case "ielts":
-                break;
-            case "tofel":
-                break;
+            case "gpa" -> this.setAvgGPA(value);
+
+            case "ielts" -> {
+            }
+            case "toefl" -> {
+            }
         }
     }
 
