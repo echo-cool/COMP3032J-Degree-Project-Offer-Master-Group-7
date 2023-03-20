@@ -16,9 +16,7 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -27,14 +25,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        
     - name: Build with Maven
       run: mvn test && cat target/site/jacoco/index.html
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -43,15 +38,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        
     - name: Build with Maven
       run: mvn package -DskipTests --file pom.xml
-      
     - uses: actions/upload-artifact@v3
       with:
         name: final_year_project_springboot_backend
         path: target/*.jar
-      
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag fyp_offer_master_springboot:$(date +%s)
 

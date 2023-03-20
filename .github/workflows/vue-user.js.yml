@@ -38,5 +38,8 @@ jobs:
         name: final_year_project_vue_user
         path: vue-user/dist-front.tar.gz
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:$(date +%s)
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_user:$(date +%s)

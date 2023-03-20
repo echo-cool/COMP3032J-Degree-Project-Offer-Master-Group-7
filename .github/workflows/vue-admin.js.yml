@@ -41,6 +41,8 @@ jobs:
       with:
         name: final_year_project_vue_admin
         path: vue-admin/dist-back.tar.gz
-
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag fyp_offer_master_vue_admin:$(date +%s)
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag fyp_offer_master_vue_admin:$(date +%s)
