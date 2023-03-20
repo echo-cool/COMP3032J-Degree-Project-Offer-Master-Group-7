@@ -52,3 +52,6 @@ jobs:
         name: final_year_project_springboot_backend
         path: target/*.jar
       
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag FYP_OfferMaster:$(date +%s)
+
