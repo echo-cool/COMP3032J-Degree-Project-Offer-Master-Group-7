@@ -1,5 +1,4 @@
 module.exports = {
-    publicPath: '/user/',
     // 选项...
     // devtool: 'eval-source-map',//开发调试
     devServer: {
