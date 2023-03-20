@@ -7,7 +7,9 @@
                 <div class="row g-5">
                     <div class="col-lg-8 custom-product-col">
 <!--                        <explore-list-style/>-->
-                        <program-listing :current-user="currentUser" :applications="applications"/>
+                        <program-listing :current-user="currentUser"
+                                         :applications="applications"
+                                         @reloadData="reloadData"/>
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt--95 mt_md--20 mt_sm--15">
@@ -93,6 +95,13 @@
                     window.alert("You should login first!");
                     router.push({path: '/login'});
                 }
+            },
+
+            // to fetch data again for updating showing
+            reloadData(){
+                // get the current user and their applications again
+                this.getCurrentUser();
+                this.getApplications(this.currentUser.id);
             }
         }
     }
