@@ -24,7 +24,7 @@
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
                     <router-link :to="`#`">
-                        <h6 class="title">{{ program.name }}</h6>
+                        <h6 class="title">{{ program.name }} - {{program.id}}</h6>
                     </router-link>
                     <span class="latest-bid">{{ program.school.name }}</span>
                     <div class="share-wrapper d-flex">
@@ -118,9 +118,9 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        // update the showing
-                        // this.isProgramSelected = false;
-
+                        window.alert("The program removed successfully!")
+                        // tell the parent component to reload data for updating showing
+                        this.$emit("reloadData");
                     })
             },
 
