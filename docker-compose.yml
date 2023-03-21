@@ -58,5 +58,16 @@ services:
       - offer_master_network
     restart: on-failure
 
+  fyp_offer_master_springboot_admin:
+    image: ghcr.io/echo-cool/fyp/fyp_offer_master_springboot_admin:latest
+    container_name: fyp_offer_master_springboot_admin
+    build:
+      context: ./springboot-admin
+    expose:
+      - "8081"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
 networks:
   offer_master_network:
