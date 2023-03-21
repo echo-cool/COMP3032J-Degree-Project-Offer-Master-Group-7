@@ -37,6 +37,7 @@ jobs:
       - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
                           cd /root/COMP3032J-Degree-Project-Offer-Master-Group-7/;
                           pwd;
+                          ls;
                           bash update_and_deploy.sh;"
 
 
