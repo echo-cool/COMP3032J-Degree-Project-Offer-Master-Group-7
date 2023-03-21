@@ -37,6 +37,7 @@ jobs:
       - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
                           rm -rf /root/tmp/;
                           mkdir -p /root/tmp/;
+                          cd /root/tmp/;
                           git clone git@github.com:echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7.git;
                           cd /root/tmp/COMP3032J-Degree-Project-Offer-Master-Group-7/;
                           pwd;
