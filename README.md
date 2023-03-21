@@ -11,6 +11,10 @@ We aim to build web application with excellent user experience, high performance
 ```shell
 docker-compose build --parallel
 ```
+or
+```shell
+docker-compose up -d --build
+```
 
 ```shell
 docker-compose up
