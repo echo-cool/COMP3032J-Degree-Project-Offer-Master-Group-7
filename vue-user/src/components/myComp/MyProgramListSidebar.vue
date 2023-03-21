@@ -39,7 +39,7 @@
                     </div>
                     <!--                    <router-link :to="application.url" class="btn btn-primary-alta">Check Out</router-link>-->
                     <a class="btn btn-primary mr--10" @click="editApplication()">Edit</a>
-                    <a class="btn btn-primary-alta" @click="removeApplication()">Remove</a>
+                    <a class="btn btn-primary-alta" @click="removeApplication(application.id)">Remove</a>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
 
 <script>
     import NiceSelect from '@/components/select/NiceSelect'
+    import programSelectionApi from "@/api/programSelection";
 
     export default {
         name: 'MyProgramListSidebar',
@@ -78,9 +79,14 @@
                 console.log("test in editApplication")
             },
 
-            removeApplication(){
-                // for test
-                console.log("test in removeApplication")
+            removeApplication(applicationId){
+                programSelectionApi.deleteApplicationById(applicationId)
+                    .then(response => {
+                        // application removed successfully
+                        window.alert("Program removed successfully from your list");
+                        // notice the parent to fetch data again
+                        this.$emit("reloadData");
+                    })
             }
 
         }
