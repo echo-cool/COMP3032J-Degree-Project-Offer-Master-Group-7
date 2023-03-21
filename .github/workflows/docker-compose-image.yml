@@ -23,6 +23,8 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn package -DskipTests --file pom.xml
+      - run: cd  springboot-admin
+      - run: mvn package -DskipTests --file pom.xml
       - run: docker-compose --version
       - name: Build with docker-compose
         run: docker-compose build --parallel
