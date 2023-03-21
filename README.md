@@ -10,6 +10,7 @@ We aim to build web application with excellent user experience, high performance
 ```bash
 mvn package -DskipTests --file pom.xml
 docker build -t fyp_offer_master_springboot .
+docker build . --file Dockerfile --tag ghcr.io/echo-cool/fyp/fyp_offer_master_springboot:latest
 ```
 
 ### Frontend-User (Vue)
