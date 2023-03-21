@@ -8,9 +8,7 @@ WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
-RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 
-RUN node-prune /app
 # install project dependencies
 RUN npm install
 
