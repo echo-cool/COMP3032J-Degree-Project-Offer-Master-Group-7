@@ -6,6 +6,16 @@ We aim to build web application with excellent user experience, high performance
 ![logo.png](images/logo.jpg)
 
 ## Build this project
+
+### Using docker-compose
+```shell
+docker-compose build --parallel
+```
+
+```shell
+docker-compose up
+```
+
 ### Backend (Springboot)
 ```bash
 mvn package -DskipTests --file pom.xml
