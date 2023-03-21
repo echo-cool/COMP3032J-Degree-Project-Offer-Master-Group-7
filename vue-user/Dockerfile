@@ -1,7 +1,9 @@
 FROM node:16 as build-stage
 WORKDIR /app
 COPY . .
-RUN npm install && npm run build
+RUN npm install -g npm@9.6.2 --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com
+RUN npm run build
 
 # production stage
 FROM nginx:stable-alpine as production-stage

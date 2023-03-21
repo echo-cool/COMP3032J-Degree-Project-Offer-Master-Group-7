@@ -2,8 +2,9 @@
 FROM node:16 as build-stage
 WORKDIR /app
 COPY . .
-RUN npm install && npm run build:prod
-
+RUN npm install -g npm@9.6.2 --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com
+RUN npm run build:prod
 # production stage
 FROM nginx:stable-alpine as production-stage
 LABEL org.opencontainers.image.source="https://github.com/echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7"
