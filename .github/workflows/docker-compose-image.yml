@@ -36,13 +36,13 @@ jobs:
 #      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_springboot:latest
 #      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_user:latest
 #      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_admin:latest
-      - name: Deploy Stack
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.GL_SSH_HOST }}
-          username: ${{ secrets.GL_SSH_USERNAME }}
-          key: ${{ secrets.GL_SSH_SECRET }}
-          port: ${{ secrets.GL_SSH_PORT }}
-          script: |
-            cd /root/COMP3032J-Degree-Project-Offer-Master-Group-7/
-            bash update_and_deploy.sh
+#      - name: Deploy Stack
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.GL_SSH_HOST }}
+#          username: ${{ secrets.GL_SSH_USERNAME }}
+#          key: ${{ secrets.GL_SSH_SECRET }}
+#          port: ${{ secrets.GL_SSH_PORT }}
+#          script: |
+#            cd /root/COMP3032J-Degree-Project-Offer-Master-Group-7/
+#            bash update_and_deploy.sh
