@@ -35,7 +35,10 @@ jobs:
 #      - run: docker-compose push
       - run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan "${{ secrets.HOST }}" >> ~/.ssh/known_hosts
       - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
-                          cd /root/COMP3032J-Degree-Project-Offer-Master-Group-7/;
+                          rm -rf /root/tmp/;
+                          mkdir -p /root/tmp/;
+                          git clone git@github.com:echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7.git;
+                          cd /root/tmp/COMP3032J-Degree-Project-Offer-Master-Group-7/;
                           pwd;
                           ls;
                           bash update_and_deploy.sh;"
