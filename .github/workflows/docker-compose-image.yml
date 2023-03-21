@@ -32,7 +32,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: echo-cool
           password: ${{ secrets.PACKAGE_TOKEN }}
-          
-      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_springboot:latest
-      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_user:latest
-      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_admin:latest
+      - run: docker-compose push
+#      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_springboot:latest
+#      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_user:latest
+#      - run: docker image push ${{ env.REGISTRY }}/echo-cool/fyp/fyp_offer_master_vue_admin:latest
