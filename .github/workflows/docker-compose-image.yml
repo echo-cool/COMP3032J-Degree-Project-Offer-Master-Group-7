@@ -25,6 +25,7 @@ jobs:
         run: mvn package -DskipTests --file pom.xml
       - run: cd  springboot-admin
       - run: mvn package -DskipTests --file pom.xml
+      - run: cd ..
       - run: docker-compose --version
       - name: Build with docker-compose
         run: docker-compose build --parallel
