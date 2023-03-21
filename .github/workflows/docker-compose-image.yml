@@ -44,6 +44,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |                            
-            docker-compose up -d --build
             cd /root/COMP3032J-Degree-Project-Offer-Master-Group-7/
             bash update_and_deploy.sh
