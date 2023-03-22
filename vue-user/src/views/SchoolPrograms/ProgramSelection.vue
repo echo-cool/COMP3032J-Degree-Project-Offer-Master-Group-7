@@ -8,7 +8,6 @@
                     <div class="col-lg-8 custom-product-col">
 <!--                        <explore-list-style/>-->
                         <program-listing :current-user="currentUser"
-                                         :applications="applications"
                                          @reloadData="reloadData"
                                          ref="childCompProgramListing"/>
                     </div>
@@ -23,7 +22,8 @@
                             <!-- End creators area -->
 
                             <!-- Start My Program List area -->
-                            <my-program-list-sidebar :current-user="currentUser"
+                            <my-program-list-sidebar :app-list-mixin-load-school-count="appListMixinLoadSchoolCount"
+                                                     :current-user="currentUser"
                                                      :applications="applications"
                                                      @reloadData="reloadData"/>
                             <!-- End My Program List area -->
@@ -55,11 +55,17 @@
     import ProgramListing from "@/components/myComp/ProgramListing.vue";
     import cookie from "js-cookie";
     import router from "@/router";
-    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
-
+    import app from "@/App.vue";
+    import applicationListMixin from "@/mixins/user/ApplicationListMixin";
 
     export default {
         name: 'ExploreNine',
+        computed: {
+            app() {
+                return app
+            }
+        },
+        mixins: [applicationListMixin],
         components: {
             ReportModal,
             ShareModal,
@@ -72,7 +78,6 @@
             MyProgramListSidebar,
             ProgramListing
         },
-        mixins: [ApplicationListMixin],
         data(){
             return{
                 currentUser: {}
@@ -118,7 +123,6 @@
             reloadData(){
                 // get the current user and their applications again
                 this.getCurrentUser();
-                this.getApplications(this.currentUser.id);
                 // update the user selected programs (for the left listing part)
                 this.$refs.childCompProgramListing.getUserSelectedPrograms();
             }

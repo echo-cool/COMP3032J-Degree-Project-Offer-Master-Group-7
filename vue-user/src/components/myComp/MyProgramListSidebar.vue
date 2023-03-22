@@ -3,23 +3,30 @@
         <div class="h--100">
             <div class="notice-heading">
                 <h4>My Program List</h4>
-                <nice-select
-                    :options="[
-                        {value: 'newest', text: 'Newest'},
-                        {value: 'trending', text: 'Tranding'},
-                        {value: 'saved', text: 'Saved'},
-                        {value: 'deleted', text: 'Delated'}
-                    ]"
-                    :default-current="0"
-                    placeholder="Sort by likes"
-                    name="like"
-                />
+
+<!--                <nice-select-->
+<!--                    :options="[-->
+<!--                        {value: 'newest', text: 'Newest'},-->
+<!--                        {value: 'trending', text: 'Tranding'},-->
+<!--                        {value: 'saved', text: 'Saved'},-->
+<!--                        {value: 'deleted', text: 'Delated'}-->
+<!--                    ]"-->
+<!--                    :default-current="0"-->
+<!--                    placeholder="Sort by likes"-->
+<!--                    name="like"-->
+<!--                />-->
             </div>
         </div>
-        <div class="rn-notification-wrapper">
+
+        <!-- !!! This is really FUCKING!!! -->
+        <!-- We must use the application list in child component AFTER -->
+        <!-- the list finishes loading in the Mixin -->
+        <!-- Otherwise, the navbar would be unavailable -->
+        <div v-if="appListMixinLoadSchoolCount === applications.length" class="rn-notification-wrapper">
             <div class="single-notice"
                  v-for="(application, index) in applications"
                  :key="`application-${index}`">
+
                 <div class="thumbnail">
 <!--                    <router-link :to="application.program.school.url">-->
                         <img :src="application.program.school.img" alt="Images">
@@ -41,6 +48,7 @@
                     <a class="btn btn-primary mr--10" @click="editApplication()">Edit</a>
                     <a class="btn btn-primary-alta" @click="removeApplication(application.id)">Remove</a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -60,7 +68,8 @@
                 default: function () {
                     return [];
                 }
-            }
+            },
+            appListMixinLoadSchoolCount: 0
         },
         data() {
             return {
