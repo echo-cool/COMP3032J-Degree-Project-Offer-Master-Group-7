@@ -95,7 +95,7 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert(error.response.data.message);
+                        window.alert("-------------- login alert 1: " + error.response.data.message);
                     })
             },
 
@@ -121,7 +121,7 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert(error.response.data.message);
+                        window.alert("-------------- login alert 2: " + error.response.data.message);
                     })
             }
         }
