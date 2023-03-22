@@ -142,15 +142,15 @@ class LoadDatabase {
         Application application2 = new Application(user1, program2, EStatus.ADMITTED, "MEng");
         Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, "MS");
         Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, "MS");
+        Application application5 = new Application(user2, program3, EStatus.ADMITTED, "MS");
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);
         applicationRepository.save(application3);
         applicationRepository.save(application4);
+        applicationRepository.save(application5);
 
 
-        return args -> {
-            log.warn("Preloaded database, completed.");
-        };
+        return args -> log.warn("Preloaded database, completed.");
     }
 }

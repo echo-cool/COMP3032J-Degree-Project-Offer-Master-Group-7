@@ -1,5 +1,10 @@
 package com.group7.service;
 
+import com.group7.db.jpa.School;
+import com.group7.db.jpa.User;
+import com.group7.entitiy.SchoolQueryVo;
+import com.group7.entitiy.UserQueryVo;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -14,6 +19,8 @@ public interface UserService {
      * @return e.g. http://127.0.0.1:8080/img/upload/avatar/user1.png
      */
     public String uploadAvatar(MultipartFile file, String preURL);
+
+    public Page<User> pageByVo(long current, long limit, UserQueryVo userQueryVo);
 
 //    public void changePassword();
 

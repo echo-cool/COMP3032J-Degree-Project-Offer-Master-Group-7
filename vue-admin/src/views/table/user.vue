@@ -2,11 +2,11 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.username" placeholder="Username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-input v-model="listQuery.password" placeholder="Password" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <!--      <el-input v-model="listQuery.password" placeholder="Password" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />-->
       <el-input v-model="listQuery.email" placeholder="Email" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.roles" placeholder="Role" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in roles" :key="item" :label="item" :value="item" />
-      </el-select>
+      <!--      <el-select v-model="listQuery.roles" placeholder="Role" clearable style="width: 90px" class="filter-item">-->
+      <!--        <el-option v-for="item in roles" :key="item" :label="item" :value="item" />-->
+      <!--      </el-select>-->
       <!--      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">-->
       <!--        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />-->
       <!--      </el-select>-->
@@ -169,11 +169,10 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, deleteUser, createUser, updateUser } from '@/api/article'
+import { fetchPv, deleteUser, createUser, updateUser, pageUserListCondition } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
-import { getAllRoles, getRoles } from '@/api/role'
 // secondary package based on el-pagination
 
 const calendarTypeOptions = [
@@ -214,12 +213,12 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        size: 20
-        // username: undefined,
+        size: 20,
+        username: '',
         // password: undefined,
-        // email: undefined,
+        email: '',
         // roles: undefined,
-        // sort: 'username,asc'
+        sort: 'username,asc'
       },
       roles: ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MODERATOR'],
       calendarTypeOptions,
@@ -254,53 +253,75 @@ export default {
   },
   created() {
     this.getList()
-    this.getRoleMap()
+    // this.getRoleMap()
   },
   methods: {
     getList() {
       this.listLoading = true
-      this.listLoading
-      fetchList(this.listQuery).then(response => {
-        this.list = response['_embedded']['users']
-        this.total = response['page']['totalElements']
 
-        // eslint-disable-next-line no-unused-vars
-        let finished = 0
+      console.log(this.listQuery)
+      const userQuery = {}
+      userQuery.username = this.listQuery.username
+      userQuery.email = this.listQuery.email
+      userQuery.sort = this.listQuery.sort !== 'username,desc'
 
-        for (let i = 0; i < this.list.length; i++) {
-          const user = this.list[i]
-          user['roles'] = []
-          getRoles(user['id']).then(roleResponse => {
-            const roles = roleResponse['_embedded']['roles']
-            for (const index in roles) {
-              user['roles'].push(roles[index]['name'])
-            }
-            if (finished === this.list.length - 1) {
-              this.listLoading = false
-              this.tableKey += 1
-            } else {
-              finished += 1
-            }
-          })
-        }
+      this.listLoading = true
+      pageUserListCondition(this.listQuery.page, this.listQuery.size, userQuery)
+        .then(response => {
+          this.list = response.data.data.content
+          this.total = response['data']['data']['totalElements']
 
-        // Just to simulate the time of the request
-        // setTimeout(() => {
-        //   this.listLoading = false
-        //   this.tableKey = 1
-        // }, 1.5 * 1000)
-      })
+          for (let i = 0; i < this.list.length; i++) {
+            const user = this.list[i]
+            user['roles'] = this.roleToName(user)
+          }
+
+          this.listLoading = false
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      // fetchList(this.listQuery).then(response => {
+      //   this.list = response['_embedded']['users']
+      //   this.total = response['page']['totalElements']
+      //
+      //   // eslint-disable-next-line no-unused-vars
+      //   let finished = 0
+      //
+      //   for (let i = 0; i < this.list.length; i++) {
+      //     const user = this.list[i]
+      //     user['roles'] = []
+      //     getRoles(user['id']).then(roleResponse => {
+      //       const roles = roleResponse['_embedded']['roles']
+      //       for (const index in roles) {
+      //         user['roles'].push(roles[index]['name'])
+      //       }
+      //       if (finished === this.list.length - 1) {
+      //         this.listLoading = false
+      //         this.tableKey += 1
+      //       } else {
+      //         finished += 1
+      //       }
+      //     })
+      //   }
+
+      // Just to simulate the time of the request
+      // setTimeout(() => {
+      //   this.listLoading = false
+      //   this.tableKey = 1
+      // }, 1.5 * 1000)
+      // })
     },
-    getRoleMap() {
-      getAllRoles().then(response => {
-        const roles = response['_embedded']['roles']
-        for (let i = 0; i < roles.length; i++) {
-          const role = roles[i]
-          this.roleMap[role['name']] = role['_links']['self']['href']
-          this.roleLinkMap[role['_links']['self']['href']] = role['name']
-        }
-      })
-    },
+    // getRoleMap() {
+    //   getAllRoles().then(response => {
+    //     const roles = response['_embedded']['roles']
+    //     for (let i = 0; i < roles.length; i++) {
+    //       const role = roles[i]
+    //       this.roleMap[role['name']] = role['_links']['self']['href']
+    //       this.roleLinkMap[role['_links']['self']['href']] = role['name']
+    //     }
+    //   })
+    // },
     handleFilter() {
       this.listQuery.page = 1
       this.getList()
@@ -343,20 +364,28 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
-    linkToRole(roleLinks) {
+    roleToName(user) {
       const roleNames = []
-      for (let i = 0; i < roleLinks.length; i++) {
-        roleNames.push(this.roleLinkMap[roleLinks[i]])
+      const userRoles = user['roles']
+      for (let i = 0; i < userRoles.length; i++) {
+        roleNames.push(userRoles[i]['name'])
       }
       return roleNames
     },
+    // linkToRole(roleLinks) {
+    //   const roleNames = []
+    //   for (let i = 0; i < roleLinks.length; i++) {
+    //     roleNames.push(this.roleLinkMap[roleLinks[i]])
+    //   }
+    //   return roleNames
+    // },
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          createUser(this.temp, this.roleMap).then(response => {
-            this.temp.id = response['id']
-            this.temp.createdAt = response['createdAt']
-            this.temp.roles = this.linkToRole(this.temp.roles)
+          createUser(this.temp).then(response => {
+            this.temp.id = response['data']['data']['id']
+            this.temp.createdAt = response['data']['data']['createdAt']
+            this.temp.roles = this.roleToName(response['data']['data'])
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -383,9 +412,11 @@ export default {
         if (valid) {
           // const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateUser(this.temp, this.roleMap).then(() => {
+          updateUser(this.temp).then(response => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
-            this.temp.roles = this.linkToRole(this.temp.roles)
+            this.temp.roles = this.roleToName(response['data']['data'])
+
+            this.temp.password = response['data']['data']['password']
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
             this.$notify({

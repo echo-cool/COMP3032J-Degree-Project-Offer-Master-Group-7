@@ -225,7 +225,7 @@ export default {
           // response接口返回的数据
           // console.log(response)
           this.list = response.data.data.content
-          this.total = response.data.data.size
+          this.total = response['data']['data']['totalElements']
           console.log(this.list)
           this.listLoading = false
         })
