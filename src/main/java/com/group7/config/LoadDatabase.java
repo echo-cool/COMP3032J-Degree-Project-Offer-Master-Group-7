@@ -3,6 +3,7 @@ package com.group7.config;
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,6 @@ class LoadDatabase {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-
     @Bean
     CommandLineRunner initDatabase() {
         log.warn("Preloading database...");
@@ -54,7 +54,6 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role1));
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
-
 
         School school1 = new School("Duke University");
         School school2 = new School("University of Toronto");

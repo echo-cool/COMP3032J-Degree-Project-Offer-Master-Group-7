@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public String uploadAvatar(MultipartFile file) {
+    public String uploadAvatar(MultipartFile file, String preURL) {
         // e.g. test.png
         String filename = file.getOriginalFilename();
 
@@ -42,14 +42,16 @@ public class UserServiceImpl implements UserService {
         // concatenate the path for this avatar
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
         String pre = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()
-                + "\\vue-user\\src\\assets\\images\\profile\\upload\\avatar\\";
+                + "\\src\\main\\resources\\static\\upload\\avatar\\";
         String savePath = pre + filename;
 
         // store the file
         try {
             file.transferTo(new File(savePath));
-            // return the filename to store in db
-            return filename;
+            // generate the http url for this pic
+            String url = preURL + filename;
+            // return the pic url to store in db
+            return url;
         } catch (IOException e) {
             return null;
         }

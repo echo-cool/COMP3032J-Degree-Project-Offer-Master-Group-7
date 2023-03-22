@@ -26,6 +26,9 @@ public class School {
     @Column(nullable = false)
     private String name = "NULL";
 
+    @Column
+    private String img;
+
     @OneToMany(mappedBy="school")
     @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
@@ -37,6 +40,11 @@ public class School {
 
     public School(String name) {
         this.name = name;
+    }
+
+    public School(String name, String img) {
+        this.name = name;
+        this.img = img;
     }
 
     public School() {
@@ -66,5 +74,13 @@ public class School {
 
     public void setPrograms(Set<Program> programs) {
         this.programs = programs;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

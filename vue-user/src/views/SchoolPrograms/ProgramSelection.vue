@@ -81,9 +81,17 @@
         created() {
 
             this.getCurrentUser();
-            // load the applications of this user
-            this.getApplications(this.currentUser.id);
 
+        },
+        mounted() {
+            // load data for the child program-listing component only if user logged in
+            if (cookie.get("current_user")){
+                // load data for the child program-listing component
+                // fetch data of programs
+                this.$refs.childCompProgramListing.getPrograms();
+                // fetch data of user selected programs
+                this.$refs.childCompProgramListing.getUserSelectedPrograms();
+            }
         },
         methods: {
             // get current user info from cookie
@@ -93,6 +101,12 @@
                 // turn json string to json obj
                 if (userStr){
                     this.currentUser = JSON.parse(userStr);
+                    // load the applications of this user
+                    this.getApplications(this.currentUser.id);
+                    // load data for the child program-listing component
+                    // but this should be in the stage of mounted
+                    // otherwise we cannot refer to the child component
+
                 }else{
                     // user should be redirected to the login page if not logged in
                     window.alert("You should login first!");
