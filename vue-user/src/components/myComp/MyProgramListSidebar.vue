@@ -31,7 +31,7 @@
 <!--                    </router-link>-->
                     <p>{{ application.program.name }}</p>
                     <div class="notice-time">
-                        <span>{{ application.degree }} </span>
+                        <span>{{ application.program.degree }} </span>
                         <!-- status -->
                         <span v-if="application.eStatus === `REJECTED`" class="color-danger">{{ application.eStatus }}</span>
                         <span v-else-if="application.eStatus === `ADMITTED`" class="color-green">{{ application.eStatus }}</span>

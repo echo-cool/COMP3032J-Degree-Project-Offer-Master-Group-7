@@ -490,7 +490,7 @@
                                                         :key="`row-${rowIndex}`">
                                                         <td><span>{{ row.program.name }}</span></td>
                                                         <td><span class="color-purple">{{ row.program.school.name }}</span></td>
-                                                        <td><span>{{ row.degree }}</span></td>
+                                                        <td><span>{{ row.program.degree }}</span></td>
                                                         <!-- status different color -->
                                                         <td v-if="row.eStatus === `REJECTED`"><span class="color-danger">{{ row.eStatus }}</span></td>
                                                         <td v-else-if="row.eStatus === `ADMITTED`"><span class="color-green">{{ row.eStatus }}</span></td>

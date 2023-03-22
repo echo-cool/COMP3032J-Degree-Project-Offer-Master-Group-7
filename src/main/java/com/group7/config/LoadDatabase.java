@@ -77,22 +77,26 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school9));
         log.info("Preloading " + schoolRepository.save(school10));
 
-        Program program1 = new Program("Computer Science", school1);
-        Program program2 = new Program("Computer Engineering", school3);
-        Program program3 = new Program("Software Engineering", school2);
-        Program program4 = new Program("Computer Science", school6);
-        Program program5 = new Program("Statistical Science", school1);
-        Program program6 = new Program("Electrical and Computer Engineering", school1);
-        Program program7 = new Program("Software Engineering", school7);
-        Program program8 = new Program("Software Engineering", school8);
-        Program program9 = new Program("Software Engineering", school3);
-        Program program10 = new Program("Quantitative Management", school1);
-        Program program11 = new Program("Financial Technology", school1);
+        Program program1 = new Program("Computer Science", school1, "MS");
+        Program program1_2 = new Program("Computer Science", school1, "MEng");
+        Program program1_3 = new Program("Computer Science", school1, "Phd");
+        Program program2 = new Program("Computer Engineering", school3, "MS");
+        Program program3 = new Program("Software Engineering", school2, "MS");
+        Program program4 = new Program("Computer Science", school6, "MS");
+        Program program5 = new Program("Statistical Science", school1, "MS");
+        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS");
+        Program program7 = new Program("Software Engineering", school7, "MS");
+        Program program8 = new Program("Software Engineering", school8, "MS");
+        Program program9 = new Program("Software Engineering", school3, "MS");
+        Program program10 = new Program("Quantitative Management", school1, "MS");
+        Program program11 = new Program("Financial Technology", school1, "MS");
 
 
 
 
         log.info("Preloading " + programRepository.save(program1));
+        log.info("Preloading " + programRepository.save(program1_2));
+        log.info("Preloading " + programRepository.save(program1_3));
         log.info("Preloading " + programRepository.save(program2));
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
@@ -138,17 +142,21 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED, "Phd");
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED, "MEng");
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, "MS");
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, "MS");
-        Application application5 = new Application(user2, program3, EStatus.ADMITTED, "MS");
+        Application application1 = new Application(user1, program1, EStatus.REJECTED);
+        Application application2 = new Application(user1, program2, EStatus.ADMITTED);
+        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION);
+        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW);
+        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW);
+        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW);
+        Application application7 = new Application(user2, program3, EStatus.ADMITTED);
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);
         applicationRepository.save(application3);
         applicationRepository.save(application4);
         applicationRepository.save(application5);
+        applicationRepository.save(application6);
+        applicationRepository.save(application7);
 
 
         return args -> log.warn("Preloaded database, completed.");

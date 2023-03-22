@@ -42,9 +42,6 @@ public class Application {
     @Temporal(TemporalType.DATE)
     private Date deadline = new Date();
 
-    @Column
-    private String degree;
-
 
     public Application(User user, Program program) {
         this.user = user;
@@ -57,12 +54,6 @@ public class Application {
         this.eStatus = eStatus;
     }
 
-    public Application(User user, Program program, EStatus eStatus, String degree) {
-        this.user = user;
-        this.program = program;
-        this.eStatus = eStatus;
-        this.degree = degree;
-    }
 
     public Application() {
     }
@@ -106,13 +97,5 @@ public class Application {
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
-    }
-
-    public String getDegree() {
-        return degree;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
     }
 }
