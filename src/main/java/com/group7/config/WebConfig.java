@@ -1,9 +1,11 @@
 package com.group7.config;
 
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -33,5 +35,17 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/api/**")
 //                //放行路径，可以添加多个
 //                .excludePathPatterns("/api/login");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // get the resource location (resources/static)
+        ApplicationHome applicationHome = new ApplicationHome(this.getClass());
+        String resourceLocation = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()
+                + "\\src\\main\\resources\\static\\";
+        // map the resources/static dir to the http://.../img/
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:" + resourceLocation);
+
     }
 }

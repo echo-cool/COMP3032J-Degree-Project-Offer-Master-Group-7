@@ -112,12 +112,6 @@
                     item.items = this.products;
                 }
             });
-
-            // fetch data of programs
-            this.getPrograms();
-            // fetch data of user selected programs
-            this.getUserSelectedPrograms();
-
         },
 
         methods: {
