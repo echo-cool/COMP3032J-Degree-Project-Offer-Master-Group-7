@@ -23,6 +23,8 @@ services:
     container_name: fyp_offer_master_springboot
     build:
       context: .
+    environment:
+      - SERVER_ADDRESS=fyp_offer_master_springboot
     depends_on:
       - fyp_offer_master_vue_user
       - fyp_offer_master_vue_admin
@@ -68,18 +70,18 @@ services:
     restart: on-failure
 
   fyp_offer_master_minio:
-    image: minio/minio
+    image: quay.io/minio/minio
     ports:
       - "9000:9000"
-      - "9001:9001"
+      - "9090:9090"
     networks:
       - offer_master_network
     volumes:
-      - ~/minio_storage:/data
+      - ~/minio/data:/data
     environment:
-      MINIO_ROOT_USER: admin
-      MINIO_ROOT_PASSWORD: Group7_niubi_666
-    command: server --console-address ":9001" /data
+      MINIO_ROOT_USER: group7
+      MINIO_ROOT_PASSWORD: group7group7
+    command: server /data --console-address ":9090"
 
 networks:
   offer_master_network:
