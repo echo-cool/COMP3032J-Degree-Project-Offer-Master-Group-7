@@ -776,13 +776,7 @@
         created() {
             // load the current user info as this page is created
             // user would be redirected to the login page if not logged in
-
             this.getCurrentUser();
-            // this.currentUser = userLoader.getCurrentUser();
-
-            this.getApplications(this.currentUser.id);
-            // this.applications = applicationLoader.getApplications(this.currentUser.id);
-            // console.log("applications: " + this.applications)
 
         },
 
@@ -825,6 +819,9 @@
                 // turn json string to json obj
                 if (userStr){
                     this.currentUser = JSON.parse(userStr);
+                    // initialize the applications for this user
+                    this.getApplications(this.currentUser.id);
+
                 }else{
                     // user should be redirected to the login page if not logged in
                     window.alert("You should login first!");
