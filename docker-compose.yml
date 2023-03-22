@@ -67,7 +67,7 @@ services:
       - offer_master_network
     restart: on-failure
 
-  minio:
+  fyp_offer_master_minio:
     image: minio/minio
     ports:
       - "9000:9000"
