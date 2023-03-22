@@ -61,16 +61,16 @@ export function fetchPv(pv) {
   })
 }
 
-export function createUser(data, roleMap) {
-  const roleLinks = []
-  const roles = data['roles']
-  for (let i = 0; i < roles.length; i++) {
-    roleLinks.push(roleMap[roles[i]])
-  }
-  data['roles'] = roleLinks
+export function createUser(data) {
+  // const roleLinks = []
+  // const roles = data['roles']
+  // for (let i = 0; i < roles.length; i++) {
+  //   roleLinks.push(roleMap[roles[i]])
+  // }
+  // data['roles'] = roleLinks
   console.log(data)
   return request({
-    url: '/backend/rest/users',
+    url: '/backend/api/user/createUser',
     method: 'post',
     data,
     headers: {
@@ -79,23 +79,35 @@ export function createUser(data, roleMap) {
   })
 }
 
-export function updateUser(data, roleMap) {
-  const roleLinks = []
-  const roles = data['roles']
-  for (let i = 0; i < roles.length; i++) {
-    roleLinks.push(roleMap[roles[i]])
-  }
-  data['roles'] = roleLinks
+export function updateUser(data) {
+  // const roleLinks = []
+  // const roles = data['roles']
+  // for (let i = 0; i < roles.length; i++) {
+  //   roleLinks.push(roleMap[roles[i]])
+  // }
+  // data['roles'] = roleLinks
   console.log(data)
   return request({
-    url: '/backend/rest/users/' + data.id,
+    url: '/backend/api/user/updateUser',
     method: 'patch',
     data: {
+      'id': data.id,
       'username': data.username,
       'password': data.password,
       'email': data.email,
       'roles': data.roles
     },
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+
+export function pageUserListCondition(current, limit, userQueryVo) {
+  return request({
+    url: `/backend/api/user/condition-query/${current}/${limit}`,
+    method: 'post',
+    data: userQueryVo,
     headers: {
       'Authorization': getToken()
     }

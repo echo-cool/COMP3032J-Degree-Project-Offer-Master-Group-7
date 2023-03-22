@@ -193,11 +193,7 @@ export default {
       console.log(this.listQuery)
       var schoolQuery = {}
       schoolQuery.name = this.listQuery.name
-      if (this.listQuery.sort === '-id') {
-        schoolQuery.sort = false
-      } else {
-        schoolQuery.sort = true
-      }
+      schoolQuery.sort = this.listQuery.sort !== '-id'
       // console.log(schoolQuery)
       // console.log(this.listQuery)
       this.listLoading = true
@@ -206,7 +202,7 @@ export default {
           // response接口返回的数据
           // console.log(response)
           this.list = response.data.data.content
-          this.total = response.data.data.size
+          this.total = response['data']['data']['totalElements']
           console.log(this.list)
           this.listLoading = false
         })
