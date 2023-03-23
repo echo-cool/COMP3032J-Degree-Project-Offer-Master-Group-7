@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <h2 class="title mb--0">
-                        Our Best Creators
+                        Top US Graduate Schools
                     </h2>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
@@ -31,7 +31,7 @@
                 <div class="creator-single col-lg-3 col-md-4 col-sm-6"
                      v-for="(seller, index) in sortByStatusSeller"
                      :key="`seller-${index}`">
-                    <seller :seller-data="seller" seller-style-class="explore"/>
+                    <top-school-item :seller-data="seller" seller-style-class="explore"/>
                 </div>
             </div>
         </div>
@@ -40,13 +40,13 @@
 
 <script>
     import NiceSelect from '@/components/select/NiceSelect.vue'
-    import Seller from '@/components/seller/Seller.vue'
     import AuthorMixin from '@/mixins/AuthorMixin'
     import AppFunctions from '@/helpers/AppFunctions'
+    import TopSchoolItem from "@/components/myComp/homePageComp/TopSchoolItem.vue";
 
     export default {
-        name: 'SellerStyleTwo',
-        components: {Seller, NiceSelect},
+        name: 'TopSchools',
+        components: {TopSchoolItem, NiceSelect},
         mixins: [AuthorMixin],
         data() {
             return {
@@ -58,6 +58,9 @@
             'sortStatus': function (val) {
                 this.getSellerByStatus(val)
             }
+        },
+        created() {
+            
         },
         methods: {
             changeHandler(item) {
