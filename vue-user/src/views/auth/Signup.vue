@@ -68,10 +68,10 @@
 </template>
 
 <script>
-    import Layout from "@/components/layouts/Layout";
-    import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+    import Layout from "@/components/layouts/Layout.vue";
+    import Breadcrumb from "@/components/breadcrumb/Breadcrumb.vue";
 
-    import router from "@/router/index";
+    import router from "@/router";
     import registerApi from "@/api/register";
 
     export default {

@@ -682,12 +682,12 @@
 </template>
 
 <script>
-    import Layout from "@/components/layouts/Layout";
-    import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+    import Layout from "@/components/layouts/Layout.vue";
+    import Breadcrumb from "@/components/breadcrumb/Breadcrumb.vue";
 
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
-    import router from "@/router/index";
+    import router from "@/router";
     import userLoader from "@/utils/userloader";
     import applicationLoader from "@/utils/applicationLoader";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";

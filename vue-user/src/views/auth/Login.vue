@@ -55,8 +55,8 @@
 </template>
 
 <script>
-    import Layout from "@/components/layouts/Layout";
-    import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
+    import Layout from "@/components/layouts/Layout.vue";
+    import Breadcrumb from "@/components/breadcrumb/Breadcrumb.vue";
 
     import loginApi from "@/api/login"
     import cookie from "js-cookie"

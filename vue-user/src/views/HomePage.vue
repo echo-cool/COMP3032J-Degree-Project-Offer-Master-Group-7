@@ -1,0 +1,145 @@
+<template>
+    <layout>
+        <!-- Start banner area -->
+        <div class="banner-style-4 rn-section-gapTop">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-lg-6 col-md-12 order-2 order-lg-1 mt_md--40 mt_sm--40">
+                        <div class="sldier-content">
+                            <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">
+                                OfferMaster Graduate Application Helper
+                            </span>
+                            <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
+                                Get recommended programs for you
+                            </h2>
+                            <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">
+                                We can recommend you graduate programs that are the best fit for
+                                <br> your academic background, which can maximize the success rate
+                                <br> of your application.
+                            </p>
+                            <div class="button-group">
+                                <router-link to="#" class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Get Started</router-link>
+                                <router-link to="/create" class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Complete Background</router-link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">
+                        <div class="slider slick-activation-04">
+                            <banner-carousel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End banner area -->
+
+        <!-- Start Application Tools Area -->
+        <application-tools/>
+        <!-- End Application Tools Area -->
+
+        <!-- Start My program carousel Area -->
+        <my-program-list-timer-carousel v-if="currentUser.id"
+                                        :title="`My Selected Programs`"
+                                        :applications="applications"/>
+        <!-- End My program carousel Area -->
+
+        <!-- Start OfferMaster Guide Area -->
+        <offer-master-guide/>
+        <!-- End OfferMaster Guide Area -->
+
+
+        <!-- About Graduate Application Start -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h2>The Top Ranked Schools In US</h2>
+                            <p class="discription">
+                                Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
+                                auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
+                                nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a
+                                odio
+                                tincidunt auctor a ornare odio sed non.
+
+                                Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
+                                auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About Graduate Application End -->
+
+        <!-- Start Top School Area -->
+        <top-schools/>
+        <!-- End Top School Area -->
+
+        <!-- Top Top Program Start -->
+        <top-programs/>
+        <!-- Top Top Program End -->
+
+        <!-- Top Explore Programs Start -->
+        <explore-filter-programs/>
+        <!-- Top Explore Programs End -->
+
+    </layout>
+</template>
+
+<script>
+    import Layout from "@/components/layouts/Layout";
+    import BannerCarousel from "@/components/myComp/homePageComp/BannerCarousel.vue";
+    import SalScrollAnimationMixin from "@/mixins/SalScrollAnimationMixin";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+
+    import MyProgramListTimerCarousel from "@/components/myComp/homePageComp/MyProgramListTimerCarousel.vue";
+    import TopSchools from "@/components/myComp/homePageComp/TopSchools.vue";
+    import TopPrograms from "@/components/myComp/homePageComp/TopPrograms.vue";
+    import OfferMasterGuide from "@/components/myComp/homePageComp/OfferMasterGuide.vue";
+    import ApplicationTools from "@/components/myComp/homePageComp/ApplicationTools.vue";
+    import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
+
+    import cookie from "js-cookie";
+    import router from "@/router";
+
+    export default {
+        name: 'HomePageFour',
+        components: {
+            BannerCarousel,
+            Layout,
+            MyProgramListTimerCarousel,
+            TopSchools,
+            TopPrograms,
+            OfferMasterGuide,
+            ApplicationTools,
+            ExploreFilterPrograms
+        },
+        mixins: [SalScrollAnimationMixin, ApplicationListMixin],
+
+        data(){
+            return{
+                currentUser: {}
+            }
+        },
+        created() {
+
+            this.getCurrentUser();
+
+        },
+        methods: {
+            cookie,
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                    // load the applications of this user
+                    this.getApplications(this.currentUser.id);
+                }
+            }
+        }
+    }
+</script>
