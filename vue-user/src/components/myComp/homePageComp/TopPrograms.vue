@@ -17,6 +17,14 @@
                         name="sellerSort"
                         @onChange="changeHandler"
                     />
+                    <!-- test -->
+                    <div class="col-lg-8">
+                        <div class="button-group isotop-filter filters-button-group d-flex justify-content-start justify-content-lg-end mt_md--30 mt_sm--30">
+                            <button class="is-checked">Master</button>
+                            <button>Phd</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row justify-sm-center g-5 top-seller-list-wrapper"
@@ -42,7 +50,7 @@
     import AppFunctions from "@/helpers/AppFunctions";
 
     export default {
-        name: 'SellerStyleOne',
+        name: 'TopPrograms',
         components: {Seller, NiceSelect},
         mixins: [AuthorMixin, SalScrollAnimationMixin],
         data() {
