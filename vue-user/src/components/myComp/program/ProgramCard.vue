@@ -1,26 +1,25 @@
 <template>
-    <div :class="`product-style-one ${productStyleClass}`">
+    <div :class="`product-style-one`">
         <div class="card-thumbnail">
-            <router-link :to="`/product/${productDate.id}`">
-                <img :src="productDate.productImage" :alt="productDate.productName" @load="$emit('handleImageLoad')">
+<!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
+            <router-link :to="`#`">
+                <img v-if="application.program.school.img" :src="application.program.school.img" :alt="application.program.school.name" @load="$emit('handleImageLoad')">
+                <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
             </router-link>
-            <countdown v-if="productDate.countdown" :date="productDate.countdown.date"/>
-            <router-link v-if="showPlaceBid" :to="`/product/${productDate.id}`" class="btn btn-primary">
-                Place Bid
-            </router-link>
+            <countdown :date="application.deadline"/>
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
-                <router-link v-for="(author, index) in productDate.authors"
-                             :key="`author-${index}`"
-                             :to="`/author/${author.id}`"
-                             class="avatar"
-                             :data-tooltip="author.name">
-                    <img :src="author.image" :alt="author.name">
-                </router-link>
-                <router-link to="#" class="more-author-text">
-                    {{ productDate.biddingAmount }}+ Place Bit.
-                </router-link>
+<!--                <router-link v-for="(author, index) in productDate.authors"-->
+<!--                             :key="`author-${index}`"-->
+<!--                             :to="`/author/${author.id}`"-->
+<!--                             class="avatar"-->
+<!--                             :data-tooltip="author.name">-->
+<!--                    <img :src="author.image" :alt="author.name">-->
+<!--                </router-link>-->
+<!--                <router-link to="#" class="more-author-text">-->
+<!--                    {{ application.program.name }}+ Place Bit.-->
+<!--                </router-link>-->
             </div>
             <div class="share-btn share-btn-activation dropdown">
                 <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,35 +41,29 @@
                 </div>
             </div>
         </div>
-        <router-link :to="`/product/${productDate.id}`">
-            <span class="product-name">{{ productDate.productName }}</span>
+<!--        <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
+        <router-link :to="`#`">
+            <span class="product-name">{{ application.program.school.name }}</span>
         </router-link>
-        <span class="latest-bid">{{ productDate.latestBid }}</span>
+        <span class="latest-bid">{{ application.program.name }}</span>
         <div class="bid-react-area">
-            <div class="last-bid">{{ productDate.lastBid }}</div>
+            <div class="last-bid">{{ application.program.degree }}</div>
             <div class="react-area">
                 <i class="feather-heart"/>
-                <span class="number">{{ productDate.reacted }}</span>
+                <span class="number">{{ application.program.id }}</span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Countdown from '@/components/product/Countdown';
+    import Countdown from "@/components/myComp/program/Countdown.vue";
 
     export default {
         name: 'ProductCard',
         components: {Countdown},
         props: {
-            productDate: {},
-            productStyleClass: {
-                type: String
-            },
-            showPlaceBid: {
-                type: Boolean,
-                default: false
-            }
+            application: {}
         },
         watch: {
             '$route': function (to, from) {

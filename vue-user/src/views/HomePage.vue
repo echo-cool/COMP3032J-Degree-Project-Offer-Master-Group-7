@@ -38,8 +38,8 @@
         <!-- End Application Tools Area -->
 
         <!-- Start My program carousel Area -->
-        <my-program-list-timer-carousel v-if="currentUser.id"
-                                        :title="`My Selected Programs`"
+        <my-program-list-timer-carousel v-if="currentUser.id && appListMixinLoadSchoolCount === applications.length"
+                                        :title="`Due Date Countdown of My Selected Programs`"
                                         :applications="applications"/>
         <!-- End My program carousel Area -->
 

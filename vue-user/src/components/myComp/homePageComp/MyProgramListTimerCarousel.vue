@@ -8,7 +8,7 @@
                 <template #addons>
                     <div class="carousel-header">
                         <div class="section-title">
-                            <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                            <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal-duration="800">
                                 {{ title }}
                             </h3>
                         </div>
@@ -17,11 +17,16 @@
                         </div>
                     </div>
                 </template>
-                <slide v-for="(carouselItem, index) in liveBiddingItems" :key="index">
+<!--                <slide v-for="(carouselItem, index) in liveBiddingItems" :key="index">-->
+<!--                    <program-card-->
+<!--                        :product-date="carouselItem"-->
+<!--                        :show-place-bid="showPlaceBid"-->
+<!--                        :product-style-class="showPlaceBid ? 'no-overlay with-placeBid' : ''"-->
+<!--                    />-->
+<!--                </slide>-->
+                <slide v-for="(application, index) in applications" :key="index">
                     <program-card
-                        :product-date="carouselItem"
-                        :show-place-bid="showPlaceBid"
-                        :product-style-class="showPlaceBid ? 'no-overlay with-placeBid' : ''"
+                        :application="application"
                     />
                 </slide>
             </carousel>

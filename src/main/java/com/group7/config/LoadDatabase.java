@@ -4,6 +4,7 @@ import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +49,7 @@ class LoadDatabase {
     private ApplicationRepository applicationRepository;
 
     @Bean
-    CommandLineRunner initDatabase() {
+    CommandLineRunner initDatabase() throws ParseException {
         log.warn("Preloading database...");
 
         Role role1 = new Role(ERole.ROLE_USER);
@@ -142,13 +146,19 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED);
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED);
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION);
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW);
-        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW);
-        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW);
-        Application application7 = new Application(user2, program3, EStatus.ADMITTED);
+
+        // for default deadline
+        String str = "2024-02-15";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ddl = sdf.parse(str);
+
+        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl);
+        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl);
+        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl);
+        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl);
+        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW, ddl);
+        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl);
+        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl);
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);

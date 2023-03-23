@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +42,7 @@ public class Application {
     private EStatus eStatus = EStatus.NULL;
 
     @Temporal(TemporalType.DATE)
-    private Date deadline = new Date();
+    private Date deadline;
 
 
     public Application(User user, Program program) {
@@ -48,10 +50,11 @@ public class Application {
         this.program = program;
     }
 
-    public Application(User user, Program program, EStatus eStatus) {
+    public Application(User user, Program program, EStatus eStatus, Date deadline) {
         this.user = user;
         this.program = program;
         this.eStatus = eStatus;
+        this.deadline = deadline;
     }
 
 
