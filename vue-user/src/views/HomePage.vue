@@ -102,6 +102,7 @@
 
     import cookie from "js-cookie";
     import router from "@/router";
+    import schoolApi from "@/api/shool";
 
     export default {
         name: 'HomePageFour',
@@ -119,7 +120,8 @@
 
         data(){
             return{
-                currentUser: {}
+                currentUser: {},
+
             }
         },
         created() {
@@ -128,7 +130,6 @@
 
         },
         methods: {
-            cookie,
             // get current user info from cookie
             getCurrentUser(){
                 // we have stored this when logging in

@@ -59,16 +59,16 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
 
-        School school1 = new School("Duke University");
-        School school2 = new School("University of Toronto");
-        School school3 = new School("University of Waterloo");
-        School school4 = new School("University of British Columbia");
-        School school5 = new School("Stanford University");
-        School school6 = new School("University of California, Berkeley");
-        School school7 = new School("Princeton University");
-        School school8 = new School("Harvard University");
-        School school9 = new School("Yale University");
-        School school10 = new School("Dartmouth College");
+        School school1 = new School("Duke University", 1, 10);
+        School school2 = new School("University of Toronto", 2, 9);
+        School school3 = new School("University of Waterloo", 3, 8);
+        School school4 = new School("University of British Columbia", 4, 7);
+        School school5 = new School("Stanford University", 5, 6);
+        School school6 = new School("University of California, Berkeley", 6, 5);
+        School school7 = new School("Princeton University", 7, 4);
+        School school8 = new School("Harvard University", 8, 3);
+        School school9 = new School("Yale University", 9, 2);
+        School school10 = new School("Dartmouth College", 10, 1);
 
         log.info("Preloading " + schoolRepository.save(school1));
         log.info("Preloading " + schoolRepository.save(school2));

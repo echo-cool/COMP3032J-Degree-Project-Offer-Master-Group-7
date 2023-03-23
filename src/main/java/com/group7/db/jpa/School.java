@@ -29,6 +29,12 @@ public class School {
     @Column
     private String img;
 
+    @Column
+    private int rankQS;
+
+    @Column
+    private int rankUSNews;
+
     @OneToMany(mappedBy="school")
     @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
@@ -45,6 +51,12 @@ public class School {
     public School(String name, String img) {
         this.name = name;
         this.img = img;
+    }
+
+    public School(String name, int rankQS, int rankUSNews) {
+        this.name = name;
+        this.rankQS = rankQS;
+        this.rankUSNews = rankUSNews;
     }
 
     public School() {
@@ -82,5 +94,21 @@ public class School {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getRankQS() {
+        return rankQS;
+    }
+
+    public void setRankQS(int rankQS) {
+        this.rankQS = rankQS;
+    }
+
+    public int getRankUSNews() {
+        return rankUSNews;
+    }
+
+    public void setRankUSNews(int rankUSNews) {
+        this.rankUSNews = rankUSNews;
     }
 }
