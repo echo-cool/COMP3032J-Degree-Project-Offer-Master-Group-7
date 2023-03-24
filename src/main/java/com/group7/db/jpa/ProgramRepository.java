@@ -20,4 +20,9 @@ import java.util.List;
 public interface ProgramRepository extends JpaRepository<Program, Long>, PagingAndSortingRepository<Program, Long>, CrudRepository<Program, Long>, JpaSpecificationExecutor<School> {
 
     List<Program> findByNameContaining(String name, Sort sort);
+
+    List<Program> findByDegree(String degree, Sort sort);
+
+    List<Program> findByDegreeNot(String degree, Sort sort);
+
 }

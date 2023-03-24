@@ -15,6 +15,7 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -69,13 +70,23 @@ public class ProgramController {
     public R getPopularPrograms(@PathVariable("degree") String degree,
                                  @PathVariable("limit") long limit) {
 
-//        if (!rankRule.equals("QS") && !rankRule.equals("USNews")){
-//            return R.error().message("Invalid rank rule");
-//        }
-//
-//        List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);
+        if (degree.isBlank()){
+            return R.error().message("Invalid degree");
+        }
 
-        return R.ok();
+        if (limit < 0){
+            return R.error().message("Invalid limit number");
+        }
+
+        List<Program> popularPrograms = programService.getPopularProgramsByDegree(degree, limit);
+
+        // get school of each program (this is also need at frontend)
+        List<School> schoolsOfPrograms = new ArrayList<>();
+        for (Program p : popularPrograms){
+            schoolsOfPrograms.add(p.getSchool());
+        }
+
+        return R.ok().data("popularPrograms", popularPrograms).data("schoolsOfPrograms", schoolsOfPrograms);
     }
 
 

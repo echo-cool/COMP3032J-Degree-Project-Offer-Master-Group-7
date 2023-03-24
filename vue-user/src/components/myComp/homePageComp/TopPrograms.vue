@@ -7,7 +7,7 @@
                     <nice-select
                         :options="[
                                 { value: 'Master', text: 'Master' },
-                                { value: 'Phd', text: 'Phd' },
+                                { value: 'PhD', text: 'PhD' },
                             ]"
                         :default-current="0"
                         name="sellerSort"
@@ -21,11 +21,11 @@
                  data-sal="slide-up"
                  data-sal-delay="150"
                  data-sal-duration="800">
-                <template v-for="(seller, index) in filteredSeller"
-                          :key="`seller-${index}`">
+                <template v-for="(program, index) in popularPrograms"
+                          :key="`program-${index}`">
                     <div class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
-                        <top-program-item :seller-data="seller"
-                                          :popular-programs="popularPrograms"/>
+                        <top-program-item :program="program"
+                                          :school="schoolsOfPrograms[index]"/>
                     </div>
                 </template>
             </div>
@@ -54,7 +54,8 @@
             return {
                 filteredSeller: '',
                 topSellerIn: '1 Day',
-                popularPrograms: []
+                popularPrograms: [],
+                schoolsOfPrograms: []   // corresponding schools of programs
             }
         },
         // watch: {
@@ -62,6 +63,11 @@
         //         this.getFilteredSeller(val)
         //     }
         // },
+        created() {
+
+            this.getPopularPrograms("Master");
+
+        },
         methods: {
             // changeHandler(item) {
             //     this.topSellerIn = item.value;
@@ -69,7 +75,6 @@
             // getFilteredSeller(type) {
             //     this.filteredSeller = this.authors.filter(seller =>  AppFunctions.slugify(seller.topSince) === AppFunctions.slugify(type));
             // },
-
 
             changeHandler(item){
                 // request the top programs again using new degree
@@ -82,6 +87,8 @@
                     .then(response => {
                         // update the popular program list
                         this.popularPrograms = response.data.popularPrograms;
+                        // update the school list corresponding to the programs
+                        this.schoolsOfPrograms = response.data.schoolsOfPrograms;
                     })
             }
         },

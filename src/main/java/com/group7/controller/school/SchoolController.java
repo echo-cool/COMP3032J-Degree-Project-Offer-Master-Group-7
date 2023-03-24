@@ -61,6 +61,10 @@ public class SchoolController {
             return R.error().message("Invalid rank rule");
         }
 
+        if (limit < 0){
+            return R.error().message("Invalid limit number");
+        }
+
         List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);
 
         return R.ok().data("topSchools", topSchools);
