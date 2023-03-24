@@ -85,6 +85,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/img/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/school/public/**").permitAll()
+                .requestMatchers("/api/program/public/**").permitAll()
                 .anyRequest().authenticated();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()

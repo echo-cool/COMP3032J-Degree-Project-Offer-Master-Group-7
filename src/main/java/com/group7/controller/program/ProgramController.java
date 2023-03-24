@@ -15,6 +15,8 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/program")
@@ -59,5 +61,22 @@ public class ProgramController {
         programRepository.save(programTmp);
         return R.ok().data("id", programTmp.getId());
     }
+
+    /**
+     * Popularity accords to the number of likes
+     */
+    @RequestMapping("/public/get-popular-programs/{degree}/{limit}")
+    public R getPopularPrograms(@PathVariable("degree") String degree,
+                                 @PathVariable("limit") long limit) {
+
+//        if (!rankRule.equals("QS") && !rankRule.equals("USNews")){
+//            return R.error().message("Invalid rank rule");
+//        }
+//
+//        List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);
+
+        return R.ok();
+    }
+
 
 }
