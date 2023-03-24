@@ -4,6 +4,7 @@ import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +49,7 @@ class LoadDatabase {
     private ApplicationRepository applicationRepository;
 
     @Bean
-    CommandLineRunner initDatabase() {
+    CommandLineRunner initDatabase() throws ParseException {
         log.warn("Preloading database...");
 
         Role role1 = new Role(ERole.ROLE_USER);
@@ -55,16 +59,16 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
 
-        School school1 = new School("Duke University");
-        School school2 = new School("University of Toronto");
-        School school3 = new School("University of Waterloo");
-        School school4 = new School("University of British Columbia");
-        School school5 = new School("Stanford University");
-        School school6 = new School("University of California, Berkeley");
-        School school7 = new School("Princeton University");
-        School school8 = new School("Harvard University");
-        School school9 = new School("Yale University");
-        School school10 = new School("Dartmouth College");
+        School school1 = new School("Duke University", 1, 10);
+        School school2 = new School("University of Toronto", 2, 9);
+        School school3 = new School("University of Waterloo", 3, 8);
+        School school4 = new School("University of British Columbia", 4, 7);
+        School school5 = new School("Stanford University", 5, 6);
+        School school6 = new School("University of California, Berkeley", 6, 5);
+        School school7 = new School("Princeton University", 7, 4);
+        School school8 = new School("Harvard University", 8, 3);
+        School school9 = new School("Yale University", 9, 2);
+        School school10 = new School("Dartmouth College", 10, 1);
 
         log.info("Preloading " + schoolRepository.save(school1));
         log.info("Preloading " + schoolRepository.save(school2));
@@ -77,22 +81,26 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school9));
         log.info("Preloading " + schoolRepository.save(school10));
 
-        Program program1 = new Program("Computer Science", school1);
-        Program program2 = new Program("Computer Engineering", school3);
-        Program program3 = new Program("Software Engineering", school2);
-        Program program4 = new Program("Computer Science", school6);
-        Program program5 = new Program("Statistical Science", school1);
-        Program program6 = new Program("Electrical and Computer Engineering", school1);
-        Program program7 = new Program("Software Engineering", school7);
-        Program program8 = new Program("Software Engineering", school8);
-        Program program9 = new Program("Software Engineering", school3);
-        Program program10 = new Program("Quantitative Management", school1);
-        Program program11 = new Program("Financial Technology", school1);
+        Program program1 = new Program("Computer Science", school1, "MS");
+        Program program1_2 = new Program("Computer Science", school1, "MEng");
+        Program program1_3 = new Program("Computer Science", school1, "Phd");
+        Program program2 = new Program("Computer Engineering", school3, "MS");
+        Program program3 = new Program("Software Engineering", school2, "MS");
+        Program program4 = new Program("Computer Science", school6, "MS");
+        Program program5 = new Program("Statistical Science", school1, "MS");
+        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS");
+        Program program7 = new Program("Software Engineering", school7, "MS");
+        Program program8 = new Program("Software Engineering", school8, "MS");
+        Program program9 = new Program("Software Engineering", school3, "MS");
+        Program program10 = new Program("Quantitative Management", school1, "MS");
+        Program program11 = new Program("Financial Technology", school1, "MS");
 
 
 
 
         log.info("Preloading " + programRepository.save(program1));
+        log.info("Preloading " + programRepository.save(program1_2));
+        log.info("Preloading " + programRepository.save(program1_3));
         log.info("Preloading " + programRepository.save(program2));
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
@@ -138,17 +146,27 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED, "Phd");
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED, "MEng");
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, "MS");
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, "MS");
-        Application application5 = new Application(user2, program3, EStatus.ADMITTED, "MS");
+
+        // for default deadline
+        String str = "2024-02-15";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ddl = sdf.parse(str);
+
+        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl);
+        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl);
+        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl);
+        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl);
+        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW, ddl);
+        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl);
+        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl);
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);
         applicationRepository.save(application3);
         applicationRepository.save(application4);
         applicationRepository.save(application5);
+        applicationRepository.save(application6);
+        applicationRepository.save(application7);
 
 
         return args -> log.warn("Preloaded database, completed.");

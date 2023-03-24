@@ -1,7 +1,7 @@
 <template>
     <h2 class="text-left mb--50">All GRADUATE PROGRAMS</h2>
-<!--    <nav class="product-tab-nav">-->
-<!--        <div class="nav" id="nav-tab" role="tablist">-->
+    <nav class="product-tab-nav">
+        <div class="nav" id="nav-tab" role="tablist">
 <!--            <button :class="[`nav-link`, {'active': activeTabIndex === index}]"-->
 <!--                    :id="`nav-${filterName(navLink.name)}-tab`"-->
 <!--                    data-bs-toggle="tab"-->
@@ -14,8 +14,8 @@
 <!--                    :key="`nav-link-${index}`">-->
 <!--                {{ navLink.name }}-->
 <!--            </button>-->
-<!--        </div>-->
-<!--    </nav>-->
+        </div>
+    </nav>
     <div class="tab-content" id="nav-tabContent">
         <div :class="[`lg-product_tab-pane tab-pane fade`, {'show active': activeTabIndex === index}, {'lg-product-col-2': isTwoColumn}]"
              :id="`program-${filterName(tabPane.name)}`"

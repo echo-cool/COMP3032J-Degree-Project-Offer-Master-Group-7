@@ -27,6 +27,9 @@ public class Program {
     @Column(nullable = false)
     private String name = "NULL";
 
+    @Column
+    private String degree;
+
     @ManyToOne
     @JoinColumn(name="school")
     private School school;
@@ -38,6 +41,12 @@ public class Program {
 
     public Program(String name, School school) {
         this.name = name;
+        this.school = school;
+    }
+
+    public Program(String name, School school, String degree) {
+        this.name = name;
+        this.degree = degree;
         this.school = school;
     }
 
@@ -59,6 +68,14 @@ public class Program {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
     @JsonBackReference

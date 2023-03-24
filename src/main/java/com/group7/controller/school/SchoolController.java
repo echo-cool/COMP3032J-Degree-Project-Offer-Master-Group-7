@@ -10,6 +10,9 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -48,6 +51,19 @@ public class SchoolController {
         School schoolTmp = new School(school.getName());
         schoolRepository.save(schoolTmp);
         return R.ok().data("id", schoolTmp.getId());
+    }
+
+    @RequestMapping("/get-top-ranked-schools/{rankRule}/{limit}")
+    public R getTopRankedSchools(@PathVariable("rankRule") String rankRule,
+                                 @PathVariable("limit") long limit) {
+
+        if (!rankRule.equals("QS") && !rankRule.equals("USNews")){
+            return R.error().message("Invalid rank rule");
+        }
+
+        List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);
+
+        return R.ok().data("topSchools", topSchools);
     }
 
 

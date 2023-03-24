@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.group7.utils.common.ListToPage.listToPage;
 
@@ -38,8 +39,32 @@ public class SchoolServiceImpl implements SchoolService {
             schoolList = schoolRepository.findAll(pageable);
         }
 
-        System.out.println(schoolList);
         return schoolList;
+    }
+
+    @Override
+    public List<School> getTopSchoolByRankRule(String rankRule, long limit) {
+        List<School> topSchools;
+        Sort sort;
+
+        if (rankRule.equals("QS")){
+            sort = Sort.by("rankQS").ascending();
+        } else if (rankRule.equals("USNews")) {
+            sort = Sort.by("rankUSNews").ascending();
+        }else{
+            return null;
+        }
+
+        topSchools = schoolRepository.findAll(sort);
+
+        // limit the number of schools we return
+        // if less than the limit, we return all
+        if (topSchools.size() > limit){
+            // return limited number
+            topSchools = topSchools.subList(0, (int) limit);
+        }
+
+        return topSchools;
     }
 
 
