@@ -3,9 +3,9 @@ import request from "@/utils/request"
 export default{
 
     // get top ranked schools using specific rank rule
-    getTopRankedSchools(rankRule, limit){
+    getPopularPrograms(degree, limit){
         return request({
-            url: `/api/school/public/get-top-ranked-schools/${rankRule}/${limit}`,
+            url: `/api/program/public/get-popular-programs/${degree}/${limit}`,
             method: 'get'
         })
     }

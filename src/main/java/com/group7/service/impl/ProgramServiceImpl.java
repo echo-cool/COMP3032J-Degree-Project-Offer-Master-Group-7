@@ -42,4 +42,28 @@ public class ProgramServiceImpl implements ProgramService {
         System.out.println(programList);
         return programList;
     }
+
+    @Override
+    public List<Program> getPopularProgramsByDegree(String degree, long limit) {
+        List<Program> popularPrograms;
+        Sort sort;
+
+        // determine popularity on the number of likes
+        sort = Sort.by("likes").descending();
+
+        if (degree.equals("PhD")){
+            popularPrograms = programRepository.findByDegree(degree, sort);
+        }else{
+            popularPrograms = programRepository.findByDegreeNot("PhD", sort);
+        }
+
+        // limit the number of programs when return
+        // if less than the limit, we return all
+        if (popularPrograms.size() > limit){
+            // return limited number
+            popularPrograms = popularPrograms.subList(0, (int) limit);
+        }
+
+        return popularPrograms;
+    }
 }

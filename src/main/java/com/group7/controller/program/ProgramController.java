@@ -15,6 +15,9 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/program")
@@ -59,5 +62,32 @@ public class ProgramController {
         programRepository.save(programTmp);
         return R.ok().data("id", programTmp.getId());
     }
+
+    /**
+     * Popularity accords to the number of likes
+     */
+    @RequestMapping("/public/get-popular-programs/{degree}/{limit}")
+    public R getPopularPrograms(@PathVariable("degree") String degree,
+                                 @PathVariable("limit") long limit) {
+
+        if (degree.isBlank()){
+            return R.error().message("Invalid degree");
+        }
+
+        if (limit < 0){
+            return R.error().message("Invalid limit number");
+        }
+
+        List<Program> popularPrograms = programService.getPopularProgramsByDegree(degree, limit);
+
+        // get school of each program (this is also need at frontend)
+        List<School> schoolsOfPrograms = new ArrayList<>();
+        for (Program p : popularPrograms){
+            schoolsOfPrograms.add(p.getSchool());
+        }
+
+        return R.ok().data("popularPrograms", popularPrograms).data("schoolsOfPrograms", schoolsOfPrograms);
+    }
+
 
 }

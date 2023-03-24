@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <h2 class="title mb--0">
-                        Top U.S. Graduate Schools
+                        Top Graduate Schools
                     </h2>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12 mt_mobile--15">
@@ -73,11 +73,11 @@
 
             }
         },
-        watch: {
-            'sortStatus': function (val) {
-                this.getSellerByStatus(val)
-            }
-        },
+        // watch: {
+        //     'sortStatus': function (val) {
+        //         this.getSellerByStatus(val)
+        //     }
+        // },
         created() {
 
             // fetch data of top schools

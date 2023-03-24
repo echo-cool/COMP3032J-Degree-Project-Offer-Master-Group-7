@@ -30,7 +30,7 @@
                     <div class="share-wrapper d-flex">
                         <div class="react-area mr--15">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.name }}</span>
+                            <span class="number">{{ program.likes }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
                             <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">

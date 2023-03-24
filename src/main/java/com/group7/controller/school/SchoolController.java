@@ -53,12 +53,16 @@ public class SchoolController {
         return R.ok().data("id", schoolTmp.getId());
     }
 
-    @RequestMapping("/get-top-ranked-schools/{rankRule}/{limit}")
+    @RequestMapping("/public/get-top-ranked-schools/{rankRule}/{limit}")
     public R getTopRankedSchools(@PathVariable("rankRule") String rankRule,
                                  @PathVariable("limit") long limit) {
 
         if (!rankRule.equals("QS") && !rankRule.equals("USNews")){
             return R.error().message("Invalid rank rule");
+        }
+
+        if (limit < 0){
+            return R.error().message("Invalid limit number");
         }
 
         List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);

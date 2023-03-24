@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -30,6 +31,9 @@ public class Program {
     @Column
     private String degree;
 
+    @Column
+    private long likes;
+
     @ManyToOne
     @JoinColumn(name="school")
     private School school;
@@ -42,16 +46,26 @@ public class Program {
     public Program(String name, School school) {
         this.name = name;
         this.school = school;
+        generateRandomLike();
     }
 
     public Program(String name, School school, String degree) {
         this.name = name;
         this.degree = degree;
         this.school = school;
+        generateRandomLike();
     }
 
     public Program() {
+        generateRandomLike();
+    }
 
+    /**
+     * to generate random like number for a program
+     */
+    private void generateRandomLike(){
+        Random random = new Random();
+        this.likes = random.nextInt(0, 501);
     }
 
     public Long getId() {
@@ -85,5 +99,21 @@ public class Program {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(long likes) {
+        this.likes = likes;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 }
