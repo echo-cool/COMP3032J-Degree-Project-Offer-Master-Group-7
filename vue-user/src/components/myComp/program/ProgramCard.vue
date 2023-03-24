@@ -50,7 +50,7 @@
             <div class="last-bid">{{ application.program.degree }}</div>
             <div class="react-area">
                 <i class="feather-heart"/>
-                <span class="number">{{ application.program.id }}</span>
+                <span class="number">{{ application.program.likes }}</span>
             </div>
         </div>
     </div>
