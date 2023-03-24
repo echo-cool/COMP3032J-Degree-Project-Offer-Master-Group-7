@@ -101,8 +101,6 @@
     import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
 
     import cookie from "js-cookie";
-    import router from "@/router";
-    import schoolApi from "@/api/shool";
 
     export default {
         name: 'HomePageFour',

@@ -5,7 +5,7 @@ export default{
     // get top ranked schools using specific rank rule
     getTopRankedSchools(rankRule, limit){
         return request({
-            url: `/api/school/get-top-ranked-schools/${rankRule}/${limit}`,
+            url: `/api/school/public/get-top-ranked-schools/${rankRule}/${limit}`,
             method: 'get'
         })
     }
