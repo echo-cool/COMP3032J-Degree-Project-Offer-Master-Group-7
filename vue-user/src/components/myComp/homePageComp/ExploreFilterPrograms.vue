@@ -4,7 +4,7 @@
             <div class="row mb--30 align-items-center">
                 <div class="col-12">
                     <h3 class="title mb--0" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        Explore Product
+                        Explore Graduate Programs
                     </h3>
                 </div>
             </div>
@@ -26,10 +26,10 @@
                     </div>
 
                     <div class="filter-select-option">
-                        <label class="filter-leble">Category</label>
+                        <label class="filter-leble">Degree</label>
                         <nice-select
                             :options="[
-                                    {value: 'all', text: 'All Category'},
+                                    {value: 'all', text: 'All Degrees'},
                                     {value: 'art', text: 'Art'},
                                     {value: 'music', text: 'Music'},
                                     {value: 'video', text: 'Video'},
@@ -43,10 +43,10 @@
                     </div>
 
                     <div class="filter-select-option">
-                        <label class="filter-leble">Collections</label>
+                        <label class="filter-leble">Major</label>
                         <nice-select
                             :options="[
-                                    {value: 'all', text: 'All Collection'},
+                                    {value: 'all', text: 'All Majors'},
                                     {value: 'Art Decco', text: 'Art Decco'},
                                     {value: 'BoredApeYachtClub', text: 'BoredApeYachtClub'},
                                     {value: 'MutantApeYachtClub', text: 'MutantApeYachtClub'},
@@ -60,10 +60,10 @@
                     </div>
 
                     <div class="filter-select-option">
-                        <label class="filter-leble">Sale type</label>
+                        <label class="filter-leble">School type</label>
                         <nice-select
                             :options="[
-                                    {value: 'all', text: 'All Type'},
+                                    {value: 'all', text: 'All Types'},
                                     {value: 'fixed-price', text: 'Fixed price'},
                                     {value: 'timed-auction', text: 'Timed auction'},
                                     {value: 'not-for-sale', text: 'Not for sale'},
@@ -77,10 +77,10 @@
                     </div>
 
                     <div class="filter-select-option">
-                        <label class="filter-leble">Price Range</label>
+                        <label class="filter-leble">Average GPA Range</label>
                         <div class="price_filter s-filter clear">
                             <form action="#" method="GET">
-                                <range-slider
+                                <g-p-a-range-slider
                                     @onChangeRange="onChangeRange"
                                     @filterPrice="filterPrice"
                                 />
@@ -113,13 +113,14 @@
 
 <script>
     import RangeSlider from '@/components/range/RangeSlider'
+    import GPARangeSlider from "@/components/myComp/program/GPARangeSlider.vue";
     import NiceSelect from '@/components/select/NiceSelect'
     import ProductCard from '@/components/product/ProductCard'
     import ProductFilterMixin from '@/mixins/ProductFilterMixin'
 
     export default {
         name: 'ExploreFilterWithPlacebid',
-        components: {RangeSlider, NiceSelect, ProductCard},
+        components: {GPARangeSlider, NiceSelect, ProductCard},
         mixins: [ProductFilterMixin]
     }
 </script>
