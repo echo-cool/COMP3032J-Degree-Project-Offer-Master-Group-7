@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
+import com.group7.db.jpa.utils.EMajor;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -32,6 +33,10 @@ public class Program {
     private String degree;
 
     @Column
+    @Enumerated(EnumType.STRING)
+    private EMajor major;
+
+    @Column
     private long likes;
 
     @ManyToOne
@@ -52,6 +57,14 @@ public class Program {
     public Program(String name, School school, String degree) {
         this.name = name;
         this.degree = degree;
+        this.school = school;
+        generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
         this.school = school;
         generateRandomLike();
     }
@@ -90,6 +103,14 @@ public class Program {
 
     public void setDegree(String degree) {
         this.degree = degree;
+    }
+
+    public EMajor getMajor() {
+        return major;
+    }
+
+    public void setMajor(EMajor major) {
+        this.major = major;
     }
 
     @JsonBackReference

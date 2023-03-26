@@ -25,8 +25,11 @@
 <!--                    />-->
 <!--                </slide>-->
                 <slide v-for="(application, index) in applications" :key="index">
-                    <application-program-card
-                        :application="application"
+                    <program-card
+                        :program="application.program"
+                        :school="application.program.school"
+                        :show-d-d-l-countdown="true"
+                        :deadline="application.deadline"
                     />
                 </slide>
             </carousel>
@@ -37,12 +40,18 @@
 <script>
     import 'vue3-carousel/dist/carousel.css'
     import { Carousel, Slide, Navigation } from 'vue3-carousel'
-    import ApplicationProgramCard from "@/components/myComp/program/ApplicationProgramCard.vue";
+    import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
+    import program from "@/api/program";
 
     export default {
         name: 'MyProgramListTimerCarousel',
+        computed: {
+            program() {
+                return program
+            }
+        },
         components: {
-            ApplicationProgramCard,
+            ProgramCard,
             Carousel,
             Slide,
             Navigation,

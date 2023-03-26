@@ -1,6 +1,7 @@
 package com.group7.config;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EMajor;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.servlet.http.HttpServletRequest;
@@ -81,19 +82,19 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school9));
         log.info("Preloading " + schoolRepository.save(school10));
 
-        Program program1 = new Program("Computer Science", school1, "MS");
-        Program program1_2 = new Program("Computer Science", school1, "MEng");
-        Program program1_3 = new Program("Computer Science", school1, "PhD");
-        Program program2 = new Program("Computer Engineering", school3, "MS");
-        Program program3 = new Program("Software Engineering", school2, "MS");
-        Program program4 = new Program("Computer Science", school6, "MS");
-        Program program5 = new Program("Statistical Science", school1, "PhD");
-        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS");
-        Program program7 = new Program("Software Engineering", school7, "MS");
-        Program program8 = new Program("Software Engineering", school8, "PhD");
-        Program program9 = new Program("Software Engineering", school3, "MS");
-        Program program10 = new Program("Quantitative Management", school1, "PhD");
-        Program program11 = new Program("Financial Technology", school1, "MS");
+        Program program1 = new Program("Computer Science", school1, "MS", EMajor.CS);
+        Program program1_2 = new Program("Computer Science", school1, "MEng", EMajor.CS);
+        Program program1_3 = new Program("Computer Science", school1, "PhD", EMajor.MIS);
+        Program program2 = new Program("Computer Engineering", school3, "MS", EMajor.CS);
+        Program program3 = new Program("Software Engineering", school2, "MS", EMajor.EE);
+        Program program4 = new Program("Computer Science", school6, "MS", EMajor.CS);
+        Program program5 = new Program("Statistical Science", school1, "PhD", EMajor.MIS);
+        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS", EMajor.EE);
+        Program program7 = new Program("Software Engineering", school7, "MS", EMajor.CS);
+        Program program8 = new Program("Software Engineering", school8, "PhD", EMajor.CS);
+        Program program9 = new Program("Software Engineering", school3, "MS", EMajor.MIS);
+        Program program10 = new Program("Quantitative Management", school1, "PhD", EMajor.CS);
+        Program program11 = new Program("Financial Technology", school1, "MS", EMajor.EE);
 
 
 

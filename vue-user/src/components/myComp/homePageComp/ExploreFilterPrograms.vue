@@ -21,7 +21,7 @@
                             :default-current="0"
                             placeholder="Sort by likes"
                             name="like"
-                            @onChange="changeLikes"
+                            @onChange="onChangeLikes"
                         />
                     </div>
 
@@ -30,15 +30,13 @@
                         <nice-select
                             :options="[
                                     {value: 'all', text: 'All Degrees'},
-                                    {value: 'art', text: 'Art'},
-                                    {value: 'music', text: 'Music'},
-                                    {value: 'video', text: 'Video'},
-                                    {value: 'collectionable', text: 'Collectionable'}
+                                    {value: 'Master', text: 'Master'},
+                                    {value: 'PhD', text: 'PhD'}
                                 ]"
                             :default-current="0"
-                            placeholder="Category"
-                            name="category"
-                            @onChange="changeCategory"
+                            placeholder="Degree"
+                            name="degree"
+                            @onChange="onChangeDegree"
                         />
                     </div>
 
@@ -47,15 +45,14 @@
                         <nice-select
                             :options="[
                                     {value: 'all', text: 'All Majors'},
-                                    {value: 'Art Decco', text: 'Art Decco'},
-                                    {value: 'BoredApeYachtClub', text: 'BoredApeYachtClub'},
-                                    {value: 'MutantApeYachtClub', text: 'MutantApeYachtClub'},
-                                    {value: 'Art Blocks Factory', text: 'Art Blocks Factory'}
+                                    {value: 'CS', text: 'CS'},
+                                    {value: 'MIS', text: 'MIS'},
+                                    {value: 'EE', text: 'EE'}
                                 ]"
                             :default-current="0"
-                            placeholder="Collections"
-                            name="collection"
-                            @onChange="changeCollection"
+                            placeholder="Major"
+                            name="major"
+                            @onChange="onChangeMajor"
                         />
                     </div>
 
@@ -70,8 +67,8 @@
                                     {value: 'open-for-offers', text: 'Open for offers'}
                                 ]"
                             :default-current="0"
-                            placeholder="Sale type"
-                            name="sale_type"
+                            placeholder="School type"
+                            name="school_type"
                             @onChange="changeSaleType"
                         />
                     </div>
@@ -94,18 +91,20 @@
                  data-sal="slide-up"
                  data-sal-delay="150"
                  data-sal-duration="800">
-                <template v-for="(product, index) in filteredProducts"
-                          :key="`product-item-${index}`">
+                <template v-for="(program, index) in programs"
+                          :key="`program-item-${index}`">
                     <div v-if="index < 10" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <product-card
-                            :product-date="product"
-                            product-style-class="no-overlay with-placeBid"
-                            :show-countdown="false"
-                            :show-place-bid="true"
-                        />
+<!--                        <product-card-->
+<!--                            :product-date="product"-->
+<!--                            product-style-class="no-overlay with-placeBid"-->
+<!--                            :show-countdown="false"-->
+<!--                            :show-place-bid="true"-->
+<!--                        />-->
+                        <program-card :program="program"
+                                      :school="schoolsOfPrograms[index]"/>
                     </div>
                 </template>
-                <h3 v-if="!filteredProducts.length" class="text-center">No Match Found</h3>
+                <h3 v-if="!programs.length" class="text-center">No Match Found</h3>
             </div>
         </div>
     </div>
@@ -117,10 +116,63 @@
     import NiceSelect from '@/components/select/NiceSelect'
     import ProductCard from '@/components/product/ProductCard'
     import ProductFilterMixin from '@/mixins/ProductFilterMixin'
+    import programApi from "@/api/program";
+    import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
 
     export default {
-        name: 'ExploreFilterWithPlacebid',
-        components: {GPARangeSlider, NiceSelect, ProductCard},
-        mixins: [ProductFilterMixin]
+        name: 'ExploreFilterPrograms',
+        components: {
+            ProgramCard,
+            GPARangeSlider,
+            NiceSelect,
+            ProductCard
+        },
+        mixins: [ProductFilterMixin],
+        data() {
+            return {
+                programQuery: {
+                    likes: "most-liked",
+                    degree: "all",
+                    major: "all"
+                },
+                programs: [],
+                schoolsOfPrograms: []
+            }
+        },
+        created() {
+            this.getProgramsByQuery();
+        },
+        methods: {
+
+            onChangeLikes(item){
+                this.programQuery.likes = item.value;
+                this.filterChangeHandler();
+            },
+            onChangeDegree(item){
+                this.programQuery.degree = item.value;
+                this.filterChangeHandler();
+            },
+            onChangeMajor(item){
+                this.programQuery.major = item.value;
+                this.filterChangeHandler();
+            },
+
+            filterChangeHandler(){
+                // request the programs again using new query
+                this.getProgramsByQuery();
+            },
+
+            getProgramsByQuery(){
+                // call the api method
+                programApi.getProgramsByQuery(this.programQuery, 10)
+                    .then(response => {
+                        // update the program list
+                        this.programs = response.data.programs;
+                        // update the school list corresponding to the programs
+                        this.schoolsOfPrograms = response.data.schoolsOfPrograms;
+                    })
+            }
+
+        }
     }
 </script>
