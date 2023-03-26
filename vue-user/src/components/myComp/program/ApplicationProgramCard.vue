@@ -60,7 +60,7 @@
     import Countdown from "@/components/myComp/program/Countdown.vue";
 
     export default {
-        name: 'ProductCard',
+        name: 'ApplicationProgramCard',
         components: {Countdown},
         props: {
             application: {}
