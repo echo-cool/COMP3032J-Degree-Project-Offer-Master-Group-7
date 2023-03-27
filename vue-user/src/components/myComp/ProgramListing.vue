@@ -177,6 +177,8 @@
                 // tell the parent to fetch data again
                 // (this contains the reload of user selected programs in this component)
                 this.$emit("reloadData");
+                // reload likes
+                this.getLikedPrograms();
             },
 
             // get a list of ids of programs that the user liked
