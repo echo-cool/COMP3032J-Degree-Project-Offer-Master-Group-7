@@ -75,28 +75,28 @@
                         subtitle: 'Step-01',
                         title: 'Complete your background',
                         description: `You can complete your application background in our background system, based on which the programs would be recommended to you.`,
-                        link: '#'
+                        link: '/edit-profile'
                     },
                     {
                         image: require(`@/assets/images/icons/shape-1.png`),
                         subtitle: 'Step-02',
                         title: 'Get programs recommended for you',
                         description: `Our powerful AI algorithms would recommend you graduate programs that are the best fit for you to be successful in further academic studies.`,
-                        link: '#'
+                        link: '/program-selection'
                     },
                     {
                         image: require(`@/assets/images/icons/shape-6.png`),
                         subtitle: 'Step-03',
                         title: `Use our tools to help your applications`,
                         description: `We've prepared powerful tools to simplify your applications, like program selection list, school & program database, AI essay refinement, virtual campus tour, etc.`,
-                        link: '#'
+                        link: '/program-selection'
                     },
                     {
                         image: require(`@/assets/images/icons/shape-7.png`),
                         subtitle: 'Step-04',
                         title: `Join the applicant's community`,
                         description: `Here applicants can discuss about everything related to their application. Feel free to help others and get helps from others.`,
-                        link: '#'
+                        link: '/program-selection'
                     }
                 ],
             }
