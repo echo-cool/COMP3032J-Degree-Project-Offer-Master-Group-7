@@ -39,6 +39,10 @@ public class Program {
     @Column
     private long likes;
 
+    @ManyToMany(mappedBy = "likedPrograms")
+    @JsonBackReference
+    private Set<User> likeUsers = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name="school")
     private School school;
@@ -135,11 +139,19 @@ public class Program {
     }
 
     public long getLikes() {
-        return likes;
+        return likes + this.likeUsers.size();
     }
 
     public void setLikes(long likes) {
         this.likes = likes;
+    }
+
+    public Set<User> getLikeUsers() {
+        return likeUsers;
+    }
+
+    public void setLikeUsers(Set<User> likeUsers) {
+        this.likeUsers = likeUsers;
     }
 
     public Set<Application> getApplications() {
