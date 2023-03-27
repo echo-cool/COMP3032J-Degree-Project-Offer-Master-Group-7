@@ -4,7 +4,7 @@
         <slide v-for="(school, index) in schools"
                :key="index">
             <div class="slider-thumbnail thumbnail-overlay">
-                <router-link :to="`/product/${school.id}`">
+                <router-link :to="`/school-details/${school.id}`">
                     <img class="w-100" :src="`/backend/static/` + school.img" alt="NFT_portfolio">
                 </router-link>
                 <div class="read-wrapper">
@@ -43,7 +43,7 @@
           getData(){
             let that = this;
             request({
-              url: `/api/school/public/getRandomSchools`,
+              url: `/api/school/public/getRandomSchools/4`,
               method: 'get'
             }).then(function (res){
               console.log(res.data.schools);

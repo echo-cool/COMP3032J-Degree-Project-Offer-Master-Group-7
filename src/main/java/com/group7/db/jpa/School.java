@@ -1,13 +1,10 @@
 package com.group7.db.jpa;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.group7.utils.common.MyRandomUtils;
 import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,6 +39,10 @@ public class School {
     @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
 
+    private String extraImages = "default/default.jpg;default/default.jpg;default/default.jpg";
+
+    @Column
+    private long likes = MyRandomUtils.getRandomInt(100, 3200);
     public School(String name, Set<Program> programs) {
         this.name = name;
         this.programs = programs;
@@ -75,6 +76,15 @@ public class School {
         this.rankQS = rankQS;
         this.rankUSNews = rankUSNews;
         this.img = "upload/img/" + img;
+    }
+
+    public School(String name, int rankQS, int rankUSNews, String logo, String img, String[] extraImages) {
+        this.name = name;
+        this.rankQS = rankQS;
+        this.rankUSNews = rankUSNews;
+        this.logo = "upload/img/" + logo;
+        this.img = "upload/img/" +img;
+        setExtraImages(extraImages);
     }
 
     public School() {
@@ -128,5 +138,30 @@ public class School {
 
     public void setRankUSNews(int rankUSNews) {
         this.rankUSNews = rankUSNews;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String[] getExtraImages() {
+        return extraImages.split(";");
+    }
+
+    public void setExtraImages(String[] extraImages) {
+        this.extraImages = String.join(";", extraImages);
+    }
+
+
+    public long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(long likes) {
+        this.likes = likes;
     }
 }

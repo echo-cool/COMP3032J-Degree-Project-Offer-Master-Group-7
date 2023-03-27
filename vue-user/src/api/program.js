@@ -17,5 +17,13 @@ export default{
             method: 'post',
             data: queryObj
         })
+    },
+
+    // like a program
+    likeProgram(programId){
+        return request({
+            url: `/api/program/like-program/${programId}`,
+            method: 'post'
+        })
     }
 }

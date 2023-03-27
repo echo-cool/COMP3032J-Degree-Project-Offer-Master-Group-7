@@ -2,7 +2,7 @@
     <div :class="`product-style-one`">
         <div class="card-thumbnail" style="">
 <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-            <router-link :to="`#`">
+            <router-link :to="`/school-details/`+school.id">
                 <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
 
               <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
@@ -43,13 +43,13 @@
             </div>
         </div>
 <!--        <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-        <router-link :to="`#`">
+        <router-link :to="`/school-details/`+school.id">
             <span class="product-name">{{ school.name }}</span>
         </router-link>
         <span class="latest-bid">{{ program.name }}</span>
         <div class="bid-react-area">
             <div class="last-bid">{{ program.degree }} - {{ program.major }}</div>
-            <div class="react-area">
+            <div class="react-area" @click="likeProgram(program.id)">
                 <i class="feather-heart"/>
                 <span class="number">{{ program.likes }}</span>
             </div>
@@ -59,6 +59,7 @@
 
 <script>
     import Countdown from "@/components/myComp/program/Countdown.vue";
+    import programAip from "@/api/program";
 
     export default {
         name: 'ProgramCard',
@@ -86,6 +87,17 @@
                         item.remove();
                     })
                 }
+            },
+
+            likeProgram(programId){
+                // call API method
+                programAip.likeProgram(programId)
+                    .then(response => {
+                        // for test
+                        console.log("============== response: " + response.data.likes);
+                        // update the like number of this program
+                        this.program.likes = response.data.likes;
+                    })
             }
         }
     }
