@@ -110,51 +110,24 @@
                         <div class="footer-widget">
                             <h6 class="widget-title">Recent Sold Out</h6>
                             <ul class="footer-recent-post">
+                              <div v-for="(school, index) in schools"
+                                   :key="index">
                                 <li class="recent-post">
                                     <div class="thumbnail">
-                                        <router-link to="/product/1">
-                                            <img :src="require(`@/assets/images/portfolio/portfolio-01.jpg`)"
-                                                 alt="Product Images">
+                                        <router-link to="/school-details/{{school.id}}">
+                                            <img :src="`/backend/static/` + school.logo"
+                                                 alt="school Images" style="width: 60px">
                                         </router-link>
                                     </div>
                                     <div class="content">
                                         <h6 class="title">
-                                            <router-link to="/product/1">#21 The Wonder</router-link>
+                                            <router-link to="/school-details/{{school.id}}">{{school.name}}</router-link>
                                         </h6>
-                                        <p>Highest bid 1/20</p>
-                                        <span class="price">0.244wETH</span>
+<!--                                        <p></p>-->
+                                        <span class="price">QS Ranking: {{school.rankQS}}#</span>
                                     </div>
                                 </li>
-                                <li class="recent-post">
-                                    <div class="thumbnail">
-                                        <router-link to="/product/2">
-                                            <img :src="require(`@/assets/images/portfolio/portfolio-02.jpg`)"
-                                                 alt="Product Images">
-                                        </router-link>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title">
-                                            <router-link to="/product/2">Diamond Dog</router-link>
-                                        </h6>
-                                        <p>Highest bid 1/20</p>
-                                        <span class="price">0.022wETH</span>
-                                    </div>
-                                </li>
-                                <li class="recent-post">
-                                    <div class="thumbnail">
-                                        <router-link to="/product/3">
-                                            <img :src="require(`@/assets/images/portfolio/portfolio-03.jpg`)"
-                                                 alt="Product Images">
-                                        </router-link>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title">
-                                            <router-link to="/product/3">Morgan11</router-link>
-                                        </h6>
-                                        <p>Highest bid 1/20</p>
-                                        <span class="price">0.892wETH</span>
-                                    </div>
-                                </li>
+                              </div>
                             </ul>
                         </div>
                     </div>
@@ -203,6 +176,7 @@
     import BackToTop from '@/components/layouts/footer/BackToTop'
     import Logo from "@/components/logo/Logo";
     import SocialLinks from "@/components/social/SocialLinks";
+    import request from "@/utils/request";
 
     export default {
         name: 'Footer',
@@ -212,7 +186,24 @@
                 default: null
             }
         },
+      data() {
+        return {
+          schools:[]
+        }
+      },
+      created(){
+        this.getRandomSchools();
+      },
         methods: {
+            getRandomSchools(){
+              let that = this;
+              request({
+                url: `/api/school/public/getRandomSchools/5`,
+                method: 'get'
+              }).then(function (res){
+                that.schools = res.data.schools;
+              });
+            },
             scrollTop() {
                 window.scrollTo(0, 0);
             }

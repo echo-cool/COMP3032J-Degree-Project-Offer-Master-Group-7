@@ -19,10 +19,10 @@
                                             role="tab"
                                             :aria-controls="`v-pills-home-${index}`"
                                             :aria-selected="index === activeTabIndex ? 'true' : 'false'"
-                                            v-for="(thumbnailSm, index) in product.img"
+                                            v-for="(thumbnailSm, index) in product.extraImages"
                                             :key="`small-thumbnail-${index}`">
                                         <span class="rn-pd-sm-thumbnail">
-                                            <img width="164" height="164" :src="thumbnailSm.src" alt="Nft_Profile">
+                                            <img width="164" height="164" :src="`/backend/static/`+thumbnailSm" alt="Nft_Profile">
                                         </span>
                                     </button>
                                 </div>
@@ -31,10 +31,10 @@
                                          :id="`v-pills-home-${index}`"
                                          role="tabpanel"
                                          :aria-labelledby="`v-pills-${index}-tab`"
-                                         v-for="(thumbnailLg, index) in product.img"
+                                         v-for="(thumbnailLg, index) in product.extraImages"
                                          :key="`large-thumbnail-${index}`">
                                         <div class="rn-pd-thumbnail">
-                                            <img :src="thumbnailLg.src" alt="Nft_Profile">
+                                            <img :src="`/backend/static/`+thumbnailLg" alt="Nft_Profile">
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                 <div class="pd-react-area">
                                     <div class="heart-count">
                                         <i class="feather-heart"/>
-                                        <span>{{ product.rankQS }}</span>
+                                        <span>{{ product.likes }}</span>
                                     </div>
                                     <div class="count">
                                         <div class="share-btn share-btn-activation dropdown">
@@ -70,414 +70,543 @@
                                 </div>
                             </div>
                             <span class="bid">
-                                Height bid <span class="price">{{ product.rankUSNews }}</span>
+                                US News Ranking: <span class="price">{{ product.rankUSNews }}</span>
                             </span>
-                            <h6 class="title-name">#22 Portal , Info bellow</h6>
-                            <div class="catagory-collection">
-                                <div class="catagory">
-                                    <span>
-                                        Catagory <span class="color-body">10% royalties</span>
-                                    </span>
-                                    <div class="top-seller-inner-one">
-                                        <div class="top-seller-wrapper">
-                                            <div class="thumbnail">
-                                                <router-link to="/author/1">
-                                                    <img :src="require(`@/assets/images/client/client-1.png`)" alt="Nft_Profile">
-                                                </router-link>
-                                            </div>
-                                            <div class="top-seller-content">
-                                                <router-link to="/author/1">
-                                                    <h6 class="name">Brodband</h6>
-                                                </router-link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collection">
-                                    <span>Collections</span>
-                                    <div class="top-seller-inner-one">
-                                        <div class="top-seller-wrapper">
-                                            <div class="thumbnail">
-                                                <router-link to="/author/2">
-                                                    <img :src="require(`@/assets/images/client/client-2.png`)" alt="Nft_Profile">
-                                                </router-link>
-                                            </div>
-                                            <div class="top-seller-content">
-                                                <router-link to="/author/2">
-                                                    <h6 class="name">Brodband</h6>
-                                                </router-link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <router-link class="btn btn-primary-alta" to="#">Unlockable content included</router-link>
+                            <h6 class="title-name">#{{product.rankQS}} QS Ranking</h6>
+<!--                            <div class="catagory-collection">-->
+<!--                                <div class="catagory">-->
+<!--                                    <span>-->
+<!--                                        Catagory <span class="color-body">10% royalties</span>-->
+<!--                                    </span>-->
+<!--                                    <div class="top-seller-inner-one">-->
+<!--                                        <div class="top-seller-wrapper">-->
+<!--                                            <div class="thumbnail">-->
+<!--                                                <router-link to="/author/1">-->
+<!--                                                    <img :src="require(`@/assets/images/client/client-1.png`)" alt="Nft_Profile">-->
+<!--                                                </router-link>-->
+<!--                                            </div>-->
+<!--                                            <div class="top-seller-content">-->
+<!--                                                <router-link to="/author/1">-->
+<!--                                                    <h6 class="name">Brodband</h6>-->
+<!--                                                </router-link>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="collection">-->
+<!--                                    <span>Collections</span>-->
+<!--                                    <div class="top-seller-inner-one">-->
+<!--                                        <div class="top-seller-wrapper">-->
+<!--                                            <div class="thumbnail">-->
+<!--                                                <router-link to="/author/2">-->
+<!--                                                    <img :src="require(`@/assets/images/client/client-2.png`)" alt="Nft_Profile">-->
+<!--                                                </router-link>-->
+<!--                                            </div>-->
+<!--                                            <div class="top-seller-content">-->
+<!--                                                <router-link to="/author/2">-->
+<!--                                                    <h6 class="name">Brodband</h6>-->
+<!--                                                </router-link>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <router-link class="btn btn-primary-alta" to="#">Unlockable content included</router-link>-->
                             <div class="rn-bid-details">
                                 <div class="tab-wrapper-one">
-                                    <nav class="tab-button-one">
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link active"
-                                                    id="nav-home-tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#nav-home"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="nav-home"
-                                                    aria-selected="false">
-                                                Bids
-                                            </button>
-                                            <button class="nav-link"
-                                                    id="nav-profile-tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#nav-profile"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="nav-profile"
-                                                    aria-selected="true">
-                                                Details
-                                            </button>
-                                            <button class="nav-link"
-                                                    id="nav-contact-tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#nav-contact"
-                                                    type="button"
-                                                    role="tab"
-                                                    aria-controls="nav-contact"
-                                                    aria-selected="false">
-                                                History
-                                            </button>
-                                        </div>
-                                    </nav>
-                                    <div class="tab-content rn-bid-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-3.png`)" alt="Nft_Profile"></router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by <router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">-->
+<!--                                    <div class="rn-pd-bd-wrapper">-->
+<!--                                      <div class="top-seller-inner-one">-->
+<!--                                        <h6 class="name-title">Owner</h6>-->
+<!--                                        <div class="top-seller-wrapper">-->
+<!--                                          <div class="thumbnail">-->
+<!--                                            <router-link to="#">-->
+<!--                                              <img :src="require(`@/assets/images/client/client-1.png`)" alt="Nft_Profile">-->
+<!--                                            </router-link>-->
+<!--                                          </div>-->
+<!--                                          <div class="top-seller-content">-->
+<!--                                            <router-link to="#">-->
+<!--                                              <h6 class="name">Brodband</h6>-->
+<!--                                            </router-link>-->
+<!--                                          </div>-->
+<!--                                        </div>-->
+<!--                                      </div>-->
+<!--                                      <div class="rn-pd-sm-property-wrapper">-->
+<!--                                        <h6 class="pd-property-title">-->
+<!--                                          Property-->
+<!--                                        </h6>-->
+<!--                                        <div class="property-wrapper">-->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">HYPE TYPE</span>-->
+<!--                                            <span class="color-white value">CALM AF (STILL)</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-4.png`)" alt="Nft_Profile"></router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.09wETH by <router-link to="#">Joe Biden</router-link></span>
-                                                        <span class="count-number">1.30 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">BASTARDNESS</span>-->
+<!--                                            <span class="color-white value">C00LIO BASTARD</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-5.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.07wETH by <router-link to="#">Sonial mridha</router-link></span>
-                                                        <span class="count-number">1.35 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">TYPE</span>-->
+<!--                                            <span class="color-white value">APE</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-6.png`)" alt="Nft_Profile"></router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.07wETH by <router-link to="#">Tribute Dhusra</router-link></span>
-                                                        <span class="count-number">1.55 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">ASTARDNESS</span>-->
+<!--                                            <span class="color-white value">BASTARD</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-7.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.07wETH by <router-link to="#">Sonia Sobnom</router-link></span>
-                                                        <span class="count-number">2 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">BAD HABIT(S)</span>-->
+<!--                                            <span class="color-white value">PIPE</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-8.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.02wETH by <router-link to="#">Sadia Rummon</router-link></span>
-                                                        <span class="count-number">2.5 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
-                                        </div>
-                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                            <div class="rn-pd-bd-wrapper">
-                                                <div class="top-seller-inner-one">
-                                                    <h6 class="name-title">Owner</h6>
-                                                    <div class="top-seller-wrapper">
-                                                        <div class="thumbnail">
-                                                            <router-link to="#">
-                                                                <img :src="require(`@/assets/images/client/client-1.png`)" alt="Nft_Profile">
-                                                            </router-link>
-                                                        </div>
-                                                        <div class="top-seller-content">
-                                                            <router-link to="#">
-                                                                <h6 class="name">Brodband</h6>
-                                                            </router-link>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rn-pd-sm-property-wrapper">
-                                                    <h6 class="pd-property-title">
-                                                        Property
-                                                    </h6>
-                                                    <div class="property-wrapper">
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">HYPE TYPE</span>
-                                                            <span class="color-white value">CALM AF (STILL)</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">BID</span>-->
+<!--                                            <span class="color-white value">BPEYti</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">BASTARDNESS</span>
-                                                            <span class="color-white value">C00LIO BASTARD</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">ASTRAGENAKAR</span>-->
+<!--                                            <span class="color-white value">BASTARD</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">TYPE</span>
-                                                            <span class="color-white value">APE</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">CITY</span>-->
+<!--                                            <span class="color-white value">TOKYO</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                      </div>-->
+<!--                                      <div class="rn-pd-sm-property-wrapper">-->
+<!--                                        <h6 class="pd-property-title">Catagory</h6>-->
+<!--                                        <div class="catagory-wrapper">-->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">ZARY</span>-->
+<!--                                            <span class="color-white value">APP</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">ASTARDNESS</span>
-                                                            <span class="color-white value">BASTARD</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">SOMALIAN</span>-->
+<!--                                            <span class="color-white value">TRIBUTE</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">BAD HABIT(S)</span>
-                                                            <span class="color-white value">PIPE</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">TUNA</span>-->
+<!--                                            <span class="color-white value">PIPE</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">BID</span>
-                                                            <span class="color-white value">BPEYti</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">BID</span>-->
+<!--                                            <span class="color-white value">BPEYti</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">ASTRAGENAKAR</span>
-                                                            <span class="color-white value">BASTARD</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">ASTRAGENAKAR</span>-->
+<!--                                            <span class="color-white value">BASTARD</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">CITY</span>
-                                                            <span class="color-white value">TOKYO</span>
-                                                        </div>
-                                                        <!-- single property End -->
-                                                    </div>
-                                                </div>
-                                                <div class="rn-pd-sm-property-wrapper">
-                                                    <h6 class="pd-property-title">Catagory</h6>
-                                                    <div class="catagory-wrapper">
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">ZARY</span>
-                                                            <span class="color-white value">APP</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                          &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                          <div class="pd-property-inner">-->
+<!--                                            <span class="color-body type">CITY</span>-->
+<!--                                            <span class="color-white value">TOKYO</span>-->
+<!--                                          </div>-->
+<!--                                          &lt;!&ndash; single property End &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                      </div>-->
+<!--                                    </div>-->
+<!--                                  </div>-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">SOMALIAN</span>
-                                                            <span class="color-white value">TRIBUTE</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                    <nav class="tab-button-one">-->
+<!--                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">-->
+<!--                                          <button class="nav-link"-->
+<!--                                                  id="nav-profile-tab"-->
+<!--                                                  data-bs-toggle="tab"-->
+<!--                                                  data-bs-target="#nav-profile"-->
+<!--                                                  type="button"-->
+<!--                                                  role="tab"-->
+<!--                                                  aria-controls="nav-profile"-->
+<!--                                                  aria-selected="true">-->
+<!--                                            Details-->
+<!--                                          </button>-->
+<!--                                            <button class="nav-link active"-->
+<!--                                                    id="nav-home-tab"-->
+<!--                                                    data-bs-toggle="tab"-->
+<!--                                                    data-bs-target="#nav-home"-->
+<!--                                                    type="button"-->
+<!--                                                    role="tab"-->
+<!--                                                    aria-controls="nav-home"-->
+<!--                                                    aria-selected="false">-->
+<!--                                                Bids-->
+<!--                                            </button>-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">TUNA</span>
-                                                            <span class="color-white value">PIPE</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                            <button class="nav-link"-->
+<!--                                                    id="nav-contact-tab"-->
+<!--                                                    data-bs-toggle="tab"-->
+<!--                                                    data-bs-target="#nav-contact"-->
+<!--                                                    type="button"-->
+<!--                                                    role="tab"-->
+<!--                                                    aria-controls="nav-contact"-->
+<!--                                                    aria-selected="false">-->
+<!--                                                History-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </nav>-->
+<!--                                    <div class="tab-content rn-bid-content" id="nav-tabContent">-->
+<!--                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-3.png`)" alt="Nft_Profile"></router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by <router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">BID</span>
-                                                            <span class="color-white value">BPEYti</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-4.png`)" alt="Nft_Profile"></router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.09wETH by <router-link to="#">Joe Biden</router-link></span>-->
+<!--                                                        <span class="count-number">1.30 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">ASTRAGENAKAR</span>
-                                                            <span class="color-white value">BASTARD</span>
-                                                        </div>
-                                                        <!-- single property End -->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-5.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.07wETH by <router-link to="#">Sonial mridha</router-link></span>-->
+<!--                                                        <span class="count-number">1.35 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
 
-                                                        <!-- single property -->
-                                                        <div class="pd-property-inner">
-                                                            <span class="color-body type">CITY</span>
-                                                            <span class="color-white value">TOKYO</span>
-                                                        </div>
-                                                        <!-- single property End -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-3.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#"><img :src="require(`@/assets/images/client/client-6.png`)" alt="Nft_Profile"></router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.07wETH by <router-link to="#">Tribute Dhusra</router-link></span>-->
+<!--                                                        <span class="count-number">1.55 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one mt--20">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-2.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-7.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.07wETH by <router-link to="#">Sonia Sobnom</router-link></span>-->
+<!--                                                        <span class="count-number">2 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one mt--20">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-4.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-8.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.02wETH by <router-link to="#">Sadia Rummon</router-link></span>-->
+<!--                                                        <span class="count-number">2.5 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">-->
+<!--                                            <div class="rn-pd-bd-wrapper">-->
+<!--                                                <div class="top-seller-inner-one">-->
+<!--                                                    <h6 class="name-title">Owner</h6>-->
+<!--                                                    <div class="top-seller-wrapper">-->
+<!--                                                        <div class="thumbnail">-->
+<!--                                                            <router-link to="#">-->
+<!--                                                                <img :src="require(`@/assets/images/client/client-1.png`)" alt="Nft_Profile">-->
+<!--                                                            </router-link>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="top-seller-content">-->
+<!--                                                            <router-link to="#">-->
+<!--                                                                <h6 class="name">Brodband</h6>-->
+<!--                                                            </router-link>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="rn-pd-sm-property-wrapper">-->
+<!--                                                    <h6 class="pd-property-title">-->
+<!--                                                        Property-->
+<!--                                                    </h6>-->
+<!--                                                    <div class="property-wrapper">-->
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">HYPE TYPE</span>-->
+<!--                                                            <span class="color-white value">CALM AF (STILL)</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one mt--20">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-5.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">BASTARDNESS</span>-->
+<!--                                                            <span class="color-white value">C00LIO BASTARD</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
 
-                                            <!-- Single creator -->
-                                            <div class="top-seller-inner-one mt--20">
-                                                <div class="top-seller-wrapper">
-                                                    <div class="thumbnail">
-                                                        <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-8.png`)" alt="Nft_Profile">
-                                                        </router-link>
-                                                    </div>
-                                                    <div class="top-seller-content">
-                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>
-                                                        <span class="count-number">1 hours ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single creator -->
-                                        </div>
-                                    </div>
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">TYPE</span>-->
+<!--                                                            <span class="color-white value">APE</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">ASTARDNESS</span>-->
+<!--                                                            <span class="color-white value">BASTARD</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">BAD HABIT(S)</span>-->
+<!--                                                            <span class="color-white value">PIPE</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">BID</span>-->
+<!--                                                            <span class="color-white value">BPEYti</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">ASTRAGENAKAR</span>-->
+<!--                                                            <span class="color-white value">BASTARD</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">CITY</span>-->
+<!--                                                            <span class="color-white value">TOKYO</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="rn-pd-sm-property-wrapper">-->
+<!--                                                    <h6 class="pd-property-title">Catagory</h6>-->
+<!--                                                    <div class="catagory-wrapper">-->
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">ZARY</span>-->
+<!--                                                            <span class="color-white value">APP</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">SOMALIAN</span>-->
+<!--                                                            <span class="color-white value">TRIBUTE</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">TUNA</span>-->
+<!--                                                            <span class="color-white value">PIPE</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">BID</span>-->
+<!--                                                            <span class="color-white value">BPEYti</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">ASTRAGENAKAR</span>-->
+<!--                                                            <span class="color-white value">BASTARD</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+
+<!--                                                        &lt;!&ndash; single property &ndash;&gt;-->
+<!--                                                        <div class="pd-property-inner">-->
+<!--                                                            <span class="color-body type">CITY</span>-->
+<!--                                                            <span class="color-white value">TOKYO</span>-->
+<!--                                                        </div>-->
+<!--                                                        &lt;!&ndash; single property End &ndash;&gt;-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-3.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one mt&#45;&#45;20">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-2.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one mt&#45;&#45;20">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-4.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one mt&#45;&#45;20">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-5.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                            <div class="top-seller-inner-one mt&#45;&#45;20">-->
+<!--                                                <div class="top-seller-wrapper">-->
+<!--                                                    <div class="thumbnail">-->
+<!--                                                        <router-link to="#">-->
+<!--                                                            <img :src="require(`@/assets/images/client/client-8.png`)" alt="Nft_Profile">-->
+<!--                                                        </router-link>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="top-seller-content">-->
+<!--                                                        <span>0.11wETH by<router-link to="#">Allen Waltker</router-link></span>-->
+<!--                                                        <span class="count-number">1 hours ago</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Single creator &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                                 <div class="place-bet-area">
                                     <div class="rn-bet-create">
                                         <div class="bid-list winning-bid">
-                                            <h6 class="title">Winning bit</h6>
+                                            <h6 class="title">Apply Now</h6>
                                             <div class="top-seller-inner-one">
                                                 <div class="top-seller-wrapper">
                                                     <div class="thumbnail">
                                                         <router-link to="#">
-                                                            <img :src="require(`@/assets/images/client/client-7.png`)" alt="Nft_Profile">
+                                                            <img :src="`/backend/static/` + product.logo" alt="Nft_Profile">
                                                         </router-link>
                                                     </div>
                                                     <div class="top-seller-content">
-                                                        <span class="heighest-bid">Heighest bid <router-link to="#">Atif aslam</router-link></span>
-                                                        <span class="count-number">0.115wETH</span>
+                                                        <span class="heighest-bid">{{product.name}}</span>
+<!--                                                        <span class="count-number">0.115wETH</span>-->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="bid-list left-bid">
-                                            <h6 class="title">Auction has ended</h6>
+                                            <h6 class="title">Time Remaining</h6>
                                             <countdown :date="'2025-12-09'" class="mt--15"/>
                                         </div>
                                     </div>
-                                    <button type="button" 
-                                            class="btn btn-primary-alta mt--30" 
-                                            data-bs-toggle="modal" 
+                                    <button type="button"
+                                            class="btn btn-primary-alta mt--30"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#placebidModal">
-                                        Place a Bid
+                                        Add to Apply List
                                     </button>
                                 </div>
                             </div>
@@ -493,12 +622,12 @@
             <div class="container">
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
-                        <h3 class="title mb--0">Recent View</h3>
+                        <h3 class="title mb--0">Related Schools</h3>
                     </div>
                 </div>
                 <div class="row g-5">
                     <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
-                         v-for="(item, index) in recentViewItems"
+                         v-for="(item, index) in relatedSchools"
                          :key="`newest-item-${index}`">
                         <product-card
                             :product-date="item"
@@ -515,12 +644,12 @@
             <div class="container">
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
-                        <h3 class="title mb--0">Related Item</h3>
+                        <h3 class="title mb--0">Related Programs</h3>
                     </div>
                 </div>
                 <div class="row g-5">
                     <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
-                         v-for="(item, index) in relatedItems"
+                         v-for="(item, index) in relatedPrograms"
                          :key="`newest-item-${index}`">
                         <product-card
                             :product-date="item"
@@ -531,9 +660,9 @@
             </div>
         </div>
         <!-- Related item area End -->
-        
+
         <share-modal/>
-        
+
         <report-modal/>
 
         <placebid-modal/>
@@ -550,6 +679,7 @@
     import PlacebidModal from '@/components/modal/PlacebidModal'
     import schoolApi from "@/api/shool"
     import ProductMixin from "@/mixins/ProductMixin";
+    import request from "@/utils/request";
 
     export default {
         name: 'SchoolDetails',
@@ -560,270 +690,8 @@
                 id: this.$route.params.id,
                 product: {},
                 activeTabIndex: 0,
-                recentViewItems: [
-                    {
-                        id: 1,
-                        productImage: require(`@/assets/images/portfolio/portfolio-01.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 2,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-2.png`)
-                            },
-                            {
-                                id: 3,
-                                name: 'Nisat Tara',
-                                image: require(`@/assets/images/client/client-3.png`)
-                            }
-                        ],
-                        biddingAmount: '9',
-                        productName: 'Preatent',
-                        latestBid: 'Highest bid 1/20',
-                        lastBid: '0.244wETH',
-                        reacted: '322'
-                    },
-                    {
-                        id: 2,
-                        productImage: require(`@/assets/images/portfolio/portfolio-02.jpg`),
-                        authors: [
-                            {
-                                id: 4,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-4.png`)
-                            },
-                            {
-                                id: 5,
-                                name: 'Nira Ara',
-                                image: require(`@/assets/images/client/client-5.png`)
-                            },
-                            {
-                                id: 6,
-                                name: 'Fatima Afrafy',
-                                image: require(`@/assets/images/client/client-6.png`)
-                            }
-                        ],
-                        biddingAmount: '10',
-                        productName: 'Diamond Dog',
-                        latestBid: 'Highest bid 5/11',
-                        lastBid: '0.892wETH',
-                        reacted: '420'
-                    },
-                    {
-                        id: 3,
-                        productImage: require(`@/assets/images/portfolio/portfolio-03.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 8,
-                                name: 'Janin Ara',
-                                image: require(`@/assets/images/client/client-8.png`)
-                            },
-                            {
-                                id: 9,
-                                name: 'Atif Islam',
-                                image: require(`@/assets/images/client/client-9.png`)
-                            }
-                        ],
-                        biddingAmount: '10',
-                        productName: 'OrBid6',
-                        latestBid: 'Highest bid 2/31',
-                        lastBid: '0.2128wETH',
-                        reacted: '12'
-                    },
-                    {
-                        id: 4,
-                        productImage: require(`@/assets/images/portfolio/portfolio-04.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 3,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-3.png`)
-                            },
-                            {
-                                id: 5,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-5.png`)
-                            }
-                        ],
-                        biddingAmount: '8',
-                        productName: 'Morgan11',
-                        latestBid: 'Highest bid 3/16',
-                        lastBid: '0.265wETH',
-                        reacted: '20'
-                    },
-                    {
-                        id: 5,
-                        productImage: require(`@/assets/images/portfolio/portfolio-05.jpg`),
-                        authors: [
-                            {
-                                id: 2,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-2.png`)
-                            },
-                            {
-                                id: 7,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-7.png`)
-                            },
-                            {
-                                id: 9,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-9.png`)
-                            }
-                        ],
-                        biddingAmount: '15',
-                        productName: 'mAtal8',
-                        latestBid: 'Highest bid 6/50',
-                        lastBid: '0.244wETH',
-                        reacted: '205'
-                    }
-                ],
-                relatedItems: [
-                    {
-                        id: 1,
-                        productImage: require(`@/assets/images/portfolio/portfolio-01.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 2,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-2.png`)
-                            },
-                            {
-                                id: 3,
-                                name: 'Nisat Tara',
-                                image: require(`@/assets/images/client/client-3.png`)
-                            }
-                        ],
-                        biddingAmount: '9',
-                        productName: 'Preatent',
-                        latestBid: 'Highest bid 1/20',
-                        lastBid: '0.244wETH',
-                        reacted: '322'
-                    },
-                    {
-                        id: 2,
-                        productImage: require(`@/assets/images/portfolio/portfolio-02.jpg`),
-                        authors: [
-                            {
-                                id: 4,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-4.png`)
-                            },
-                            {
-                                id: 5,
-                                name: 'Nira Ara',
-                                image: require(`@/assets/images/client/client-5.png`)
-                            },
-                            {
-                                id: 6,
-                                name: 'Fatima Afrafy',
-                                image: require(`@/assets/images/client/client-6.png`)
-                            }
-                        ],
-                        biddingAmount: '10',
-                        productName: 'Diamond Dog',
-                        latestBid: 'Highest bid 5/11',
-                        lastBid: '0.892wETH',
-                        reacted: '420'
-                    },
-                    {
-                        id: 3,
-                        productImage: require(`@/assets/images/portfolio/portfolio-03.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 8,
-                                name: 'Janin Ara',
-                                image: require(`@/assets/images/client/client-8.png`)
-                            },
-                            {
-                                id: 9,
-                                name: 'Atif Islam',
-                                image: require(`@/assets/images/client/client-9.png`)
-                            }
-                        ],
-                        biddingAmount: '10',
-                        productName: 'OrBid6',
-                        latestBid: 'Highest bid 2/31',
-                        lastBid: '0.2128wETH',
-                        reacted: '12'
-                    },
-                    {
-                        id: 4,
-                        productImage: require(`@/assets/images/portfolio/portfolio-04.jpg`),
-                        authors: [
-                            {
-                                id: 1,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-1.png`)
-                            },
-                            {
-                                id: 3,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-3.png`)
-                            },
-                            {
-                                id: 5,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-5.png`)
-                            }
-                        ],
-                        biddingAmount: '8',
-                        productName: 'Morgan11',
-                        latestBid: 'Highest bid 3/16',
-                        lastBid: '0.265wETH',
-                        reacted: '20'
-                    },
-                    {
-                        id: 5,
-                        productImage: require(`@/assets/images/portfolio/portfolio-05.jpg`),
-                        authors: [
-                            {
-                                id: 2,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-2.png`)
-                            },
-                            {
-                                id: 7,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-7.png`)
-                            },
-                            {
-                                id: 9,
-                                name: 'Jone lee',
-                                image: require(`@/assets/images/client/client-9.png`)
-                            }
-                        ],
-                        biddingAmount: '15',
-                        productName: 'mAtal8',
-                        latestBid: 'Highest bid 6/50',
-                        lastBid: '0.244wETH',
-                        reacted: '205'
-                    }
-                ],
+                relatedSchools: [],
+                relatedPrograms: [],
             }
         },
         methods: {
@@ -837,10 +705,43 @@
                     this.getProduct(this.id)
                     console.log(this.product)
                 })
-            }
+            },
+            getData(){
+              let that = this;
+              request({
+                url: `/api/school/public/getRandomSchools/5`,
+                method: 'get'
+              }).then(function (res){
+                that.relatedSchools = res.data.schools;
+
+              });
+
+              request({
+                url: `/api/program/public/getRandomPrograms/5`,
+                method: 'get'
+              }).then(function (resA){
+                let programs = resA.data.programs;
+                let count = 0;
+                for(let index in programs){
+                    request({
+                      url: `/api/program/public/getSchoolByProgram/` + resA.data.programs[index].id,
+                      method: 'get'
+                    }).then(function (resB){
+                      resA.data.programs[index].school = resB.data.school;
+                      count++;
+                      if(programs.length === count){
+                        that.relatedPrograms = resA.data.programs;
+                      }
+
+                    });
+                }
+              });
+
+            },
         },
         created() {
-            this.getSchools()
+            this.getSchools();
+            this.getData();
         },
         watch: {
             '$route.params.id': function (val) {
