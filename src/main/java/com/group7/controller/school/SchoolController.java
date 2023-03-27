@@ -83,6 +83,11 @@ public class SchoolController {
         return R.ok().data("schools", res);
     }
 
+    @GetMapping("/public/getAllSchools")
+    public R getAllSchools(){
+        List<School> allSchools = schoolRepository.findAll();
+        return R.ok().data("schools", allSchools);
+    }
 
 
 }
