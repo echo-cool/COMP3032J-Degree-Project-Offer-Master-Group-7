@@ -6,6 +6,7 @@ import EditProfilePage from '../views/user/EditProfilePage.vue'
 import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
+import About from '../views/About'
 
 const routes = [
     {
@@ -62,6 +63,14 @@ const routes = [
         component: SchoolDetails,
         meta: {
             title: 'School Details || OfferMaster',
+        },
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: About,
+        meta: {
+            title: 'About || OfferMaster',
         },
     },
 ]

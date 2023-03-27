@@ -60,16 +60,16 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
 
-        School school1 = new School("Duke University", 1, 10);
-        School school2 = new School("University of Toronto", 2, 9);
-        School school3 = new School("University of Waterloo", 3, 8);
-        School school4 = new School("University of British Columbia", 4, 7);
-        School school5 = new School("Stanford University", 5, 6);
-        School school6 = new School("University of California, Berkeley", 6, 5);
-        School school7 = new School("Princeton University", 7, 4);
-        School school8 = new School("Harvard University", 8, 3);
-        School school9 = new School("Yale University", 9, 2);
-        School school10 = new School("Dartmouth College", 10, 1);
+        School school1 = new School("Duke University",1, 10, "Duke University logo.png", "Duke University.webp");
+        School school2 = new School("University of Toronto", 2, 9, "University of Toronto logo.png", "University of Toronto.webp");
+        School school3 = new School("University of Waterloo", 3, 8, "University of Waterloo logo.png", "University of Waterloo.png");
+        School school4 = new School("University of British Columbia", 4, 7, "University of British Columbia logo.png", "University of British Columbia.jpg");
+        School school5 = new School("Stanford University", 5, 6, "Stanford University logo.webp", "Stanford University.webp");
+        School school6 = new School("University of California, Berkeley", 6, 5, "University of British Columbia logo.png", "University of British Columbia.jpg");
+        School school7 = new School("Princeton University", 7, 4, "Princeton University logo.svg", "Princeton University.jpg");
+        School school8 = new School("Harvard University", 8, 3, "Harvard University logo.png", "Harvard University.webp");
+        School school9 = new School("Yale University", 9, 2, "Yale University logo.png", "Yale University.png");
+        School school10 = new School("Dartmouth College", 10, 1, "Dartmouth College logo.png", "Dartmouth College.jpg");
 
         log.info("Preloading " + schoolRepository.save(school1));
         log.info("Preloading " + schoolRepository.save(school2));
@@ -82,19 +82,19 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school9));
         log.info("Preloading " + schoolRepository.save(school10));
 
-        Program program1 = new Program("Computer Science", school1, "MS", EMajor.CS);
-        Program program1_2 = new Program("Computer Science", school1, "MEng", EMajor.CS);
-        Program program1_3 = new Program("Computer Science", school1, "PhD", EMajor.MIS);
-        Program program2 = new Program("Computer Engineering", school3, "MS", EMajor.CS);
-        Program program3 = new Program("Software Engineering", school2, "MS", EMajor.EE);
-        Program program4 = new Program("Computer Science", school6, "MS", EMajor.CS);
-        Program program5 = new Program("Statistical Science", school1, "PhD", EMajor.MIS);
-        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS", EMajor.EE);
-        Program program7 = new Program("Software Engineering", school7, "MS", EMajor.CS);
-        Program program8 = new Program("Software Engineering", school8, "PhD", EMajor.CS);
-        Program program9 = new Program("Software Engineering", school3, "MS", EMajor.MIS);
-        Program program10 = new Program("Quantitative Management", school1, "PhD", EMajor.CS);
-        Program program11 = new Program("Financial Technology", school1, "MS", EMajor.EE);
+        Program program1 = new Program("Computer Science", school1, "MS", EMajor.CS, "MS Computer Science.jpg");
+        Program program1_2 = new Program("Computer Science", school1, "MEng", EMajor.CS, "MEng Computer Science.jpg");
+        Program program1_3 = new Program("Computer Science", school1, "PhD", EMajor.MIS, "PhD Computer Science.jpg");
+        Program program2 = new Program("Computer Engineering", school3, "MS", EMajor.CS, "MS Computer Engineering.jpg");
+        Program program3 = new Program("Software Engineering", school2, "MS", EMajor.EE, "MS Software Engineering.jpg");
+        Program program4 = new Program("Computer Science", school6, "MS", EMajor.CS, "MS Computer Science.jpg");
+        Program program5 = new Program("Statistical Science", school1, "PhD", EMajor.MIS, "MS Statistical Science.jpg");
+        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS", EMajor.EE, "MS Electrical and Computer Engineering.jpg");
+        Program program7 = new Program("Software Engineering", school7, "MS", EMajor.CS, "MS Software Engineering.jpg");
+        Program program8 = new Program("Software Engineering", school8, "PhD", EMajor.CS, "PhD Software Engineering.jpg");
+        Program program9 = new Program("Software Engineering", school3, "MS", EMajor.MIS, "MS Software Engineering.jpg");
+        Program program10 = new Program("Quantitative Management", school1, "PhD", EMajor.CS, "Quantitative Management.jpg");
+        Program program11 = new Program("Financial Technology", school1, "MS", EMajor.EE, "Financial Technology.webp");
 
 
 

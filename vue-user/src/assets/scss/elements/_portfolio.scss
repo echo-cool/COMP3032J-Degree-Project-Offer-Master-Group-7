@@ -527,9 +527,11 @@
 // large product wrapper
 .lg-product_tab-pane {
   padding: 30px;
-  border-left: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  //border-top: 1px solid var(--color-border);
+  //
+  //border-left: 1px solid var(--color-border);
+  //border-right: 1px solid var(--color-border);
+  //border-bottom: 1px solid var(--color-border);
   border-radius: 0 0 5px 5px;
   @media #{$small-mobile} {
     padding: 10px;
