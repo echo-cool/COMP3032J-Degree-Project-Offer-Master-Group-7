@@ -133,7 +133,7 @@
                 // we have stored this when logging in
                 let userStr = cookie.get("current_user");
                 // turn json string to json obj
-                if (userStr){
+                if (userStr && userStr !== ""){
                     this.currentUser = JSON.parse(userStr);
                     console.log(this.currentUser);
                     // load the applications of this user

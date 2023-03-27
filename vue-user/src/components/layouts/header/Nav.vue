@@ -154,16 +154,24 @@ export default {
                 // },
 
                 // ------ for testing ------
-
-                {
-                    link: '#',
-                    title: 'Testing',
-                    hasDropdown: true,
-                    megamenu: false,
-                    dropdownItems: [
-                        {link: '/program-selection', title: 'Test - program selection', icon: 'fast-forward'},
-                    ]
-                },
+              {
+                  link: '#',
+                  title: 'Program Selection',
+                  hasDropdown: true,
+                  megamenu: false,
+                  dropdownItems:[
+                    {link: '/program-selection', title: 'Manual', icon: 'fast-forward'},
+                  ]
+              },
+                // {
+                //     link: '#',
+                //     title: 'Testing',
+                //     hasDropdown: true,
+                //     megamenu: false,
+                //     dropdownItems: [
+                //         {link: '/program-selection', title: 'Test - program selection', icon: 'fast-forward'},
+                //     ]
+                // },
 
               {
                 link: '/about',

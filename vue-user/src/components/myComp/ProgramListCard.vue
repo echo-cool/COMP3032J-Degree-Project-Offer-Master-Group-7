@@ -3,8 +3,8 @@
         <div class="inner">
             <div class="lg-left-content">
                 <router-link :to="`#`" class="thumbnail">
-<!--                    <img :src="program.school.img" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
-                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">
+                    <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')">
+<!--                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
                 </router-link>
                 <div class="read-content">
 <!--                    <div class="product-share-wrapper">-->

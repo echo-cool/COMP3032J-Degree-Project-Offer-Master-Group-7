@@ -38,7 +38,8 @@
                     <div class="setting-option header-btn rbt-site-header flex-shrink-0" id="rbt-site-header">
                         <div class="icon-box">
                             <router-link id="connectbtn" style="margin: 5px" class="btn btn-primary-alta btn-small" to="/edit-profile">My Space</router-link>
-                            <router-link id="connectbtn" style="margin: 5px" class="btn btn-primary-alta btn-small" to="/user/logout">Logout</router-link>
+                            <router-link v-if="currentUser" id="connectbtn" style="margin: 5px" @click.prevent="handleLogout" class="btn btn-primary-alta btn-small" to="/login" >Logout</router-link>
+
 
                         </div>
                     </div>
@@ -198,6 +199,11 @@
       },
       // get current user info from cookie
       methods:{
+        handleLogout(){
+          cookie.set("current_user", "");
+          this.$forceUpdate();
+          window.location.reload();
+        },
         getCurrentUser(){
           // we have stored this when logging in
           let userStr = cookie.get("current_user");
@@ -209,10 +215,6 @@
             // initialize the applications for this user
             this.getApplications(this.currentUser.id);
 
-          }else{
-            // user should be redirected to the login page if not logged in
-            // window.alert("You should login first!");
-            router.push({path: '/login'});
           }
         },
       }

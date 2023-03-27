@@ -43,6 +43,9 @@ public class Program {
     @JoinColumn(name="school")
     private School school;
 
+    @Column
+    private String img = "default/default.jpg";
+
     @OneToMany(mappedBy = "program")
     @JsonManagedReference(value = "program")
     private Set<Application> applications = new HashSet<>();
@@ -67,6 +70,15 @@ public class Program {
         this.major = major;
         this.school = school;
         generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major, String img) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
+        this.school = school;
+        generateRandomLike();
+        this.img = "upload/img/" + img;
     }
 
     public Program() {
@@ -136,5 +148,13 @@ public class Program {
 
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
