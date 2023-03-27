@@ -10,6 +10,7 @@ import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
 
 const routes = [
+
     {
         path: '/',
         name: 'HomePageOne',

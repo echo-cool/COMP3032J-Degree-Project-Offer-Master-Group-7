@@ -4,7 +4,7 @@ import cookie from "js-cookie";
 // 创建一个 axios 实例
 const service = axios.create({
     baseURL: '/backend',    // 所有的请求地址前缀部分
-    timeout: 60000,         // 请求超时时间毫秒
+    timeout: 30000,         // 请求超时时间毫秒
     withCredentials: true,  // 异步请求携带cookie
     headers: {
         // 设置后端需要的传参类型

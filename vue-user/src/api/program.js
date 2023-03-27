@@ -25,5 +25,13 @@ export default{
             url: `/api/program/like-program/${programId}`,
             method: 'post'
         })
+    },
+
+    // whether the user liked a specific program
+    isProgramLiked(programId){
+        return request({
+            url: `/api/program//is-program-liked/${programId}`,
+            method: 'get'
+        })
     }
 }

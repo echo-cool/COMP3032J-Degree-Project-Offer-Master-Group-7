@@ -122,6 +122,29 @@ public class ProgramController {
         return R.ok().data("likes", program.getLikes());
     }
 
+    @RequestMapping("/is-program-liked/{programId}")
+    public R isProgramLiked(@PathVariable("programId") long programId, HttpServletRequest request) {
+        // get user
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        // get program
+        Program program = programRepository.findById(programId).orElse(null);
+
+        if (program == null){
+            return R.error().message("invalid program id!");
+        }
+
+        // check if the user liked this program
+        boolean isLiked = false;
+        for(Program p : user.getLikedPrograms()){
+            if(p.getId() == programId){
+                isLiked = true;
+                break;
+            }
+        }
+
+        return R.ok().data("isLiked", isLiked);
+    }
+
     /**
      * Popularity accords to the number of likes
      */

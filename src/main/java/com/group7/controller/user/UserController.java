@@ -468,4 +468,11 @@ public class UserController {
         Specification<User> spec = new SpecificationsBuilder<User>().buildSpecification(search);
         return userRepository.findAll(spec);
     }
+
+    @RequestMapping("/get-liked-programs")
+    public R likeProgram(HttpServletRequest request) {
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        Set<Program> likedPrograms = user.getLikedPrograms();
+        return R.ok().data("likedPrograms", likedPrograms);
+    }
 }
