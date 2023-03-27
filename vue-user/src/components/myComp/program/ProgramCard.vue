@@ -2,7 +2,7 @@
     <div :class="`product-style-one`">
         <div class="card-thumbnail" style="">
 <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-            <router-link :to="`#`">
+            <router-link :to="`/school-details/`+school.id">
                 <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
 
               <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
@@ -43,7 +43,7 @@
             </div>
         </div>
 <!--        <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-        <router-link :to="`#`">
+        <router-link :to="`/school-details/`+school.id">
             <span class="product-name">{{ school.name }}</span>
         </router-link>
         <span class="latest-bid">{{ program.name }}</span>

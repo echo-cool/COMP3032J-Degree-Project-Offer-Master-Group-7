@@ -3,14 +3,14 @@
         <div class="top-seller-wrapper">
             <div :class="[`thumbnail`, {'varified': false}]">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
-                <router-link :to="`#`">
+                <router-link :to="`/school-details/`+school.id">
                     <img v-if="school.img" :src="`/backend/static/`+school.img" alt="school-img">
                     <img v-else :src="require(`@/assets/images/client/client-1.png`)" alt="school-img">
                 </router-link>
             </div>
             <div class="top-seller-content">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
-                <router-link :to="`#`">
+                <router-link :to="`/school-details/`+school.id">
                     <h6 class="name" v-if="school.name.length > 20">{{school.name.substring(0,20) + `..` }}</h6>
 
                     <h6 class="name" v-else>{{school.name}}</h6>
@@ -26,7 +26,7 @@
         <router-link
             v-if="sellerStyleClass === 'explore'"
             class="over-link"
-            :to="`#`"
+            :to="`/school-details/`+school.id"
         />
     </div>
 </template>

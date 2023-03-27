@@ -18,8 +18,8 @@
                                 <br> of your application.
                             </p>
                             <div class="button-group">
-                                <router-link to="#" class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Get Started</router-link>
-                                <router-link to="/create" class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Complete Background</router-link>
+                                <router-link to="/edit-profile" class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Get Started</router-link>
+                                <router-link to="/program-selection" class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Complete Background</router-link>
                             </div>
                         </div>
                     </div>

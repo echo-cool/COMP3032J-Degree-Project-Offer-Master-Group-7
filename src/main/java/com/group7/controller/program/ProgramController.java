@@ -8,6 +8,7 @@ import com.group7.entitiy.SchoolUpdateVo;
 import com.group7.service.ProgramService;
 import com.group7.service.SchoolService;
 import com.group7.utils.common.JwtUtils;
+import com.group7.utils.common.MyRandomUtils;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -173,6 +172,28 @@ public class ProgramController {
         }
 
         return R.ok().data("programs", programs).data("schoolsOfPrograms", schoolsOfPrograms);
+    }
+
+    @RequestMapping("/public/getRandomPrograms/{size}")
+    public R getRandomPrograms(@PathVariable("size") long size){
+        Random random = MyRandomUtils.getRandom();
+        List<Program> programs = programRepository.findAll();
+        List<Program> res = new ArrayList<>();
+        for(int i = 0; i < size; i++){
+            res.add(programs.get(random.nextInt(0, programs.size())));
+        }
+        return R.ok().data("programs", res);
+    }
+
+    @RequestMapping("/public/getSchoolByProgram/{id}")
+    public R getSchoolByProgram(@PathVariable("id") long id){
+        Optional<Program> program = programRepository.findById(id);
+        if (program.isPresent()){
+            School school = program.get().getSchool();
+            return R.ok().data("school", school);
+        }
+        return R.error();
+
     }
 
 

@@ -72,12 +72,12 @@ public class SchoolController {
         return R.ok().data("topSchools", topSchools);
     }
 
-    @RequestMapping("/public/getRandomSchools")
-    public R getRandomSchools(){
+    @RequestMapping("/public/getRandomSchools/{size}")
+    public R getRandomSchools(@PathVariable("size") long size){
         Random random = new Random();
         List<School> schools = schoolRepository.findAll();
         List<School> res = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < size; i++){
             res.add(schools.get(random.nextInt(0, schools.size())));
         }
         return R.ok().data("schools", res);
