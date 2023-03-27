@@ -10,7 +10,9 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -69,6 +71,18 @@ public class SchoolController {
 
         return R.ok().data("topSchools", topSchools);
     }
+
+    @RequestMapping("/public/getRandomSchools")
+    public R getRandomSchools(){
+        Random random = new Random();
+        List<School> schools = schoolRepository.findAll();
+        List<School> res = new ArrayList<>();
+        for(int i = 0; i < 4; i++){
+            res.add(schools.get(random.nextInt(0, schools.size())));
+        }
+        return R.ok().data("schools", res);
+    }
+
 
 
 }

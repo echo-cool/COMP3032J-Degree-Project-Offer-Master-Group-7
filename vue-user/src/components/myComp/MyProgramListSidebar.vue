@@ -29,7 +29,7 @@
 
                 <div class="thumbnail">
 <!--                    <router-link :to="application.program.school.url">-->
-                        <img :src="application.program.school.img" alt="Images">
+                        <img style="width: 100px" :src="`/backend/static/`+application.program.school.img" alt="Images">
 <!--                    </router-link>-->
                 </div>
                 <div class="content-wrapper">

@@ -1,12 +1,13 @@
 <template>
     <div :class="`product-style-one`">
-        <div class="card-thumbnail">
+        <div class="card-thumbnail" style="">
 <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
             <router-link :to="`#`">
-                <img v-if="application.program.school.img" :src="application.program.school.img" :alt="application.program.school.name" @load="$emit('handleImageLoad')">
-                <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
+                <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
+
+              <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
             </router-link>
-            <countdown :date="application.deadline"/>
+            <countdown v-if="showDDLCountdown" :date="deadline"/>
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
@@ -43,14 +44,14 @@
         </div>
 <!--        <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
         <router-link :to="`#`">
-            <span class="product-name">{{ application.program.school.name }}</span>
+            <span class="product-name">{{ school.name }}</span>
         </router-link>
-        <span class="latest-bid">{{ application.program.name }}</span>
+        <span class="latest-bid">{{ program.name }}</span>
         <div class="bid-react-area">
-            <div class="last-bid">{{ application.program.degree }}</div>
+            <div class="last-bid">{{ program.degree }} - {{ program.major }}</div>
             <div class="react-area">
                 <i class="feather-heart"/>
-                <span class="number">{{ application.program.id }}</span>
+                <span class="number">{{ program.likes }}</span>
             </div>
         </div>
     </div>
@@ -60,10 +61,16 @@
     import Countdown from "@/components/myComp/program/Countdown.vue";
 
     export default {
-        name: 'ProductCard',
+        name: 'ProgramCard',
         components: {Countdown},
         props: {
-            application: {}
+            program: {},
+            school: {},
+            showDDLCountdown: {
+                type: Boolean,
+                default: false
+            },
+            deadline: ""
         },
         watch: {
             '$route': function (to, from) {

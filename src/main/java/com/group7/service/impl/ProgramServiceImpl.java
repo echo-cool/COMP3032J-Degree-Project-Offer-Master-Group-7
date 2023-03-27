@@ -3,6 +3,7 @@ package com.group7.service.impl;
 import com.group7.db.jpa.Program;
 import com.group7.db.jpa.ProgramRepository;
 import com.group7.db.jpa.School;
+import com.group7.db.jpa.utils.EMajor;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.service.ProgramService;
 import jakarta.annotation.Resource;
@@ -66,4 +67,59 @@ public class ProgramServiceImpl implements ProgramService {
 
         return popularPrograms;
     }
+
+    @Override
+    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo, long limit) {
+        List<Program> programs;
+        Sort sort;
+
+        // get query items
+        String likes = programQueryVo.getLikes();
+        String degree = programQueryVo.getDegree();
+        String major = programQueryVo.getMajor();
+
+        // sort by like numbers
+        if (likes.equals("most-liked")){
+            sort = Sort.by("likes").descending();
+
+        } else if (likes.equals("least-liked")) {
+            sort = Sort.by("likes").ascending();
+
+        }else{
+            sort = Sort.unsorted();
+        }
+
+        // determine whether degree and major are "all"
+        if (degree.equals("all") && major.equals("all")){
+            programs = programRepository.findAll(sort);
+
+        } else if (degree.equals("all")) {
+            programs = programRepository.findByMajor(EMajor.valueOf(major), sort);
+
+        } else if (major.equals("all")) {
+            if (degree.equals("PhD")){
+                programs = programRepository.findByDegree(degree, sort);
+            }else{
+                programs = programRepository.findByDegreeNot("PhD", sort);
+            }
+
+        }else{
+            if (degree.equals("PhD")){
+                programs = programRepository.findByDegreeAndMajor(degree, EMajor.valueOf(major), sort);;
+            }else{
+                programs = programRepository.findByDegreeNotAndMajor("PhD", EMajor.valueOf(major), sort);
+            }
+        }
+
+        // limit the number of programs when return
+        // if less than the limit, we return all
+        if (programs.size() > limit){
+            // return limited number
+            programs = programs.subList(0, (int) limit);
+        }
+
+        return programs;
+    }
+
+
 }

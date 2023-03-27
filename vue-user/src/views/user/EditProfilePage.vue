@@ -101,7 +101,7 @@
 <!--                                                     @click="$refs.profileImageInput.click()">-->
                                                 <img v-if="currentUser.avatar"
                                                      id="profilePicture"
-                                                     :src="currentUser.avatar"
+                                                     :src="`/backend/static/`+currentUser.avatar"
                                                      alt="User-Avatar"
                                                      @click="$refs.profileImageInput.click()">
                                                 <img v-else
@@ -824,7 +824,7 @@
 
                 }else{
                     // user should be redirected to the login page if not logged in
-                    window.alert("You should login first!");
+                    // window.alert("You should login first!");
                     router.push({path: '/login'});
                 }
             },

@@ -44,7 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
         String projectDir = System.getProperty("user.dir");
         String resourceLocation = projectDir  + "\\src\\main\\resources\\static\\";
         // map the resources/static dir to the http://.../img/
-        registry.addResourceHandler("/img/**")
+        registry.addResourceHandler("/static/**")
                 .addResourceLocations("file:" + resourceLocation);
 
     }

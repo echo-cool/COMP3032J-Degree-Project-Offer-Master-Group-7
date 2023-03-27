@@ -27,13 +27,16 @@ public class School {
     private String name = "NULL";
 
     @Column
-    private String img;
-
-    @Column
     private int rankQS;
 
     @Column
     private int rankUSNews;
+
+    @Column
+    private String logo = "default/default-logo.jpg";
+
+    @Column
+    private String img = "default/default.jpg";
 
     @OneToMany(mappedBy="school")
     @JsonManagedReference(value = "programs")
@@ -57,6 +60,21 @@ public class School {
         this.name = name;
         this.rankQS = rankQS;
         this.rankUSNews = rankUSNews;
+    }
+
+    public School(String name, int rankQS, int rankUSNews, String logo, String img) {
+        this.name = name;
+        this.rankQS = rankQS;
+        this.rankUSNews = rankUSNews;
+        this.logo = "upload/img/" + logo;
+        this.img = "upload/img/" +img;
+    }
+
+    public School(String name, int rankQS, int rankUSNews, String img) {
+        this.name = name;
+        this.rankQS = rankQS;
+        this.rankUSNews = rankUSNews;
+        this.img = "upload/img/" + img;
     }
 
     public School() {
@@ -93,7 +111,7 @@ public class School {
     }
 
     public void setImg(String img) {
-        this.img = img;
+        this.img = "upload/img/" + img;
     }
 
     public int getRankQS() {

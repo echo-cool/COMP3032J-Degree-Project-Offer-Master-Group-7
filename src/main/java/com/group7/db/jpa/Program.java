@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
+import com.group7.db.jpa.utils.EMajor;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -32,11 +33,18 @@ public class Program {
     private String degree;
 
     @Column
+    @Enumerated(EnumType.STRING)
+    private EMajor major;
+
+    @Column
     private long likes;
 
     @ManyToOne
     @JoinColumn(name="school")
     private School school;
+
+    @Column
+    private String img = "default/default.jpg";
 
     @OneToMany(mappedBy = "program")
     @JsonManagedReference(value = "program")
@@ -54,6 +62,23 @@ public class Program {
         this.degree = degree;
         this.school = school;
         generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
+        this.school = school;
+        generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major, String img) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
+        this.school = school;
+        generateRandomLike();
+        this.img = "upload/img/" + img;
     }
 
     public Program() {
@@ -92,6 +117,14 @@ public class Program {
         this.degree = degree;
     }
 
+    public EMajor getMajor() {
+        return major;
+    }
+
+    public void setMajor(EMajor major) {
+        this.major = major;
+    }
+
     @JsonBackReference
     public School getSchool() {
         return school;
@@ -115,5 +148,13 @@ public class Program {
 
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

@@ -14,4 +14,6 @@ public interface ProgramService {
 
     public List<Program> getPopularProgramsByDegree(String degree, long limit);
 
+    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo, long limit);
+
 }

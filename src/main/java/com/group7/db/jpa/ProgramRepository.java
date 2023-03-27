@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import com.group7.db.jpa.utils.EMajor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -24,5 +25,12 @@ public interface ProgramRepository extends JpaRepository<Program, Long>, PagingA
     List<Program> findByDegree(String degree, Sort sort);
 
     List<Program> findByDegreeNot(String degree, Sort sort);
+
+    List<Program> findByDegreeAndMajor(String degree, EMajor eMajor, Sort sort);
+
+    List<Program> findByDegreeNotAndMajor(String degree, EMajor eMajor, Sort sort);
+
+    List<Program> findByMajor(EMajor eMajor, Sort sort);
+
 
 }

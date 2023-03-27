@@ -47,7 +47,7 @@ public class User {
     private String bio = ""; // self-intro
 
     @Column
-    private String avatar;
+    private String avatar = "default/default-avatar.jpg";
 
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
