@@ -135,6 +135,7 @@
                 // turn json string to json obj
                 if (userStr){
                     this.currentUser = JSON.parse(userStr);
+                    console.log(this.currentUser);
                     // load the applications of this user
                     this.getApplications(this.currentUser.id);
                 }

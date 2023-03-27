@@ -1,10 +1,11 @@
 <template>
     <div :class="`product-style-one`">
-        <div class="card-thumbnail">
+        <div class="card-thumbnail" style="">
 <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
             <router-link :to="`#`">
-                <img v-if="school.img" :src="`/backend/static/`+school.img" :alt="school.name" @load="$emit('handleImageLoad')">
-                <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
+                <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
+
+              <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
             </router-link>
             <countdown v-if="showDDLCountdown" :date="deadline"/>
         </div>
