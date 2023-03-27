@@ -101,7 +101,8 @@
 <!--                            :show-place-bid="true"-->
 <!--                        />-->
                         <program-card :program="program"
-                                      :school="schoolsOfPrograms[index]"/>
+                                      :school="schoolsOfPrograms[index]"
+                                      :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>
                 <h3 v-if="!programs.length" class="text-center">No Match Found</h3>
@@ -118,6 +119,7 @@
     import ProductFilterMixin from '@/mixins/ProductFilterMixin'
     import programApi from "@/api/program";
     import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
+    import profileApi from "@/api/profile";
 
     export default {
         name: 'ExploreFilterPrograms',
@@ -130,6 +132,8 @@
         mixins: [ProductFilterMixin],
         data() {
             return {
+                likedPrograms: [],
+                likedProgramIds: [],
                 programQuery: {
                     likes: "most-liked",
                     degree: "all",
@@ -141,6 +145,8 @@
         },
         created() {
             this.getProgramsByQuery();
+            // init the liked program list
+            this.getLikedPrograms();
         },
         methods: {
 
@@ -171,6 +177,29 @@
                         // update the school list corresponding to the programs
                         this.schoolsOfPrograms = response.data.schoolsOfPrograms;
                     })
+            },
+
+            // get a list of ids of programs that the user liked
+            getLikedPrograms(){
+                // reset the lists to empty
+                this.likedPrograms = [];
+                this.likedProgramIds = [];
+                profileApi.getLikedPrograms()
+                    .then(response => {
+                        // update the liked programs
+                        this.likedPrograms = response.data.likedPrograms;
+                        // create the list of program id
+                        for (let k in this.likedPrograms){
+                            this.likedProgramIds.push(this.likedPrograms[k].id);
+                        }
+                    })
+            },
+
+            // whether the user liked a program
+            isLiked(programId){
+                return {
+                    isLiked: this.likedProgramIds.includes(programId)
+                };
             }
 
         }

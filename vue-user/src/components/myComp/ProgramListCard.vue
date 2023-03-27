@@ -28,7 +28,11 @@
                     </router-link>
                     <span class="latest-bid">{{ program.school.name }}</span>
                     <div class="share-wrapper d-flex">
-                        <div class="react-area mr--15">
+                        <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(program.id)">
+                            <i class="feather-heart"/>
+                            <span class="number">{{ program.likes }}</span>
+                        </div>
+                        <div v-else class="react-area mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
                             <span class="number">{{ program.likes }}</span>
                         </div>
@@ -81,6 +85,7 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programSelectionApi from "@/api/programSelection";
+    import programAip from "@/api/program";
 
     export default {
         name: 'ProductListCard',
@@ -102,7 +107,8 @@
             isProgramSelected: {
                 type: Boolean,
                 default: false
-            }
+            },
+            isLikedObj: {}
         },
         data(){
             return{
@@ -132,6 +138,19 @@
                         window.alert("The program added successfully into your list!")
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
+                    })
+            },
+
+            likeProgram(programId){
+                // call API method
+                programAip.likeProgram(programId)
+                    .then(response => {
+                        if(response.success){
+                            // update the like number of this program
+                            this.program.likes = response.data.likes;
+                            // change the liked status
+                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                        }
                     })
             }
         }

@@ -880,6 +880,51 @@
             }
           }
         }
+
+        .react-area-activated {
+          cursor: pointer;
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          transition: var(--transition);
+          padding: 4px 10px;
+          border-radius: 6px;
+
+          i {
+            margin-right: 3px;
+            position: relative;
+            width: 14px;
+            color: var(--color-white);
+          }
+
+          span {
+            &.number {
+              font-size: 14px;
+              position: relative;
+              color: var(--color-white);
+            }
+          }
+
+          &::after {
+            background: var(--color-primary);
+            position: absolute;
+            content: '';
+            top: 0;
+            z-index: -1;
+            border-radius: 6px;
+            transition: var(--transition);
+            width: 100%;
+            left: 0;
+            height: 100%;
+          }
+
+          &:hover {
+            &::after {
+              background: var(--color-primary);
+            }
+          }
+        }
       }
     }
 
