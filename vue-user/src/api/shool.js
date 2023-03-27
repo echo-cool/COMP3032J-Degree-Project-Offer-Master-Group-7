@@ -8,6 +8,13 @@ export default{
             url: `/api/school/public/get-top-ranked-schools/${rankRule}/${limit}`,
             method: 'get'
         })
+    },
+
+    getAllSchools() {
+        return request(({
+            url: `/api/school/public/getAllSchools`,
+            method: 'get'
+        }))
     }
 
 }
