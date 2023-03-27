@@ -11,9 +11,9 @@ export default{
     },
 
     // get programs by a query obj (likes, degree, major, ...)
-    getProgramsByQuery(queryObj, limit){
+    getProgramsByQuery(queryObj, limit, current){
         return request({
-            url: `/api/program/public/get-programs-by-query/${limit}`,
+            url: `/api/program/public/get-programs-by-query/${limit}/${current}`,
             method: 'post',
             data: queryObj
         })

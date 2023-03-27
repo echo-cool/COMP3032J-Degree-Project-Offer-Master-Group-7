@@ -81,7 +81,7 @@
         <!-- Top Top Program End -->
 
         <!-- Top Explore Programs Start -->
-        <explore-filter-programs/>
+        <explore-filter-programs :query="''" :limit="10"/>
         <!-- Top Explore Programs End -->
 
     </layout>

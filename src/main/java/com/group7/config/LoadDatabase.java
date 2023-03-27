@@ -4,8 +4,6 @@ import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.EMajor;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

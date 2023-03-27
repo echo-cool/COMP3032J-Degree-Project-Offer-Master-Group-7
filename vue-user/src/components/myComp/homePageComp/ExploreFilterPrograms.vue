@@ -93,7 +93,7 @@
                  data-sal-duration="800">
                 <template v-for="(program, index) in programs"
                           :key="`program-item-${index}`">
-                    <div v-if="index < 10" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
 <!--                        <product-card-->
 <!--                            :product-date="product"-->
 <!--                            product-style-class="no-overlay with-placeBid"-->
@@ -111,7 +111,6 @@
 </template>
 
 <script>
-    import RangeSlider from '@/components/range/RangeSlider'
     import GPARangeSlider from "@/components/myComp/program/GPARangeSlider.vue";
     import NiceSelect from '@/components/select/NiceSelect'
     import ProductCard from '@/components/product/ProductCard'
@@ -127,7 +126,7 @@
             NiceSelect,
             ProductCard
         },
-        props: {"query": String, default: ""},
+        props: {"query": {type: String, default: ""}, "limit": {type: Number, default: -1}, "current":{type: Number, default: 1}},
         mixins: [ProductFilterMixin],
         data() {
             return {
@@ -166,13 +165,14 @@
             },
 
             getProgramsByQuery(){
+              console.log(this.programQuery)
                 // call the api method
-                programApi.getProgramsByQuery(this.programQuery, 10)
+                programApi.getProgramsByQuery(this.programQuery, this.limit, this.current)
                     .then(response => {
                         // update the program list
-                        this.programs = response.data.programs;
+                        this.programs = response.data.programs.content;
                         // update the school list corresponding to the programs
-                        this.schoolsOfPrograms = response.data.schoolsOfPrograms;
+                        this.schoolsOfPrograms = response.data.schoolsOfPrograms.content;
                     })
             }
 

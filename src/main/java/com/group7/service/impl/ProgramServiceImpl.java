@@ -71,7 +71,7 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo, long limit) {
+    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo) {
         Stream<Program> programs;
         List<Program> programList;
         Sort sort;
@@ -93,7 +93,7 @@ public class ProgramServiceImpl implements ProgramService {
             sort = Sort.unsorted();
         }
 
-        List<Program> programsByQuery = programRepository.findBySchool_NameContainingOrNameContaining(query, query);
+        List<Program> programsByQuery = programRepository.findBySchool_NameContainingOrNameContaining(query, query, sort);
 
         // determine whether degree and major are "all"
         if (degree.equals("all") && major.equals("all")){
@@ -121,10 +121,10 @@ public class ProgramServiceImpl implements ProgramService {
 
         // limit the number of programs when return
         // if less than the limit, we return all
-        if (programList.size() > limit){
-            // return limited number
-            programList = programList.subList(0, (int) limit);
-        }
+//        if (programList.size() > limit){
+//            // return limited number
+//            programList = programList.subList(0, (int) limit);
+//        }
 
         return programList;
     }

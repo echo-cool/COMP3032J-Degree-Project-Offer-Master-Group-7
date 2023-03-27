@@ -13,10 +13,15 @@ import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+
+import static com.group7.utils.common.ListToPage.listToPage;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -143,27 +148,27 @@ public class ProgramController {
         return R.ok().data("popularPrograms", popularPrograms).data("schoolsOfPrograms", schoolsOfPrograms);
     }
 
-    @RequestMapping("/public/get-programs-by-query/{limit}")
-    public R getProgramsByQuery(@PathVariable("limit") long limit, @RequestBody(required = false) ProgramQueryVo programQueryVo) {
+    @RequestMapping("/public/get-programs-by-query/{limit}/{current}")
+    public R getProgramsByQuery(@PathVariable("limit") long limit, @PathVariable("current") long current, @RequestBody(required = false) ProgramQueryVo programQueryVo) {
 
         // get query items
         String likes = programQueryVo.getLikes();
         String degree = programQueryVo.getDegree();
         String major = programQueryVo.getMajor();
-        String query = programQueryVo.getQuery();
 
-
+        Page<Program> programList;
+        Page<School> schoolList;
 
         if (likes == null || degree == null || major == null ||
                 likes.isBlank() || degree.isBlank() || major.isBlank()){
             return R.error().message("Invalid query (blank)");
         }
 
-        if (limit < 0){
+        if (limit < -1){
             return R.error().message("Invalid limit number");
         }
 
-        List<Program> programs = programService.getProgramsByQuery(programQueryVo, limit);
+        List<Program> programs = programService.getProgramsByQuery(programQueryVo);
 
         // get school of each program (this is also need at frontend)
         List<School> schoolsOfPrograms = new ArrayList<>();
@@ -171,7 +176,16 @@ public class ProgramController {
             schoolsOfPrograms.add(p.getSchool());
         }
 
-        return R.ok().data("programs", programs).data("schoolsOfPrograms", schoolsOfPrograms);
+        if (limit == -1) {
+            limit = schoolsOfPrograms.size();
+        }
+
+        Pageable pageable = PageRequest.of((int)current - 1, (int)limit);
+
+        programList = listToPage(programs, pageable);
+        schoolList = listToPage(schoolsOfPrograms, pageable);
+
+        return R.ok().data("programs", programList).data("schoolsOfPrograms", schoolList);
     }
 
     @RequestMapping("/public/getRandomPrograms/{size}")

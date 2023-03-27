@@ -33,7 +33,7 @@ public interface ProgramRepository extends JpaRepository<Program, Long>, PagingA
 
     List<Program> findByMajor(EMajor eMajor, Sort sort);
 
-    List<Program> findBySchool_NameContainingOrNameContaining(String schoolName, String name);
+    List<Program> findBySchool_NameContainingOrNameContaining(String schoolName, String name, Sort sort);
 
 
 }
