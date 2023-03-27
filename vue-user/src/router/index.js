@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 
 import Login from '../views/auth/Login.vue'
 import Signup from '../views/auth/Signup.vue'
@@ -9,6 +9,7 @@ import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import About from '../views/About'
 
 const routes = [
+
     {
         path: '/',
         name: 'HomePageOne',
@@ -76,7 +77,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHashHistory(process.env.BASE_URL),
     routes
 })
 
