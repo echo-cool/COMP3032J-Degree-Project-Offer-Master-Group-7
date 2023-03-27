@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.util.Streamable;
 
 import java.util.List;
 
@@ -31,6 +32,8 @@ public interface ProgramRepository extends JpaRepository<Program, Long>, PagingA
     List<Program> findByDegreeNotAndMajor(String degree, EMajor eMajor, Sort sort);
 
     List<Program> findByMajor(EMajor eMajor, Sort sort);
+
+    List<Program> findBySchool_NameContainingOrNameContaining(String schoolName, String name);
 
 
 }

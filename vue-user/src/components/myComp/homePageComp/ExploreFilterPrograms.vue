@@ -127,19 +127,22 @@
             NiceSelect,
             ProductCard
         },
+        props: {"query": String, default: ""},
         mixins: [ProductFilterMixin],
         data() {
             return {
                 programQuery: {
                     likes: "most-liked",
                     degree: "all",
-                    major: "all"
+                    major: "all",
+                    query: ""
                 },
                 programs: [],
                 schoolsOfPrograms: []
             }
         },
         created() {
+            this.programQuery.query = this.query
             this.getProgramsByQuery();
         },
         methods: {

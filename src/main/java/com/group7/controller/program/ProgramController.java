@@ -151,6 +151,9 @@ public class ProgramController {
         String likes = programQueryVo.getLikes();
         String degree = programQueryVo.getDegree();
         String major = programQueryVo.getMajor();
+        String query = programQueryVo.getQuery();
+
+
 
         if (likes == null || degree == null || major == null ||
                 likes.isBlank() || degree.isBlank() || major.isBlank()){
