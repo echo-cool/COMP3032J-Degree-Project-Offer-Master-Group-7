@@ -27,7 +27,7 @@ public class School {
     private String name = "NULL";
 
     @Column
-    private String img;
+    private String img = "default/default.jpg";
 
     @Column
     private int rankQS;

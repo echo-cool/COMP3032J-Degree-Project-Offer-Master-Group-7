@@ -3,7 +3,7 @@
         <div class="card-thumbnail">
 <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
             <router-link :to="`#`">
-                <img v-if="school.img" :src="school.img" :alt="school.name" @load="$emit('handleImageLoad')">
+                <img v-if="school.img" :src="`/backend/static/`+school.img" :alt="school.name" @load="$emit('handleImageLoad')">
                 <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
             </router-link>
             <countdown v-if="showDDLCountdown" :date="deadline"/>

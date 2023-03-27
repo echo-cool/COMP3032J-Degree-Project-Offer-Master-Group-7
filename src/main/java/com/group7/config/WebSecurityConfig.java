@@ -82,7 +82,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers(h2ConsolePath + "/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/img/**").permitAll()
+                .requestMatchers("/static/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/school/public/**").permitAll()
                 .requestMatchers("/api/program/public/**").permitAll()

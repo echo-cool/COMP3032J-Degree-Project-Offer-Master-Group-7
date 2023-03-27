@@ -4,7 +4,7 @@
             <div :class="[`thumbnail`, {'varified': false}]">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
                 <router-link :to="`#`">
-                    <img v-if="school.img" :src="school.img" alt="program_pic">
+                    <img v-if="school.img" :src="`/backend/static/`+school.img" alt="program_pic">
                     <img v-else :src="require(`@/assets/images/client/client-1.png`)" alt="program_pic">
                 </router-link>
             </div>
