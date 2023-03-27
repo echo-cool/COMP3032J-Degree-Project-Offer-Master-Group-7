@@ -7,6 +7,7 @@ import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import About from '../views/About'
+import Explore from "@/views/Explore/Explore";
 
 const routes = [
 
@@ -72,6 +73,14 @@ const routes = [
         component: About,
         meta: {
             title: 'About || OfferMaster',
+        },
+    },
+    {
+        path: '/explore',
+        name: 'Explore',
+        component: Explore,
+        meta: {
+            title: 'Explore || OfferMaster',
         },
     },
 ]

@@ -30,6 +30,7 @@
                         :school="application.program.school"
                         :show-d-d-l-countdown="true"
                         :deadline="application.deadline"
+                        :is-liked-obj="isLiked(application.program.id)"
                     />
                 </slide>
             </carousel>
@@ -38,17 +39,15 @@
 </template>
 
 <script>
-    import 'vue3-carousel/dist/carousel.css'
-    import { Carousel, Slide, Navigation } from 'vue3-carousel'
-    import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
-    import program from "@/api/program";
+import 'vue3-carousel/dist/carousel.css'
+import {Carousel, Navigation, Slide} from 'vue3-carousel'
+import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
+import profileApi from "@/api/profile";
 
-    export default {
+export default {
         name: 'MyProgramListTimerCarousel',
         computed: {
-            program() {
-                return program
-            }
+
         },
         components: {
             ProgramCard,
@@ -74,6 +73,8 @@
         },
         data() {
             return {
+                likedPrograms: [],
+                likedProgramIds: [],
                 breakpoints: {
                     576: {
                         itemsToShow: 2,
@@ -272,6 +273,34 @@
                         reacted: '205'
                     }
                 ],
+            }
+        },
+        created() {
+            // init the liked program list
+            this.getLikedPrograms();
+        },
+        methods:{
+            // get a list of ids of programs that the user liked
+            getLikedPrograms(){
+                // reset the lists to empty
+                this.likedPrograms = [];
+                this.likedProgramIds = [];
+                profileApi.getLikedPrograms()
+                    .then(response => {
+                        // update the liked programs
+                        this.likedPrograms = response.data.likedPrograms;
+                        // create the list of program id
+                        for (let k in this.likedPrograms){
+                            this.likedProgramIds.push(this.likedPrograms[k].id);
+                        }
+                    })
+            },
+
+            // whether the user liked a program
+            isLiked(programId){
+                return {
+                    isLiked: this.likedProgramIds.includes(programId)
+                };
             }
         }
     }

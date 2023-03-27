@@ -12,8 +12,8 @@
                 </div>
                 <div class="header-right">
                     <div class="setting-option d-none d-lg-block">
-                        <form class="search-form-wrapper" action="#">
-                            <input type="search" placeholder="Search Here" aria-label="Search">
+                        <form class="search-form-wrapper" action="/explore" method="GET">
+                            <input type="search" name="search" placeholder="Search Here" aria-label="Search">
                             <div class="search-icon">
                                 <button><i class="feather-search"/></button>
                             </div>

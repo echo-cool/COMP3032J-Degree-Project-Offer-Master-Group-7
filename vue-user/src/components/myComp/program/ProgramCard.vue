@@ -49,7 +49,11 @@
         <span class="latest-bid">{{ program.name }}</span>
         <div class="bid-react-area">
             <div class="last-bid">{{ program.degree }} - {{ program.major }}</div>
-            <div class="react-area" @click="likeProgram(program.id)">
+            <div v-if="isLikedObj.isLiked" class="react-area" @click="likeProgram(program.id)" style="background: var(--color-primary); color: var(--color-white)">
+                <i class="feather-heart"/>
+                <span class="number">{{ program.likes }}</span>
+            </div>
+            <div v-else class="react-area" @click="likeProgram(program.id)">
                 <i class="feather-heart"/>
                 <span class="number">{{ program.likes }}</span>
             </div>
@@ -71,6 +75,7 @@
                 type: Boolean,
                 default: false
             },
+            isLikedObj: {},
             deadline: ""
         },
         watch: {
@@ -93,10 +98,12 @@
                 // call API method
                 programAip.likeProgram(programId)
                     .then(response => {
-                        // for test
-                        console.log("============== response: " + response.data.likes);
-                        // update the like number of this program
-                        this.program.likes = response.data.likes;
+                        if(response.success){
+                            // update the like number of this program
+                            this.program.likes = response.data.likes;
+                            // change the liked status
+                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                        }
                     })
             }
         }

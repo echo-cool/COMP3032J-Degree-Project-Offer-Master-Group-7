@@ -11,9 +11,9 @@ export default{
     },
 
     // get programs by a query obj (likes, degree, major, ...)
-    getProgramsByQuery(queryObj, limit){
+    getProgramsByQuery(queryObj, limit, current){
         return request({
-            url: `/api/program/public/get-programs-by-query/${limit}`,
+            url: `/api/program/public/get-programs-by-query/${limit}/${current}`,
             method: 'post',
             data: queryObj
         })
@@ -24,6 +24,14 @@ export default{
         return request({
             url: `/api/program/like-program/${programId}`,
             method: 'post'
+        })
+    },
+
+    // whether the user liked a specific program
+    isProgramLiked(programId){
+        return request({
+            url: `/api/program//is-program-liked/${programId}`,
+            method: 'get'
         })
     }
 }

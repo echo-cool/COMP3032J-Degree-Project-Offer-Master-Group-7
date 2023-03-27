@@ -93,7 +93,7 @@
                  data-sal-duration="800">
                 <template v-for="(program, index) in programs"
                           :key="`program-item-${index}`">
-                    <div v-if="index < 10" class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12">
 <!--                        <product-card-->
 <!--                            :product-date="product"-->
 <!--                            product-style-class="no-overlay with-placeBid"-->
@@ -101,7 +101,8 @@
 <!--                            :show-place-bid="true"-->
 <!--                        />-->
                         <program-card :program="program"
-                                      :school="schoolsOfPrograms[index]"/>
+                                      :school="schoolsOfPrograms[index]"
+                                      :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>
                 <h3 v-if="!programs.length" class="text-center">No Match Found</h3>
@@ -111,13 +112,13 @@
 </template>
 
 <script>
-    import RangeSlider from '@/components/range/RangeSlider'
     import GPARangeSlider from "@/components/myComp/program/GPARangeSlider.vue";
     import NiceSelect from '@/components/select/NiceSelect'
     import ProductCard from '@/components/product/ProductCard'
     import ProductFilterMixin from '@/mixins/ProductFilterMixin'
     import programApi from "@/api/program";
     import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
+    import profileApi from "@/api/profile";
 
     export default {
         name: 'ExploreFilterPrograms',
@@ -127,20 +128,27 @@
             NiceSelect,
             ProductCard
         },
+        props: {"query": {type: String, default: ""}, "limit": {type: Number, default: -1}, "current":{type: Number, default: 1}},
         mixins: [ProductFilterMixin],
         data() {
             return {
+                likedPrograms: [],
+                likedProgramIds: [],
                 programQuery: {
                     likes: "most-liked",
                     degree: "all",
-                    major: "all"
+                    major: "all",
+                    query: ""
                 },
                 programs: [],
                 schoolsOfPrograms: []
             }
         },
         created() {
+            this.programQuery.query = this.query
             this.getProgramsByQuery();
+            // init the liked program list
+            this.getLikedPrograms();
         },
         methods: {
 
@@ -163,14 +171,38 @@
             },
 
             getProgramsByQuery(){
+              console.log(this.programQuery)
                 // call the api method
-                programApi.getProgramsByQuery(this.programQuery, 10)
+                programApi.getProgramsByQuery(this.programQuery, this.limit, this.current)
                     .then(response => {
                         // update the program list
-                        this.programs = response.data.programs;
+                        this.programs = response.data.programs.content;
                         // update the school list corresponding to the programs
-                        this.schoolsOfPrograms = response.data.schoolsOfPrograms;
+                        this.schoolsOfPrograms = response.data.schoolsOfPrograms.content;
                     })
+            },
+
+            // get a list of ids of programs that the user liked
+            getLikedPrograms(){
+                // reset the lists to empty
+                this.likedPrograms = [];
+                this.likedProgramIds = [];
+                profileApi.getLikedPrograms()
+                    .then(response => {
+                        // update the liked programs
+                        this.likedPrograms = response.data.likedPrograms;
+                        // create the list of program id
+                        for (let k in this.likedPrograms){
+                            this.likedProgramIds.push(this.likedPrograms[k].id);
+                        }
+                    })
+            },
+
+            // whether the user liked a program
+            isLiked(programId){
+                return {
+                    isLiked: this.likedProgramIds.includes(programId)
+                };
             }
 
         }

@@ -2,7 +2,6 @@ package com.group7.service.impl;
 
 import com.group7.db.jpa.Program;
 import com.group7.db.jpa.ProgramRepository;
-import com.group7.db.jpa.School;
 import com.group7.db.jpa.utils.EMajor;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.service.ProgramService;
@@ -14,6 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.group7.utils.common.ListToPage.listToPage;
 
@@ -69,14 +71,16 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo, long limit) {
-        List<Program> programs;
+    public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo) {
+        Stream<Program> programs;
+        List<Program> programList;
         Sort sort;
 
         // get query items
         String likes = programQueryVo.getLikes();
         String degree = programQueryVo.getDegree();
         String major = programQueryVo.getMajor();
+        String query = programQueryVo.getQuery();
 
         // sort by like numbers
         if (likes.equals("most-liked")){
@@ -89,36 +93,40 @@ public class ProgramServiceImpl implements ProgramService {
             sort = Sort.unsorted();
         }
 
+        List<Program> programsByQuery = programRepository.findBySchool_NameContainingOrNameContaining(query, query, sort);
+
         // determine whether degree and major are "all"
         if (degree.equals("all") && major.equals("all")){
-            programs = programRepository.findAll(sort);
+            programs = programsByQuery.stream().filter(item -> programRepository.findAll(sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
 
         } else if (degree.equals("all")) {
-            programs = programRepository.findByMajor(EMajor.valueOf(major), sort);
+            programs = programsByQuery.stream().filter(item -> programRepository.findByMajor(EMajor.valueOf(major), sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
 
         } else if (major.equals("all")) {
             if (degree.equals("PhD")){
-                programs = programRepository.findByDegree(degree, sort);
+                programs = programsByQuery.stream().filter(item -> programRepository.findByDegree(degree, sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
             }else{
-                programs = programRepository.findByDegreeNot("PhD", sort);
+                programs = programsByQuery.stream().filter(item -> programRepository.findByDegreeNot("PhD", sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
             }
 
         }else{
             if (degree.equals("PhD")){
-                programs = programRepository.findByDegreeAndMajor(degree, EMajor.valueOf(major), sort);;
+                programs = programsByQuery.stream().filter(item -> programRepository.findByDegreeAndMajor(degree, EMajor.valueOf(major), sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
             }else{
-                programs = programRepository.findByDegreeNotAndMajor("PhD", EMajor.valueOf(major), sort);
+                programs = programsByQuery.stream().filter(item -> programRepository.findByDegreeNotAndMajor("PhD", EMajor.valueOf(major), sort).stream().map(Program::getId).anyMatch(id -> Objects.equals(item.getId(), id)));
             }
         }
 
+        programList = programs.collect(Collectors.toList());
+
         // limit the number of programs when return
         // if less than the limit, we return all
-        if (programs.size() > limit){
-            // return limited number
-            programs = programs.subList(0, (int) limit);
-        }
+//        if (programList.size() > limit){
+//            // return limited number
+//            programList = programList.subList(0, (int) limit);
+//        }
 
-        return programs;
+        return programList;
     }
 
 

@@ -16,4 +16,5 @@ public class ProgramQueryVo {
     private String major;
     private String degree;
     private String likes;   // most-liked or least-liked
+    private String query;
 }

@@ -53,6 +53,13 @@ export default{
             url: `/rest/users/${uid}/applications`,
             method: 'get'
         })
+    },
+
+    getLikedPrograms(){
+        return request({
+            url: `/api/user/get-liked-programs`,
+            method: 'get'
+        })
     }
 
 }
