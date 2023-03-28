@@ -42,7 +42,7 @@ docker build . --file Dockerfile --tag ghcr.io/echo-cool/fyp/fyp_offer_master_sp
 cd vue-user/
 npm install
 npm run build
-docker build . --file Dockerfile --tag ghcr.io/echo-cool/fyp/fyp_offer_master_vue_user
+docker build -t fyp_offer_master_vue_user .
 ```
 
 ### Frontend-Admin (Vue)
