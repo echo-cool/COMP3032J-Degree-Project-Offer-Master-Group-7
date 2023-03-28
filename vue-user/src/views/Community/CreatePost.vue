@@ -51,71 +51,83 @@
 
                     <div class="col-lg-7">
                         <div class="form-wrapper-one">
-                            <form class="row" action="#">
+                            <form class="row" action="#" onsubmit="return false" id="post-form">
                                 <div class="col-md-12">
                                     <div class="input-box pb--20">
-                                        <label for="name" class="form-label">Product Name</label>
-                                        <input id="name" placeholder="e. g. `Digital Awesome Game`">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-box pb--20">
-                                        <label for="Description" class="form-label">Description</label>
-                                        <textarea
-                                            id="Description"
-                                            rows="3"
-                                            placeholder="e. g. “After purchasing the product you can get item...”">
-                                        </textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-box pb--20">
-                                        <label for="dollerValue" class="form-label">Item Price in $</label>
-                                        <input id="dollerValue" placeholder="e. g. `20$`">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-box pb--20">
-                                        <label for="Size" class="form-label">Size</label>
-                                        <input id="Size" placeholder="e. g. `Size`">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-box pb--20">
-                                        <label for="Properties" class="form-label">Properties</label>
-                                        <input id="Properties" placeholder="e. g. `Properties`">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input id="title" name="title" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-box pb--20">
-                                        <label for="Royality" class="form-label">Royality</label>
-                                        <input id="Royality" placeholder="e. g. `20%`">
+                                        <label for="Content" class="form-label">Content</label>
+                                          <div style="border: 1px solid #ccc">
+                                            <Toolbar
+                                                style="border-bottom: 1px solid #ccc"
+                                                :editor="editorRef"
+                                                :defaultConfig="toolbarConfig"
+                                                :mode="mode"
+                                            />
+                                            <Editor
+                                                id="Content"
+                                                name="content"
+                                                style="height: 500px; overflow-y: hidden;"
+                                                v-model="valueHtml"
+                                                :defaultConfig="editorConfig"
+                                                :mode="mode"
+                                                @onCreated="handleCreated"
+                                            />
+                                          </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="input-box pb--20 rn-check-box">
-                                        <input class="rn-check-box-input" type="checkbox" id="putonsale">
-                                        <label class="rn-check-box-label" for="putonsale">
-                                            Put on Sale
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="input-box pb--20 rn-check-box">
-                                        <input class="rn-check-box-input" type="checkbox" id="instantsaleprice">
-                                        <label class="rn-check-box-label" for="instantsaleprice">
-                                            Instant Sale Price
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="input-box pb--20 rn-check-box">
-                                        <input class="rn-check-box-input" type="checkbox" id="unlockpurchased">
-                                        <label class="rn-check-box-label" for="unlockpurchased">
-                                            Unlock Purchased
-                                        </label>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20">-->
+<!--                                        <label for="dollerValue" class="form-label">Item Price in $</label>-->
+<!--                                        <input id="dollerValue" placeholder="e. g. `20$`">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20">-->
+<!--                                        <label for="Size" class="form-label">Size</label>-->
+<!--                                        <input id="Size" placeholder="e. g. `Size`">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20">-->
+<!--                                        <label for="Properties" class="form-label">Properties</label>-->
+<!--                                        <input id="Properties" placeholder="e. g. `Properties`">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <div class="input-box pb&#45;&#45;20">-->
+<!--                                        <label for="Royality" class="form-label">Royality</label>-->
+<!--                                        <input id="Royality" placeholder="e. g. `20%`">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4 col-sm-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20 rn-check-box">-->
+<!--                                        <input class="rn-check-box-input" type="checkbox" id="putonsale">-->
+<!--                                        <label class="rn-check-box-label" for="putonsale">-->
+<!--                                            Put on Sale-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4 col-sm-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20 rn-check-box">-->
+<!--                                        <input class="rn-check-box-input" type="checkbox" id="instantsaleprice">-->
+<!--                                        <label class="rn-check-box-label" for="instantsaleprice">-->
+<!--                                            Instant Sale Price-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4 col-sm-4">-->
+<!--                                    <div class="input-box pb&#45;&#45;20 rn-check-box">-->
+<!--                                        <input class="rn-check-box-input" type="checkbox" id="unlockpurchased">-->
+<!--                                        <label class="rn-check-box-label" for="unlockpurchased">-->
+<!--                                            Unlock Purchased-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-md-12 col-xl-4">
                                     <div class="input-box">
                                         <button type="button" class="btn btn-primary-alta btn-large w-100"
@@ -125,7 +137,7 @@
                                 </div>
                                 <div class="col-md-12 col-xl-8 mt_lg--15 mt_md--15 mt_sm--15">
                                     <div class="input-box">
-                                        <button class="btn btn-primary btn-large w-100">Submit Item</button>
+                                        <button class="btn btn-primary btn-large w-100" v-on:click="submitEvent()">Submit Item</button>
                                     </div>
                                 </div>
                             </form>
@@ -167,12 +179,62 @@
     import ShareModal from '@/components/modal/ShareModal'
     import ReportModal from '@/components/modal/ReportModal'
 
+    import '@wangeditor/editor/dist/css/style.css' // 引入 css
+
+    import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+    import { i18nChangeLanguage } from '@wangeditor/editor'
+    import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+    import request from "@/utils/request";
+    import cookie from "js-cookie";
+
     export default {
         name: 'CreatePost',
-        components: {ReportModal, ShareModal, ProductCard, Breadcrumb, Layout},
+        components: {ReportModal, ShareModal, ProductCard, Breadcrumb, Layout, Editor, Toolbar},
+        setup() {
+          i18nChangeLanguage('en')
+
+          // 编辑器实例，必须用 shallowRef
+          const editorRef = shallowRef()
+
+          // 内容 HTML
+          const valueHtml = ref('<p>Enter...</p>')
+
+          // 模拟 ajax 异步获取内容
+          onMounted(() => {
+            setTimeout(() => {
+              valueHtml.value = '<p></p>'
+            }, 1500)
+          })
+
+          const toolbarConfig = {}
+          const editorConfig = { placeholder: 'Enter...' }
+
+          // 组件销毁时，也及时销毁编辑器
+          onBeforeUnmount(() => {
+            const editor = editorRef.value
+            if (editor == null) return
+            editor.destroy()
+            this.editor = undefined
+          })
+
+          const handleCreated = (editor) => {
+            editorRef.value = editor // 记录 editor 实例，重要！
+            this.editor = editorRef.value
+          }
+
+          return {
+            editorRef,
+            valueHtml,
+            mode: 'default', // 或 'simple'
+            toolbarConfig,
+            editorConfig,
+            handleCreated
+          };
+        },
         data() {
             return {
                 selectedImage: null,
+                editor: undefined,
                 product: {
                     id: 1,
                     productImage: require(`@/assets/images/portfolio/portfolio-01.jpg`),
@@ -207,6 +269,21 @@
                     const file = e.target.files[0];
                     this.selectedImage = URL.createObjectURL(file);
                 }
+            },
+            submitEvent() {
+              let form = document.getElementById('post-form')
+              let formData = new FormData(form)
+              formData.append("content", this.editor.getHtml())
+              console.log(formData.get("content"))
+              request({
+                url: '/api/post/createPost',
+                method: 'post',
+                headers: {
+                  'Authorization': 'Bearer ' + cookie.get("user_token")
+                },
+                data: formData
+              })
+              return false
             }
         }
     }

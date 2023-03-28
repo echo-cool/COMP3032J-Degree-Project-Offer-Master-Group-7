@@ -6,10 +6,8 @@ import com.group7.db.jpa.PostCategoryRepository;
 import com.group7.db.jpa.PostRepository;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +32,12 @@ public class PostController {
     public R getAllCategories() {
         List<PostCategory> allPostCategories = postCategoryRepository.findAll();
         return R.ok().data("categories", allPostCategories);
+    }
+
+    @PostMapping("/createPost")
+    public R createPost(HttpServletRequest request) {
+        System.out.println(request.getAttribute());
+        return R.ok();
     }
 
 }
