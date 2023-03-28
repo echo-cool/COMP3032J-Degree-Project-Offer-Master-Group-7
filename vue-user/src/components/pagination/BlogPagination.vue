@@ -1,5 +1,5 @@
 <template>
-    <nav v-if="posts.length > 8"
+    <nav v-if="posts.length > countOfPage"
          class="pagination-wrapper"
          aria-label="Page navigation example">
         <ul :class="`pagination ${paginationClass}`">

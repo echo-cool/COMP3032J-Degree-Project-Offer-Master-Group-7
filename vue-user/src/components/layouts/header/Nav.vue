@@ -163,6 +163,12 @@ export default {
                     {link: '/program-selection', title: 'Manual', icon: 'fast-forward'},
                   ]
               },
+              {
+                link: '/community',
+                title: 'Community',
+                hasDropdown: false,
+                megamenu: false,
+              },
                 // {
                 //     link: '#',
                 //     title: 'Testing',

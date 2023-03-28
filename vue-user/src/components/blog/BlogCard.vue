@@ -2,7 +2,7 @@
     <div class="rn-blog">
         <div class="inner">
             <div class="thumbnail">
-                <router-link :to="`/blog-details/${blog.id}`">
+                <router-link :to="`/post-details/${blog.id}`">
                     <img :src="`/backend/static/`+blog.img" :alt="blog.title">
                 </router-link>
             </div>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <h4 class="title">
-                    <router-link :to="`/blog-details/${blog.id}`">
+                    <router-link :to="`/post-details/${blog.id}`">
                         {{ blog.title }} <i class="feather-arrow-up-right"/>
                     </router-link>
                 </h4>

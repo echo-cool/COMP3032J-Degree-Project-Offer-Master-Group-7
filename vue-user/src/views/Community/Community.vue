@@ -19,6 +19,7 @@
                                     :count-of-page="3"
                                     pagination-class="single-column-blog"
                                     @paginatedData="paginatedData"
+                                    v-if="posts[0]['id'] !== 0"
                                 />
                             </div>
                         </div>

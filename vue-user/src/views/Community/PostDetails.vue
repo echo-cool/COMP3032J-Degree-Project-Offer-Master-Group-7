@@ -9,14 +9,14 @@
                         <div class="rn-blog-listen">
                             <div class="blog-content-top">
                                 <h2 class="title">{{ blog.title }}</h2>
-                                <span class="date">2 Aug, </span>
+                                <span class="date">{{blog.createdAt}}</span>
                             </div>
                             <div class="bd-thumbnail">
                                 <div class="large-img mb--30">
-                                    <img class="w-100" :src="blog.img" alt="Blog Images">
+                                    <img class="w-100" :src="`/backend/static/`+blog.img" alt="Blog Images">
                                 </div>
                             </div>
-                            <div class="news-details" v-html="blog.body"/>
+                            <div class="news-details" v-html="blog.content"/>
                             <div class="comments-wrapper pt--40">
                                 <div class="comments-area">
                                     <div class="trydo-blog-comment">
@@ -255,6 +255,7 @@
     import BlogCard from '@/components/blog/BlogCard'
     import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
     import BlogSidebar from '@/components/blog/BlogSidebar'
+    import {getAllPosts} from "@/api/community";
 
     export default {
         name: 'PostDetails',
@@ -272,7 +273,10 @@
             }
         },
         created() {
-            this.getBlog(this.id);
+            getAllPosts().then(response => {
+              this.posts = response['data']['posts']
+              this.getBlog(this.id);
+            })
         },
         watch: {
             '$route.params.id': function (val) {
