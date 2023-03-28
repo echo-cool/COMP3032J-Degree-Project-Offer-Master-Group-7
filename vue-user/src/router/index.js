@@ -8,6 +8,7 @@ import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
+import Community from "@/views/Community/Community";
 
 const routes = [
 
@@ -81,6 +82,14 @@ const routes = [
         component: Explore,
         meta: {
             title: 'Explore || OfferMaster',
+        },
+    },
+    {
+        path: '/community',
+        name: 'Community',
+        component: Community,
+        meta: {
+            title: 'Community || OfferMaster',
         },
     },
 ]

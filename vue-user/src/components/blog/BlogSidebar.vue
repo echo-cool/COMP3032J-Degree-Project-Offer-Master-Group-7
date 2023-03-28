@@ -22,24 +22,24 @@
                             <router-link class="d-block" :to="`/blog-details/${recentPost.id}`">
                                 {{ recentPost.title }}
                             </router-link>
-                            <span class="cate">{{ recentPost.categories[0] }}</span>
+                            <span class="cate">{{ recentPost.category.name }}</span>
                         </li>
                     </template>
                 </ul>
             </div>
         </div>
-        <div class="rbt-single-widget widget_tag_cloud mt--40">
-            <h3 class="title">Tags</h3>
-            <div class="inner mt--20">
-                <div class="tagcloud">
-                    <router-link v-for="(tag, index) in tags"
-                                 :to="`/tag/${tag.slug}`"
-                                 :key="`tag-${index}`">
-                        {{ tag.title }}
-                    </router-link>
-                </div>
-            </div>
-        </div>
+<!--        <div class="rbt-single-widget widget_tag_cloud mt&#45;&#45;40">-->
+<!--            <h3 class="title">Tags</h3>-->
+<!--            <div class="inner mt&#45;&#45;20">-->
+<!--                <div class="tagcloud">-->
+<!--                    <router-link v-for="(tag, index) in tags"-->
+<!--                                 :to="`/tag/${tag.slug}`"-->
+<!--                                 :key="`tag-${index}`">-->
+<!--                        {{ tag.title }}-->
+<!--                    </router-link>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </aside>
 </template>
 

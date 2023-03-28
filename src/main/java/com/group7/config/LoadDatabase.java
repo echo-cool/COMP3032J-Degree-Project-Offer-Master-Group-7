@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
@@ -46,6 +47,12 @@ class LoadDatabase {
 
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostCategoryRepository postCategoryRepository;
 
     @Bean
     CommandLineRunner initDatabase() throws ParseException {
@@ -206,6 +213,18 @@ class LoadDatabase {
         applicationRepository.save(application5);
         applicationRepository.save(application6);
         applicationRepository.save(application7);
+
+        PostCategory postCategory1 = new PostCategory("Study");
+        PostCategory postCategory2 = new PostCategory("Application");
+
+        postCategoryRepository.save(postCategory1);
+        postCategoryRepository.save(postCategory2);
+
+        Post post1 = new Post("123", "123", postCategory1, user1);
+        Post post2 = new Post("qwq", "qwq", postCategory2, user2);
+
+        postRepository.save(post1);
+        postRepository.save(post2);
 
 
         return args -> log.warn("Preloaded database, completed.");
