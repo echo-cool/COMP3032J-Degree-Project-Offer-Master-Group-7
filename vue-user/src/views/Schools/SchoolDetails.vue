@@ -626,7 +626,7 @@
 
                     </div>
                 </div>
-                <virtual-campus-tour-frame :coords="{ lat: 42.345573, lng: -71.098326 }"/>
+                <virtual-campus-tour-frame :coords="{ lat: Number(product.lat), lng: Number(product.lng) }"/>
             </div>
         </div>
         <!-- Virtual Campus Tour area End -->

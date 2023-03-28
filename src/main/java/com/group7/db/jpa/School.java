@@ -29,6 +29,12 @@ public class School {
     @Column
     private int rankUSNews;
 
+    @Column(nullable = false)
+    private String lat;     // Latitude for virtual campus tour
+
+    @Column(nullable = false)
+    private String lng;     // Longitude for virtual campus tour
+
     @Column
     private String logo = "default/default-logo.jpg";
 
@@ -43,6 +49,7 @@ public class School {
 
     @Column
     private long likes = MyRandomUtils.getRandomInt(100, 3200);
+
     public School(String name, Set<Program> programs) {
         this.name = name;
         this.programs = programs;
@@ -78,12 +85,14 @@ public class School {
         this.img = "upload/img/" + img;
     }
 
-    public School(String name, int rankQS, int rankUSNews, String logo, String img, String[] extraImages) {
+    public School(String name, int rankQS, int rankUSNews, String logo, String img, String lat, String lng, String[] extraImages) {
         this.name = name;
         this.rankQS = rankQS;
         this.rankUSNews = rankUSNews;
         this.logo = "upload/img/" + logo;
         this.img = "upload/img/" +img;
+        this.lat = lat;
+        this.lng = lng;
         setExtraImages(extraImages);
     }
 
@@ -138,6 +147,22 @@ public class School {
 
     public void setRankUSNews(int rankUSNews) {
         this.rankUSNews = rankUSNews;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public String getLogo() {
