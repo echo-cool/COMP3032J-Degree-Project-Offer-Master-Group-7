@@ -20,7 +20,7 @@
     export default {
         name: 'VirtualCampusTour',
         props:{
-
+            coords: {},
         },
         data(){
             return{
@@ -28,41 +28,43 @@
             }
         },
         created() {
-            this.initMap();
+            // load map
+            window.initialize = this.initMap;
         },
         methods:{
-            initMap() {
-                function initialize() {
-                    // const fenway = { lat: 42.345573, lng: -71.098326 };
-                    const fenway = { lat: 40.807384, lng: -73.963036 };
-                    // const duke = { lat: 36.0014, lng: -78.939133 };
-                    let mapOptions = {
-                        zoom: 16,
-                        center: fenway
-                    };
-                    let mapOptionsSatellite = {
-                        zoom: 16,
-                        center: fenway,
-                        mapTypeId: 'satellite'
-                    };
-                    const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                    const panorama = new google.maps.StreetViewPanorama(
-                        document.getElementById("pano"),
-                        {
-                            position: fenway,
-                            pov: {
-                                heading: 34,
-                                pitch: 10,
-                            },
-                        }
-                    );
-                    map.setStreetView(panorama);
+            initMap(){
+                // const fenway = { lat: 42.345573, lng: -71.098326 };
+                const fenway = { lat: 42.345573, lng: -71.098326 };
+                // const fenway = { lat: 40.807384, lng: -73.963036 };
+                // const fenway = { lat: 36.0014, lng: -78.939133 };
+                // const duke = { lat: 36.0014, lng: -78.939133 };
+                let coords = this.coords;
 
-                    const mapSatellite = new google.maps.Map(document.getElementById("map-satellite"), mapOptionsSatellite);
-                    mapSatellite.setStreetView(panorama);
-                }
-                window.initialize = initialize;
-            },
+                let mapOptions = {
+                    zoom: 16,
+                    center: coords
+                };
+                let mapOptionsSatellite = {
+                    zoom: 16,
+                    center: coords,
+                    mapTypeId: 'satellite'
+                };
+                const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                const panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("pano"),
+                    {
+                        position: coords,
+                        pov: {
+                            heading: 34,
+                            pitch: 10,
+                        },
+                    }
+                );
+                map.setStreetView(panorama);
+
+                const mapSatellite = new google.maps.Map(document.getElementById("map-satellite"), mapOptionsSatellite);
+                mapSatellite.setStreetView(panorama);
+            }
 
         }
     }
