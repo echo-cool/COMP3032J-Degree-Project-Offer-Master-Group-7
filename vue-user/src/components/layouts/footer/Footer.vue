@@ -114,14 +114,14 @@
                                    :key="index">
                                 <li class="recent-post">
                                     <div class="thumbnail">
-                                        <router-link to="/school-details/{{school.id}}">
+                                        <router-link :to="`/school-details/`+school.id">
                                             <img :src="`/backend/static/` + school.logo"
                                                  alt="school Images" style="width: 60px">
                                         </router-link>
                                     </div>
                                     <div class="content">
                                         <h6 class="title">
-                                            <router-link to="/school-details/{{school.id}}">{{school.name}}</router-link>
+                                            <router-link :to="`/school-details/`+school.id">{{school.name}}</router-link>
                                         </h6>
 <!--                                        <p></p>-->
                                         <span class="price">QS Ranking: {{school.rankQS}}#</span>

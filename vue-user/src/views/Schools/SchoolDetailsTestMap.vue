@@ -626,7 +626,7 @@
 
                     </div>
                 </div>
-                <virtual-campus-tour-frame :coords="{ lat: Number(product.lat), lng: Number(product.lng) }"/>
+                <virtual-campus-tour-frame/>
             </div>
         </div>
         <!-- Virtual Campus Tour area End -->
@@ -659,6 +659,7 @@
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
                         <h3 class="title mb--0">Related Programs</h3>
+
                     </div>
                 </div>
                 <div class="row g-5">
@@ -675,12 +676,15 @@
         </div>
         <!-- Related item area End -->
 
+
+
         <share-modal/>
 
         <report-modal/>
 
         <placebid-modal/>
     </layout>
+
 </template>
 
 <script>
@@ -695,20 +699,24 @@
     import ProductMixin from "@/mixins/ProductMixin";
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+    import SubscriptionStyleOne from "@/components/subscription/SubscriptionStyleOne.vue";
+
+    // import google from "@types/google.maps"s
+
+    // import { Loader } from "@googlemaps/js-api-loader"
+    // const loader = new Loader({
+    //     apiKey: "AIzaSyDJ7ELJuZaigtiB50_buOhvcjyGvOTk5MY",
+    //     version: "weekly"
+    // });
 
 
     export default {
-        name: 'SchoolDetails',
+        name: 'SchoolDetailsTestMap',
         components: {
             PlacebidModal,
             Countdown,
             ReportModal,
-            ShareModal,
-            ProductCard,
-            Breadcrumb,
-            Layout,
-            VirtualCampusTourFrame
-        },
+            ShareModal, ProductCard, Breadcrumb, Layout, VirtualCampusTourFrame, SubscriptionStyleOne},
         mixins: [ProductMixin],
         data() {
             return {
@@ -763,11 +771,118 @@
               });
 
             },
+
+            // initializeMap() {
+            //     request({
+            //         url: `https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ7ELJuZaigtiB50_buOhvcjyGvOTk5MY&callback=initialize&v=weekly`,
+            //         method: 'get'
+            //     }).then(response => {
+            //
+            //     })
+            //     const fenway = { lat: 42.345573, lng: -71.098326 };
+            //     const map = new google.maps.Map(document.getElementById("map"), {
+            //         center: fenway,
+            //         zoom: 14,
+            //     });
+            //     const panorama = new google.maps.StreetViewPanorama(
+            //         document.getElementById("pano"),
+            //         {
+            //             position: fenway,
+            //             pov: {
+            //                 heading: 34,
+            //                 pitch: 10,
+            //             },
+            //         }
+            //     );
+            //     map.setStreetView(panorama);
+            // }
+
+            initMap() {
+                // loader.load().then(async () => {
+                //     const { Map } = await google.maps.importLibrary("maps");
+                //
+                //     let map = new Map(document.getElementById("map"), {
+                //         center: { lat: -34.397, lng: 150.644 },
+                //         zoom: 8,
+                //     });
+                // });
+
+
+                // const mapOptions = {
+                //     center: { lat: 22.602, lng: 114.043 },
+                //     zoom: 6
+                // }
+                // loader
+                //     .load()
+                //     .then((google) => {
+                //         this.google = google
+                //         this.map = new google.maps.Map(
+                //             document.getElementById("map"),
+                //             mapOptions
+                //         )
+                //         // service 地点查询类
+                //         this.service = new google.maps.places.PlacesService(this.map)
+                //         this.infoWindow = new google.maps.InfoWindow({ // 地图信息窗口
+                //             content: "",
+                //             // disableAutoPan: true,
+                //         })
+                //         this.marker = new google.maps.Marker() // 地图标记类
+                //         this.google.maps.event.addListener(this.map, 'click', this.clickMap) // 监听地图点击事件
+                //     }).catch((e) => {
+                //     console.log(e)
+                // })
+
+                function initialize() {
+                    // const fenway = { lat: 42.345573, lng: -71.098326 };
+                    const fenway = { lat: 40.807384, lng: -73.963036 };
+                    // const duke = { lat: 36.0014, lng: -78.939133 };
+                    let mapOptions = {
+                        zoom: 16,
+                        center: fenway
+                    };
+                    let mapOptionsSatellite = {
+                        zoom: 16,
+                        center: fenway,
+                        mapTypeId: 'satellite'
+                    };
+                    const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    const panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById("pano"),
+                        {
+                            position: fenway,
+                            pov: {
+                                heading: 34,
+                                pitch: 10,
+                            },
+                        }
+                    );
+
+                    map.setStreetView(panorama);
+
+                    const mapSatellite = new google.maps.Map(document.getElementById("map-satellite"), mapOptionsSatellite);
+                    mapSatellite.setStreetView(panorama);
+
+                }
+
+                window.initialize = initialize;
+
+            },
+
         },
         created() {
             this.getSchools();
             this.getData();
+
+            // test google map
+            // this.initializeMap();
+            this.initMap();
+
         },
+
+        mounted(){
+            // this.initMap();
+        },
+
         watch: {
             '$route.params.id': function (val) {
                 this.id = val;
