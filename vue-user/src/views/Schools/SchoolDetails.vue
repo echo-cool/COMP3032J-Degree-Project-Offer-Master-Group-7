@@ -617,6 +617,20 @@
         </div>
         <!-- End product details area -->
 
+        <!-- Virtual Campus Tour Start -->
+        <div class="rn-new-items rn-section-gapTop">
+            <div class="container">
+                <div class="row mb--30 align-items-center">
+                    <div class="col-12">
+                        <h3 class="title mb--0">Virtual Campus Tour</h3>
+
+                    </div>
+                </div>
+                <virtual-campus-tour-frame/>
+            </div>
+        </div>
+        <!-- Virtual Campus Tour area End -->
+
         <!-- Recent view area Start -->
         <div class="rn-new-items rn-section-gapTop">
             <div class="container">
@@ -680,10 +694,21 @@
     import schoolApi from "@/api/shool"
     import ProductMixin from "@/mixins/ProductMixin";
     import request from "@/utils/request";
+    import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+
 
     export default {
         name: 'SchoolDetails',
-        components: {PlacebidModal, Countdown, ReportModal, ShareModal, ProductCard, Breadcrumb, Layout},
+        components: {
+            PlacebidModal,
+            Countdown,
+            ReportModal,
+            ShareModal,
+            ProductCard,
+            Breadcrumb,
+            Layout,
+            VirtualCampusTourFrame
+        },
         mixins: [ProductMixin],
         data() {
             return {

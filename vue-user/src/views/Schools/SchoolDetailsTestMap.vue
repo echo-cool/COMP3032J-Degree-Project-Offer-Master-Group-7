@@ -617,6 +617,20 @@
         </div>
         <!-- End product details area -->
 
+        <!-- Virtual Campus Tour Start -->
+        <div class="rn-new-items rn-section-gapTop">
+            <div class="container">
+                <div class="row mb--30 align-items-center">
+                    <div class="col-12">
+                        <h3 class="title mb--0">Virtual Campus Tour</h3>
+
+                    </div>
+                </div>
+                <virtual-campus-tour-frame/>
+            </div>
+        </div>
+        <!-- Virtual Campus Tour area End -->
+
         <!-- Recent view area Start -->
         <div class="rn-new-items rn-section-gapTop">
             <div class="container">
@@ -664,14 +678,6 @@
 
 
 
-        <div style="height: 400px; width: 100%">
-            <div id="map"></div>
-            <div id="pano"></div>
-            <div id="map-satellite"></div>
-        </div>
-
-
-
         <share-modal/>
 
         <report-modal/>
@@ -692,7 +698,10 @@
     import schoolApi from "@/api/shool"
     import ProductMixin from "@/mixins/ProductMixin";
     import request from "@/utils/request";
-    // import google from "@types/google.maps"
+    import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+    import SubscriptionStyleOne from "@/components/subscription/SubscriptionStyleOne.vue";
+
+    // import google from "@types/google.maps"s
 
     // import { Loader } from "@googlemaps/js-api-loader"
     // const loader = new Loader({
@@ -703,7 +712,11 @@
 
     export default {
         name: 'SchoolDetailsTestMap',
-        components: {PlacebidModal, Countdown, ReportModal, ShareModal, ProductCard, Breadcrumb, Layout},
+        components: {
+            PlacebidModal,
+            Countdown,
+            ReportModal,
+            ShareModal, ProductCard, Breadcrumb, Layout, VirtualCampusTourFrame, SubscriptionStyleOne},
         mixins: [ProductMixin],
         data() {
             return {
@@ -878,11 +891,3 @@
         },
     }
 </script>
-
-<style>
-#map, #pano, #map-satellite{
-    float: left;
-    height: 100%;
-    width: 33%;
-}
-</style>
