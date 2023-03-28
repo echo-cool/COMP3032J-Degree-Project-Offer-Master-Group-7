@@ -623,10 +623,9 @@
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
                         <h3 class="title mb--0">Virtual Campus Tour</h3>
-
                     </div>
                 </div>
-                <virtual-campus-tour-frame :coords="{ lat: Number(product.lat), lng: Number(product.lng) }"/>
+                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>
             </div>
         </div>
         <!-- Virtual Campus Tour area End -->
@@ -696,8 +695,8 @@
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
 
-
     export default {
+
         name: 'SchoolDetails',
         components: {
             PlacebidModal,
@@ -721,14 +720,15 @@
         },
         methods: {
             getProduct(productId) {
-              this.product = this.products.find(item => item.id == productId)
-              console.log(this.product)
+              this.product = this.products.find(item => item.id == productId);
+              // !!! IMPORTANT !!!
+              // load google map after finish requesting the school obj
+              this.$refs.childCompVCTGoogle.initMap(Number(this.product.lat), Number(this.product.lng));
             },
             getSchools() {
                 schoolApi.getAllSchools().then(response => {
                     this.products = response['data']['schools']
                     this.getProduct(this.id)
-                    console.log(this.product)
                 })
             },
             getData(){
@@ -761,8 +761,8 @@
                     });
                 }
               });
+            }
 
-            },
         },
         created() {
             this.getSchools();
