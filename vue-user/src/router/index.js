@@ -6,6 +6,7 @@ import EditProfilePage from '../views/user/EditProfilePage.vue'
 import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
+import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
 
@@ -65,6 +66,14 @@ const routes = [
         component: SchoolDetails,
         meta: {
             title: 'School Details || OfferMaster',
+        },
+    },
+    {
+        path: '/school-details-test-map/:id',
+        name: 'SchoolDetailsTestMap',
+        component: SchoolDetailsTestMap,
+        meta: {
+            title: 'School Details Test Map || OfferMaster',
         },
     },
     {

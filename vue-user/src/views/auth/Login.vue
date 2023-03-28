@@ -87,7 +87,7 @@
 
                         // get the token from response
                         // and store it into the cookie
-                        cookie.set("user_token", response.accessToken, { domain: 'localhost' });
+                        cookie.set("user_token", response.accessToken);
 
                         // store user info into the cookie
                         this.getUserInfo();
@@ -95,7 +95,7 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert("-------------- login alert 1: " + error.response.data.message);
+                        window.alert(error.response.data.message);
                     })
             },
 
@@ -113,7 +113,7 @@
                         // get the current user info
                         // and store it into the cookie
                         this.currentUser = response.data.user;
-                        cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
+                        cookie.set("current_user", JSON.stringify(this.currentUser));
 
                         // redirect to the index page
                         window.location.href = "/edit-profile";
@@ -121,7 +121,7 @@
                     })
                     .catch(error => {
                         // notify user
-                        window.alert("-------------- login alert 2: " + error.response.data.message);
+                        window.alert(error.response.data.message);
                     })
             }
         }
