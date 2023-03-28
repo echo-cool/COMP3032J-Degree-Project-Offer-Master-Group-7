@@ -1,5 +1,5 @@
 <template>
-    <carousel :items-to-show="1"
+    <carousel v-if="schools.length>0" :items-to-show="1"
               :wrap-around="true">
         <slide v-for="(school, index) in schools"
                :key="index">
@@ -32,7 +32,11 @@
         components: {Pagination, Carousel, Slide, Navigation},
         data() {
             return {
-                schools:[]
+                schools:[
+                  // {
+                  //   name:"mzxsnd"
+                  // }
+                ]
             }
         },
         created() {
@@ -43,12 +47,11 @@
           getData(){
             let that = this;
             request({
-              url: `/api/school/public/getRandomSchools/4`,
+              url: "/api/school/public/getRandomSchools/4",
               method: 'get'
             }).then(function (res){
               console.log(res.data.schools);
               that.schools = res.data.schools;
-
             });
 
           }

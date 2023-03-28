@@ -9,6 +9,7 @@ RUN npm run build
 FROM nginx:stable-alpine as production-stage
 LABEL org.opencontainers.image.source="https://github.com/echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7"
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+#COPY /dist /usr/share/nginx/html
 COPY prod_nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

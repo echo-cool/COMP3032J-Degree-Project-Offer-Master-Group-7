@@ -128,7 +128,21 @@
             NiceSelect,
             ProductCard
         },
-        props: {"query": {type: String, default: ""}, "limit": {type: Number, default: -1}, "current":{type: Number, default: 1}},
+        props: {
+            "query": {
+                type: String,
+                default: ""
+            },
+            "limit": {
+                type: Number,
+                default: -1
+            },
+            "current":{
+                type: Number,
+                default: 1
+            },
+            currentUser: {}
+        },
         mixins: [ProductFilterMixin],
         data() {
             return {
@@ -147,8 +161,10 @@
         created() {
             this.programQuery.query = this.query
             this.getProgramsByQuery();
-            // init the liked program list
-            this.getLikedPrograms();
+            if(this.currentUser.id){
+                // init the liked program list
+                this.getLikedPrograms();
+            }
         },
         methods: {
 
