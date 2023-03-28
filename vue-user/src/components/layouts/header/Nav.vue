@@ -164,10 +164,14 @@ export default {
                   ]
               },
               {
-                link: '/community',
+                link: '#',
                 title: 'Community',
-                hasDropdown: false,
+                hasDropdown: true,
                 megamenu: false,
+                dropdownItems:[
+                  {link: '/community', title: 'Posts', icon: 'fast-forward'},
+                  {link: '/create-post', title: 'Add Posts', icon: 'fast-forward'},
+                ]
               },
                 // {
                 //     link: '#',

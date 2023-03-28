@@ -1,13 +1,13 @@
 package com.group7.controller.post;
 
-import com.group7.db.jpa.Post;
-import com.group7.db.jpa.PostCategory;
-import com.group7.db.jpa.PostCategoryRepository;
-import com.group7.db.jpa.PostRepository;
+import com.group7.db.jpa.*;
+import com.group7.service.PostService;
+import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 
@@ -22,6 +22,14 @@ public class PostController {
     @Resource
     PostCategoryRepository postCategoryRepository;
 
+    @Resource
+    JwtUtils jwtUtils;
+
+    @Resource
+    private PostService postService;
+
+    private static final String[] PIC_TYPES = new String[]{"bmp", "jpg", "jpeg", "png", "gif", "svg"};
+
     @GetMapping("/public/getAllPosts")
     public R getAllPosts() {
         List<Post> allPosts = postRepository.findAll();
@@ -35,8 +43,52 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public R createPost(HttpServletRequest request) {
-        System.out.println(request.getAttribute());
+    public R createPost(MultipartHttpServletRequest request) {
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String category = request.getParameter("category");
+        MultipartFile file = request.getFile("image");
+
+        if (title == null || content == null || file == null || category == null) {
+            return R.error().message("The data can not be empty!");
+        }
+
+        // check empty file
+        if (file.isEmpty()){
+            return R.error().message("Upload failed - empty picture");
+        }
+
+        // check file type
+        String ext = file.getOriginalFilename().split("\\.")[1];
+        boolean isValidType = false;
+        for (String type : PIC_TYPES){
+            if (type.equals(ext)){
+                isValidType = true;
+                break;
+            }
+        }
+        if(!isValidType){
+            return R.error().message("Upload failed - the picture type should be the following: " +
+                            "\"bmp\", \"jpg\", \"jpeg\", \"png\", \"gif\", \"svg\"");
+        }
+        if (user == null){
+            return R.error().message("Upload failed - You should login first.");
+        }
+
+
+        // store the file locally
+        String newFileName = postService.getImageFileName(file);
+        if (newFileName == null){
+            return R.error().message("Upload failed - Try it again latter.");
+        }
+
+        PostCategory postCategory = postCategoryRepository.findByName(category).orElse(null);
+
+        Post post = new Post(title, content, postCategory, newFileName, user);
+        postRepository.save(post);
+
         return R.ok();
     }
 

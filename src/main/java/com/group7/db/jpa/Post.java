@@ -89,6 +89,14 @@ public class Post {
         return img;
     }
 
+    public Post(String title, String content, PostCategory category, String img, User author) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.img = img;
+        this.author = author;
+    }
+
     public void setImg(String img) {
         this.img = img;
     }

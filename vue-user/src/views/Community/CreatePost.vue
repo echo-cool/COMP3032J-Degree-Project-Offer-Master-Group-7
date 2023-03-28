@@ -5,23 +5,25 @@
         <div class="create-area rn-section-gapTop">
             <div class="container">
                 <div class="row g-5">
+                  <form class="row" action="#" onsubmit="return false" id="post-form">
                     <div class="col-lg-3 offset-1 ml_md--0 ml_sm--0">
                         <!-- Start file Upload Area -->
                         <div class="upload-area">
                             <div class="upload-formate mb--30">
                                 <h6 class="title">
-                                    Upload file
+                                    Upload Image
                                 </h6>
                                 <p class="formate">
-                                    Drag or choose your file to upload
+                                    Drag or choose your image to upload
                                 </p>
                             </div>
                             <div class="brows-file-wrapper">
                                 <input
                                     id="file"
+                                    name="image"
+                                    accept="image/*"
                                     type="file"
                                     class="inputfile"
-                                    multiple
                                     @change="imageChange"
                                 />
                                 <img
@@ -41,22 +43,26 @@
                             </div>
                         </div>
                         <!-- End File Upload Area -->
-
-                        <div class="mt--100 mt_sm--30 mt_md--30 d-none d-lg-block">
-                            <h5> Note: </h5>
-                            <span> Service fee : <strong>2.5%</strong> </span> <br>
-                            <span> You will receive : <strong>25.00 ETH $50,000</strong></span>
-                        </div>
                     </div>
 
                     <div class="col-lg-7">
                         <div class="form-wrapper-one">
-                            <form class="row" action="#" onsubmit="return false" id="post-form">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="input-box pb--20">
                                         <label for="title" class="form-label">Title</label>
                                         <input id="title" name="title" placeholder="">
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="input-box pb--20">
+                                    <label for="category" class="form-label">Category</label>
+                                    <div class="input-two-wrapper">
+                                      <select id="category" name="category" class="profile-edit-select mt--0">
+                                        <option v-for="category in categories" :value="category.name">{{ category.name }}</option>
+                                      </select>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-box pb--20">
@@ -140,7 +146,7 @@
                                         <button class="btn btn-primary btn-large w-100" v-on:click="submitEvent()">Submit Item</button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     <div class="mt--100 mt_sm--30 mt_md--30 d-block d-lg-none">
@@ -148,6 +154,7 @@
                         <span> Service fee : <strong>2.5%</strong> </span> <br>
                         <span> You will receive : <strong>25.00 ETH $50,000</strong></span>
                     </div>
+                  </form>
                 </div>
             </div>
         </div>
@@ -186,13 +193,14 @@
     import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
     import request from "@/utils/request";
     import cookie from "js-cookie";
+    import {getAllCategories} from "@/api/community";
 
     export default {
         name: 'CreatePost',
         components: {ReportModal, ShareModal, ProductCard, Breadcrumb, Layout, Editor, Toolbar},
         setup() {
+          console.log("setup")
           i18nChangeLanguage('en')
-
           // 编辑器实例，必须用 shallowRef
           const editorRef = shallowRef()
 
@@ -214,12 +222,10 @@
             const editor = editorRef.value
             if (editor == null) return
             editor.destroy()
-            this.editor = undefined
           })
 
           const handleCreated = (editor) => {
             editorRef.value = editor // 记录 editor 实例，重要！
-            this.editor = editorRef.value
           }
 
           return {
@@ -234,7 +240,7 @@
         data() {
             return {
                 selectedImage: null,
-                editor: undefined,
+                categories: [],
                 product: {
                     id: 1,
                     productImage: require(`@/assets/images/portfolio/portfolio-01.jpg`),
@@ -263,7 +269,7 @@
                 }
             }
         },
-        methods: {
+      methods: {
             imageChange(e) {
                 if (e.target.files && e.target.files.length > 0) {
                     const file = e.target.files[0];
@@ -273,8 +279,8 @@
             submitEvent() {
               let form = document.getElementById('post-form')
               let formData = new FormData(form)
-              formData.append("content", this.editor.getHtml())
-              console.log(formData.get("content"))
+              formData.append("content", this.valueHtml)
+              console.log(formData.get("image"))
               request({
                 url: '/api/post/createPost',
                 method: 'post',
@@ -282,9 +288,18 @@
                   'Authorization': 'Bearer ' + cookie.get("user_token")
                 },
                 data: formData
+              }).then(response => {
+                  if (response['success'] === true) {
+                    window.location.href = "/community"
+                  }
               })
               return false
             }
-        }
+      },
+      created() {
+          getAllCategories().then(response => {
+              this.categories = response["data"]["categories"]
+          })
+      }
     }
 </script>
