@@ -2,6 +2,10 @@ module.exports = {
     // 选项...
     // devtool: 'eval-source-map',//开发调试
     devServer: {
+        headers: {
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Access-Control-Allow-Origin": "*"
+        },
         port: 8080,
         proxy:{
             '/backend': {//代理api

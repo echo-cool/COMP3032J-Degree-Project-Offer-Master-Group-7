@@ -17,10 +17,18 @@
 </template>
 
 <script>
+
+    import {Loader} from "@googlemaps/js-api-loader";
+
+    const loader = new Loader({
+        apiKey: "AIzaSyDJ7ELJuZaigtiB50_buOhvcjyGvOTk5MY",
+        version: "weekly",
+    });
+
     export default {
         name: 'VirtualCampusTour',
         props:{
-            coords: {},
+
         },
         data(){
             return{
@@ -28,44 +36,72 @@
             }
         },
         created() {
-            // load map
-            window.initialize = this.initMap;
+
+        },
+        mounted() {
+
         },
         methods:{
-            initMap(){
-                // const fenway = { lat: 42.345573, lng: -71.098326 };
-                const fenway = { lat: 42.345573, lng: -71.098326 };
-                // const fenway = { lat: 40.807384, lng: -73.963036 };
-                // const fenway = { lat: 36.0014, lng: -78.939133 };
-                // const duke = { lat: 36.0014, lng: -78.939133 };
-                let coords = this.coords;
+            // this should be called by the parent comp out of this comp
+            initMap(lat, lng){
+                // the coordinate to show
+                let coords = {lat, lng};
 
+                // the options for all the maps and street views
                 let mapOptions = {
-                    zoom: 16,
+                    zoom: 14,
                     center: coords
                 };
+                let panoramaOptions = {
+                    position: coords,
+                    pov: {
+                        heading: 34,
+                        pitch: 10,
+                    }
+                };
                 let mapOptionsSatellite = {
-                    zoom: 16,
+                    zoom: 14,
                     center: coords,
                     mapTypeId: 'satellite'
                 };
-                const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                const panorama = new google.maps.StreetViewPanorama(
-                    document.getElementById("pano"),
-                    {
-                        position: coords,
-                        pov: {
-                            heading: 34,
-                            pitch: 10,
-                        },
-                    }
-                );
-                map.setStreetView(panorama);
 
-                const mapSatellite = new google.maps.Map(document.getElementById("map-satellite"), mapOptionsSatellite);
-                mapSatellite.setStreetView(panorama);
+                // for dragging synchronization
+                let listener1;
+                let listener2;
+
+                // load that 2 maps and a 3D street view
+                loader.load().then(async () => {
+                    // import Map and StreetViewPanorama constructor
+                    const { Map } = await google.maps.importLibrary("maps");
+                    const { StreetViewPanorama } = await google.maps.importLibrary("streetView");
+
+                    // create the instance of 2 maps (normal and satellite) and a street view
+                    const map = new Map(document.getElementById("map"), mapOptions);
+                    const panorama = new StreetViewPanorama(document.getElementById("pano"), panoramaOptions)
+                    const mapSatellite = new Map(document.getElementById("map-satellite"), mapOptionsSatellite);
+
+                    // synchronize the dragging of two maps
+                    map.addListener('mouseover', function() {
+                        google.maps.event.removeListener(listener2);
+                        listener1 = google.maps.event.addListener(map, 'bounds_changed', (function() {
+                            mapSatellite.setCenter(map.getCenter());
+                            mapSatellite.setZoom(map.getZoom());
+                        }));
+                    });
+
+                    mapSatellite.addListener('mouseover', function() {
+                        google.maps.event.removeListener(listener1);
+                        listener2 = google.maps.event.addListener(mapSatellite, 'bounds_changed', (function() {
+                            map.setCenter(mapSatellite.getCenter());
+                            map.setZoom(mapSatellite.getZoom());
+                        }));
+                    });
+
+                    // bind the map with the street view
+                    mapSatellite.setStreetView(panorama);
+                    map.setStreetView(panorama);
+                });
             }
-
         }
     }
 </script>
@@ -88,5 +124,4 @@
     height: 100%;
     width: 20%;
 }
-
 </style>
