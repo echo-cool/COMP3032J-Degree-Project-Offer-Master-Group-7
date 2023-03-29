@@ -87,7 +87,7 @@ services:
     restart: on-failure
 
   fyp_offer_master_minio:
-    image: quay.io/minio/minio
+    image: echocool/fyp_offer_master_minio
     ports:
       - "9000:9000"
       - "9090:9090"
