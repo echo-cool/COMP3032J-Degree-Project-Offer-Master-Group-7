@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * @Author: WangYuyang
@@ -44,7 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
         // get the resource location (resources/static)
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
         String projectDir = System.getProperty("user.dir");
-        if(projectDir == "/"){
+        if(Objects.equals(projectDir, "/")){
             projectDir = "";
         }
         String resourceLocation = projectDir + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar
