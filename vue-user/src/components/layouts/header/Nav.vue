@@ -117,7 +117,7 @@ export default {
                 //                 {link: '/product/1', title: 'Product Details', icon: 'layout'},
                 //                 {link: '/ranking', title: 'NFT Ranking', icon: 'trending-up'},
                 //                 {link: '/edit-profile', title: 'Edit Profile', icon: 'user'},
-                //                 {link: '/blog-details/1', title: 'Blog Details', icon: 'edit'},
+                //                 {link: '/blog-details/1', title: 'Community Details', icon: 'edit'},
                 //                 {link: '/404', title: '404', icon: 'alert-triangle'}
                 //             ]
                 //         },
@@ -135,15 +135,15 @@ export default {
                 // },
                 // {
                 //     link: '#',
-                //     title: 'Blog',
+                //     title: 'Community',
                 //     hasDropdown: true,
                 //     megamenu: false,
                 //     dropdownItems: [
-                //         {link: '/blog-single-column', title: 'Blog Single Column', icon: 'fast-forward'},
-                //         {link: '/blog-col-two', title: 'Blog Two Column', icon: 'fast-forward'},
-                //         {link: '/blog-col-three', title: 'Blog Three Column', icon: 'fast-forward'},
-                //         {link: '/blog', title: 'Blog Four Column', icon: 'fast-forward'},
-                //         {link: '/blog-details/1', title: 'Blog Details', icon: 'fast-forward'}
+                //         {link: '/blog-single-column', title: 'Community Single Column', icon: 'fast-forward'},
+                //         {link: '/blog-col-two', title: 'Community Two Column', icon: 'fast-forward'},
+                //         {link: '/blog-col-three', title: 'Community Three Column', icon: 'fast-forward'},
+                //         {link: '/blog', title: 'Community Four Column', icon: 'fast-forward'},
+                //         {link: '/blog-details/1', title: 'Community Details', icon: 'fast-forward'}
                 //     ]
                 // },
                 // {
@@ -162,6 +162,16 @@ export default {
                   dropdownItems:[
                     {link: '/program-selection', title: 'Manual', icon: 'fast-forward'},
                   ]
+              },
+              {
+                link: '#',
+                title: 'Community',
+                hasDropdown: true,
+                megamenu: false,
+                dropdownItems:[
+                  {link: '/community', title: 'Posts', icon: 'fast-forward'},
+                  {link: '/create-post', title: 'Add Posts', icon: 'fast-forward'},
+                ]
               },
                 // {
                 //     link: '#',

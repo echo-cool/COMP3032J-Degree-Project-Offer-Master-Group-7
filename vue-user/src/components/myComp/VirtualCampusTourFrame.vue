@@ -65,6 +65,10 @@
                     mapTypeId: 'satellite'
                 };
 
+                // for dragging synchronization
+                let listener1;
+                let listener2;
+
                 // load that 2 maps and a 3D street view
                 loader.load().then(async () => {
                     // import Map and StreetViewPanorama constructor
@@ -75,6 +79,23 @@
                     const map = new Map(document.getElementById("map"), mapOptions);
                     const panorama = new StreetViewPanorama(document.getElementById("pano"), panoramaOptions)
                     const mapSatellite = new Map(document.getElementById("map-satellite"), mapOptionsSatellite);
+
+                    // synchronize the dragging of two maps
+                    map.addListener('mouseover', function() {
+                        google.maps.event.removeListener(listener2);
+                        listener1 = google.maps.event.addListener(map, 'bounds_changed', (function() {
+                            mapSatellite.setCenter(map.getCenter());
+                            mapSatellite.setZoom(map.getZoom());
+                        }));
+                    });
+
+                    mapSatellite.addListener('mouseover', function() {
+                        google.maps.event.removeListener(listener1);
+                        listener2 = google.maps.event.addListener(mapSatellite, 'bounds_changed', (function() {
+                            map.setCenter(mapSatellite.getCenter());
+                            map.setZoom(mapSatellite.getZoom());
+                        }));
+                    });
 
                     // bind the map with the street view
                     mapSatellite.setStreetView(panorama);

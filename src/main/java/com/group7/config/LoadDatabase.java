@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
@@ -47,6 +48,12 @@ class LoadDatabase {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostCategoryRepository postCategoryRepository;
+
     @Bean
     CommandLineRunner initDatabase() throws ParseException {
         log.warn("Preloading database...");
@@ -62,70 +69,50 @@ class LoadDatabase {
                 "36.001465","-78.939133",
                 new String[]{
                 "default/default.jpg",
-                "default/default.jpg",
-                "default/default.jpg",
         });
         School school2 = new School("University of Toronto", 2, 9, "University of Toronto logo.png", "University of Toronto.webp",
                 "43.664486","-79.399689",
                 new String[]{
-                "default/default.jpg",
-                "default/default.jpg",
                 "default/default.jpg",
         });
         School school3 = new School("University of Waterloo", 3, 8, "University of Waterloo logo.png", "University of Waterloo.png",
                 "43.4723","-80.5449",
                 new String[]{
                 "default/default.jpg",
-                "default/default.jpg",
-                "default/default.jpg",
         });
         School school4 = new School("University of British Columbia", 4, 7, "University of British Columbia logo.png", "University of British Columbia.jpg",
                 "49.2667","-123.2500",
                 new String[]{
-                "default/default.jpg",
-                "default/default.jpg",
                 "default/default.jpg",
         });
         School school5 = new School("Stanford University", 5, 6, "Stanford University logo.webp", "Stanford University.webp",
                 "37.428230","-122.168861",
                 new String[]{
                 "default/default.jpg",
-                "default/default.jpg",
-                "default/default.jpg",
         });
         School school6 = new School("University of California, Berkeley", 6, 5, "University of British Columbia logo.png", "University of British Columbia.jpg",
                 "37.871960","-122.259094",
                 new String[]{
-                "default/default.jpg",
-                "default/default.jpg",
                 "default/default.jpg",
         });
         School school7 = new School("Princeton University", 7, 4, "Princeton University logo.svg", "Princeton University.jpg",
                 "40.343899","-74.660049",
                 new String[]{
                 "default/default.jpg",
-                "default/default.jpg",
-                "default/default.jpg",
         });
         School school8 = new School("Harvard University", 8, 3, "Harvard University logo.png", "Harvard University.webp",
                 "42.374443","-71.116943",
                 new String[]{
-                "default/default.jpg",
-                "default/default.jpg",
                 "default/default.jpg",
         });
         School school9 = new School("Yale University", 9, 2, "Yale University logo.png", "Yale University.png",
                 "41.316307","-72.922585",
                 new String[]{
                 "default/default.jpg",
-                "default/default.jpg",
-                "default/default.jpg",
         });
         School school10 = new School("Dartmouth College", 10, 1, "Dartmouth College logo.png", "Dartmouth College.jpg",
                 "43.704540","-72.288986",
                 new String[]{
-                "default/default.jpg",
-                "default/default.jpg",
                 "default/default.jpg",
         });
 
@@ -226,6 +213,18 @@ class LoadDatabase {
         applicationRepository.save(application5);
         applicationRepository.save(application6);
         applicationRepository.save(application7);
+
+        PostCategory postCategory1 = new PostCategory("Study");
+        PostCategory postCategory2 = new PostCategory("Application");
+
+        postCategoryRepository.save(postCategory1);
+        postCategoryRepository.save(postCategory2);
+
+        Post post1 = new Post("123", "123", postCategory1, user1);
+        Post post2 = new Post("qwq", "qwq", postCategory2, user2);
+
+        postRepository.save(post1);
+        postRepository.save(post2);
 
 
         return args -> log.warn("Preloaded database, completed.");
