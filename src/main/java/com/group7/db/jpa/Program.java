@@ -1,10 +1,12 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
+import com.group7.db.jpa.utils.EMajor;
 import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -27,9 +29,26 @@ public class Program {
     @Column(nullable = false)
     private String name = "NULL";
 
+    @Column
+    private String degree;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private EMajor major;
+
+    @Column
+    private long likes;
+
+    @ManyToMany(mappedBy = "likedPrograms")
+    @JsonBackReference
+    private Set<User> likeUsers = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name="school")
     private School school;
+
+    @Column
+    private String img = "default/default.jpg";
 
     @OneToMany(mappedBy = "program")
     @JsonManagedReference(value = "program")
@@ -39,10 +58,43 @@ public class Program {
     public Program(String name, School school) {
         this.name = name;
         this.school = school;
+        generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree) {
+        this.name = name;
+        this.degree = degree;
+        this.school = school;
+        generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
+        this.school = school;
+        generateRandomLike();
+    }
+
+    public Program(String name, School school, String degree, EMajor major, String img) {
+        this.name = name;
+        this.degree = degree;
+        this.major = major;
+        this.school = school;
+        generateRandomLike();
+        this.img = "upload/img/" + img;
     }
 
     public Program() {
+        generateRandomLike();
+    }
 
+    /**
+     * to generate random like number for a program
+     */
+    private void generateRandomLike(){
+        Random random = new Random();
+        this.likes = random.nextInt(0, 501);
     }
 
     public Long getId() {
@@ -61,6 +113,22 @@ public class Program {
         this.name = name;
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public EMajor getMajor() {
+        return major;
+    }
+
+    public void setMajor(EMajor major) {
+        this.major = major;
+    }
+
     @JsonBackReference
     public School getSchool() {
         return school;
@@ -68,5 +136,37 @@ public class Program {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    public long getLikes() {
+        return likes + this.likeUsers.size();
+    }
+
+    public void setLikes(long likes) {
+        this.likes = likes;
+    }
+
+    public Set<User> getLikeUsers() {
+        return likeUsers;
+    }
+
+    public void setLikeUsers(Set<User> likeUsers) {
+        this.likeUsers = likeUsers;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

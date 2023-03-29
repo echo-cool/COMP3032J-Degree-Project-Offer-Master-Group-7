@@ -10,6 +10,11 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -48,6 +53,40 @@ public class SchoolController {
         School schoolTmp = new School(school.getName());
         schoolRepository.save(schoolTmp);
         return R.ok().data("id", schoolTmp.getId());
+    }
+
+    @RequestMapping("/public/get-top-ranked-schools/{rankRule}/{limit}")
+    public R getTopRankedSchools(@PathVariable("rankRule") String rankRule,
+                                 @PathVariable("limit") long limit) {
+
+        if (!rankRule.equals("QS") && !rankRule.equals("USNews")){
+            return R.error().message("Invalid rank rule");
+        }
+
+        if (limit < 0){
+            return R.error().message("Invalid limit number");
+        }
+
+        List<School> topSchools = schoolService.getTopSchoolByRankRule(rankRule, limit);
+
+        return R.ok().data("topSchools", topSchools);
+    }
+
+    @RequestMapping("/public/getRandomSchools/{size}")
+    public R getRandomSchools(@PathVariable("size") long size){
+        Random random = new Random();
+        List<School> schools = schoolRepository.findAll();
+        List<School> res = new ArrayList<>();
+        for(int i = 0; i < size; i++){
+            res.add(schools.get(random.nextInt(0, schools.size())));
+        }
+        return R.ok().data("schools", res);
+    }
+
+    @GetMapping("/public/getAllSchools")
+    public R getAllSchools(){
+        List<School> allSchools = schoolRepository.findAll();
+        return R.ok().data("schools", allSchools);
     }
 
 

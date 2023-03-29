@@ -527,9 +527,11 @@
 // large product wrapper
 .lg-product_tab-pane {
   padding: 30px;
-  border-left: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  //border-top: 1px solid var(--color-border);
+  //
+  //border-left: 1px solid var(--color-border);
+  //border-right: 1px solid var(--color-border);
+  //border-bottom: 1px solid var(--color-border);
   border-radius: 0 0 5px 5px;
   @media #{$small-mobile} {
     padding: 10px;
@@ -861,6 +863,51 @@
 
           &::after {
             background: var(--color-primary-alta);
+            position: absolute;
+            content: '';
+            top: 0;
+            z-index: -1;
+            border-radius: 6px;
+            transition: var(--transition);
+            width: 100%;
+            left: 0;
+            height: 100%;
+          }
+
+          &:hover {
+            &::after {
+              background: var(--color-primary);
+            }
+          }
+        }
+
+        .react-area-activated {
+          cursor: pointer;
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          transition: var(--transition);
+          padding: 4px 10px;
+          border-radius: 6px;
+
+          i {
+            margin-right: 3px;
+            position: relative;
+            width: 14px;
+            color: var(--color-white);
+          }
+
+          span {
+            &.number {
+              font-size: 14px;
+              position: relative;
+              color: var(--color-white);
+            }
+          }
+
+          &::after {
+            background: var(--color-primary);
             position: absolute;
             content: '';
             top: 0;

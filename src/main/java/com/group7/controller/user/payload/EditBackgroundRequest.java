@@ -98,7 +98,7 @@ public class EditBackgroundRequest {
     // GRE scores
 
     @NotNull(message = "You should input your total GRE score.")
-    @Range(message = "The GRE score should range from {min} to {max}", min = 260, max = 346)
+    @Range(message = "The GRE score should range from {min} to {max}", min = 260, max = 340)
     private int greTotal;
 
     @NotNull(message = "You should input your GRE Analytical Writing score.")

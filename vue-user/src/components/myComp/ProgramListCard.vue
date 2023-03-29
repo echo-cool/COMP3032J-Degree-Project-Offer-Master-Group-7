@@ -3,8 +3,8 @@
         <div class="inner">
             <div class="lg-left-content">
                 <router-link :to="`#`" class="thumbnail">
-<!--                    <img :src="program.school.img" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
-                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">
+                    <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')">
+<!--                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
                 </router-link>
                 <div class="read-content">
 <!--                    <div class="product-share-wrapper">-->
@@ -24,13 +24,17 @@
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
                     <router-link :to="`#`">
-                        <h6 class="title">{{ program.name }} - {{program.id}}</h6>
+                        <h6 class="title">{{ program.name }} - {{ program.degree }}</h6>
                     </router-link>
                     <span class="latest-bid">{{ program.school.name }}</span>
                     <div class="share-wrapper d-flex">
-                        <div class="react-area mr--15">
+                        <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.name }}</span>
+                            <span class="number">{{ program.likes }}</span>
+                        </div>
+                        <div v-else class="react-area mr--15" @click="likeProgram(program.id)">
+                            <i class="feather-heart"/>
+                            <span class="number">{{ program.likes }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
                             <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,6 +85,7 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programSelectionApi from "@/api/programSelection";
+    import programAip from "@/api/program";
 
     export default {
         name: 'ProductListCard',
@@ -102,7 +107,8 @@
             isProgramSelected: {
                 type: Boolean,
                 default: false
-            }
+            },
+            isLikedObj: {}
         },
         data(){
             return{
@@ -132,6 +138,19 @@
                         window.alert("The program added successfully into your list!")
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
+                    })
+            },
+
+            likeProgram(programId){
+                // call API method
+                programAip.likeProgram(programId)
+                    .then(response => {
+                        if(response.success){
+                            // update the like number of this program
+                            this.program.likes = response.data.likes;
+                            // change the liked status
+                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                        }
                     })
             }
         }

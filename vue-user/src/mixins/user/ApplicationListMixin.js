@@ -22,7 +22,8 @@ export default {
                         }
                     }
                 }
-            ]
+            ],
+            appListMixinLoadSchoolCount: 0
         }
     },
 
@@ -33,6 +34,9 @@ export default {
     methods:{
         // get the applications (program list) of current user
         getApplications(uid){
+            // reset the school loading count
+            this.appListMixinLoadSchoolCount = 0;
+
             // call the api method
             profileApi.getApplicationsByUid(uid)
                 .then(response => {
@@ -60,7 +64,7 @@ export default {
 
                                         // update the school of this program
                                         this.applications[k].program.school = response;
-
+                                        this.appListMixinLoadSchoolCount++;
                                     })
 
                             })

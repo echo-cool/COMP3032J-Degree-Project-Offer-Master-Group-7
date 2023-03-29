@@ -30,6 +30,7 @@
                 <program-list-card :program="program"
                                    :is-program-selected="isProgramSelected(program.id)"
                                    :show-two-column="isTwoColumn"
+                                   :is-liked-obj="isLiked(program.id)"
                                     @reloadData="reloadData"/>
             </template>
         </div>
@@ -64,6 +65,9 @@
         },
         data() {
             return {
+                likedPrograms: [],
+                likedProgramIds: [],
+
                 activeTabIndex: 0,
                 listItemsTab: [
                     {
@@ -113,11 +117,8 @@
                 }
             });
 
-            // fetch data of programs
-            this.getPrograms();
-            // fetch data of user selected programs
-            this.getUserSelectedPrograms();
-
+            // init the liked program list
+            this.getLikedPrograms();
         },
 
         methods: {
@@ -176,6 +177,31 @@
                 // tell the parent to fetch data again
                 // (this contains the reload of user selected programs in this component)
                 this.$emit("reloadData");
+                // reload likes
+                this.getLikedPrograms();
+            },
+
+            // get a list of ids of programs that the user liked
+            getLikedPrograms(){
+                // reset the lists to empty
+                this.likedPrograms = [];
+                this.likedProgramIds = [];
+                profileApi.getLikedPrograms()
+                    .then(response => {
+                        // update the liked programs
+                        this.likedPrograms = response.data.likedPrograms;
+                        // create the list of program id
+                        for (let k in this.likedPrograms){
+                            this.likedProgramIds.push(this.likedPrograms[k].id);
+                        }
+                    })
+            },
+
+            // whether the user liked a program
+            isLiked(programId){
+                return {
+                    isLiked: this.likedProgramIds.includes(programId)
+                };
             }
         }
     }

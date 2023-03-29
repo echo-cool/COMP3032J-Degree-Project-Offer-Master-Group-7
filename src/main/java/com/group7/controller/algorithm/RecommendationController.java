@@ -31,8 +31,8 @@ public class RecommendationController {
         return ResponseEntity.ok(R.ok().data("data", res));
     }
 
-    @RequestMapping("/similarity-calculation-knn")
-    public ResponseEntity<?> similarityCalculationKNN(HttpServletRequest request) {
+    @GetMapping("/program-recommendation-knn")
+    public ResponseEntity<?> programRecommendationKNN(HttpServletRequest request) {
         // get the current user
         User user = jwtUtils.getUserFromRequestByToken(request);
 

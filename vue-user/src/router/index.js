@@ -1,425 +1,30 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import HomePageOne from '../views/home/HomePageOne'
-import HomePageTwo from '../views/home/HomePageTwo'
-import HomePageThree from '../views/home/HomePageThree'
-import HomePageFour from '../views/home/HomePageFour'
-import HomePageFive from '../views/home/HomePageFive'
-import HomePageSix from '../views/home/HomePageSix'
-import HomePageSeven from '../views/home/HomePageSeven'
-import HomePageEight from '../views/home/HomePageEight'
-import HomePageNine from '../views/home/HomePageNine'
-import HomePageTen from '../views/home/HomePageTen'
-import HomePageEleven from '../views/home/HomePageEleven'
-import HomePageTwelve from '../views/home/HomePageTwelve'
-import CreateProduct from '../views/CreateProduct'
-import ProductDetails from '../views/ProductDetails'
-import Connect from '../views/Connect'
-import Collection from '../views/Collection'
-import Creators from '../views/Creators'
-import AuthorDetails from '../views/AuthorDetails'
-import EditProfilePage from '../views/EditProfilePage'
-import About from '../views/About'
-import Contact from '../views/Contact'
-import BlogDetails from '../views/blog/BlogDetails'
-import BlogCategoryPosts from '../views/blog/BlogCategoryPosts'
-import BlogTagPosts from '../views/blog/BlogTagPosts'
-import BlogSingleColumn from '../views/blog/BlogSingleColumn'
-import BlogTwoColumn from '../views/blog/BlogTwoColumn'
-import BlogThreeColumn from '../views/blog/BlogThreeColumn'
-import BlogFourColumn from '../views/blog/BlogFourColumn'
-import ExploreOne from '../views/ExploreOne'
-import ExploreTwo from '../views/ExploreTwo'
-import ExploreThree from '../views/ExploreThree'
-import ExploreFour from '../views/ExploreFour'
-import ExploreFive from '../views/ExploreFive'
-import ExploreSix from '../views/ExploreSix'
-import ExploreSeven from '../views/ExploreSeven'
-import ExploreEight from '../views/ExploreEight'
-import ExploreNine from '../views/ExploreNine'
-import ExploreTen from '../views/ExploreTen'
-import ExploreEleven from '../views/ExploreEleven'
-import ExploreTwelve from '../views/ExploreTwelve'
-import ExploreThirteen from '../views/ExploreThirteen'
-import ExploreFourteen from '../views/ExploreFourteen'
-import UploadVariants from '../views/UploadVariants'
-import Activity from '../views/Activity'
-import UpcomingProjects from '../views/UpcomingProjects'
-import Login from '../views/Login'
-import Signup from '../views/Signup'
-import ForgetPassword from '../views/ForgetPassword'
-import PrivacyPolicy from '../views/PrivacyPolicy'
-import Products from '../views/Products'
-import Ranking from '../views/Ranking'
-import NotFound from '../views/NotFound'
-import Support from '../views/Support'
-import TermsCondition from '../views/TermsCondition'
-import ComingSoon from '../views/ComingSoon'
-import Maintenance from '../views/Maintenance'
-// self
-import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 
+import Login from '../views/auth/Login.vue'
+import Signup from '../views/auth/Signup.vue'
+import EditProfilePage from '../views/user/EditProfilePage.vue'
+import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
+import HomePage from "@/views/HomePage.vue";
+import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
+import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
+import About from '../views/About'
+import Explore from "@/views/Explore/Explore";
+import Community from "@/views/Community/Community";
+import PostDetails from "@/views/Community/PostDetails";
+import CreatePost from "@/views/Community/CreatePost";
 
 const routes = [
+
     {
         path: '/',
         name: 'HomePageOne',
-        component: HomePageOne,
+        component: HomePage,
         meta: {
             title: 'OfferMaster',
         },
     },
-    {
-        path: '/index-02',
-        name: 'HomePageTwo',
-        component: HomePageTwo,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-03',
-        name: 'HomePageThree',
-        component: HomePageThree,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-04',
-        name: 'HomePageFour',
-        component: HomePageFour,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-05',
-        name: 'HomePageFive',
-        component: HomePageFive,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-06',
-        name: 'HomePageSix',
-        component: HomePageSix,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-07',
-        name: 'HomePageSeven',
-        component: HomePageSeven,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-08',
-        name: 'HomePageEight',
-        component: HomePageEight,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-09',
-        name: 'HomePageNine',
-        component: HomePageNine,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-10',
-        name: 'HomePageTen',
-        component: HomePageTen,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-11',
-        name: 'HomePageEleven',
-        component: HomePageEleven,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/index-12',
-        name: 'HomePageTwelve',
-        component: HomePageTwelve,
-        meta: {
-            title: 'OfferMaster',
-        },
-    },
-    {
-        path: '/create',
-        name: 'CreateProduct',
-        component: CreateProduct,
-        meta: {
-            title: 'Create || OfferMaster',
-        },
-    },
-    {
-        path: '/product/:id',
-        name: 'ProductDetails',
-        component: ProductDetails,
-        meta: {
-            title: 'Product Details || OfferMaster',
-        },
-    },
-    {
-        path: '/connect',
-        name: 'Connect',
-        component: Connect,
-        meta: {
-            title: 'Connect || OfferMaster',
-        },
-    },
-    {
-        path: '/collection',
-        name: 'Collection',
-        component: Collection,
-        meta: {
-            title: 'Author || OfferMaster',
-        },
-    },
-    {
-        path: '/creator',
-        name: 'Creators',
-        component: Creators,
-        meta: {
-            title: 'Collection || OfferMaster',
-        },
-    },
-    {
-        path: '/author/:id',
-        name: 'AuthorDetails',
-        component: AuthorDetails,
-        meta: {
-            title: 'Author Details || OfferMaster',
-        },
-    },
-    {
-        path: '/edit-profile',
-        name: 'EditProfilePage',
-        component: EditProfilePage,
-        meta: {
-            title: 'Personal Profile || OfferMaster',
-        },
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: About,
-        meta: {
-            title: 'About || OfferMaster',
-        },
-    },
-    {
-        path: '/contact',
-        name: 'Contact',
-        component: Contact,
-        meta: {
-            title: 'Contact || OfferMaster',
-        },
-    },
-    {
-        path: '/category/:slug',
-        name: 'BlogCategoryPosts',
-        component: BlogCategoryPosts,
-        meta: {
-            title: 'Blog Category List || OfferMaster',
-        },
-    },
-    {
-        path: '/tag/:slug',
-        name: 'BlogTagPosts',
-        component: BlogTagPosts,
-        meta: {
-            title: 'Blog Tag List || OfferMaster',
-        },
-    },
-    {
-        path: '/blog-details/:id',
-        name: 'BlogDetails',
-        component: BlogDetails,
-        meta: {
-            title: 'Blog Details || OfferMaster',
-        },
-    },
-    {
-        path: '/blog-single-column',
-        name: 'BlogSingleColumn',
-        component: BlogSingleColumn,
-        meta: {
-            title: 'Blog Single Column || OfferMaster',
-        },
-    },
-    {
-        path: '/blog-col-two',
-        name: 'BlogTwoColumn',
-        component: BlogTwoColumn,
-        meta: {
-            title: 'Blog Two Column || OfferMaster',
-        },
-    },
-    {
-        path: '/blog-col-three',
-        name: 'BlogThreeColumn',
-        component: BlogThreeColumn,
-        meta: {
-            title: 'Blog Three Column || OfferMaster',
-        },
-    },
-    {
-        path: '/blog',
-        name: 'BlogFourColumn',
-        component: BlogFourColumn,
-        meta: {
-            title: 'Blog Four Column || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-01',
-        name: 'ExploreOne',
-        component: ExploreOne,
-        meta: {
-            title: 'Explore Filter || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-02',
-        name: 'ExploreTwo',
-        component: ExploreTwo,
-        meta: {
-            title: 'Explore Isotop || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-03',
-        name: 'ExploreThree',
-        component: ExploreThree,
-        meta: {
-            title: 'Explore Carousel || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-04',
-        name: 'ExploreFour',
-        component: ExploreFour,
-        meta: {
-            title: 'Explore Simple || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-05',
-        name: 'ExploreFive',
-        component: ExploreFive,
-        meta: {
-            title: 'Explore With Place Bid || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-06',
-        name: 'ExploreSix',
-        component: ExploreSix,
-        meta: {
-            title: 'Place Bid With Filter || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-07',
-        name: 'ExploreSeven',
-        component: ExploreSeven,
-        meta: {
-            title: 'Place Bid With Carousel || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-08',
-        name: 'ExploreEight',
-        component: ExploreEight,
-        meta: {
-            title: 'Explore Carousel || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-09',
-        name: 'ExploreNine',
-        component: ExploreNine,
-        meta: {
-            title: 'Explore List Style || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-10',
-        name: 'ExploreTen',
-        component: ExploreTen,
-        meta: {
-            title: 'Explore List Column Two || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-11',
-        name: 'ExploreEleven',
-        component: ExploreEleven,
-        meta: {
-            title: 'Live Explore || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-12',
-        name: 'ExploreTwelve',
-        component: ExploreTwelve,
-        meta: {
-            title: 'Live Explore Carousel || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-13',
-        name: 'ExploreThirteen',
-        component: ExploreThirteen,
-        meta: {
-            title: 'Live With Place Bid || OfferMaster',
-        },
-    },
-    {
-        path: '/explore-14',
-        name: 'ExploreFourteen',
-        component: ExploreFourteen,
-        meta: {
-            title: 'Explore Filter Left || OfferMaster',
-        },
-    },
-    {
-        path: '/upload-variants',
-        name: 'UploadVariants',
-        component: UploadVariants,
-        meta: {
-            title: 'Upload Variants || OfferMaster',
-        },
-    },
-    {
-        path: '/activity',
-        name: 'Activity',
-        component: Activity,
-        meta: {
-            title: 'Activity || OfferMaster',
-        },
-    },
-    {
-        path: '/upcoming-projects',
-        name: 'UpcomingProjects',
-        component: UpcomingProjects,
-        meta: {
-            title: 'Upcoming Projects || OfferMaster',
-        },
-    },
+
+    // ------------------------------ auth ------------------------------
     {
         path: '/login',
         name: 'Login',
@@ -436,81 +41,18 @@ const routes = [
             title: 'Signup || OfferMaster',
         },
     },
+
+    // ------------------------------ user ------------------------------
     {
-        path: '/forget',
-        name: 'ForgetPassword',
-        component: ForgetPassword,
+        path: '/edit-profile',
+        name: 'EditProfilePage',
+        component: EditProfilePage,
         meta: {
-            title: 'Forget Password || OfferMaster',
-        },
-    },
-    {
-        path: '/privacy-policy',
-        name: 'PrivacyPolicy',
-        component: PrivacyPolicy,
-        meta: {
-            title: 'Privacy Policy || OfferMaster',
-        },
-    },
-    {
-        path: '/product',
-        name: 'Products',
-        component: Products,
-        meta: {
-            title: 'Product || OfferMaster',
-        },
-    },
-    {
-        path: '/ranking',
-        name: 'Ranking',
-        component: Ranking,
-        meta: {
-            title: 'Ranking || OfferMaster',
-        },
-    },
-    {
-        path: '/404',
-        name: 'NotFound',
-        component: NotFound,
-        meta: {
-            title: '404 || OfferMaster',
-        },
-    },
-    {
-        path: '/support',
-        name: 'Support',
-        component: Support,
-        meta: {
-            title: 'Ranking || OfferMaster',
-        },
-    },
-    {
-        path: '/terms-condition',
-        name: 'TermsCondition',
-        component: TermsCondition,
-        meta: {
-            title: 'Terms & Condition || OfferMaster',
-        },
-    },
-    {
-        path: '/coming-soon',
-        name: 'ComingSoon',
-        component: ComingSoon,
-        meta: {
-            title: 'Coming Soon || OfferMaster',
-        },
-    },
-    {
-        path: '/maintenance',
-        name: 'Maintenance',
-        component: Maintenance,
-        meta: {
-            title: 'Maintenance || OfferMaster',
+            title: 'Personal Profile || OfferMaster',
         },
     },
 
-    // ------------------------------ self ------------------------------
-
+    // ------------------------------ school & program ------------------------------
     {
         path: '/program-selection',
         name: 'ProgramSelection',
@@ -519,6 +61,64 @@ const routes = [
             title: 'Program Selection || OfferMaster',
         },
     },
+
+    // ------------------------------ school & program ------------------------------
+    {
+        path: '/school-details/:id',
+        name: 'SchoolDetails',
+        component: SchoolDetails,
+        meta: {
+            title: 'School Details || OfferMaster',
+        },
+    },
+    {
+        path: '/school-details-test-map/:id',
+        name: 'SchoolDetailsTestMap',
+        component: SchoolDetailsTestMap,
+        meta: {
+            title: 'School Details Test Map || OfferMaster',
+        },
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: About,
+        meta: {
+            title: 'About || OfferMaster',
+        },
+    },
+    {
+        path: '/explore',
+        name: 'Explore',
+        component: Explore,
+        meta: {
+            title: 'Explore || OfferMaster',
+        },
+    },
+    {
+        path: '/community',
+        name: 'Community',
+        component: Community,
+        meta: {
+            title: 'Community || OfferMaster',
+        },
+    },
+    {
+        path: '/post-details/:id',
+        name: 'PostDetails',
+        component: PostDetails,
+        meta: {
+            title: 'Post Details || OfferMaster',
+        },
+    },
+    {
+        path: '/create-post',
+        name: 'CreatePost',
+        component: CreatePost,
+        meta: {
+            title: 'Create Post || OfferMaster',
+        },
+    }
 ]
 
 const router = createRouter({

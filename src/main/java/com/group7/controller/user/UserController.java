@@ -6,7 +6,11 @@ import com.group7.controller.user.payload.ChangePasswordRequest;
 import com.group7.controller.user.payload.EditBackgroundRequest;
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.SpecificationsBuilder;
+import com.group7.entitiy.SchoolQueryVo;
+import com.group7.entitiy.UserQueryVo;
+import com.group7.entitiy.UserUpdateVo;
 import com.group7.utils.common.JwtUtils;
 import com.group7.service.UserService;
 import com.group7.utils.common.R;
@@ -14,6 +18,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,7 +40,7 @@ public class UserController {
     private ProfileRepository profileRepository;
 
     @Resource
-    private  ProgramRepository programRepository;
+    RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;
@@ -123,8 +128,11 @@ public class UserController {
                     .body(R.error().message("Upload failed - You should login first."));
         }
 
+        // concatenate the Http schema, servername, and server port to get the avatar url
+        String preURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/img/upload/avatar/";
+
         // store the file locally
-        String newFileName = userService.uploadAvatar(file);
+        String newFileName = userService.uploadAvatar(file, preURL);
         if (newFileName == null){
             return ResponseEntity
                     .badRequest()
@@ -330,7 +338,7 @@ public class UserController {
         int greV = ebRequest.getGreVerbal();
         int greQ = ebRequest.getGreQuantitative();
         int greAW = ebRequest.getGreAnalyticalWriting();
-        if (greT != (greV + greQ + greAW)){
+        if (greT != (greV + greQ)){
             return ResponseEntity
                     .badRequest()
                     .body(R.error().message("Failed: The GRE sub-scores do not match the total score!"));
@@ -361,10 +369,110 @@ public class UserController {
         return ResponseEntity.ok(R.ok().data("user", user));
     }
 
+    @PatchMapping("/updateUser")
+    public R updateUser(@RequestBody UserUpdateVo userInfo) {
+        User user = userRepository.findById(userInfo.getId()).orElse(null);
+
+        String username = userInfo.getUsername();
+        if (!username.equals(user.getUsername())){
+            // if taken by another user
+            if (userRepository.existsByUsername(username)){
+                return R.error().message("Failed: This username has already been taken!");
+            }
+
+            // update username
+            user.setUsername(username);
+        }
+
+        String email = userInfo.getEmail();
+        // check the email
+        if (!email.equals(user.getEmail())){
+            // if taken by another user
+            if (userRepository.existsByEmail(email)){
+                return R.error().message("Failed: This email is already in use!");
+            }
+
+            // update email
+            user.setEmail(email);
+        }
+
+        Set<Role> roles = new HashSet<>();
+        for (String role: userInfo.getRoles()) {
+            roles.add(roleRepository.findByName(ERole.valueOf(role)).orElse(null));
+        }
+
+        user.setRoles(roles);
+
+        // update the password for user
+        user.setPassword(encoder.encode(userInfo.getPassword()));
+        userRepository.save(user);
+
+        return R.ok().message("Update successfully!").data("data", user);
+
+    }
+
+    @PostMapping("/createUser")
+    public R createUser(@RequestBody UserUpdateVo userInfo) {
+
+        User user = new User();
+
+        String username = userInfo.getUsername();
+        if (!username.equals(user.getUsername())){
+            // if taken by another user
+            if (userRepository.existsByUsername(username)){
+                return R.error().message("Failed: This username has already been taken!");
+            }
+
+            // update username
+            user.setUsername(username);
+        }
+
+        String email = userInfo.getEmail();
+        // check the email
+        if (!email.equals(user.getEmail())){
+            // if taken by another user
+            if (userRepository.existsByEmail(email)){
+                return R.error().message("Failed: This email is already in use!");
+            }
+
+            // update email
+            user.setEmail(email);
+        }
+
+        Set<Role> roles = new HashSet<>();
+        for (String role: userInfo.getRoles()) {
+            roles.add(roleRepository.findByName(ERole.valueOf(role)).orElse(null));
+        }
+
+        user.setRoles(roles);
+
+        // update the password for user
+        user.setPassword(encoder.encode(userInfo.getPassword()));
+        userRepository.save(user);
+
+        return R.ok().message("Create successfully!").data("data", user);
+
+    }
+
+    @RequestMapping("/condition-query/{current}/{limit}")
+    public R conditionQuery(@PathVariable("current") long current,
+                            @PathVariable("limit") long limit,
+                            @RequestBody(required = false) UserQueryVo userQueryVo) {
+        Page<User> map = userService.pageByVo(current-1, limit, userQueryVo);
+        return R.ok().data("data", map);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/search")
     @ResponseBody
     public List<User> search(@RequestParam(value = "search") String search) {
         Specification<User> spec = new SpecificationsBuilder<User>().buildSpecification(search);
         return userRepository.findAll(spec);
+    }
+
+    @RequestMapping("/get-liked-programs")
+    public R likeProgram(HttpServletRequest request) {
+        User user = jwtUtils.getUserFromRequestByToken(request);
+        Set<Program> likedPrograms = user.getLikedPrograms();
+        return R.ok().data("likedPrograms", likedPrograms);
     }
 }

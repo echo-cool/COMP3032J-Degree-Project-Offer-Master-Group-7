@@ -3,26 +3,33 @@
         <div class="h--100">
             <div class="notice-heading">
                 <h4>My Program List</h4>
-                <nice-select
-                    :options="[
-                        {value: 'newest', text: 'Newest'},
-                        {value: 'trending', text: 'Tranding'},
-                        {value: 'saved', text: 'Saved'},
-                        {value: 'deleted', text: 'Delated'}
-                    ]"
-                    :default-current="0"
-                    placeholder="Sort by likes"
-                    name="like"
-                />
+
+<!--                <nice-select-->
+<!--                    :options="[-->
+<!--                        {value: 'newest', text: 'Newest'},-->
+<!--                        {value: 'trending', text: 'Tranding'},-->
+<!--                        {value: 'saved', text: 'Saved'},-->
+<!--                        {value: 'deleted', text: 'Delated'}-->
+<!--                    ]"-->
+<!--                    :default-current="0"-->
+<!--                    placeholder="Sort by likes"-->
+<!--                    name="like"-->
+<!--                />-->
             </div>
         </div>
-        <div class="rn-notification-wrapper">
+
+        <!-- !!! This is really FUCKING!!! -->
+        <!-- We must use the application list in child component AFTER -->
+        <!-- the list finishes loading in the Mixin -->
+        <!-- Otherwise, the navbar would be unavailable -->
+        <div v-if="appListMixinLoadSchoolCount === applications.length" class="rn-notification-wrapper">
             <div class="single-notice"
                  v-for="(application, index) in applications"
                  :key="`application-${index}`">
+
                 <div class="thumbnail">
 <!--                    <router-link :to="application.program.school.url">-->
-                        <img :src="application.program.school.img" alt="Images">
+                        <img style="width: 100px" :src="`/backend/static/`+application.program.school.img" alt="Images">
 <!--                    </router-link>-->
                 </div>
                 <div class="content-wrapper">
@@ -31,7 +38,7 @@
 <!--                    </router-link>-->
                     <p>{{ application.program.name }}</p>
                     <div class="notice-time">
-                        <span>{{ application.degree }} </span>
+                        <span>{{ application.program.degree }} </span>
                         <!-- status -->
                         <span v-if="application.eStatus === `REJECTED`" class="color-danger">{{ application.eStatus }}</span>
                         <span v-else-if="application.eStatus === `ADMITTED`" class="color-green">{{ application.eStatus }}</span>
@@ -41,6 +48,7 @@
                     <a class="btn btn-primary mr--10" @click="editApplication()">Edit</a>
                     <a class="btn btn-primary-alta" @click="removeApplication(application.id)">Remove</a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -60,7 +68,8 @@
                 default: function () {
                     return [];
                 }
-            }
+            },
+            appListMixinLoadSchoolCount: 0
         },
         data() {
             return {

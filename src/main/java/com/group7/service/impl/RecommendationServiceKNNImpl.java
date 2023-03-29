@@ -23,6 +23,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
     @Override
     public List<Program> similarityCalculate(User user) {
+
         List<Application> allApplications = applicationRepository.findAll();
         List<ProgramInfo> programs = new ArrayList<>();
         Map<Long, Map<String, double[]>> map = new HashMap<>();
@@ -55,9 +56,6 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             }
             programs.add(programInfo);
         }
-
-
-
 
         for (ProgramInfo programInfo: programs) {
 

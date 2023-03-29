@@ -46,8 +46,8 @@ public class User {
     @Size(max = 1200)
     private String bio = ""; // self-intro
 
-    @Column(nullable = false)
-    private String avatar = "profile-01.jpg";
+    @Column
+    private String avatar = "default/default-avatar.jpg";
 
     @Column(nullable = false, length = 45)
     private String openId = "NULL";
@@ -66,6 +66,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_liked_programs",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "program_id"))
+    @JsonManagedReference
+    private Set<Program> likedPrograms = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "applications")
@@ -161,6 +167,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Program> getLikedPrograms() {
+        return likedPrograms;
+    }
+
+    public void setLikedPrograms(Set<Program> likedPrograms) {
+        this.likedPrograms = likedPrograms;
     }
 
     public String getBio() {

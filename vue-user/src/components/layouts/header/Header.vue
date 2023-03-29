@@ -12,8 +12,8 @@
                 </div>
                 <div class="header-right">
                     <div class="setting-option d-none d-lg-block">
-                        <form class="search-form-wrapper" action="#">
-                            <input type="search" placeholder="Search Here" aria-label="Search">
+                        <form class="search-form-wrapper" action="/explore" method="GET">
+                            <input type="search" name="search" placeholder="Search Here" aria-label="Search">
                             <div class="search-icon">
                                 <button><i class="feather-search"/></button>
                             </div>
@@ -37,12 +37,18 @@
                     </div>
                     <div class="setting-option header-btn rbt-site-header flex-shrink-0" id="rbt-site-header">
                         <div class="icon-box">
-                            <router-link id="connectbtn" class="btn btn-primary-alta btn-small" to="/connect">Wallet connect</router-link>
+                            <router-link id="connectbtn" style="margin: 5px" class="btn btn-primary-alta btn-small" to="/edit-profile">My Space</router-link>
+                            <router-link v-if="currentUser" id="connectbtn" style="margin: 5px" @click.prevent="handleLogout" class="btn btn-primary-alta btn-small" to="/login" >Logout</router-link>
+
+
                         </div>
                     </div>
                     <div class="setting-option rn-icon-list notification-badge">
                         <div class="icon-box">
-                            <router-link to="/activity"><i class="feather-bell"/><span class="badge">6</span></router-link>
+<!--                            <router-link to="/edit-profile"><i class="feather-bell"/><span class="badge">6</span></router-link>-->
+                          <router-link v-if="currentUser" to="/edit-profile"><img :src="`/backend/static/`+currentUser.avatar"></router-link>
+                          <router-link v-else to="/edit-profile"><img src="/backend/static/default/default-avatar.jpg"></router-link>
+
                         </div>
                     </div>
                     <div class="header_admin">
@@ -158,14 +164,21 @@
     import Nav from './Nav';
     import AppFunctions from '../../../helpers/AppFunctions';
     import Logo from "@/components/logo/Logo";
+    import cookie from "js-cookie";
+    import router from "@/router";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
 
     export default {
         name: 'Header',
         components: {Logo, Nav},
+        mixins: [ApplicationListMixin],
+
         data() {
-            return {
+          let currentUser;
+          return {
                 AppFunctions,
-                isMobileSearchActive: false
+                isMobileSearchActive: false,
+                currentUser
             }
         },
         mounted() {
@@ -179,6 +192,31 @@
                 }
             }
             window.addEventListener('scroll', setStickyHeader);
-        }
+
+        },
+      created() {
+        this.getCurrentUser();
+      },
+      // get current user info from cookie
+      methods:{
+        handleLogout(){
+          cookie.set("current_user", "");
+          this.$forceUpdate();
+          window.location.reload();
+        },
+        getCurrentUser(){
+          // we have stored this when logging in
+          let userStr = cookie.get("current_user");
+          console.log(userStr);
+          // turn json string to json obj
+          if (userStr){
+            this.currentUser = JSON.parse(userStr);
+            console.log(this.currentUser);
+            // initialize the applications for this user
+            this.getApplications(this.currentUser.id);
+
+          }
+        },
+      }
     }
 </script>

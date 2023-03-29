@@ -1,6 +1,7 @@
 package com.group7.config;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EMajor;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.EStatus;
 import org.slf4j.Logger;
@@ -9,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,9 +48,14 @@ class LoadDatabase {
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostCategoryRepository postCategoryRepository;
 
     @Bean
-    CommandLineRunner initDatabase() {
+    CommandLineRunner initDatabase() throws ParseException {
         log.warn("Preloading database...");
 
         Role role1 = new Role(ERole.ROLE_USER);
@@ -55,17 +65,56 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
 
-
-        School school1 = new School("Duke University");
-        School school2 = new School("University of Toronto");
-        School school3 = new School("University of Waterloo");
-        School school4 = new School("University of British Columbia");
-        School school5 = new School("Stanford University");
-        School school6 = new School("University of California, Berkeley");
-        School school7 = new School("Princeton University");
-        School school8 = new School("Harvard University");
-        School school9 = new School("Yale University");
-        School school10 = new School("Dartmouth College");
+        School school1 = new School("Duke University",1, 10, "Duke University logo.png", "Duke University.webp",
+                "36.001465","-78.939133",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school2 = new School("University of Toronto", 2, 9, "University of Toronto logo.png", "University of Toronto.webp",
+                "43.664486","-79.399689",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school3 = new School("University of Waterloo", 3, 8, "University of Waterloo logo.png", "University of Waterloo.png",
+                "43.4723","-80.5449",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school4 = new School("University of British Columbia", 4, 7, "University of British Columbia logo.png", "University of British Columbia.jpg",
+                "49.2667","-123.2500",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school5 = new School("Stanford University", 5, 6, "Stanford University logo.webp", "Stanford University.webp",
+                "37.428230","-122.168861",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school6 = new School("University of California, Berkeley", 6, 5, "University of British Columbia logo.png", "University of British Columbia.jpg",
+                "37.871960","-122.259094",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school7 = new School("Princeton University", 7, 4, "Princeton University logo.svg", "Princeton University.jpg",
+                "40.343899","-74.660049",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school8 = new School("Harvard University", 8, 3, "Harvard University logo.png", "Harvard University.webp",
+                "42.374443","-71.116943",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school9 = new School("Yale University", 9, 2, "Yale University logo.png", "Yale University.png",
+                "41.316307","-72.922585",
+                new String[]{
+                "default/default.jpg",
+        });
+        School school10 = new School("Dartmouth College", 10, 1, "Dartmouth College logo.png", "Dartmouth College.jpg",
+                "43.704540","-72.288986",
+                new String[]{
+                "default/default.jpg",
+        });
 
         log.info("Preloading " + schoolRepository.save(school1));
         log.info("Preloading " + schoolRepository.save(school2));
@@ -78,23 +127,27 @@ class LoadDatabase {
         log.info("Preloading " + schoolRepository.save(school9));
         log.info("Preloading " + schoolRepository.save(school10));
 
-        Program program1 = new Program("Computer Science", school1);
-        Program program2 = new Program("Computer Engineering", school3);
-        Program program3 = new Program("Software Engineering", school2);
-        Program program4 = new Program("Computer Science", school6);
-        Program program5 = new Program("Statistical Science", school1);
-        Program program6 = new Program("Electrical and Computer Engineering", school1);
-        Program program7 = new Program("Software Engineering", school7);
-        Program program8 = new Program("Software Engineering", school8);
-        Program program9 = new Program("Software Engineering", school3);
-        Program program10 = new Program("Quantitative Management", school1);
-        Program program11 = new Program("Financial Technology", school1);
+        Program program1 = new Program("Computer Science", school1, "MS", EMajor.CS, "MS Computer Science.jpg");
+        Program program1_2 = new Program("Computer Science", school1, "MEng", EMajor.CS, "MEng Computer Science.jpg");
+        Program program1_3 = new Program("Computer Science", school1, "PhD", EMajor.MIS, "PhD Computer Science.jpg");
+        Program program2 = new Program("Computer Engineering", school3, "MS", EMajor.CS, "MS Computer Engineering.jpg");
+        Program program3 = new Program("Software Engineering", school2, "MS", EMajor.EE, "MS Software Engineering.jpg");
+        Program program4 = new Program("Computer Science", school6, "MS", EMajor.CS, "MS Computer Science.jpg");
+        Program program5 = new Program("Statistical Science", school1, "PhD", EMajor.MIS, "MS Statistical Science.jpg");
+        Program program6 = new Program("Electrical and Computer Engineering", school1, "MS", EMajor.EE, "MS Electrical and Computer Engineering.jpg");
+        Program program7 = new Program("Software Engineering", school7, "MS", EMajor.CS, "MS Software Engineering.jpg");
+        Program program8 = new Program("Software Engineering", school8, "PhD", EMajor.CS, "PhD Software Engineering.jpg");
+        Program program9 = new Program("Software Engineering", school3, "MS", EMajor.MIS, "MS Software Engineering.jpg");
+        Program program10 = new Program("Quantitative Management", school1, "PhD", EMajor.CS, "Quantitative Management.jpg");
+        Program program11 = new Program("Financial Technology", school1, "MS", EMajor.EE, "Financial Technology.webp");
 
 
 
 
 
         log.info("Preloading " + programRepository.save(program1));
+        log.info("Preloading " + programRepository.save(program1_2));
+        log.info("Preloading " + programRepository.save(program1_3));
         log.info("Preloading " + programRepository.save(program2));
         log.info("Preloading " + programRepository.save(program3));
         log.info("Preloading " + programRepository.save(program4));
@@ -140,19 +193,41 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED, "Phd");
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED, "MEng");
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, "MS");
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, "MS");
+
+        // for default deadline
+        String str = "2024-02-15";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ddl = sdf.parse(str);
+
+        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl);
+        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl);
+        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl);
+        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl);
+        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW, ddl);
+        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl);
+        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl);
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);
         applicationRepository.save(application3);
         applicationRepository.save(application4);
+        applicationRepository.save(application5);
+        applicationRepository.save(application6);
+        applicationRepository.save(application7);
+
+        PostCategory postCategory1 = new PostCategory("Study");
+        PostCategory postCategory2 = new PostCategory("Application");
+
+        postCategoryRepository.save(postCategory1);
+        postCategoryRepository.save(postCategory2);
+
+        Post post1 = new Post("123", "123", postCategory1, user1);
+        Post post2 = new Post("qwq", "qwq", postCategory2, user2);
+
+        postRepository.save(post1);
+        postRepository.save(post2);
 
 
-        return args -> {
-            log.warn("Preloaded database, completed.");
-        };
+        return args -> log.warn("Preloaded database, completed.");
     }
 }

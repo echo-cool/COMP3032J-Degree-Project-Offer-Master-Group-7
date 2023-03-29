@@ -9,7 +9,7 @@
                             data-sal="slide-up"
                             data-sal-duration="800"
                             data-sal-delay="150">
-                            Direct Teams. <br>For Your Dedicated Dreams
+                            Our Teams. <br>For Your Dedicated Dreams
                         </h2>
                     </div>
                 </div>

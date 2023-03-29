@@ -1,15 +1,24 @@
 package com.group7.service.impl;
 
+import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
+import com.group7.entitiy.UserQueryVo;
 import com.group7.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
+
+import static com.group7.utils.common.ListToPage.listToPage;
 
 /**
  * @Author: LiuZhe
@@ -18,11 +27,11 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private UserRepository userRepository;
 
     @Override
-    public String uploadAvatar(MultipartFile file) {
+    public String uploadAvatar(MultipartFile file, String preURL) {
         // e.g. test.png
         String filename = file.getOriginalFilename();
 
@@ -33,16 +42,37 @@ public class UserServiceImpl implements UserService {
         // concatenate the path for this avatar
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
         String pre = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath()
-                + "\\vue-user\\src\\assets\\images\\profile\\upload\\avatar\\";
+                + "\\src\\main\\resources\\static\\upload\\avatar\\";
         String savePath = pre + filename;
 
         // store the file
         try {
             file.transferTo(new File(savePath));
-            // return the filename to store in db
-            return filename;
+            // generate the http url for this pic
+            String url = preURL + filename;
+            // return the pic url to store in db
+            return url;
         } catch (IOException e) {
             return null;
         }
     }
+
+    @Override
+    public Page<User> pageByVo(long current, long limit, UserQueryVo userQueryVo) {
+        Page<User> userList;
+        Sort sort;
+        if (userQueryVo.getSort()) {
+            sort = Sort.by("username").ascending();
+        }else {
+            sort = Sort.by("username").descending();
+        }
+        Pageable pageable = PageRequest.of((int)current, (int)limit, sort);
+
+        List<User> users = userRepository.findByUsernameContainingAndEmailContaining(userQueryVo.getUsername(), userQueryVo.getEmail(), sort);
+        userList = listToPage(users, pageable);
+
+        
+        return userList;
+    }
+
 }

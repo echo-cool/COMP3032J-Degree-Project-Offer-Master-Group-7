@@ -1,27 +1,27 @@
 <template>
     <div :class="`product-style-one ${productStyleClass}`">
         <div class="card-thumbnail">
-            <router-link :to="`/product/${productDate.id}`">
-                <img :src="productDate.productImage" :alt="productDate.productName" @load="$emit('handleImageLoad')">
+            <router-link :to="`/school-details/${productDate.id}`">
+                <img style="height: 150px" :src="`/backend/static/`+productDate.img" :alt="productDate.name" @load="$emit('handleImageLoad')">
             </router-link>
             <countdown v-if="productDate.countdown" :date="productDate.countdown.date"/>
-            <router-link v-if="showPlaceBid" :to="`/product/${productDate.id}`" class="btn btn-primary">
+            <router-link v-if="showPlaceBid" :to="`/school-details/${productDate.id}`" class="btn btn-primary">
                 Place Bid
             </router-link>
         </div>
         <div class="product-share-wrapper">
-            <div class="profile-share">
-                <router-link v-for="(author, index) in productDate.authors"
-                             :key="`author-${index}`"
-                             :to="`/author/${author.id}`"
-                             class="avatar"
-                             :data-tooltip="author.name">
-                    <img :src="author.image" :alt="author.name">
-                </router-link>
-                <router-link to="#" class="more-author-text">
-                    {{ productDate.biddingAmount }}+ Place Bit.
-                </router-link>
-            </div>
+<!--            <div class="profile-share">-->
+<!--                <router-link v-for="(author, index) in productDate.programs"-->
+<!--                             :key="`author-${index}`"-->
+<!--                             :to="`/program/${author.id}`"-->
+<!--                             class="avatar"-->
+<!--                             :data-tooltip="author.name">-->
+<!--                    <img :src="`/backend/static/`+author.img" :alt="author.name">-->
+<!--                </router-link>-->
+<!--&lt;!&ndash;                <router-link to="#" class="more-author-text">&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{ productDate.biddingAmount }}+ Place Bit.&ndash;&gt;-->
+<!--&lt;!&ndash;                </router-link>&ndash;&gt;-->
+<!--            </div>-->
             <div class="share-btn share-btn-activation dropdown">
                 <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="feather-more-horizontal"/>
@@ -42,15 +42,16 @@
                 </div>
             </div>
         </div>
-        <router-link :to="`/product/${productDate.id}`">
-            <span class="product-name">{{ productDate.productName }}</span>
+        <router-link :to="`/school-details/${productDate.id}`">
+            <span class="product-name">{{ productDate.name }}</span>
         </router-link>
-        <span class="latest-bid">{{ productDate.latestBid }}</span>
+        <span class="latest-bid" v-if="productDate.rankQS">QS Ranking: {{ productDate.rankQS }}</span>
+        <span class="latest-bid" v-if="productDate.school">From: {{ productDate.school.name }}</span>
         <div class="bid-react-area">
-            <div class="last-bid">{{ productDate.lastBid }}</div>
+            <div class="last-bid" v-if="productDate.rankUSNews">US News: {{ productDate.rankUSNews }}#</div>
             <div class="react-area">
                 <i class="feather-heart"/>
-                <span class="number">{{ productDate.reacted }}</span>
+                <span class="number">{{ productDate.likes }}</span>
             </div>
         </div>
     </div>
