@@ -7,58 +7,10 @@
                 <div class="row g-5">
                     <div class="col-lg-8 custom-product-col">
 
-<!--                      Background Card-->
-                        <div class="col-lg-11 col-md-6 col-sm-6 col-12 mb--50" v-if="background !== null">
-                          <div class="rn-address rn-service-one">
-<!--                            <div class="icon">-->
-<!--                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"-->
-<!--                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"-->
-<!--                                   stroke-linejoin="round" class="feather feather-headphones">-->
-<!--                                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>-->
-<!--                                <path-->
-<!--                                    d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">-->
-<!--                                </path>-->
-<!--                              </svg>-->
-<!--                            </div>-->
-                            <div class="inner">
-                              <div class="icon">
-                                <img src="/img/shape-1.a3cb4828.png" alt="Shape">
-                              </div>
-                              <h4 class="title">Your Background For Recommendation</h4>
-                              <p class="mb--30">
-                                <span class="mr--50"><strong class="color-green">GPA: </strong>{{ background.gpa }}</span>
-                                <span class="mr--50"><strong class="color-green">Rank: </strong>{{ background.rank }}</span>
-                              </p>
-                              <p class="mb--30">
-                                <span class="mr--50"><strong class="color-green">Undergraduate School Level: </strong>{{ background.underGradSchoolCate }}</span>
-                              </p>
-                              <p class="mb--30">
-                                <span class="mr--50"><strong class="color-green">Undergraduate Major: </strong>{{ background.underGradMajor }}</span>
-                              </p>
-                              <p class="mb--30" v-if="background.testType === `IELTS`">
-                                <span class="mr--50"><strong class="color-green">IELTS: </strong>{{ background.totalIELTS }}</span>
-                                <span class="mr--50"><strong class="color-green">LISTENING: </strong>{{ background.listeningIELTS }}</span>
-                                <span class="mr--50"><strong class="color-green">READING: </strong>{{ background.readingIELTS }}</span>
-                                <span class="mr--50"><strong class="color-green">WRITING: </strong>{{ background.writingIELTS }}</span>
-                                <span class="mr--50"><strong class="color-green">SPEAKING: </strong>{{ background.speakingIELTS }}</span>
-                              </p>
-                              <p class="mb--30" v-else-if="background.testType === `TOEFL`">
-                                <span class="mr--50"><strong class="color-green">IELTS: </strong>{{ background.totalTOEFL }}</span>
-                                <span class="mr--50"><strong class="color-green">LISTENING: </strong>{{ background.listeningTOEFL }}</span>
-                                <span class="mr--50"><strong class="color-green">READING: </strong>{{ background.readingTOEFL }}</span>
-                                <span class="mr--50"><strong class="color-green">WRITING: </strong>{{ background.writingTOEFL }}</span>
-                                <span class="mr--50"><strong class="color-green">SPEAKING: </strong>{{ background.speakingTOEFL }}</span>
-                              </p>
-                              <p class="mb--30">
-                                <span class="mr--50"><strong class="color-green">GRE: </strong>{{ background.greTotal }}</span>
-                                <span class="mr--50"><strong class="color-green">VERBAL: </strong>{{ background.greVerbal }}</span>
-                                <span class="mr--50"><strong class="color-green">QUANTITATIVE: </strong>{{ background.greQuantitative }}</span>
-                                <span class="mr--50"><strong class="color-green">ANALYTICAL WRITING: </strong>{{ background.greAnalyticalWriting }}</span>
-                              </p>
-                            </div>
-                            <router-link class="over-link" to="/edit-profile?to=application"></router-link>
-                          </div>
-                        </div>
+                        <!-- Background Card -->
+                        <background-card :background="background" :card-title="`Your Background For Recommendation`"/>
+                        <!-- Background Card End -->
+
 
 <!--                        <explore-list-style/>-->
                         <program-listing :current-user="currentUser"
@@ -113,6 +65,7 @@
     import applicationListMixin from "@/mixins/user/ApplicationListMixin";
     import commonApi from "@/api/common";
     import OfferMasterGuide from "@/components/myComp/homePageComp/OfferMasterGuide";
+    import BackgroundCard from "@/components/myComp/background/BackgroundCard.vue";
 
     export default {
         name: 'ExploreNine',
@@ -132,7 +85,8 @@
             Breadcrumb,
             Layout,
             MyProgramListSidebar,
-            ProgramListing
+            ProgramListing,
+            BackgroundCard
         },
         data(){
             return{
