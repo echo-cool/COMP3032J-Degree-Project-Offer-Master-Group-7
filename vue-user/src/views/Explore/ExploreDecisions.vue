@@ -30,7 +30,8 @@
 
                                 <tbody v-if="loadCountUser === applications.length
                                             && loadCountProgram === applications.length
-                                            && loadCountSchool === applications.length" class="ranking">
+                                            && loadCountSchool === applications.length
+                                            && loadCountProfile === applications.length" class="ranking">
                                 <tr :class="{'color-light': rowIndex%2 === 0}"
                                     v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                     :key="`application-decision-${rowIndex}`">
@@ -74,6 +75,16 @@
                                         <span>{{ row.reportedTime }}</span>
                                     </td>
 
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-primary save-btn-edit"
+                                                :data-bs-toggle="`modal`"
+                                                :data-bs-target="`#backgroundModal-${row.user.profile.id}`">
+                                            Peek Background
+                                        </button>
+                                    </td>
+
+                                    <background-modal :background="row.user.profile" :card-title="`Application Background of [` + row.user.username + `]`"/>
                                 </tr>
                                 </tbody>
                             </table>
@@ -117,10 +128,16 @@
     import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
     import applicationApi from "@/api/application";
     import commonApi from "@/api/common";
+    import backgroundModal from "@/components/myComp/modal/BackgroundModal.vue";
+    import backgroundCard from "@/components/myComp/background/BackgroundCard.vue";
 
     export default {
         name: 'ExploreDecisions',
-        components: {Breadcrumb, Layout},
+        components: {
+            Breadcrumb,
+            Layout,
+            backgroundModal
+        },
         mixins: [SalScrollAnimationMixin],
         data() {
             return {
@@ -131,11 +148,14 @@
                     Degree: "",
                     Application_Round: "",
                     Application_Decision: "",
-                    Reported_Time: ""
+                    Reported_Time: "",
+                    Operations: ""
                 },
                 applications: [
                     {
-                        user:{},
+                        user:{
+                            profile: {}
+                        },
                         program: {
                             school: {}
                         }
@@ -144,6 +164,7 @@
                 loadCountUser: 0,
                 loadCountProgram: 0,
                 loadCountSchool: 0,
+                loadCountProfile: 0, // background
 
                 rankingList: [
                     {
@@ -223,6 +244,9 @@
 
         },
         computed: {
+            backgroundCard() {
+                return backgroundCard
+            },
             filteredRows() {
                 return this.applications;
             },
@@ -253,6 +277,8 @@
                         // reset the loading count
                         this.loadCountUser = 0;
                         this.loadCountProgram = 0;
+                        this.loadCountProfile = 0;
+                        this.loadCountSchool = 0;
 
                         // we need to request the user and program obj for each application
                         for(let k in this.applications){
@@ -262,6 +288,14 @@
                                 .then(response => {
                                     this.applications[k].user = response;
                                     this.loadCountUser += 1;
+
+                                    // request the profile (background) for this user
+                                    let profileURL = `/rest/users/${this.applications[k].user.id}/profile`
+                                    commonApi.getByRestURL(profileURL)
+                                        .then(response => {
+                                            this.applications[k].user.profile = response;
+                                            this.loadCountProfile += 1;
+                                        })
                                 })
 
                             // request the program
