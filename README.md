@@ -18,6 +18,102 @@ The **offer master** website provides the following main features:
 ## Build this project
 
 ### Using docker-compose
+Create an `docker-compose.yml`
+```yaml
+version: '3'
+
+services:
+
+  # Proxies requests to internal services
+  reverse-proxy:
+    image: nginx:1.20.2
+    container_name: fyp_offer_master_reverse_proxy
+    depends_on:
+      - fyp_offer_master_springboot_admin
+      - fyp_offer_master_springboot
+      - fyp_offer_master_vue_user
+      - fyp_offer_master_vue_admin
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    networks:
+      - offer_master_network
+
+  fyp_offer_master_springboot_admin:
+    image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
+    container_name: fyp_offer_master_springboot_admin
+    expose:
+      - "8081"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+  # springboot backend
+  fyp_offer_master_springboot:
+    image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
+    container_name: fyp_offer_master_springboot
+    build:
+      context: .
+    depends_on:
+      - fyp_offer_master_springboot_admin
+    environment:
+      - SERVER_ADDRESS=fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # user portal
+  fyp_offer_master_vue_user:
+    image: echocool/fyp_offer_master_vue_user:${VERSION:-latest}
+    container_name: fyp_offer_master_vue_user
+    build:
+      context: ./vue-user
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  # admin portal
+  fyp_offer_master_vue_admin:
+    image: echocool/fyp_offer_master_vue_admin:${VERSION:-latest}
+    container_name: fyp_offer_master_vue_admin
+    build:
+      context: ./vue-admin
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
+
+
+  fyp_offer_master_minio:
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    networks:
+      - offer_master_network
+    volumes:
+      - ~/minio/data:/data
+    environment:
+      MINIO_ROOT_USER: group7
+      MINIO_ROOT_PASSWORD: group7group7
+    command: server /data --console-address ":9090"
+
+networks:
+  offer_master_network:
+```
+
 ```shell
 docker-compose build --parallel
 ```

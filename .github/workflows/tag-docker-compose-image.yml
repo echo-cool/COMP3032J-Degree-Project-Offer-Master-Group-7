@@ -1,0 +1,32 @@
+name: Docker-compose build
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+      - run: docker-compose --version
+      - name: Build with docker-compose
+        run: docker-compose build --parallel
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: echocool
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - run: docker-compose push
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+
+
+

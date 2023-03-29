@@ -2,6 +2,7 @@ package com.group7.db.jpa;
 
 import com.group7.db.jpa.utils.EStatus;
 import org.springframework.data.domain.Sort;
+import com.group7.db.jpa.utils.EStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -19,4 +20,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long>,
 
     List<Application> findByeStatusIn(List<EStatus> statusList, Sort sort);
 
+    List<Application> findApplicationsByeStatus(EStatus status);
+    List<Application> findApplicationByeStatusNot(EStatus status);
 }

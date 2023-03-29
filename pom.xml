@@ -15,6 +15,8 @@
     <description>COMP3032J_FYP_Thesis_Group_7</description>
     <properties>
         <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -99,11 +101,11 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>org.jacoco</groupId>-->
-<!--            <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--            <version>0.8.3</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.3</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -203,34 +205,34 @@
                     </excludes>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.3</version>-->
-<!--                <configuration>-->
-<!--                    <excludes>-->
-<!--                        &lt;!&ndash;                        <exclude>com/Group_Six/View/**/*</exclude>&ndash;&gt;-->
-<!--                    </excludes>-->
-<!--                    <includes>-->
-<!--                        <include>com/group7/**/*</include>-->
-<!--                    </includes>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>pre-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>post-test</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.3</version>
+                <configuration>
+                    <excludes>
+                        <!--                        <exclude>com/Group_Six/View/**/*</exclude>-->
+                    </excludes>
+                    <includes>
+                        <include>com/group7/**/*</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
 
                 <groupId>org.mybatis.generator</groupId>

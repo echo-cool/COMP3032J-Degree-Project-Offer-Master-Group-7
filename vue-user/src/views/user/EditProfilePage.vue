@@ -777,10 +777,15 @@
             // load the current user info as this page is created
             // user would be redirected to the login page if not logged in
             this.getCurrentUser();
-
         },
 
-        computed: {
+        mounted() {
+          if (this.$route.query.to === "application") {
+            (document.getElementById("nav-background-tab")).click()
+          }
+        },
+
+      computed: {
             filteredRows() {
                 return this.applications;
             },

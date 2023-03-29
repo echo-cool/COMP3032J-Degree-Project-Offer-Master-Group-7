@@ -1,5 +1,5 @@
 <template>
-    <h2 class="text-left mb--50">All GRADUATE PROGRAMS</h2>
+    <h2 class="text-left mb--50">RECOMMENDED PROGRAMS RANKED BY SIMILARITY</h2>
 <!--    <nav class="product-tab-nav">-->
 <!--        <div class="nav" id="nav-tab" role="tablist">-->
 <!--            <button :class="[`nav-link`, {'active': activeTabIndex === index}]"-->
@@ -39,12 +39,11 @@
 
 <script>
     import ProductMixin from '@/mixins/ProductMixin'
-    import ProductListCard from '@/components/product/ProductListCard'
     import ProgramListCard from "@/components/myComp/ProgramListCard.vue";
     import commonApi from "@/api/common";
     import profileApi from "@/api/profile";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
-    import program from "@/api/programSelection";
+    import {getRecommendedProgramsByKNN} from "@/api/recommendation";
 
     export default {
         name: 'ProgramListing',
@@ -129,10 +128,10 @@
             // get all the programs
             getPrograms(){
                 // call the api method
-                commonApi.getByRestURL("/rest/programs")
+                getRecommendedProgramsByKNN()
                     .then(response => {
                         // update the programs list
-                        this.programs = response._embedded.programs;
+                        this.programs = response.data.data;
 
                         // for each of the program, send request to get the school info
                         for (let k in this.programs){
