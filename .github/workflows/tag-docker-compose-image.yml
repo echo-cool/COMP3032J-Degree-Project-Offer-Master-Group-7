@@ -41,6 +41,8 @@ jobs:
           username: echo-cool
           password: ${{ secrets.PACKAGE_TOKEN }}
       - run: docker-compose push
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
 
 
