@@ -3,7 +3,9 @@ package com.group7.config;
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.EMajor;
 import com.group7.db.jpa.utils.ERole;
+import com.group7.db.jpa.utils.ERound;
 import com.group7.db.jpa.utils.EStatus;
+import com.group7.utils.common.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,13 +200,13 @@ class LoadDatabase {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date ddl = sdf.parse(str);
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl);
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl);
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl);
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl);
-        Application application5 = new Application(user1, program1_2, EStatus.AWAITING_REVIEW, ddl);
-        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl);
-        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl);
+        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+        Application application5 = new Application(user1, program1_2, EStatus.ADMITTED, ddl, ERound.SPRING_2024, DateUtil.getRandomPastDate());
+        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);

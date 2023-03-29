@@ -86,7 +86,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/school/public/**").permitAll()
                 .requestMatchers("/api/program/public/**").permitAll()
+                .requestMatchers("/api/application/public/**").permitAll()
                 .requestMatchers("/api/post/public/**").permitAll()
+                .requestMatchers("/rest/applications/**").permitAll()
+                .requestMatchers("/rest/programs/**").permitAll()
                 .anyRequest().authenticated();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()

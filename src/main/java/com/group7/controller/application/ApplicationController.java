@@ -2,16 +2,20 @@ package com.group7.controller.application;
 
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EStatus;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import io.sentry.protocol.App;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -75,6 +79,22 @@ public class ApplicationController {
         applicationRepository.save(application);
 
         return ResponseEntity.ok(R.ok());
+    }
+
+    /**
+     * Applications with status of admitted or rejected
+     */
+    @RequestMapping("/public/get-decided-applications")
+    public R getDecidedApplications() {
+        ArrayList<EStatus> filterStatus = new ArrayList<>();
+        filterStatus.add(EStatus.ADMITTED);
+        filterStatus.add(EStatus.REJECTED);
+
+        Sort sort = Sort.by("reportedTime").descending();
+
+        List<Application> decisions = applicationRepository.findByeStatusIn(filterStatus, sort);
+
+        return R.ok().data("decisions", decisions);
     }
 
 
