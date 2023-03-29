@@ -110,5 +110,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./portainer/data:/data
 
+
 networks:
   offer_master_network:
