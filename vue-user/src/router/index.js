@@ -12,6 +12,7 @@ import Explore from "@/views/Explore/Explore";
 import Community from "@/views/Community/Community";
 import PostDetails from "@/views/Community/PostDetails";
 import CreatePost from "@/views/Community/CreatePost";
+import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
 
 const routes = [
 
@@ -117,6 +118,14 @@ const routes = [
         component: CreatePost,
         meta: {
             title: 'Create Post || OfferMaster',
+        },
+    },
+    {
+        path: '/explore-decisions',
+        name: 'ExploreDecisions',
+        component: ExploreDecisions,
+        meta: {
+            title: 'Explore Application Decisions || OfferMaster',
         },
     }
 ]

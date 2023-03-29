@@ -2,6 +2,7 @@ package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.group7.db.jpa.utils.ERound;
 import com.group7.db.jpa.utils.EStatus;
 import jakarta.persistence.*;
 
@@ -44,17 +45,26 @@ public class Application {
     @Temporal(TemporalType.DATE)
     private Date deadline;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date reportedTime;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ERound eRound;
+
 
     public Application(User user, Program program) {
         this.user = user;
         this.program = program;
     }
 
-    public Application(User user, Program program, EStatus eStatus, Date deadline) {
+    public Application(User user, Program program, EStatus eStatus, Date deadline, ERound eRound, Date reportedTime) {
         this.user = user;
         this.program = program;
         this.eStatus = eStatus;
         this.deadline = deadline;
+        this.eRound = eRound;
+        this.reportedTime = reportedTime;
     }
 
 
@@ -100,5 +110,21 @@ public class Application {
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public Date getReportedTime() {
+        return reportedTime;
+    }
+
+    public void setReportedTime(Date reportedTime) {
+        this.reportedTime = reportedTime;
+    }
+
+    public ERound geteRound() {
+        return eRound;
+    }
+
+    public void seteRound(ERound eRound) {
+        this.eRound = eRound;
     }
 }
