@@ -1,5 +1,5 @@
 /*----------------------------------
-    White Version Demo  
+    White Version Demo
 -----------------------------------*/
 body {
   &.active-light-mode {
@@ -1085,6 +1085,19 @@ body {
 
     h5 {
       margin-bottom: 10px;
+    }
+  }
+
+  // background-modal
+  .background-content-wrapper {
+    background: var(--color-primary);
+
+    .modal-body {
+      padding: 0;
+
+      p {
+        margin-bottom: 15px;
+      }
     }
   }
 

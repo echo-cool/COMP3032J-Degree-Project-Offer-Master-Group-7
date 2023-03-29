@@ -6,7 +6,7 @@
                 <div class="icon">
                     <img src="/img/shape-1.a3cb4828.png" alt="Shape">
                 </div>
-                <h4 class="title">{{ cardTitle }}</h4>
+                <h3 class="title">{{ cardTitle }}</h3>
                 <p class="mb--30">
                     <span class="mr--50"><strong class="color-green">GPA: </strong>{{ background.gpa }}</span>
                     <span class="mr--50"><strong class="color-green">Rank: </strong>{{ background.rank }}</span>
@@ -38,7 +38,7 @@
                     <span class="mr--50"><strong class="color-green">ANALYTICAL WRITING: </strong>{{ background.greAnalyticalWriting }}</span>
                 </p>
             </div>
-            <router-link class="over-link" to="/edit-profile?to=application"></router-link>
+            <router-link v-if="isEditableObj.isEditable" class="over-link" to="/edit-profile?to=application"></router-link>
         </div>
     </div>
 
@@ -53,7 +53,8 @@ export default {
         cardTitle:{
             type: String,
             default: "Background Card"
-        }
+        },
+        isEditableObj: {}
     },
     components: {
 
