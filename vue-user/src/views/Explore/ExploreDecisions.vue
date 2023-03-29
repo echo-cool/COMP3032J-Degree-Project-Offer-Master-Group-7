@@ -28,7 +28,9 @@
                                 </tr>
                                 </thead>
 
-                                <tbody class="ranking">
+                                <tbody v-if="loadCountUser === applications.length
+                                            && loadCountProgram === applications.length
+                                            && loadCountSchool === applications.length" class="ranking">
                                 <tr :class="{'color-light': rowIndex%2 === 0}"
                                     v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                     :key="`application-decision-${rowIndex}`">
@@ -37,15 +39,30 @@
                                         <div class="product-wrapper d-flex align-items-center">
                                             <router-link to="#" class="thumbnail">
                                                 <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
+                                                <span>{{ row.user.username }}</span>
                                             </router-link>
-                                            <span>{{ row.user.username }}</span>
                                         </div>
                                     </td>
 
-                                    <td><span>{{ row.program.school.name }}</span></td>
-                                    <td><span>{{ row.program.name }}</span></td>
-                                    <td><span>{{ row.program.degree }}</span></td>
-                                    <td><span>{{ row.eRound.toLowerCase().replace('_', ' - ') }}</span></td>
+                                    <td>
+                                        <router-link :to="`/school-details/${row.program.school.id}`">
+                                            <span>{{ row.program.school.name }}</span>
+                                        </router-link>
+                                    </td>
+
+                                    <td>
+                                        <router-link :to="`#`">
+                                            <span>{{ row.program.name }}</span>
+                                        </router-link>
+                                    </td>
+
+                                    <td>
+                                        <span>{{ row.program.degree }}</span>
+                                    </td>
+
+                                    <td>
+                                        <span>{{ row.eRound.toLowerCase().replace('_', ' - ') }}</span>
+                                    </td>
 
                                     <td>
                                         <span :class="row.eStatus === 'ADMITTED' ? 'color-green' : 'color-red'">
@@ -53,7 +70,9 @@
                                         </span>
                                     </td>
 
-                                    <td><span>{{ row.reportedTime }}</span></td>
+                                    <td>
+                                        <span>{{ row.reportedTime }}</span>
+                                    </td>
 
                                 </tr>
                                 </tbody>
