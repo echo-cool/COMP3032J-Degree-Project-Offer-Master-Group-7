@@ -9,6 +9,9 @@ import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
+import Community from "@/views/Community/Community";
+import PostDetails from "@/views/Community/PostDetails";
+import CreatePost from "@/views/Community/CreatePost";
 
 const routes = [
 
@@ -92,6 +95,30 @@ const routes = [
             title: 'Explore || OfferMaster',
         },
     },
+    {
+        path: '/community',
+        name: 'Community',
+        component: Community,
+        meta: {
+            title: 'Community || OfferMaster',
+        },
+    },
+    {
+        path: '/post-details/:id',
+        name: 'PostDetails',
+        component: PostDetails,
+        meta: {
+            title: 'Post Details || OfferMaster',
+        },
+    },
+    {
+        path: '/create-post',
+        name: 'CreatePost',
+        component: CreatePost,
+        meta: {
+            title: 'Create Post || OfferMaster',
+        },
+    }
 ]
 
 const router = createRouter({

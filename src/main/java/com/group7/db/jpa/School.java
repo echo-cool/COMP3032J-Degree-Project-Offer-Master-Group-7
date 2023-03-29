@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.group7.utils.common.MyRandomUtils;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: WangYuyang
@@ -93,7 +92,11 @@ public class School {
         this.img = "upload/img/" +img;
         this.lat = lat;
         this.lng = lng;
-        setExtraImages(extraImages);
+        List<String> tmp = new ArrayList<>(Arrays.asList(extraImages));
+        tmp.add(0, this.logo);
+        tmp.add(0, this.img);
+
+        setExtraImages(tmp.toArray(new String[]{}));
     }
 
     public School() {

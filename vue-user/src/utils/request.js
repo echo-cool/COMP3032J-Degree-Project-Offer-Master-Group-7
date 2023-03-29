@@ -52,10 +52,10 @@ service.interceptors.response.use(
         // 对响应错误做点什么
 
         // if unauthorized (401) we need to let user login
-        if (error.response.status === 401){
-            window.alert("You should login first!");
-            window.location.href = "/login";
-        }
+        // if (error.response.status === 401){
+        //     window.alert("You should login first!");
+        //     window.location.href = "/login";
+        // }
 
         console.log(error)
         return Promise.reject(error)
