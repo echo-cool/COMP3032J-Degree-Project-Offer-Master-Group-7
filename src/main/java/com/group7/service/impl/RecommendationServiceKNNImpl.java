@@ -5,9 +5,11 @@ import com.group7.db.jpa.utils.EStatus;
 import com.group7.service.RecommendationServiceKNN;
 import com.group7.service.util.ProgramInfo;
 import jakarta.annotation.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
@@ -17,6 +19,9 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
     @Resource
     ProgramRepository programRepository;
+
+    @Resource
+    ProfileRepository profileRepository;
 
     @Override
     public List<Program> similarityCalculate(User user) {
@@ -28,16 +33,48 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
         Map<Program, Double> programScores = new HashMap<>();
         Profile profile = user.getProfile();
 
+        double maxGpa = 0;
+        double minGpa = 0;
+        double maxIELTS = 0;
+        double minIELTS = 0;
+        double maxTOEFL = 0;
+        double minTOEFL = 0;
+
+        List<Profile> profiles = profileRepository.findAll();
+
+        if (profileRepository.findByRank(0).size() != profiles.size() ){
+            List<Profile> profilesSortedByGpa = profiles.stream().filter(filter -> filter.getRank() != 0).sorted((o1, o2) -> (int) (o1.getGpa() - o2.getGpa())).toList();
+            List<Profile> profilesSortedByIELTS = profiles.stream().filter(filter -> filter.getRank() != 0).sorted((o1, o2) -> (int) (o1.getTotalIELTS() - o2.getTotalIELTS())).toList();
+            List<Profile> profilesSortedByTOEFL = profiles.stream().filter(filter -> filter.getRank() != 0).sorted(Comparator.comparingInt(Profile::getTotalTOEFL)).toList();
+
+            maxGpa = profilesSortedByGpa.get(profilesSortedByGpa.size() - 1).getGpa();
+            minGpa = profilesSortedByGpa.get(0).getGpa();
+            maxIELTS = profilesSortedByIELTS.get(profilesSortedByGpa.size() - 1).getTotalIELTS();
+            minIELTS = profilesSortedByIELTS.get(0).getTotalIELTS();
+            maxTOEFL = profilesSortedByTOEFL.get(profilesSortedByGpa.size() - 1).getTotalTOEFL();
+            minTOEFL = profilesSortedByTOEFL.get(0).getTotalTOEFL();
+        }
+
         List<Program> result = new ArrayList<>();
 
         for (Application application: admittedApplications) {
             if (map.containsKey(application.getProgram().getId())) {
                 map.get(application.getProgram().getId()).get("gpa")[0] += application.getUser().getProfile().getGpa();
                 map.get(application.getProgram().getId()).get("gpa")[1] += 1;
+
+                map.get(application.getProgram().getId()).get("ielts")[0] += application.getUser().getProfile().getTotalIELTS();
+                map.get(application.getProgram().getId()).get("ielts")[1] += 1;
+
+                map.get(application.getProgram().getId()).get("toefl")[0] += application.getUser().getProfile().getTotalTOEFL();
+                map.get(application.getProgram().getId()).get("toefl")[1] += 1;
             }
             else {
                 Map<String, double[]> temp = new HashMap<>();
+
                 temp.put("gpa", new double[]{application.getUser().getProfile().getGpa(), 1});
+                temp.put("ielts", new double[]{application.getUser().getProfile().getTotalIELTS(), 1});
+                temp.put("toefl", new double[]{application.getUser().getProfile().getTotalTOEFL(), 1});
+
                 map.put(application.getProgram().getId(), temp);
             }
         }
@@ -56,7 +93,10 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
         for (ProgramInfo programInfo: programs) {
 
             double score = 0;
-            score += Math.pow(profile.getGpa() - programInfo.getAvgGPA(), 2);
+            score += Math.pow(((profile.getGpa() - minGpa) / (maxGpa - minGpa)) - ((programInfo.getAvgGPA() - minGpa) / (maxGpa - minGpa)), 2);
+            score += Math.pow(((profile.getTotalIELTS() - minIELTS) / (maxIELTS - minIELTS)) - ((programInfo.getAvgIELTS() - minIELTS) / (maxIELTS - minIELTS)), 2);
+            score += Math.pow(((profile.getTotalTOEFL() - minTOEFL) / (maxTOEFL - minTOEFL)) - ((programInfo.getAvgTOEFL() - minTOEFL) / (maxTOEFL - minTOEFL)), 2);
+
             score = Math.pow(score, 0.5);
 
             programScores.put(programInfo.getProgram(), score);
