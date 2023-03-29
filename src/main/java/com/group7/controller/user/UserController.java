@@ -128,8 +128,8 @@ public class UserController {
                     .body(R.error().message("Upload failed - You should login first."));
         }
 
-        // concatenate the Http schema, servername, and server port to get the avatar url
-        String preURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/img/upload/avatar/";
+        // the avatar url using resources/static as root
+        String preURL = "upload/avatar/";
 
         // store the file locally
         String newFileName = userService.uploadAvatar(file, preURL);

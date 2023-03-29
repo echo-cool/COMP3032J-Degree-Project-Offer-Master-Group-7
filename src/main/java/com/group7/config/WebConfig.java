@@ -46,9 +46,6 @@ public class WebConfig implements WebMvcConfigurer {
         if(System.getProperty("os.name").toLowerCase().contains("linux")){
             resourceLocation = projectDir  + "src/main/resources/static/";
         }
-        System.out.println("============================================");
-        System.out.println(resourceLocation);
-        System.out.println("============================================");
 
         // map the resources/static dir to the http://.../img/
         registry.addResourceHandler("/static/**")
