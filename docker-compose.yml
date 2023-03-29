@@ -73,6 +73,18 @@ services:
       - offer_master_network
     restart: on-failure
 
+  fyp_offer_master_django_ml:
+    image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
+    container_name: fyp_offer_master_django_ml
+    build:
+      context: ./django_ml
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
 
   fyp_offer_master_minio:
     image: quay.io/minio/minio
