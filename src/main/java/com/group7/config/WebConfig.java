@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.File;
+
 /**
  * @Author: WangYuyang
  * @Date: 2023/2/26-18:20
@@ -42,10 +44,11 @@ public class WebConfig implements WebMvcConfigurer {
         // get the resource location (resources/static)
         ApplicationHome applicationHome = new ApplicationHome(this.getClass());
         String projectDir = System.getProperty("user.dir");
-        String resourceLocation = projectDir  + "\\src\\main\\resources\\static\\";
-        if(System.getProperty("os.name").toLowerCase().contains("linux")){
-            resourceLocation = projectDir  + "src/main/resources/static/";
-        }
+        String resourceLocation = projectDir + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "static" + File.separatorChar;
+//        if(System.getProperty("os.name").toLowerCase().contains("linux")){
+//            resourceLocation = projectDir  + "src/main/resources/static/";
+//        }
         System.out.println("============================================");
         System.out.println(resourceLocation);
         System.out.println("============================================");
