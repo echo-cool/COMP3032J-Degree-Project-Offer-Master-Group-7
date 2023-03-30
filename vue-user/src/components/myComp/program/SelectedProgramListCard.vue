@@ -3,7 +3,7 @@
         <div class="inner">
             <div class="lg-left-content">
                 <router-link :to="`#`" class="thumbnail">
-                    <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')">
+                    <img :src="`/backend/static/`+application.program.img" :alt="application.program.school.name" @load="$emit('handleImageLoad')">
 <!--                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
                 </router-link>
                 <div class="read-content">
@@ -24,18 +24,19 @@
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
                     <router-link :to="`#`">
-                        <h6 class="title">{{ program.name }} - {{ program.degree }}</h6>
+                        <h6 class="title">{{ application.program.name }} - {{ application.program.degree }}</h6>
                     </router-link>
-                    <span class="latest-bid">{{ program.school.name }}</span>
+                    <span class="latest-bid">{{ application.program.school.name }}</span>
                     <div class="share-wrapper d-flex">
-                        <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(program.id)">
+                        <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ application.program.likes }}</span>
                         </div>
-                        <div v-else class="react-area mr--15" @click="likeProgram(program.id)">
+                        <div v-else class="react-area mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ application.program.likes }}</span>
                         </div>
+
                         <div class="share-btn share-btn-activation dropdown">
                             <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="feather-more-horizontal"/>
@@ -43,12 +44,14 @@
                             <div class="share-btn-setting dropdown-menu dropdown-menu-end">
                                 <button type="button"
                                         class="btn-setting-text report-text"
-                                        @click="editApplications(program.id)">
+                                        :data-bs-toggle="`modal`"
+                                        :data-bs-target="`#application-edit-modal-${application.id}`"
+                                        @click="editApplications(application.program.id)">
                                     Edit
                                 </button>
                                 <button type="button"
                                         class="btn-setting-text report-text"
-                                        @click="removeProgramFromUserApplications(program.id)">
+                                        @click="removeProgramFromUserApplications(application.program.id)">
                                     Remove
                                 </button>
                             </div>
@@ -58,9 +61,9 @@
             </div>
 
 
-            <div class="">
+            <div>
                 <h6 class="title">Time Remaining</h6>
-                <countdown :date="deadline" class="mt--15"/>
+                <countdown :date="application.deadline" class="mt--15"/>
             </div>
 
 
@@ -90,13 +93,12 @@
                 type: Boolean,
                 default: false
             },
-            program: {},
+            application: {},
             isProgramSelected: {
                 type: Boolean,
                 default: false
             },
             isLikedObj: {},
-            deadline: ""
         },
         data(){
             return{
@@ -127,10 +129,18 @@
                 programApi.likeProgram(programId)
                     .then(response => {
                         if(response.success){
+
+                            // tell the parent comp to change the liked status (statically)
+                            if (response.data.likes > this.application.program.likes){
+                                // add like
+                                this.$emit("addLike");
+                            }else{
+                                // remove like
+                                this.$emit("removeLike");
+                            }
+
                             // update the like number of this program
-                            this.program.likes = response.data.likes;
-                            // change the liked status
-                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                            this.application.program.likes = response.data.likes;
                         }
                     })
             }

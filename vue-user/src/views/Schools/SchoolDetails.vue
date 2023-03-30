@@ -22,7 +22,10 @@
                                             v-for="(thumbnailSm, index) in product.extraImages"
                                             :key="`small-thumbnail-${index}`">
                                         <span class="rn-pd-sm-thumbnail">
-                                            <img width="164" height="164" :src="`/backend/static/`+thumbnailSm" alt="Nft_Profile">
+                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                            <b-spinner label="Spinning" style="position: absolute; width: 30px; height: 30px; z-index: 0"></b-spinner>
+                                            <img style="position: relative; z-index: 4" width="164" height="164" :src="`/backend/static/`+thumbnailSm" alt="Nft_Profile">
+                                          </div>
                                         </span>
                                     </button>
                                 </div>
@@ -34,7 +37,11 @@
                                          v-for="(thumbnailLg, index) in product.extraImages"
                                          :key="`large-thumbnail-${index}`">
                                         <div class="rn-pd-thumbnail">
-                                            <img :src="`/backend/static/`+thumbnailLg" alt="Nft_Profile">
+                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                            <b-spinner label="Spinning" style="position: absolute; width: 40px; height: 40px; z-index: 0"></b-spinner>
+
+                                            <img style="min-height: 330px; position: relative; z-index: 4" :src="`/backend/static/`+thumbnailLg" alt="Nft_Profile">
+                                          </div>
                                         </div>
                                     </div>
                                 </div>
@@ -586,11 +593,18 @@
                                             <div class="top-seller-inner-one">
                                                 <div class="top-seller-wrapper">
                                                     <div class="thumbnail">
+
                                                         <router-link to="#">
-                                                            <img :src="`/backend/static/` + product.logo" alt="Nft_Profile">
-                                                        </router-link>
+                                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                                            <b-spinner label="Spinning" style="position: absolute; width: 20px; height: 20px; z-index: 0"></b-spinner>
+
+                                                            <img style="position: relative;height: 50px; width: 50px; z-index: 4;" :src="`/backend/static/` + product.logo" alt="Nft_Profile">
+
+                                                          </div>
+                                                          </router-link>
                                                     </div>
                                                     <div class="top-seller-content">
+
                                                         <span class="heighest-bid">{{product.name}}</span>
 <!--                                                        <span class="count-number">0.115wETH</span>-->
                                                     </div>

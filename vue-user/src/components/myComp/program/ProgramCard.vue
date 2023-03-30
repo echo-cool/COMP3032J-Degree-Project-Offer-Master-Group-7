@@ -1,13 +1,21 @@
 <template>
     <div :class="`product-style-one`">
         <div class="card-thumbnail" style="">
-<!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
+
+
+          <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
             <router-link :to="`/school-details/`+school.id">
+
                 <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
 
               <img v-else :src="require(`@/assets/images/portfolio/portfolio-07.jpg`)" :alt="`img`" @load="$emit('handleImageLoad')">
+              <div class="text-center">
+                <b-spinner label="Spinning" style="position: absolute; width: 50px; height: 50px"></b-spinner>
+              </div>
             </router-link>
+
             <countdown v-if="showDDLCountdown" :date="deadline"/>
+
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
