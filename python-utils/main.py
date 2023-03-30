@@ -221,7 +221,10 @@ def readExcel(path):
 def generateSchoolJava(javaSchoolName):
     # saveSchoolData(new School("shortName", ESource.OPENCS), schoolRepository);
     longName = schoolNameMapping[javaSchoolName]
-    res = f"School {javaSchoolName} = new School(\"{longName}\", ESource.OPENCS);\nsaveSchoolData({javaSchoolName}, schoolRepository);"
+    lat = str(schoolLatLongMapping[javaSchoolName][0])
+    lng = str(schoolLatLongMapping[javaSchoolName][1])
+
+    res = f"School {javaSchoolName} = new School(\"{longName}\", ESource.OPENCS,\"{lat}\",\"{lng}\");\nsaveSchoolData({javaSchoolName}, schoolRepository);"
     return res
 
 
