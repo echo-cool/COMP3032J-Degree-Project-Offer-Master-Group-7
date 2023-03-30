@@ -15,6 +15,7 @@ import PostDetails from "@/views/Community/PostDetails";
 import CreatePost from "@/views/Community/CreatePost";
 import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
 import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
+import MyApplications from "@/views/user/MyApplications.vue";
 
 const routes = [
 
@@ -52,6 +53,15 @@ const routes = [
         component: EditProfilePage,
         meta: {
             title: 'Personal Profile || OfferMaster',
+        },
+    },
+
+    {
+        path: '/my-applications',
+        name: 'MyApplications',
+        component: MyApplications,
+        meta: {
+            title: 'My Applications || OfferMaster',
         },
     },
 
