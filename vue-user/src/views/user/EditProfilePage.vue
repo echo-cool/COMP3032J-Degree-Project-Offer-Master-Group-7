@@ -507,12 +507,16 @@
                                             <div class="tab-content" id="nav-tabContent">
                                                     <!-- !!! we must load this component after loading all the schools !!! -->
                                                     <!-- !!! Otherwise, the schools would be undefined !!! -->
-                                                    <template v-if="appListMixinLoadSchoolCount === applications.length" v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
+                                                    <template v-if="appListMixinLoadSchoolCount === applications.length"
+                                                              v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                               :key="`application-${index}`">
-                                                        <selected-program-list-card :program="application.program"
+                                                        <selected-program-list-card :application="application"
                                                                                     :is-liked-obj="isLiked(application.program.id)"
-                                                                                    :deadline="application.deadline"
-                                                                                    @reloadData="reloadData"/>
+                                                                                    @reloadData="reloadData"
+                                                                                    @removeLike="removeLike(application.program.id)"
+                                                                                    @addLike="addLike(application.program.id)"/>
+
+                                                        <application-edit-modal :application="application"/>
                                                     </template>
                                             </div>
 
@@ -708,6 +712,7 @@
     import SelectedProgramListCard from "@/components/myComp/program/SelectedProgramListCard.vue";
     import app from "@/App.vue";
     import program from "@/api/program";
+    import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal.vue";
 
 
     export default {
@@ -715,7 +720,8 @@
         components: {
             Breadcrumb,
             Layout,
-            SelectedProgramListCard
+            SelectedProgramListCard,
+            ApplicationEditModal
         },
         mixins: [ApplicationListMixin, LikeMixin],
         data(){

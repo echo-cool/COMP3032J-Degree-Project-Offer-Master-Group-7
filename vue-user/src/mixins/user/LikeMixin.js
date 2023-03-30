@@ -36,6 +36,16 @@ export default {
             return {
                 isLiked: this.likedProgramIds.includes(programId)
             };
+        },
+
+        // remove program id from likedProgramsIds list (do not update likedPrograms list)
+        removeLike(programId){
+            this.likedProgramIds.splice(this.likedProgramIds.indexOf(programId), 1);
+        },
+
+        // add program id into likedProgramsIds list (do not update likedPrograms list)
+        addLike(programId){
+            this.likedProgramIds.push(programId);
         }
     }
 }
