@@ -43,12 +43,13 @@
     import commonApi from "@/api/common";
     import profileApi from "@/api/profile";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import LikeMixin from "@/mixins/user/LikeMixin";
     import {getRecommendedProgramsByKNN} from "@/api/recommendation";
 
     export default {
         name: 'ProgramListing',
         components: {ProgramListCard},
-        mixins: [ProductMixin, ApplicationListMixin],
+        mixins: [ProductMixin, ApplicationListMixin, LikeMixin],
         props: {
             isTwoColumn: {
                 type: Boolean,
@@ -64,8 +65,8 @@
         },
         data() {
             return {
-                likedPrograms: [],
-                likedProgramIds: [],
+                // likedPrograms: [],
+                // likedProgramIds: [],
 
                 activeTabIndex: 0,
                 listItemsTab: [
@@ -180,28 +181,28 @@
                 this.getLikedPrograms();
             },
 
-            // get a list of ids of programs that the user liked
-            getLikedPrograms(){
-                // reset the lists to empty
-                this.likedPrograms = [];
-                this.likedProgramIds = [];
-                profileApi.getLikedPrograms()
-                    .then(response => {
-                        // update the liked programs
-                        this.likedPrograms = response.data.likedPrograms;
-                        // create the list of program id
-                        for (let k in this.likedPrograms){
-                            this.likedProgramIds.push(this.likedPrograms[k].id);
-                        }
-                    })
-            },
-
-            // whether the user liked a program
-            isLiked(programId){
-                return {
-                    isLiked: this.likedProgramIds.includes(programId)
-                };
-            }
+            // // get a list of ids of programs that the user liked
+            // getLikedPrograms(){
+            //     // reset the lists to empty
+            //     this.likedPrograms = [];
+            //     this.likedProgramIds = [];
+            //     profileApi.getLikedPrograms()
+            //         .then(response => {
+            //             // update the liked programs
+            //             this.likedPrograms = response.data.likedPrograms;
+            //             // create the list of program id
+            //             for (let k in this.likedPrograms){
+            //                 this.likedProgramIds.push(this.likedPrograms[k].id);
+            //             }
+            //         })
+            // },
+            //
+            // // whether the user liked a program
+            // isLiked(programId){
+            //     return {
+            //         isLiked: this.likedProgramIds.includes(programId)
+            //     };
+            // }
         }
     }
 </script>

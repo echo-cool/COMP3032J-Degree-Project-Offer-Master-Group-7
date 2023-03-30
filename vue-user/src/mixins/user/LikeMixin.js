@@ -1,8 +1,11 @@
+import profileApi from "@/api/profile";
 
 
 export default {
     data() {
         return{
+            likedPrograms: [],
+            likedProgramIds: [],
 
         }
     },
@@ -12,6 +15,27 @@ export default {
     },
 
     methods:{
+        // get a list of ids of programs that the user liked
+        getLikedPrograms(){
+            // reset the lists to empty
+            this.likedPrograms = [];
+            this.likedProgramIds = [];
+            profileApi.getLikedPrograms()
+                .then(response => {
+                    // update the liked programs
+                    this.likedPrograms = response.data.likedPrograms;
+                    // create the list of program id
+                    for (let k in this.likedPrograms){
+                        this.likedProgramIds.push(this.likedPrograms[k].id);
+                    }
+                })
+        },
 
+        // whether the user liked a program
+        isLiked(programId){
+            return {
+                isLiked: this.likedProgramIds.includes(programId)
+            };
+        }
     }
 }
