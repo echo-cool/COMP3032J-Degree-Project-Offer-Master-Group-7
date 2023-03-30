@@ -7,42 +7,12 @@
             <div class="container">
                 <div class="row g-5">
                     <!-- Product image area Start -->
-                    <div class="col-lg-7 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="product-tab-wrapper rbt-sticky-top-adjust">
                             <div class="pd-tab-inner">
-                                <div class="nav rn-pd-nav rn-pd-rt-content nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <button :class="[`nav-link`, {'active': index === activeTabIndex}]"
-                                            :id="`v-pills-${index}-tab`"
-                                            data-bs-toggle="pill"
-                                            :data-bs-target="`#v-pills-home-${index}`"
-                                            type="button"
-                                            role="tab"
-                                            :aria-controls="`v-pills-home-${index}`"
-                                            :aria-selected="index === activeTabIndex ? 'true' : 'false'"
-                                            v-for="(thumbnailSm, index) in product.extraImages"
-                                            :key="`small-thumbnail-${index}`">
-                                        <span class="rn-pd-sm-thumbnail">
-                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
-                                            <b-spinner label="Spinning" style="position: absolute; width: 30px; height: 30px; z-index: 0"></b-spinner>
-                                            <img style="position: relative; z-index: 4" width="164" height="164" :src="`/backend/static/`+thumbnailSm" alt="Nft_Profile">
-                                          </div>
-                                        </span>
-                                    </button>
-                                </div>
                                 <div class="tab-content rn-pd-content" id="v-pills-tabContent">
-                                    <div :class="[`tab-pane fade`, {'show active': index === activeTabIndex}]"
-                                         :id="`v-pills-home-${index}`"
-                                         role="tabpanel"
-                                         :aria-labelledby="`v-pills-${index}-tab`"
-                                         v-for="(thumbnailLg, index) in product.extraImages"
-                                         :key="`large-thumbnail-${index}`">
-                                        <div class="rn-pd-thumbnail">
-                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
-                                            <b-spinner label="Spinning" style="position: absolute; width: 40px; height: 40px; z-index: 0"></b-spinner>
-
-                                            <img style="min-height: 330px; position: relative; z-index: 4" :src="`/backend/static/`+thumbnailLg" alt="Nft_Profile">
-                                          </div>
-                                        </div>
+                                    <div class="rn-pd-thumbnail">
+                                        <img :src="`/backend/static/`+product.img" alt="Nft_Profile">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +20,7 @@
                     </div>
                     <!-- Product image area end -->
 
-                    <div class="col-lg-5 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
+                    <div class="col-lg-6 col-md-12 col-sm-12 mt_md--50 mt_sm--60">
                         <div class="rn-pd-content-area">
                             <div class="pd-title-area">
                                 <h4 class="title">{{ product.name }}</h4>
@@ -77,9 +47,41 @@
                                 </div>
                             </div>
                             <span class="bid">
-                                US News Ranking: <span class="price">{{ product.rankUSNews }}</span>
+                                Degree <span class="price">{{ product.degree }}</span>
                             </span>
-                            <h6 class="title-name">#{{product.rankQS}} QS Ranking</h6>
+                           <h6></h6>
+        <div class="top-seller-inner-one" :class="sellerStyleClass" style="weight: 250px; height: 120px; overflow: hidden">
+            <div class="top-seller-wrapper">
+                <div :class="[`thumbnail`, {'varified': false}]">
+<!--                <router-link :to="`/author/${sellerData.id}`">-->
+                    <router-link :to="`/school-details/`+school.id">
+                        <img v-if="school.img" :src="`/backend/static/`+school.img" alt="school-img">
+                        <img v-else :src="require(`@/assets/images/client/client-1.png`)" alt="school-img">
+                    </router-link>
+                </div>
+            
+                <div class="top-seller-content">
+<!--                <router-link :to="`/author/${sellerData.id}`">-->
+                    <router-link :to="`/school-details/`+school.id">
+                        <h6 class="name" v-if="school.name.length > 20">{{school.name.substring(0,20) + `..` }}</h6>
+
+                        <h6 class="name" v-else>{{school.name}}</h6>
+                     </router-link>
+                <span class="count-number">
+                    QS: {{ school.rankQS }}
+                </span>
+                <span class="count-number">
+                    U.S. News: {{ school.rankUSNews }}
+                </span>
+            </div>
+        </div>
+        <router-link
+            v-if="sellerStyleClass === 'explore'"
+            class="over-link"
+            :to="`/school-details/`+school.id"
+        />
+    </div>
+        <h6 class="title-name"> Major: {{product.major}}</h6>
 <!--                            <div class="catagory-collection">-->
 <!--                                <div class="catagory">-->
 <!--                                    <span>-->
@@ -593,18 +595,11 @@
                                             <div class="top-seller-inner-one">
                                                 <div class="top-seller-wrapper">
                                                     <div class="thumbnail">
-
                                                         <router-link to="#">
-                                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
-                                                            <b-spinner label="Spinning" style="position: absolute; width: 20px; height: 20px; z-index: 0"></b-spinner>
-
-                                                            <img style="position: relative;height: 50px; width: 50px; z-index: 4;" :src="`/backend/static/` + product.logo" alt="Nft_Profile">
-
-                                                          </div>
-                                                          </router-link>
+                                                            <img :src="`/backend/static/` + product.img" alt="Nft_Profile">
+                                                        </router-link>
                                                     </div>
                                                     <div class="top-seller-content">
-
                                                         <span class="heighest-bid">{{product.name}}</span>
 <!--                                                        <span class="count-number">0.115wETH</span>-->
                                                     </div>
@@ -705,14 +700,17 @@
     import Countdown from '@/components/product/Countdown'
     import PlacebidModal from '@/components/modal/PlacebidModal'
     import schoolApi from "@/api/shool"
+    import programApi from "@/api/program"
     import ProductMixin from "@/mixins/ProductMixin";
+    // import TopSchoolItem from "@/components/myComp/homePageComp/TopSchoolItem.vue";
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
 
     export default {
 
-        name: 'SchoolDetails',
+        name: 'ProgramDetails',
         components: {
+            // TopSchoolItem,
             PlacebidModal,
             Countdown,
             ReportModal,
@@ -725,11 +723,13 @@
         mixins: [ProductMixin],
         data() {
             return {
-                id: this.$route.params.id,
+                id: this.$route.params.id.split("X")[0],
+                schoolId: this.$route.params.id.split("X")[1],
                 product: {},
                 activeTabIndex: 0,
                 relatedSchools: [],
                 relatedPrograms: [],
+                school: {}
             }
         },
         methods: {
@@ -737,13 +737,20 @@
               this.product = this.products.find(item => item.id == productId);
               // !!! IMPORTANT !!!
               // load google map after finish requesting the school obj
-              this.$refs.childCompVCTGoogle.initMap(Number(this.product.lat), Number(this.product.lng));
+              this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
             },
-            getSchools() {
-                schoolApi.getAllSchools().then(response => {
-                    this.products = response['data']['schools']
+            getPrograms() {
+                programApi.getAllPrograms().then(response => {
+                    this.products = response['data']['programs']
+                    console.log(this.products)
+                    console.log(this.id + " 6666")
                     this.getProduct(this.id)
                 })
+                schoolApi.getById(this.schoolId).then(response => {
+                    this.school = response['data']['school']
+                    console.log(this.response)
+                })
+                
             },
             getData(){
               let that = this;
@@ -779,12 +786,16 @@
 
         },
         created() {
-            this.getSchools();
+            this.id = this.$route.params.id.split("X")[0],
+            this.schoolId = this.$route.params.id.split("X")[1],
             this.getData();
+            this.getPrograms();
+            console.log(this.id, this.schoolId)
         },
         watch: {
             '$route.params.id': function (val) {
-                this.id = val;
+                this.id = this.$route.params.id.split("X")[0],
+                this.schoolId = this.$route.params.id.split("X")[1],
                 this.getProduct(this.id);
             }
         },

@@ -3,7 +3,8 @@
               :wrap-around="true">
         <slide v-for="(school, index) in schools"
                :key="index">
-            <div class="slider-thumbnail thumbnail-overlay">
+          <b-spinner label="Spinning" style="position: absolute; width: 50px; height: 50px"></b-spinner>
+            <div class="slider-thumbnail thumbnail-overlay" style="min-height: 400px">
                 <router-link :to="`/school-details/${school.id}`">
                     <img class="w-100" :src="`/backend/static/` + school.img" alt="NFT_portfolio">
                 </router-link>
@@ -14,6 +15,7 @@
                     <span>QS Ranking: {{ school.rankQS }}</span>
                 </div>
             </div>
+
         </slide>
         <template #addons>
             <Pagination/>
