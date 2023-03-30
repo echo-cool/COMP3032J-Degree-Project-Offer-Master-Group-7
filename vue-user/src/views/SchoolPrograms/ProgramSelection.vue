@@ -8,7 +8,7 @@
                     <div class="col-lg-8 custom-product-col">
 
                         <!-- Background Card -->
-                        <background-card :background="background" :card-title="`Your Background For Recommendation`" :is-editable-obj="{isEditable: true}"/>
+                        <background-card :background="background" :card-title="`Your Background For Recommendation`" :is-editable="true"/>
                         <!-- Background Card End -->
 
 
