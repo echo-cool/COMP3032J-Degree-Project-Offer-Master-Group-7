@@ -509,7 +509,9 @@
                                                     <!-- !!! Otherwise, the schools would be undefined !!! -->
                                                     <template v-if="appListMixinLoadSchoolCount === applications.length" v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                               :key="`application-${index}`">
-                                                        <selected-program-list-card :program="application.program" :is-liked-obj="isLiked(application.program.id)"/>
+                                                        <selected-program-list-card :program="application.program"
+                                                                                    :is-liked-obj="isLiked(application.program.id)"
+                                                                                    @reloadData="reloadData"/>
                                                     </template>
                                             </div>
 
@@ -959,6 +961,11 @@
                             window.alert(error.response.data.message);
                         }
                     })
+            },
+
+            reloadData(){
+                this.getCurrentUser();
+                this.getLikedPrograms();
             }
 
         }

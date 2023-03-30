@@ -42,16 +42,14 @@
                             </button>
                             <div class="share-btn-setting dropdown-menu dropdown-menu-end">
                                 <button type="button"
-                                        class="btn-setting-text share-text"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#shareModal">
-                                    Share
+                                        class="btn-setting-text report-text"
+                                        @click="editApplications(program.id)">
+                                    Edit
                                 </button>
                                 <button type="button"
                                         class="btn-setting-text report-text"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reportModal">
-                                    Report
+                                        @click="removeProgramFromUserApplications(program.id)">
+                                    Remove
                                 </button>
                             </div>
                         </div>
@@ -83,6 +81,7 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programSelectionApi from "@/api/programSelection";
+    import programApi from "@/api/program";
 
     export default {
         name: 'SelectedProductListCard',
@@ -123,18 +122,7 @@
                         // delete successfully
                         window.alert("Program removed successfully from your list!")
                         // tell the parent component to reload data for updating showing
-                        // this.$emit("reloadData");
-                    })
-            },
-
-            // add a program into user application list
-            addProgramIntoUserApplications(programId){
-                programSelectionApi.addApplication(programId)
-                    .then(response => {
-                        // add successfully
-                        window.alert("The program added successfully into your list!")
-                        // tell the parent component to reload data for updating showing
-                        // this.$emit("reloadData");
+                        this.$emit("reloadData");
                     })
             },
 
@@ -144,15 +132,15 @@
 
             likeProgram(programId){
                 // call API method
-                // programAip.likeProgram(programId)
-                //     .then(response => {
-                //         if(response.success){
-                //             // update the like number of this program
-                //             this.program.likes = response.data.likes;
-                //             // change the liked status
-                //             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
-                //         }
-                //     })
+                programApi.likeProgram(programId)
+                    .then(response => {
+                        if(response.success){
+                            // update the like number of this program
+                            this.program.likes = response.data.likes;
+                            // change the liked status
+                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                        }
+                    })
             }
         }
     }
