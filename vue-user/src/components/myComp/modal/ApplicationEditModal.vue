@@ -5,12 +5,14 @@
         </button>
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content report-content-wrapper">
+
                 <div class="modal-header report-modal-header">
-                    <h5 class="modal-title">
+                    <h3 class="modal-title">
                         Why are you reporting? - {{ application.id }}
-                    </h5>
+                    </h3>
                 </div>
                 <div class="modal-body">
+
                     <p>Describe why you think this item should be removed from marketplace</p>
                     <div class="report-form-box">
                         <h6 class="title">Message</h6>
@@ -20,7 +22,11 @@
                             <button type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
+
+                    
                 </div>
+
+
             </div>
         </div>
     </div>
