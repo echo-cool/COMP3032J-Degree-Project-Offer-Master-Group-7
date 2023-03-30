@@ -16,46 +16,45 @@ public class LoadExternalData {
         log.info("Imported: " + schoolRepository.save(school));
     }
     public static void loadExternalSchoolData(SchoolRepository schoolRepository, ProgramRepository programRepository){
-
-        School school_yale = new School("Yale University", ESource.OPENCS);
+        School school_yale = new School("Yale University", ESource.OPENCS,"41.316307","-72.922585");
         saveSchoolData(school_yale, schoolRepository);
-        Program school_yale_program_2_year_mscs = new Program("Master of Science In Computer Science (2 Year)",  ESource.OPENCS, "MS", school_yale);
-        programRepository.save(school_yale_program_2_year_mscs);
         Program school_yale_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_yale);
         programRepository.save(school_yale_program_cs_phd);
         Program school_yale_program_1_year_mscs = new Program("Master of Science In Computer Science (1 Year)",  ESource.OPENCS, "MS", school_yale);
         programRepository.save(school_yale_program_1_year_mscs);
+        Program school_yale_program_2_year_mscs = new Program("Master of Science In Computer Science (2 Year)",  ESource.OPENCS, "MS", school_yale);
+        programRepository.save(school_yale_program_2_year_mscs);
 
 
 
-        School school_brandeis = new School("Brandeis University", ESource.OPENCS);
+        School school_brandeis = new School("Brandeis University", ESource.OPENCS,"42.365785","-71.259599");
         saveSchoolData(school_brandeis, schoolRepository);
-        Program school_brandeis_program_12_course_mscs = new Program("Master of Science In Computer Science (12 Course)",  ESource.OPENCS, "MS", school_brandeis);
-        programRepository.save(school_brandeis_program_12_course_mscs);
         Program school_brandeis_program_9_course_mscs = new Program("Master of Science In Computer Science (9 Course)",  ESource.OPENCS, "MS", school_brandeis);
         programRepository.save(school_brandeis_program_9_course_mscs);
+        Program school_brandeis_program_12_course_mscs = new Program("Master of Science In Computer Science (12 Course)",  ESource.OPENCS, "MS", school_brandeis);
+        programRepository.save(school_brandeis_program_12_course_mscs);
 
 
 
-        School school_ic = new School("Imperial College London", ESource.OPENCS);
+        School school_ic = new School("Imperial College London", ESource.OPENCS,"51.498356","-0.176894");
         saveSchoolData(school_ic, schoolRepository);
         Program school_ic_program_ac = new Program("Advanced Computing",  ESource.OPENCS, "MS", school_ic);
         programRepository.save(school_ic_program_ac);
 
 
 
-        School school_neu = new School("Northeastern University", ESource.OPENCS);
+        School school_neu = new School("Northeastern University", ESource.OPENCS,"42.33918","-71.0887");
         saveSchoolData(school_neu, schoolRepository);
-        Program school_neu_program_cs_general = new Program("Computer Science (General)",  ESource.OPENCS, "MS", school_neu);
-        programRepository.save(school_neu_program_cs_general);
-        Program school_neu_program_is = new Program("Information System",  ESource.OPENCS, "MS", school_neu);
-        programRepository.save(school_neu_program_is);
         Program school_neu_program_ce_phd = new Program("PhD in Computer Engineering",  ESource.OPENCS, "PhD", school_neu);
         programRepository.save(school_neu_program_ce_phd);
+        Program school_neu_program_is = new Program("Information System",  ESource.OPENCS, "MS", school_neu);
+        programRepository.save(school_neu_program_is);
+        Program school_neu_program_cs_general = new Program("Computer Science (General)",  ESource.OPENCS, "MS", school_neu);
+        programRepository.save(school_neu_program_cs_general);
 
 
 
-        School school_usc = new School("University of Southern California", ESource.OPENCS);
+        School school_usc = new School("University of Southern California", ESource.OPENCS,"34.022415","-118.28553");
         saveSchoolData(school_usc, schoolRepository);
         Program school_usc_program_cs37 = new Program("Computer Science Track-37",  ESource.OPENCS, "MS", school_usc);
         programRepository.save(school_usc_program_cs37);
@@ -66,22 +65,22 @@ public class LoadExternalData {
 
 
 
-        School school_upenn = new School("University of Pennsylvania", ESource.OPENCS);
+        School school_upenn = new School("University of Pennsylvania", ESource.OPENCS,"39.952215","-75.193214");
         saveSchoolData(school_upenn, schoolRepository);
-        Program school_upenn_program_ee = new Program("Master of Science in Electrical Engineering",  ESource.OPENCS, "MS", school_upenn);
-        programRepository.save(school_upenn_program_ee);
-        Program school_upenn_program_mcis = new Program("Computer Information Systems",  ESource.OPENCS, "MS", school_upenn);
-        programRepository.save(school_upenn_program_mcis);
         Program school_upenn_program_ese_phd = new Program("PhD in Electrical and Systems Engineering",  ESource.OPENCS, "PhD", school_upenn);
         programRepository.save(school_upenn_program_ese_phd);
+        Program school_upenn_program_mcis = new Program("Computer Information Systems",  ESource.OPENCS, "MS", school_upenn);
+        programRepository.save(school_upenn_program_mcis);
         Program school_upenn_program_cggt = new Program("Computer Graphics and Game Technology",  ESource.OPENCS, "MS", school_upenn);
         programRepository.save(school_upenn_program_cggt);
+        Program school_upenn_program_ee = new Program("Master of Science in Electrical Engineering",  ESource.OPENCS, "MS", school_upenn);
+        programRepository.save(school_upenn_program_ee);
         Program school_upenn_program_mcit = new Program("Master of Computer and Information Technology",  ESource.OPENCS, "MS", school_upenn);
         programRepository.save(school_upenn_program_mcit);
 
 
 
-        School school_cornell_tech = new School("Cornell Tech - Cornell University", ESource.OPENCS);
+        School school_cornell_tech = new School("Cornell Tech - Cornell University", ESource.OPENCS,"40.755456","-73.95599");
         saveSchoolData(school_cornell_tech, schoolRepository);
         Program school_cornell_tech_program_cm = new Program("Connective Media",  ESource.OPENCS, "MS", school_cornell_tech);
         programRepository.save(school_cornell_tech_program_cm);
@@ -90,14 +89,14 @@ public class LoadExternalData {
 
 
 
-        School school_vt = new School("Virginia Tech", ESource.OPENCS);
+        School school_vt = new School("Virginia Tech", ESource.OPENCS,"37.229273","-80.423159");
         saveSchoolData(school_vt, schoolRepository);
         Program school_vt_program_cs_meng = new Program("Master of Engineering In Computer Science",  ESource.OPENCS, "MS", school_vt);
         programRepository.save(school_vt_program_cs_meng);
 
 
 
-        School school_brown = new School("Brown University", ESource.OPENCS);
+        School school_brown = new School("Brown University", ESource.OPENCS,"41.82682","-71.402931");
         saveSchoolData(school_brown, schoolRepository);
         Program school_brown_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_brown);
         programRepository.save(school_brown_program_cs_phd);
@@ -106,7 +105,7 @@ public class LoadExternalData {
 
 
 
-        School school_cornell = new School("Cornell University", ESource.OPENCS);
+        School school_cornell = new School("Cornell University", ESource.OPENCS,"42.454323","-76.475266");
         saveSchoolData(school_cornell, schoolRepository);
         Program school_cornell_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_cornell);
         programRepository.save(school_cornell_program_cs_phd);
@@ -115,7 +114,7 @@ public class LoadExternalData {
 
 
 
-        School school_dartmouth = new School("Dartmouth College", ESource.OPENCS);
+        School school_dartmouth = new School("Dartmouth College", ESource.OPENCS,"43.70454","-72.288986");
         saveSchoolData(school_dartmouth, schoolRepository);
         Program school_dartmouth_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_dartmouth);
         programRepository.save(school_dartmouth_program_cs_phd);
@@ -124,14 +123,14 @@ public class LoadExternalData {
 
 
 
-        School school_notre_dame = new School("The University of Notre Dame du Lac", ESource.OPENCS);
+        School school_notre_dame = new School("The University of Notre Dame du Lac", ESource.OPENCS,"41.69928","-86.238899");
         saveSchoolData(school_notre_dame, schoolRepository);
         Program school_notre_dame_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_notre_dame);
         programRepository.save(school_notre_dame_program_cs_phd);
 
 
 
-        School school_nwu = new School("North-West University", ESource.OPENCS);
+        School school_nwu = new School("North-West University", ESource.OPENCS,"47.657461","-122.192231");
         saveSchoolData(school_nwu, schoolRepository);
         Program school_nwu_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_nwu);
         programRepository.save(school_nwu_program_cs_phd);
@@ -142,7 +141,7 @@ public class LoadExternalData {
 
 
 
-        School school_nyu_courant = new School("New York University's Courant Institute of Mathematical Sciences", ESource.OPENCS);
+        School school_nyu_courant = new School("New York University's Courant Institute of Mathematical Sciences", ESource.OPENCS,"40.726228","-73.994576");
         saveSchoolData(school_nyu_courant, schoolRepository);
         Program school_nyu_courant_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_nyu_courant);
         programRepository.save(school_nyu_courant_program_cs_phd);
@@ -151,7 +150,7 @@ public class LoadExternalData {
 
 
 
-        School school_rice = new School("Rice University", ESource.OPENCS);
+        School school_rice = new School("Rice University", ESource.OPENCS,"29.717","-95.402504");
         saveSchoolData(school_rice, schoolRepository);
         Program school_rice_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_rice);
         programRepository.save(school_rice_program_cs_phd);
@@ -160,14 +159,14 @@ public class LoadExternalData {
 
 
 
-        School school_rochester = new School("The University of Rochester", ESource.OPENCS);
+        School school_rochester = new School("The University of Rochester", ESource.OPENCS,"43.16103","-77.610924");
         saveSchoolData(school_rochester, schoolRepository);
         Program school_rochester_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_rochester);
         programRepository.save(school_rochester_program_cs_phd);
 
 
 
-        School school_stanford = new School("Stanford University", ESource.OPENCS);
+        School school_stanford = new School("Stanford University", ESource.OPENCS,"37.427168","-122.170599");
         saveSchoolData(school_stanford, schoolRepository);
         Program school_stanford_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_stanford);
         programRepository.save(school_stanford_program_cs_phd);
@@ -178,12 +177,12 @@ public class LoadExternalData {
 
 
 
-        School school_tamu = new School("Texas A&M University", ESource.OPENCS);
+        School school_tamu = new School("Texas A&M University", ESource.OPENCS,"30.618803","-96.336294");
         saveSchoolData(school_tamu, schoolRepository);
-        Program school_tamu_program_meng_ce = new Program("Master of Engineering In Computer Engineering",  ESource.OPENCS, "MS", school_tamu);
-        programRepository.save(school_tamu_program_meng_ce);
         Program school_tamu_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_tamu);
         programRepository.save(school_tamu_program_cs_phd);
+        Program school_tamu_program_meng_ce = new Program("Master of Engineering In Computer Engineering",  ESource.OPENCS, "MS", school_tamu);
+        programRepository.save(school_tamu_program_meng_ce);
         Program school_tamu_program_mcs = new Program("Master of Computer Science",  ESource.OPENCS, "MS", school_tamu);
         programRepository.save(school_tamu_program_mcs);
         Program school_tamu_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_tamu);
@@ -191,16 +190,16 @@ public class LoadExternalData {
 
 
 
-        School school_uci = new School("University of California Irvine", ESource.OPENCS);
+        School school_uci = new School("University of California Irvine", ESource.OPENCS,"33.641916","-117.84072");
         saveSchoolData(school_uci, schoolRepository);
-        Program school_uci_program_mswe = new Program("Master of Software Engineering",  ESource.OPENCS, "MS", school_uci);
-        programRepository.save(school_uci_program_mswe);
-        Program school_uci_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_uci);
-        programRepository.save(school_uci_program_cs_phd);
-        Program school_uci_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_uci);
-        programRepository.save(school_uci_program_mscs);
         Program school_uci_program_mds = new Program("Master of Data Science",  ESource.OPENCS, "MS", school_uci);
         programRepository.save(school_uci_program_mds);
+        Program school_uci_program_mswe = new Program("Master of Software Engineering",  ESource.OPENCS, "MS", school_uci);
+        programRepository.save(school_uci_program_mswe);
+        Program school_uci_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_uci);
+        programRepository.save(school_uci_program_mscs);
+        Program school_uci_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_uci);
+        programRepository.save(school_uci_program_cs_phd);
         Program school_uci_program_mcs = new Program("Master of Computer Science",  ESource.OPENCS, "MS", school_uci);
         programRepository.save(school_uci_program_mcs);
         Program school_uci_program_netsys = new Program("Networked Systems",  ESource.OPENCS, "MS", school_uci);
@@ -208,7 +207,7 @@ public class LoadExternalData {
 
 
 
-        School school_ucsb = new School("University of California, Santa Barbara", ESource.OPENCS);
+        School school_ucsb = new School("University of California, Santa Barbara", ESource.OPENCS,"34.413959","-119.848948");
         saveSchoolData(school_ucsb, schoolRepository);
         Program school_ucsb_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_ucsb);
         programRepository.save(school_ucsb_program_cs_phd);
@@ -217,20 +216,20 @@ public class LoadExternalData {
 
 
 
-        School school_ucsd = new School("University of California San Diego", ESource.OPENCS);
+        School school_ucsd = new School("University of California San Diego", ESource.OPENCS,"32.771475","-117.190579");
         saveSchoolData(school_ucsd, schoolRepository);
-        Program school_ucsd_program_ds75 = new Program("Data Science Track-75",  ESource.OPENCS, "MS", school_ucsd);
-        programRepository.save(school_ucsd_program_ds75);
         Program school_ucsd_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_ucsd);
         programRepository.save(school_ucsd_program_cs_phd);
-        Program school_ucsd_program_ec79 = new Program("Electrical and Computer Engineering Track-79",  ESource.OPENCS, "MS", school_ucsd);
-        programRepository.save(school_ucsd_program_ec79);
         Program school_ucsd_program_cs75 = new Program("Computer Science Track-75",  ESource.OPENCS, "MS", school_ucsd);
         programRepository.save(school_ucsd_program_cs75);
+        Program school_ucsd_program_ds75 = new Program("Data Science Track-75",  ESource.OPENCS, "MS", school_ucsd);
+        programRepository.save(school_ucsd_program_ds75);
+        Program school_ucsd_program_ec79 = new Program("Electrical and Computer Engineering Track-79",  ESource.OPENCS, "MS", school_ucsd);
+        programRepository.save(school_ucsd_program_ec79);
 
 
 
-        School school_unc = new School("The University of North Carolina at Chapel Hill", ESource.OPENCS);
+        School school_unc = new School("The University of North Carolina at Chapel Hill", ESource.OPENCS,"35.90476","-79.046827");
         saveSchoolData(school_unc, schoolRepository);
         Program school_unc_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_unc);
         programRepository.save(school_unc_program_cs_phd);
@@ -239,7 +238,7 @@ public class LoadExternalData {
 
 
 
-        School school_uva = new School("University of Virginia (UVA)", ESource.OPENCS);
+        School school_uva = new School("University of Virginia (UVA)", ESource.OPENCS,"38.033544","-78.507976");
         saveSchoolData(school_uva, schoolRepository);
         Program school_uva_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_uva);
         programRepository.save(school_uva_program_cs_phd);
@@ -248,19 +247,23 @@ public class LoadExternalData {
 
 
 
-        School school_uw = new School("The University of Washington", ESource.OPENCS);
+        School school_uw = new School("The University of Washington", ESource.OPENCS,"38.648471","-90.310957");
         saveSchoolData(school_uw, schoolRepository);
         Program school_uw_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_uw);
         programRepository.save(school_uw_program_cs_phd);
-        Program school_uw_program_msim = new Program("Master of Science in Information Management",  ESource.OPENCS, "MS", school_uw);
-        programRepository.save(school_uw_program_msim);
         Program school_uw_program_ee_pmp = new Program("Electrical Engineering (Project Management Professional)",  ESource.OPENCS, "MS", school_uw);
         programRepository.save(school_uw_program_ee_pmp);
+        Program school_uw_program_msim = new Program("Master of Science in Information Management",  ESource.OPENCS, "MS", school_uw);
+        programRepository.save(school_uw_program_msim);
 
 
 
-        School school_waterloo = new School("The University of Waterloo", ESource.OPENCS);
+        School school_waterloo = new School("The University of Waterloo", ESource.OPENCS,"43.472281","-80.544858");
         saveSchoolData(school_waterloo, schoolRepository);
+        Program school_waterloo_program_ece_meng_co_op = new Program("Master of Engineering In Electrical and Computer Engineering (Co-op)",  ESource.OPENCS, "MS", school_waterloo);
+        programRepository.save(school_waterloo_program_ece_meng_co_op);
+        Program school_waterloo_program_syde = new Program("Systems Design Engineering",  ESource.OPENCS, "MS", school_waterloo);
+        programRepository.save(school_waterloo_program_syde);
         Program school_waterloo_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_waterloo);
         programRepository.save(school_waterloo_program_ece_meng);
         Program school_waterloo_program_mdsai = new Program("Master of Data Science and AI",  ESource.OPENCS, "MS", school_waterloo);
@@ -269,14 +272,10 @@ public class LoadExternalData {
         programRepository.save(school_waterloo_program_cs_phd);
         Program school_waterloo_program_mmath = new Program("Master of Mathematics",  ESource.OPENCS, "MS", school_waterloo);
         programRepository.save(school_waterloo_program_mmath);
-        Program school_waterloo_program_ece_meng_co_op = new Program("Master of Engineering In Electrical and Computer Engineering (Co-op)",  ESource.OPENCS, "MS", school_waterloo);
-        programRepository.save(school_waterloo_program_ece_meng_co_op);
-        Program school_waterloo_program_syde = new Program("Systems Design Engineering",  ESource.OPENCS, "MS", school_waterloo);
-        programRepository.save(school_waterloo_program_syde);
 
 
 
-        School school_wisc = new School("University of Wisconsin–Madison", ESource.OPENCS);
+        School school_wisc = new School("University of Wisconsin–Madison", ESource.OPENCS,"43.07649","-89.412541");
         saveSchoolData(school_wisc, schoolRepository);
         Program school_wisc_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_wisc);
         programRepository.save(school_wisc_program_cs_phd);
@@ -287,7 +286,7 @@ public class LoadExternalData {
 
 
 
-        School school_wustl = new School("Washington University in St. Louis", ESource.OPENCS);
+        School school_wustl = new School("Washington University in St. Louis", ESource.OPENCS,"38.648776","-90.310796");
         saveSchoolData(school_wustl, schoolRepository);
         Program school_wustl_program_cs_phd = new Program("PhD In Computer Science",  ESource.OPENCS, "PhD", school_wustl);
         programRepository.save(school_wustl_program_cs_phd);
@@ -296,18 +295,18 @@ public class LoadExternalData {
 
 
 
-        School school_gatech = new School("The Georgia Institute of Technology", ESource.OPENCS);
+        School school_gatech = new School("The Georgia Institute of Technology", ESource.OPENCS,"33.775376","-84.396437");
         saveSchoolData(school_gatech, schoolRepository);
-        Program school_gatech_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_gatech);
-        programRepository.save(school_gatech_program_ece);
         Program school_gatech_program_cse = new Program("Computer Science Engineering",  ESource.OPENCS, "MS", school_gatech);
         programRepository.save(school_gatech_program_cse);
         Program school_gatech_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_gatech);
         programRepository.save(school_gatech_program_mscs);
+        Program school_gatech_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_gatech);
+        programRepository.save(school_gatech_program_ece);
 
 
 
-        School school_harvard = new School("Harvard College", ESource.OPENCS);
+        School school_harvard = new School("Harvard College", ESource.OPENCS,"42.376998","-71.116661");
         saveSchoolData(school_harvard, schoolRepository);
         Program school_harvard_program_cse = new Program("Computer Science Engineering",  ESource.OPENCS, "MS", school_harvard);
         programRepository.save(school_harvard_program_cse);
@@ -316,25 +315,25 @@ public class LoadExternalData {
 
 
 
-        School school_mit = new School("Massachusetts Institute of Technology", ESource.OPENCS);
+        School school_mit = new School("Massachusetts Institute of Technology", ESource.OPENCS,"42.359973","-71.093413");
         saveSchoolData(school_mit, schoolRepository);
         Program school_mit_program_cse = new Program("Computer Science Engineering",  ESource.OPENCS, "MS", school_mit);
         programRepository.save(school_mit_program_cse);
 
 
 
-        School school_nyu_tandon = new School("New York University Tandon School of Engineering", ESource.OPENCS);
+        School school_nyu_tandon = new School("New York University Tandon School of Engineering", ESource.OPENCS,"40.694737","-73.986201");
         saveSchoolData(school_nyu_tandon, schoolRepository);
-        Program school_nyu_tandon_program_cybersecurity = new Program("Cybersecurity",  ESource.OPENCS, "MS", school_nyu_tandon);
-        programRepository.save(school_nyu_tandon_program_cybersecurity);
         Program school_nyu_tandon_program_msce = new Program("Master of Science in Computer Engineering",  ESource.OPENCS, "MS", school_nyu_tandon);
         programRepository.save(school_nyu_tandon_program_msce);
+        Program school_nyu_tandon_program_cybersecurity = new Program("Cybersecurity",  ESource.OPENCS, "MS", school_nyu_tandon);
+        programRepository.save(school_nyu_tandon_program_cybersecurity);
         Program school_nyu_tandon_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_nyu_tandon);
         programRepository.save(school_nyu_tandon_program_mscs);
 
 
 
-        School school_sfu = new School("Simon Fraser University", ESource.OPENCS);
+        School school_sfu = new School("Simon Fraser University", ESource.OPENCS,"49.278094","-122.919411");
         saveSchoolData(school_sfu, schoolRepository);
         Program school_sfu_program_cybersecurity = new Program("Cybersecurity",  ESource.OPENCS, "MS", school_sfu);
         programRepository.save(school_sfu_program_cybersecurity);
@@ -343,20 +342,20 @@ public class LoadExternalData {
 
 
 
-        School school_umich = new School("The University of Michigan", ESource.OPENCS);
+        School school_umich = new School("The University of Michigan", ESource.OPENCS,"42.277861","-83.738235");
         saveSchoolData(school_umich, schoolRepository);
-        Program school_umich_program_mscse = new Program("Master of Science in Computer Science and Engineering",  ESource.OPENCS, "MS", school_umich);
-        programRepository.save(school_umich_program_mscse);
         Program school_umich_program_msece = new Program("The Master of Science in Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_umich);
         programRepository.save(school_umich_program_msece);
         Program school_umich_program_ds = new Program("Data Science",  ESource.OPENCS, "MS", school_umich);
         programRepository.save(school_umich_program_ds);
         Program school_umich_program_msi = new Program("Master of Science in Information",  ESource.OPENCS, "MS", school_umich);
         programRepository.save(school_umich_program_msi);
+        Program school_umich_program_mscse = new Program("Master of Science in Computer Science and Engineering",  ESource.OPENCS, "MS", school_umich);
+        programRepository.save(school_umich_program_mscse);
 
 
 
-        School school_nus = new School("National University of Singapore", ESource.OPENCS);
+        School school_nus = new School("National University of Singapore", ESource.OPENCS,"1.296587","103.773693");
         saveSchoolData(school_nus, schoolRepository);
         Program school_nus_program_dsml = new Program("Data Science and Machine Learning",  ESource.OPENCS, "MS", school_nus);
         programRepository.save(school_nus_program_dsml);
@@ -365,120 +364,120 @@ public class LoadExternalData {
 
 
 
-        School school_ubc = new School("The University of British Columbia", ESource.OPENCS);
+        School school_ubc = new School("The University of British Columbia", ESource.OPENCS,"49.260269","-123.2456");
         saveSchoolData(school_ubc, schoolRepository);
         Program school_ubc_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_ubc);
         programRepository.save(school_ubc_program_ece_meng);
 
 
 
-        School school_uiuc = new School("University of Illinois Urbana-Champaign", ESource.OPENCS);
+        School school_uiuc = new School("University of Illinois Urbana-Champaign", ESource.OPENCS,"40.101889","-88.227134");
         saveSchoolData(school_uiuc, schoolRepository);
         Program school_uiuc_program_msim = new Program("Master of Science in Information Management",  ESource.OPENCS, "MS", school_uiuc);
         programRepository.save(school_uiuc_program_msim);
-        Program school_uiuc_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_uiuc);
-        programRepository.save(school_uiuc_program_ece_meng);
         Program school_uiuc_program_mcs = new Program("Master of Computer Science",  ESource.OPENCS, "MS", school_uiuc);
         programRepository.save(school_uiuc_program_mcs);
+        Program school_uiuc_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_uiuc);
+        programRepository.save(school_uiuc_program_ece_meng);
         Program school_uiuc_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_uiuc);
         programRepository.save(school_uiuc_program_mscs);
 
 
 
-        School school_uottawa = new School("The University of Ottawa", ESource.OPENCS);
+        School school_uottawa = new School("The University of Ottawa", ESource.OPENCS,"45.423076","-75.68338");
         saveSchoolData(school_uottawa, schoolRepository);
-        Program school_uottawa_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_uottawa);
-        programRepository.save(school_uottawa_program_ece_meng);
         Program school_uottawa_program_mcs = new Program("Master of Computer Science",  ESource.OPENCS, "MS", school_uottawa);
         programRepository.save(school_uottawa_program_mcs);
+        Program school_uottawa_program_ece_meng = new Program("Master of Engineering In Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_uottawa);
+        programRepository.save(school_uottawa_program_ece_meng);
 
 
 
-        School school_ut_austin = new School("University of Texas at Austin", ESource.OPENCS);
+        School school_ut_austin = new School("University of Texas at Austin", ESource.OPENCS,"30.285021","-97.733523");
         saveSchoolData(school_ut_austin, schoolRepository);
-        Program school_ut_austin_program_ece_phd = new Program("PhD In Electrical and Computer Engineering",  ESource.OPENCS, "PhD", school_ut_austin);
-        programRepository.save(school_ut_austin_program_ece_phd);
         Program school_ut_austin_program_msis = new Program("Master of Science in Information Systems",  ESource.OPENCS, "MS", school_ut_austin);
         programRepository.save(school_ut_austin_program_msis);
-        Program school_ut_austin_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_ut_austin);
-        programRepository.save(school_ut_austin_program_ece);
         Program school_ut_austin_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_ut_austin);
         programRepository.save(school_ut_austin_program_mscs);
+        Program school_ut_austin_program_ece_phd = new Program("PhD In Electrical and Computer Engineering",  ESource.OPENCS, "PhD", school_ut_austin);
+        programRepository.save(school_ut_austin_program_ece_phd);
+        Program school_ut_austin_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_ut_austin);
+        programRepository.save(school_ut_austin_program_ece);
 
 
 
-        School school_cmu = new School("Carnegie Mellon University", ESource.OPENCS);
+        School school_cmu = new School("Carnegie Mellon University", ESource.OPENCS,"40.44341","-79.942954");
         saveSchoolData(school_cmu, schoolRepository);
-        Program school_cmu_program_miis = new Program("Master of Science In Intelligent Information Systems",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_miis);
-        Program school_cmu_program_msin = new Program("Master of Science in Information Networking",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msin);
-        Program school_cmu_program_msmite = new Program("Master of Science in Mobile and IoT Engineering",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msmite);
-        Program school_cmu_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_ece);
-        Program school_cmu_program_msr = new Program("Master of Science in Robotics",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msr);
-        Program school_cmu_program_mse_ss = new Program("Master of Software Engineering in Scalable Systems",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_mse_ss);
-        Program school_cmu_program_msit_is = new Program("Master of Science in Information Technology-Information Security",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msit_is);
         Program school_cmu_program_msml = new Program("Master of Science in Machine Learning",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_msml);
-        Program school_cmu_program_msai_ee = new Program("Master of Science in Artificial Intelligence - Electrical Engineering",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msai_ee);
+        Program school_cmu_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_ece);
         Program school_cmu_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_mscs);
-        Program school_cmu_program_mscv = new Program("Master of Science in Computer Vision",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_mscv);
-        Program school_cmu_program_sesv = new Program("Master of Science in Software Engineering - Silicon Valley",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_sesv);
+        Program school_cmu_program_met = new Program("Multimedia & Entertainment Technology",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_met);
         Program school_cmu_program_mcds = new Program("Master of Computational Data Science",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_mcds);
         Program school_cmu_program_msaii = new Program("Master of Science in Artificial Intelligence and Innovation",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_msaii);
-        Program school_cmu_program_met = new Program("Multimedia & Entertainment Technology",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_met);
-        Program school_cmu_program_msis = new Program("Master of Science in Information Systems",  ESource.OPENCS, "MS", school_cmu);
-        programRepository.save(school_cmu_program_msis);
         Program school_cmu_program_mlt = new Program("Master of Law and Taxation",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_mlt);
+        Program school_cmu_program_msin = new Program("Master of Science in Information Networking",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msin);
+        Program school_cmu_program_mse_ss = new Program("Master of Software Engineering in Scalable Systems",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_mse_ss);
+        Program school_cmu_program_miis = new Program("Master of Science In Intelligent Information Systems",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_miis);
+        Program school_cmu_program_msai_ee = new Program("Master of Science in Artificial Intelligence - Electrical Engineering",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msai_ee);
         Program school_cmu_program_msit_pe = new Program("Master of Science in Information Technology in Privacy Engineering",  ESource.OPENCS, "MS", school_cmu);
         programRepository.save(school_cmu_program_msit_pe);
+        Program school_cmu_program_msis = new Program("Master of Science in Information Systems",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msis);
+        Program school_cmu_program_msr = new Program("Master of Science in Robotics",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msr);
+        Program school_cmu_program_mscv = new Program("Master of Science in Computer Vision",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_mscv);
+        Program school_cmu_program_msit_is = new Program("Master of Science in Information Technology-Information Security",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msit_is);
+        Program school_cmu_program_msmite = new Program("Master of Science in Mobile and IoT Engineering",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_msmite);
+        Program school_cmu_program_sesv = new Program("Master of Science in Software Engineering - Silicon Valley",  ESource.OPENCS, "MS", school_cmu);
+        programRepository.save(school_cmu_program_sesv);
 
 
 
-        School school_duke = new School("Duke University", ESource.OPENCS);
+        School school_duke = new School("Duke University", ESource.OPENCS,"36.001254","-78.93831");
         saveSchoolData(school_duke, schoolRepository);
-        Program school_duke_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_duke);
-        programRepository.save(school_duke_program_ece);
         Program school_duke_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_duke);
         programRepository.save(school_duke_program_mscs);
+        Program school_duke_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_duke);
+        programRepository.save(school_duke_program_ece);
 
 
 
-        School school_duke_kunshan = new School("Duke Kunshan University (DKU)", ESource.OPENCS);
+        School school_duke_kunshan = new School("Duke Kunshan University (DKU)", ESource.OPENCS,"31.415896","120.901431");
         saveSchoolData(school_duke_kunshan, schoolRepository);
         Program school_duke_kunshan_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_duke_kunshan);
         programRepository.save(school_duke_kunshan_program_ece);
 
 
 
-        School school_gatech_shenzhen = new School("Georgia Institute of Technology (Georgia Tech) Shenzhen", ESource.OPENCS);
+        School school_gatech_shenzhen = new School("Georgia Institute of Technology (Georgia Tech) Shenzhen", ESource.OPENCS,"22.586197","113.987609");
         saveSchoolData(school_gatech_shenzhen, schoolRepository);
         Program school_gatech_shenzhen_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_gatech_shenzhen);
         programRepository.save(school_gatech_shenzhen_program_ece);
 
 
 
-        School school_purdue = new School("Purdue University", ESource.OPENCS);
+        School school_purdue = new School("Purdue University", ESource.OPENCS,"40.423656","-86.921205");
         saveSchoolData(school_purdue, schoolRepository);
         Program school_purdue_program_ece = new Program("Electrical and Computer Engineering",  ESource.OPENCS, "MS", school_purdue);
         programRepository.save(school_purdue_program_ece);
 
 
 
-        School school_epfl = new School("École Polytechnique Fédérale de Lausanne (EPFL)", ESource.OPENCS);
+        School school_epfl = new School("École Polytechnique Fédérale de Lausanne (EPFL)", ESource.OPENCS,"46.519047","6.566758");
         saveSchoolData(school_epfl, schoolRepository);
         Program school_epfl_program_edic_phd = new Program("PhD In Educational Innovation and Communication",  ESource.OPENCS, "PhD", school_epfl);
         programRepository.save(school_epfl_program_edic_phd);
@@ -487,32 +486,32 @@ public class LoadExternalData {
 
 
 
-        School school_caltech = new School("California Institute of Technology", ESource.OPENCS);
+        School school_caltech = new School("California Institute of Technology", ESource.OPENCS,"34.137652","-118.125268");
         saveSchoolData(school_caltech, schoolRepository);
         Program school_caltech_program_ee = new Program("Master of Science in Electrical Engineering",  ESource.OPENCS, "MS", school_caltech);
         programRepository.save(school_caltech_program_ee);
 
 
 
-        School school_columbia = new School("Columbia University", ESource.OPENCS);
+        School school_columbia = new School("Columbia University", ESource.OPENCS,"40.807518","-73.962571");
         saveSchoolData(school_columbia, schoolRepository);
-        Program school_columbia_program_ee = new Program("Master of Science in Electrical Engineering",  ESource.OPENCS, "MS", school_columbia);
-        programRepository.save(school_columbia_program_ee);
         Program school_columbia_program_msce = new Program("Master of Science in Computer Engineering",  ESource.OPENCS, "MS", school_columbia);
         programRepository.save(school_columbia_program_msce);
+        Program school_columbia_program_ee = new Program("Master of Science in Electrical Engineering",  ESource.OPENCS, "MS", school_columbia);
+        programRepository.save(school_columbia_program_ee);
         Program school_columbia_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_columbia);
         programRepository.save(school_columbia_program_mscs);
 
 
 
-        School school_berkeley = new School("University of California, Berkeley", ESource.OPENCS);
+        School school_berkeley = new School("University of California, Berkeley", ESource.OPENCS,"37.871892","-122.25854");
         saveSchoolData(school_berkeley, schoolRepository);
         Program school_berkeley_program_eecs_meng = new Program("Master of Engineering in Electrical Engineering and Computer Science",  ESource.OPENCS, "MS", school_berkeley);
         programRepository.save(school_berkeley_program_eecs_meng);
 
 
 
-        School school_ucla = new School("University of California Los Angeles", ESource.OPENCS);
+        School school_ucla = new School("University of California Los Angeles", ESource.OPENCS,"34.068917","-118.445183");
         saveSchoolData(school_ucla, schoolRepository);
         Program school_ucla_program_math_phd = new Program("PhD in Mathematics",  ESource.OPENCS, "PhD", school_ucla);
         programRepository.save(school_ucla_program_math_phd);
@@ -523,30 +522,30 @@ public class LoadExternalData {
 
 
 
-        School school_ncsu = new School("North Carolina State University", ESource.OPENCS);
+        School school_ncsu = new School("North Carolina State University", ESource.OPENCS,"35.784657","-78.682094");
         saveSchoolData(school_ncsu, schoolRepository);
         Program school_ncsu_program_mcs = new Program("Master of Computer Science",  ESource.OPENCS, "MS", school_ncsu);
         programRepository.save(school_ncsu_program_mcs);
 
 
 
-        School school_mcmaster = new School("McMaster University", ESource.OPENCS);
+        School school_mcmaster = new School("McMaster University", ESource.OPENCS,"43.452021","-80.499113");
         saveSchoolData(school_mcmaster, schoolRepository);
-        Program school_mcmaster_program_msc_cs = new Program("MSc Computer Science",  ESource.OPENCS, "MS", school_mcmaster);
-        programRepository.save(school_mcmaster_program_msc_cs);
         Program school_mcmaster_program_meng_s_t = new Program("Master of Engineering In Science And Technology",  ESource.OPENCS, "MS", school_mcmaster);
         programRepository.save(school_mcmaster_program_meng_s_t);
+        Program school_mcmaster_program_msc_cs = new Program("MSc Computer Science",  ESource.OPENCS, "MS", school_mcmaster);
+        programRepository.save(school_mcmaster_program_msc_cs);
 
 
 
-        School school_ualberta = new School("University of Alberta", ESource.OPENCS);
+        School school_ualberta = new School("University of Alberta", ESource.OPENCS,"53.52311","-113.526378");
         saveSchoolData(school_ualberta, schoolRepository);
         Program school_ualberta_program_mint = new Program("Mathematik, Informatik, Naturwissenschaften und Technik",  ESource.OPENCS, "MS", school_ualberta);
         programRepository.save(school_ualberta_program_mint);
 
 
 
-        School school_uchicago = new School("The University of Chicago", ESource.OPENCS);
+        School school_uchicago = new School("The University of Chicago", ESource.OPENCS,"41.788601","-87.598715");
         saveSchoolData(school_uchicago, schoolRepository);
         Program school_uchicago_program_mpcs = new Program("Masters Program in Computer Science",  ESource.OPENCS, "MS", school_uchicago);
         programRepository.save(school_uchicago_program_mpcs);
@@ -555,117 +554,119 @@ public class LoadExternalData {
 
 
 
-        School school_bu = new School("Boston University", ESource.OPENCS);
+        School school_bu = new School("Boston University", ESource.OPENCS,"42.350492","-71.105399");
         saveSchoolData(school_bu, schoolRepository);
         Program school_bu_program_msai = new Program("Master of Science in Artificial Intelligence",  ESource.OPENCS, "MS", school_bu);
         programRepository.save(school_bu_program_msai);
 
 
 
-        School school_mcgill = new School("McGill University", ESource.OPENCS);
+        School school_mcgill = new School("McGill University", ESource.OPENCS,"45.504655","-73.57717");
         saveSchoolData(school_mcgill, schoolRepository);
         Program school_mcgill_program_msc_cs = new Program("MSc Computer Science",  ESource.OPENCS, "MS", school_mcgill);
         programRepository.save(school_mcgill_program_msc_cs);
 
 
 
-        School school_hkust = new School("Hong Kong University of Science and Technology", ESource.OPENCS);
+        School school_hkust = new School("Hong Kong University of Science and Technology", ESource.OPENCS,"22.334882","114.263645");
         saveSchoolData(school_hkust, schoolRepository);
         Program school_hkust_program_msc_it = new Program("MSc in Information Technology",  ESource.OPENCS, "MS", school_hkust);
         programRepository.save(school_hkust_program_msc_it);
 
 
 
-        School school_ucl = new School("University College London", ESource.OPENCS);
+        School school_ucl = new School("University College London", ESource.OPENCS,"51.524392","-0.134298");
         saveSchoolData(school_ucl, schoolRepository);
         Program school_ucl_program_msc_sse = new Program("Master of Science in Software and Systems Engineering",  ESource.OPENCS, "MS", school_ucl);
         programRepository.save(school_ucl_program_msc_sse);
 
 
 
-        School school_uoft = new School("University of Toronto", ESource.OPENCS);
+        School school_uoft = new School("University of Toronto", ESource.OPENCS,"43.66241","-79.395399");
         saveSchoolData(school_uoft, schoolRepository);
         Program school_uoft_program_mscac = new Program("Master of Science in Applied Computing (MScAC)",  ESource.OPENCS, "MS", school_uoft);
         programRepository.save(school_uoft_program_mscac);
 
 
 
-        School school_gwu = new School("George Washington University", ESource.OPENCS);
+        School school_gwu = new School("George Washington University", ESource.OPENCS,"38.899589","-77.048846");
         saveSchoolData(school_gwu, schoolRepository);
         Program school_gwu_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_gwu);
         programRepository.save(school_gwu_program_mscs);
 
 
 
-        School school_iowa_state_university = new School("Iowa State University of Science and Technology", ESource.OPENCS);
+        School school_iowa_state_university = new School("Iowa State University of Science and Technology", ESource.OPENCS,"42.026334","-93.647886");
         saveSchoolData(school_iowa_state_university, schoolRepository);
         Program school_iowa_state_university_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_iowa_state_university);
         programRepository.save(school_iowa_state_university_program_mscs);
 
 
 
-        School school_pitt = new School("University of Pittsburgh", ESource.OPENCS);
+        School school_pitt = new School("University of Pittsburgh", ESource.OPENCS,"40.440347","-79.95379");
         saveSchoolData(school_pitt, schoolRepository);
         Program school_pitt_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_pitt);
         programRepository.save(school_pitt_program_mscs);
 
 
 
-        School school_scu = new School("Santa Clara University", ESource.OPENCS);
+        School school_scu = new School("Santa Clara University", ESource.OPENCS,"37.350035","-121.938326");
         saveSchoolData(school_scu, schoolRepository);
         Program school_scu_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_scu);
         programRepository.save(school_scu_program_mscs);
 
 
 
-        School school_tufts = new School("Tufts University", ESource.OPENCS);
+        School school_tufts = new School("Tufts University", ESource.OPENCS,"42.408244","-71.118808");
         saveSchoolData(school_tufts, schoolRepository);
         Program school_tufts_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_tufts);
         programRepository.save(school_tufts_program_mscs);
 
 
 
-        School school_ucd = new School("University of California, Davis", ESource.OPENCS);
+        School school_ucd = new School("University of California, Davis", ESource.OPENCS,"38.536828","-121.762013");
         saveSchoolData(school_ucd, schoolRepository);
         Program school_ucd_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_ucd);
         programRepository.save(school_ucd_program_mscs);
 
 
 
-        School school_ufl = new School("University of Florida", ESource.OPENCS);
+        School school_ufl = new School("University of Florida", ESource.OPENCS,"29.644755","-82.343654");
         saveSchoolData(school_ufl, schoolRepository);
         Program school_ufl_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_ufl);
         programRepository.save(school_ufl_program_mscs);
 
 
 
-        School school_umass = new School("University of Massachusetts", ESource.OPENCS);
+        School school_umass = new School("University of Massachusetts", ESource.OPENCS,"42.391155","-72.526711");
         saveSchoolData(school_umass, schoolRepository);
         Program school_umass_program_mscs = new Program("Master of Science in Computer Science",  ESource.OPENCS, "MS", school_umass);
         programRepository.save(school_umass_program_mscs);
 
 
 
-        School school_psu = new School("Pennsylvania State University", ESource.OPENCS);
+        School school_psu = new School("Pennsylvania State University", ESource.OPENCS,"40.798214","-77.859909");
         saveSchoolData(school_psu, schoolRepository);
         Program school_psu_program_mscse = new Program("Master of Science in Computer Science and Engineering",  ESource.OPENCS, "MS", school_psu);
         programRepository.save(school_psu_program_mscse);
 
 
 
-        School school_jhu = new School("Johns Hopkins University", ESource.OPENCS);
+        School school_jhu = new School("Johns Hopkins University", ESource.OPENCS,"39.328888","-76.620277");
         saveSchoolData(school_jhu, schoolRepository);
-        Program school_jhu_program_mssi = new Program("Master of Science in Security Informatics",  ESource.OPENCS, "MS", school_jhu);
-        programRepository.save(school_jhu_program_mssi);
         Program school_jhu_program_msecs = new Program("The Master of Science in Engineering and Computer Science",  ESource.OPENCS, "MS", school_jhu);
         programRepository.save(school_jhu_program_msecs);
+        Program school_jhu_program_mssi = new Program("Master of Science in Security Informatics",  ESource.OPENCS, "MS", school_jhu);
+        programRepository.save(school_jhu_program_mssi);
 
 
 
-        School school_princeton = new School("Princeton University", ESource.OPENCS);
+        School school_princeton = new School("Princeton University", ESource.OPENCS,"40.343899","-74.660049");
         saveSchoolData(school_princeton, schoolRepository);
         Program school_princeton_program_msecs = new Program("The Master of Science in Engineering and Computer Science",  ESource.OPENCS, "MS", school_princeton);
         programRepository.save(school_princeton_program_msecs);
+
+
 
 
 

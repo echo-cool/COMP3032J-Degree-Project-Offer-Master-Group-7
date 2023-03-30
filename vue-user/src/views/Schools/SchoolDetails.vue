@@ -749,7 +749,7 @@
             getData(){
               let that = this;
               request({
-                url: `/api/school/public/getRandomSchools/5`,
+                url: `/api/school/public/getRandomSchools/15`,
                 method: 'get'
               }).then(function (res){
                 that.relatedSchools = res.data.schools;
@@ -757,7 +757,7 @@
               });
 
               request({
-                url: `/api/program/public/getRandomPrograms/5`,
+                url: `/api/program/public/getRandomPrograms/15`,
                 method: 'get'
               }).then(function (resA){
                 let programs = resA.data.programs;
