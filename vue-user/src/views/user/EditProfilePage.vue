@@ -472,36 +472,48 @@
                                     <div class="rn-upcoming-area rn-section-gap">
 <!--                                        <div class="container">-->
 
-                                            <div class="box-table table-responsive">
-                                                <table class="table upcoming-projects">
-                                                    <thead>
-                                                    <tr>
-                                                        <template v-for="(th, thIndex) in Object.keys(programListHeader)"
-                                                                  :key="`th-${thIndex}`">
-                                                            <th>
-                                                                <span class="text-capitalize">{{th}}</span>
-                                                            </th>
-                                                        </template>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr :class="{'color-light': rowIndex%2 === 0}"
-                                                        v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
-                                                        :key="`row-${rowIndex}`">
-                                                        <td><span>{{ row.program.name }}</span></td>
-                                                        <td><span class="color-purple">{{ row.program.school.name }}</span></td>
-                                                        <td><span>{{ row.program.degree }}</span></td>
-                                                        <!-- status different color -->
-                                                        <td v-if="row.eStatus === `REJECTED`"><span class="color-danger">{{ row.eStatus }}</span></td>
-                                                        <td v-else-if="row.eStatus === `ADMITTED`"><span class="color-green">{{ row.eStatus }}</span></td>
-                                                        <td v-else><span class="color-info">{{ row.eStatus }}</span></td>
+                                            <!-- application table -->
+<!--                                            <div class="box-table table-responsive">-->
+<!--                                                <table class="table upcoming-projects">-->
+<!--                                                    <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <template v-for="(th, thIndex) in Object.keys(programListHeader)"-->
+<!--                                                                  :key="`th-${thIndex}`">-->
+<!--                                                            <th>-->
+<!--                                                                <span class="text-capitalize">{{th}}</span>-->
+<!--                                                            </th>-->
+<!--                                                        </template>-->
+<!--                                                    </tr>-->
+<!--                                                    </thead>-->
+<!--                                                    <tbody>-->
+<!--                                                    <tr :class="{'color-light': rowIndex%2 === 0}"-->
+<!--                                                        v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"-->
+<!--                                                        :key="`row-${rowIndex}`">-->
+<!--                                                        <td><span>{{ row.program.name }}</span></td>-->
+<!--                                                        <td><span class="color-purple">{{ row.program.school.name }}</span></td>-->
+<!--                                                        <td><span>{{ row.program.degree }}</span></td>-->
+<!--                                                        &lt;!&ndash; status different color &ndash;&gt;-->
+<!--                                                        <td v-if="row.eStatus === `REJECTED`"><span class="color-danger">{{ row.eStatus }}</span></td>-->
+<!--                                                        <td v-else-if="row.eStatus === `ADMITTED`"><span class="color-green">{{ row.eStatus }}</span></td>-->
+<!--                                                        <td v-else><span class="color-info">{{ row.eStatus }}</span></td>-->
 
-                                                        <td><span>{{ row.deadline }}</span></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+<!--                                                        <td><span>{{ row.deadline }}</span></td>-->
+<!--                                                    </tr>-->
+<!--                                                    </tbody>-->
+<!--                                                </table>-->
+<!--                                            </div>-->
+
+                                            <!-- test new cards -->
+                                            <div class="tab-content" id="nav-tabContent">
+                                                    <!-- !!! we must load this component after loading all the schools !!! -->
+                                                    <!-- !!! Otherwise, the schools would be undefined !!! -->
+                                                    <template v-if="appListMixinLoadSchoolCount === applications.length" v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
+                                                              :key="`application-${index}`">
+                                                        <selected-program-list-card :program="application.program"/>
+                                                    </template>
                                             </div>
 
+                                            <!-- pagination -->
                                             <nav class="pagination-wrapper" aria-label="Page navigation example">
                                                 <ul :class="`pagination`">
                                                     <li class="page-item"
@@ -691,14 +703,20 @@
     import userLoader from "@/utils/userloader";
     import applicationLoader from "@/utils/applicationLoader";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import SelectedProgramListCard from "@/components/myComp/program/SelectedProgramListCard.vue";
 
 
     export default {
         name: 'EditProfilePage',
-        components: {Breadcrumb, Layout},
+        components: {
+            Breadcrumb,
+            Layout,
+            SelectedProgramListCard
+        },
         mixins: [ApplicationListMixin],
         data(){
             return {
+                activeTabIndex: 0,
                 currentUser: {
                     avatar: "",
                     email: "",
