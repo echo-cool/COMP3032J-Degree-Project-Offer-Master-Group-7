@@ -23,7 +23,7 @@
                 <!-- start single category -->
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="400" data-sal="slide-up"
                      data-sal-duration="800">
-                    <a class="category-style-one" href="/program-selection">
+                    <a class="category-style-one" href="/explore?search=">
                         <i class="feather-map"></i>
                         <span class="category-label">Program Browsing</span>
                     </a>

@@ -1,6 +1,8 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.group7.db.jpa.utils.ESource;
+import com.group7.db.jpa.utils.RandomSchoolImage;
 import com.group7.utils.common.MyRandomUtils;
 import jakarta.persistence.*;
 
@@ -22,6 +24,10 @@ public class School {
     @Column(nullable = false)
     private String name = "NULL";
 
+
+    @Column
+    private ESource source = ESource.USER;
+
     @Column
     private int rankQS;
 
@@ -29,10 +35,10 @@ public class School {
     private int rankUSNews;
 
     @Column(nullable = false)
-    private String lat;     // Latitude for virtual campus tour
+    private String lat = "0.0";     // Latitude for virtual campus tour
 
     @Column(nullable = false)
-    private String lng;     // Longitude for virtual campus tour
+    private String lng = "0.0";     // Longitude for virtual campus tour
 
     @Column
     private String logo = "default/default-logo.jpg";
@@ -49,9 +55,20 @@ public class School {
     @Column
     private long likes = MyRandomUtils.getRandomInt(100, 3200);
 
+
     public School(String name, Set<Program> programs) {
         this.name = name;
         this.programs = programs;
+    }
+
+
+    public School(String fullName ,ESource source) {
+        this.name = fullName;
+        this.source = ESource.OPENCS;
+        this.rankQS = MyRandomUtils.getRandomInt(1,200);
+        this.rankUSNews = MyRandomUtils.getRandomInt(1,200);
+        this.img = RandomSchoolImage.getRandomImage();
+        this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
     }
 
     public School(String name) {
@@ -192,4 +209,6 @@ public class School {
     public void setLikes(long likes) {
         this.likes = likes;
     }
+
+
 }

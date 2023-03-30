@@ -29,6 +29,7 @@
         name: 'PlacebidModal',
       data() {
         return {
+          id: this.$route.params.id,
           programs:{}
         }
       },
@@ -39,7 +40,7 @@
           getData(){
             let that = this;
             request({
-              url: `/api/program/public/getProgramsBySchool/1`,
+              url: `/api/program/public/getProgramsBySchool/` + that.id,
               method: 'get'
             }).then(function (res){
               console.log(res.data);

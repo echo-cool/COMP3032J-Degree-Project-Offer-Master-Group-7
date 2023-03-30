@@ -8,13 +8,18 @@
             <div class="modal-content report-content-wrapper">
                 <div class="modal-header report-modal-header">
                     <h1 class="modal-title">
+                        Update Your Application Here
+                    </h1>
+                    <h1 class="modal-title">
                         Update Your Application Here - {{ application.id }} - {{ application.program.id }}
                     </h1>
                 </div>
 
                 <div class="modal-body">
-                    <div class="mt--10 mb--15" style="font-size: 13px;">If your are ADMITTED or REJECTED, the application status and your background would be published to the Decision Exploration section.</div>
-                        <div class="report-form-box">
+                    <div class="mt--10 mb--35" style="font-size: 13px;">
+                        If your are ADMITTED or REJECTED, the application status and your background would be published to the Decision Exploration section.
+                    </div>
+                    <div class="report-form-box">
                         <div class="input-two-wrapper">
                             <!-- application status -->
                             <div class="half-wid">
@@ -42,14 +47,18 @@
                                 </select>
                             </div>
                         </div>
-
+                        <!-- application deadline -->
+                        <div class="input-two-wrapper">
+                            <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--35" style="font-size: 15px;">Application Deadline</label>
+                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" v-model="application.deadline">
+<!--                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" :value="application.deadline">-->
+                        </div>
                         <!-- btn group -->
                         <div class="report-button mt-5">
                             <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
                             <button v-else type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update</button>
                             <button :id="`btn-close-edit-application-modal-${application.id}`" type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -63,7 +72,15 @@
     export default {
         name: 'ApplicationEditModal',
         props: {
-            application: {},
+            application: {}
+        },
+        data() {
+            return {
+
+            }
+        },
+        created() {
+
         },
         methods: {
             updateApplication(){
@@ -72,6 +89,7 @@
                 updateObj.id = this.application.id;
                 updateObj.status = this.application.eStatus;
                 updateObj.round = this.application.eRound;
+                updateObj.deadline = this.application.deadline;
 
                 // call api method
                 applicationApi.updateApplication(updateObj)

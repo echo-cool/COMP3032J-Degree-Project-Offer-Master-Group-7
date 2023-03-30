@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -98,12 +100,13 @@ public class ApplicationController {
     }
 
     @RequestMapping("/update-application")
-    public R updateApplication(@RequestBody ApplicationUpdateVo applicationUpdateVo) {
+    public R updateApplication(@RequestBody ApplicationUpdateVo applicationUpdateVo) throws ParseException {
 
         // get query items
         long id = applicationUpdateVo.getId();
         String status = applicationUpdateVo.getStatus();
         String round = applicationUpdateVo.getRound();
+        String deadlineStr = applicationUpdateVo.getDeadline();
 
         // query the application
         Application application = applicationRepository.findById(id).orElse(null);
@@ -120,6 +123,11 @@ public class ApplicationController {
                 || EStatus.valueOf(status) == EStatus.REJECTED){
             application.setReportedTime(new Date());
         }
+
+        // update the deadline for this application
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ddl = sdf.parse(deadlineStr);
+        application.setDeadline(ddl);
 
         applicationRepository.save(application);
 

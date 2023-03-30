@@ -3,7 +3,7 @@
         <div class="inner">
             <div class="lg-left-content">
                 <router-link :to="`#`" class="thumbnail">
-                    <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')">
+                    <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')" style="height: 160px; width: 250px;">
 <!--                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
                 </router-link>
                 <div class="read-content">
@@ -66,17 +66,15 @@
 <!--                Place a Bid-->
 <!--            </button>-->
             <button v-if="isProgramSelected"
+                    style="width: 100px; height: 50px;"
                     type="button"
                     class="btn btn-primary-alta mr--30"
-                    @click="removeProgramFromUserApplications(program.id)">
-                Remove from the list
-            </button>
+                    @click="removeProgramFromUserApplications(program.id)">Remove</button>
             <button v-else
+                    style="width: 100px; height: 50px;"
                     type="button"
                     class="btn btn-primary-alta mr--30"
-                    @click="addProgramIntoUserApplications(program.id)">
-                Add to My Program List
-            </button>
+                    @click="addProgramIntoUserApplications(program.id)">Add</button>
 
         </div>
     </div>
