@@ -12,7 +12,7 @@ services:
       - fyp_offer_master_vue_user
       - fyp_offer_master_vue_admin
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx-reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     networks:
@@ -32,7 +32,7 @@ services:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
     container_name: fyp_offer_master_springboot
     build:
-      context: .
+      context: ./springboot-offer-master
     depends_on:
       - fyp_offer_master_springboot_admin
     environment:

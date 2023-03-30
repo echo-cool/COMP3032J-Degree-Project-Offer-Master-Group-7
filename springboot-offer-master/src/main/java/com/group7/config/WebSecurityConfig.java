@@ -90,6 +90,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/post/public/**").permitAll()
                 .requestMatchers("/rest/applications/**").permitAll()
                 .requestMatchers("/rest/programs/**").permitAll()
+                .requestMatchers("/rest/users/**").permitAll()
                 .anyRequest().authenticated();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()

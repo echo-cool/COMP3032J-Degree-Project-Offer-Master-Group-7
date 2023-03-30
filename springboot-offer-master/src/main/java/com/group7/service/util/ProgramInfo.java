@@ -7,6 +7,26 @@ public class ProgramInfo {
 
     Double avgGPA;
 
+    Double avgIELTS;
+
+    Double avgTOEFL;
+
+    public Double getAvgIELTS() {
+        return avgIELTS;
+    }
+
+    public void setAvgIELTS(Double avgIELTS) {
+        this.avgIELTS = avgIELTS;
+    }
+
+    public Double getAvgTOEFL() {
+        return avgTOEFL;
+    }
+
+    public void setAvgTOEFL(Double avgTOEFL) {
+        this.avgTOEFL = avgTOEFL;
+    }
+
     public Program getProgram() {
         return program;
     }
@@ -26,11 +46,8 @@ public class ProgramInfo {
     public void setEntry(String entryName, Double value) {
         switch (entryName) {
             case "gpa" -> this.setAvgGPA(value);
-
-            case "ielts" -> {
-            }
-            case "toefl" -> {
-            }
+            case "ielts" -> this.setAvgIELTS(value);
+            case "toefl" -> this.setAvgTOEFL(value);
         }
     }
 
