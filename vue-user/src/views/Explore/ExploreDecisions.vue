@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Our Top NFTs" current="Ranking"/>
+        <breadcrumb title="Explore Application Decisions" current="Decision Reports"/>
 
         <div class="rn-upcoming-area rn-section-gap">
             <div class="container">
