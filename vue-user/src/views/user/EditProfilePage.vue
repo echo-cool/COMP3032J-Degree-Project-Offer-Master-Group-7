@@ -511,6 +511,7 @@
                                                               :key="`application-${index}`">
                                                         <selected-program-list-card :program="application.program"
                                                                                     :is-liked-obj="isLiked(application.program.id)"
+                                                                                    :deadline="application.deadline"
                                                                                     @reloadData="reloadData"/>
                                                     </template>
                                             </div>
@@ -706,6 +707,7 @@
     import LikeMixin from "@/mixins/user/LikeMixin";
     import SelectedProgramListCard from "@/components/myComp/program/SelectedProgramListCard.vue";
     import app from "@/App.vue";
+    import program from "@/api/program";
 
 
     export default {
@@ -808,6 +810,9 @@
         },
 
       computed: {
+          program() {
+              return program
+          },
           app() {
               return app
           },

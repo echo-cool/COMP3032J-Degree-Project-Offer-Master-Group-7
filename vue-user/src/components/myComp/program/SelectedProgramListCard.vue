@@ -57,22 +57,13 @@
                 </div>
             </div>
 
-<!--            <button type="button"-->
-<!--                    class="btn btn-primary-alta mr&#45;&#45;30"-->
-<!--                    data-bs-toggle="modal"-->
-<!--                    data-bs-target="#placebidModal">-->
-<!--                Place a Bid-->
-<!--            </button>-->
-            <button type="button"
-                    class="btn btn-primary-alta mr--30"
-                    @click="editApplications(program.id)">
-                Edit
-            </button>
-            <button type="button"
-                    class="btn btn-primary-alta mr--30"
-                    @click="removeProgramFromUserApplications(program.id)">
-                Remove from the list
-            </button>
+
+            <div class="">
+                <h6 class="title">Time Remaining</h6>
+                <countdown :date="deadline" class="mt--15"/>
+            </div>
+
+
 
         </div>
     </div>
@@ -104,7 +95,8 @@
                 type: Boolean,
                 default: false
             },
-            isLikedObj: {}
+            isLikedObj: {},
+            deadline: ""
         },
         data(){
             return{
