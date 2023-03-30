@@ -45,8 +45,10 @@
                             </div>
                         </div>
                         <!-- application deadline -->
-                        <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--15" style="font-size: 15px;">Application Status</label>
-                        <input :id="`application-deadline-update-${application.id}`" type="date" v-model="application.deadline">
+                        <div class="input-two-wrapper">
+                            <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--35" style="font-size: 15px;">Application Deadline</label>
+                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" v-model="application.deadline">
+                        </div>
                         <!-- btn group -->
                         <div class="report-button mt-5">
                             <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
