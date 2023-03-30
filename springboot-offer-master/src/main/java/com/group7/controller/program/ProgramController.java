@@ -233,5 +233,15 @@ public class ProgramController {
 
     }
 
+    @GetMapping("/public/getAllPrograms")
+    public R getAllPrograms(){
+        List<Program> allPrograms = programRepository.findAll();
+        System.out.println("============");
+        System.out.println(allPrograms);
+        System.out.println("============");
+        return R.ok().data("programs", allPrograms);
+    }
+
+
 
 }

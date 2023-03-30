@@ -15,6 +15,12 @@ export default{
             url: `/api/school/public/getAllSchools`,
             method: 'get'
         }))
+    },
+    
+    getById(id) {
+        return request(({
+            url: `/api/school/public/getById/${id}`,
+            method: 'get'
+        }))
     }
-
 }

@@ -1,11 +1,11 @@
 <template>
     <layout>
-        <breadcrumb :title="categoryName" :current="categoryName"/>
+        <breadcrumb :title="category + ''" :current="category + ''"/>
 
         <div class="rn-blog-area rn-section-gapTop">
             <div class="container">
-                <div class="row g-5">
-                    <template v-for="(blog, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
+                <div class="row g-5" v-if="categoryPosts.length !== 0">
+                    <template v-if="filteredRows !== ''" v-for="(blog, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                               :key="`blog-${index}`">
                         <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                             <blog-card :blog="blog"/>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12" data-sal="slide-up" data-sal-delay="550" data-sal-duration="800">
-                        <blog-pagination :posts="categoryPosts" @paginatedData="paginatedData"/>
+                        <blog-pagination :posts="categoryPosts" @paginatedData="paginatedData" v-if="categoryPosts.length !== 0"/>
                     </div>
                 </div>
             </div>
@@ -30,6 +30,7 @@
     import AppFunctions from '@/helpers/AppFunctions'
     import BlogMixin from '@/mixins/BlogMixin'
     import BlogPagination from '@/components/pagination/BlogPagination'
+    import {getPostsByCategory} from "@/api/community";
 
     export default {
         name: 'CommunityCategoryPosts',
@@ -47,17 +48,15 @@
         },
         computed: {
             categoryName() {
-                return this.categoryPosts[0].categories[0]
+                return this.categoryPosts[0].category.name
             }
         },
         methods: {
             getCategoryPosts() {
-                this.categoryPosts = this.posts.map(blog => {
-                    return {
-                        ...blog,
-                        categories: blog.categories.filter(data => AppFunctions.slugify(data) === this.category)
-                    }
-                }).filter(blog => blog.categories.length > 0);
+              getPostsByCategory(this.category).then(response => {
+                this.categoryPosts = response['data']['posts']
+                console.log(this.categoryPosts)
+              })
             },
             paginatedData(filteredRows, pageStart, countOfPage) {
                 this.filteredRows = filteredRows;

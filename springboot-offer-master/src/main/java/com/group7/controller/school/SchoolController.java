@@ -89,5 +89,14 @@ public class SchoolController {
         return R.ok().data("schools", allSchools);
     }
 
+    @GetMapping("/public/getById/{id}")
+    public R getSchoolById(@PathVariable("id") long id){
+
+        School school = schoolRepository.findById(id).orElse(null);
+        System.out.println("=============666");
+        System.out.println(school);
+        System.out.println("=============666");
+        return R.ok().data("school", school);
+    }
 
 }
