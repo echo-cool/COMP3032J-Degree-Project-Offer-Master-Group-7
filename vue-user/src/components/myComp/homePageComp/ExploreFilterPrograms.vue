@@ -118,7 +118,7 @@
     import ProductFilterMixin from '@/mixins/ProductFilterMixin'
     import programApi from "@/api/program";
     import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
-    import profileApi from "@/api/profile";
+    import LikeMixin from "@/mixins/user/LikeMixin";
 
     export default {
         name: 'ExploreFilterPrograms',
@@ -143,11 +143,11 @@
             },
             currentUser: {}
         },
-        mixins: [ProductFilterMixin],
+        mixins: [ProductFilterMixin, LikeMixin],
         data() {
             return {
-                likedPrograms: [],
-                likedProgramIds: [],
+                // likedPrograms: [],
+                // likedProgramIds: [],
                 programQuery: {
                     likes: "most-liked",
                     degree: "all",
@@ -198,28 +198,28 @@
                     })
             },
 
-            // get a list of ids of programs that the user liked
-            getLikedPrograms(){
-                // reset the lists to empty
-                this.likedPrograms = [];
-                this.likedProgramIds = [];
-                profileApi.getLikedPrograms()
-                    .then(response => {
-                        // update the liked programs
-                        this.likedPrograms = response.data.likedPrograms;
-                        // create the list of program id
-                        for (let k in this.likedPrograms){
-                            this.likedProgramIds.push(this.likedPrograms[k].id);
-                        }
-                    })
-            },
-
-            // whether the user liked a program
-            isLiked(programId){
-                return {
-                    isLiked: this.likedProgramIds.includes(programId)
-                };
-            }
+            // // get a list of ids of programs that the user liked
+            // getLikedPrograms(){
+            //     // reset the lists to empty
+            //     this.likedPrograms = [];
+            //     this.likedProgramIds = [];
+            //     profileApi.getLikedPrograms()
+            //         .then(response => {
+            //             // update the liked programs
+            //             this.likedPrograms = response.data.likedPrograms;
+            //             // create the list of program id
+            //             for (let k in this.likedPrograms){
+            //                 this.likedProgramIds.push(this.likedPrograms[k].id);
+            //             }
+            //         })
+            // },
+            //
+            // // whether the user liked a program
+            // isLiked(programId){
+            //     return {
+            //         isLiked: this.likedProgramIds.includes(programId)
+            //     };
+            // }
 
         }
     }
