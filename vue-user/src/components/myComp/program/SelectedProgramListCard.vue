@@ -45,8 +45,7 @@
                                 <button type="button"
                                         class="btn-setting-text report-text"
                                         :data-bs-toggle="`modal`"
-                                        :data-bs-target="`#application-edit-modal-${application.id}`"
-                                        @click="editApplications(application.program.id)">
+                                        :data-bs-target="`#application-edit-modal-${application.id}`">
                                     Edit
                                 </button>
                                 <button type="button"
@@ -70,16 +69,22 @@
 
         </div>
     </div>
+
+    <application-edit-modal :application="application"/>
 </template>
 
 <script>
     import Countdown from '@/components/product/Countdown'
     import programSelectionApi from "@/api/programSelection";
     import programApi from "@/api/program";
+    import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal.vue";
 
     export default {
         name: 'SelectedProductListCard',
-        components: {Countdown},
+        components: {
+            Countdown,
+            ApplicationEditModal
+        },
         props: {
             productDate: {},
             productStyleClass: {
@@ -118,10 +123,6 @@
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
                     })
-            },
-
-            editApplications(){
-
             },
 
             likeProgram(programId){

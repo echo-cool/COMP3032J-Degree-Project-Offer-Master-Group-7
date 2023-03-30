@@ -284,9 +284,6 @@
               request({
                 url: '/api/post/createPost',
                 method: 'post',
-                headers: {
-                  'Authorization': 'Bearer ' + cookie.get("user_token")
-                },
                 data: formData
               }).then(response => {
                   if (response['success'] === true) {
