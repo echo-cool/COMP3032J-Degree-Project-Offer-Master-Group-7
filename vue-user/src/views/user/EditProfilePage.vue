@@ -509,7 +509,7 @@
                                                     <!-- !!! Otherwise, the schools would be undefined !!! -->
                                                     <template v-if="appListMixinLoadSchoolCount === applications.length" v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                                               :key="`application-${index}`">
-                                                        <selected-program-list-card :program="application.program"/>
+                                                        <selected-program-list-card :program="application.program" :is-liked-obj="isLiked(application.program.id)"/>
                                                     </template>
                                             </div>
 
@@ -700,10 +700,10 @@
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
     import router from "@/router";
-    import userLoader from "@/utils/userloader";
-    import applicationLoader from "@/utils/applicationLoader";
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import LikeMixin from "@/mixins/user/LikeMixin";
     import SelectedProgramListCard from "@/components/myComp/program/SelectedProgramListCard.vue";
+    import app from "@/App.vue";
 
 
     export default {
@@ -713,7 +713,7 @@
             Layout,
             SelectedProgramListCard
         },
-        mixins: [ApplicationListMixin],
+        mixins: [ApplicationListMixin, LikeMixin],
         data(){
             return {
                 activeTabIndex: 0,
@@ -795,6 +795,8 @@
             // load the current user info as this page is created
             // user would be redirected to the login page if not logged in
             this.getCurrentUser();
+            // load the like info
+            this.getLikedPrograms();
         },
 
         mounted() {
@@ -804,6 +806,9 @@
         },
 
       computed: {
+          app() {
+              return app
+          },
             filteredRows() {
                 return this.applications;
             },

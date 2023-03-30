@@ -83,7 +83,6 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programSelectionApi from "@/api/programSelection";
-    import programAip from "@/api/program";
 
     export default {
         name: 'SelectedProductListCard',
