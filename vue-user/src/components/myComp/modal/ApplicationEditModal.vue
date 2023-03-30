@@ -8,6 +8,9 @@
             <div class="modal-content report-content-wrapper">
                 <div class="modal-header report-modal-header">
                     <h1 class="modal-title">
+                        Update Your Application Here
+                    </h1>
+                    <h1 class="modal-title">
                         Update Your Application Here - {{ application.id }} - {{ application.program.id }}
                     </h1>
                 </div>
@@ -69,7 +72,15 @@
     export default {
         name: 'ApplicationEditModal',
         props: {
-            application: {},
+            application: {}
+        },
+        data() {
+            return {
+
+            }
+        },
+        created() {
+
         },
         methods: {
             updateApplication(){

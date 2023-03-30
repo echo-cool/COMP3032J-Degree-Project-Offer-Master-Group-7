@@ -24,7 +24,6 @@
 <!--                    </div>-->
                     <router-link :to="`#`">
                         <h6 class="title">{{ application.program.name }} - {{ application.program.degree }} <span class="title">({{ application.eRound.toLowerCase().replace("_", " ") }})</span></h6>
-
                     </router-link>
 
                     <span class="latest-bid mr--20 fs-5">{{ application.program.school.name }}</span>
