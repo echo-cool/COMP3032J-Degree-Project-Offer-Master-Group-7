@@ -595,7 +595,7 @@
                                                     <div class="thumbnail">
 
                                                         <router-link to="#">
-                                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center; height: 50px; width: 50px">
                                                             <b-spinner label="Spinning" style="position: absolute; width: 20px; height: 20px; z-index: 0"></b-spinner>
 
                                                             <img style="position: relative;height: 50px; width: 50px; z-index: 4;" :src="`/backend/static/` + product.logo" alt="Nft_Profile">
@@ -620,7 +620,7 @@
                                             class="btn btn-primary-alta mt--30"
                                             data-bs-toggle="modal"
                                             data-bs-target="#placebidModal">
-                                        Add to Apply List
+                                        View Program List
                                     </button>
                                 </div>
                             </div>
@@ -680,6 +680,7 @@
                          :key="`newest-item-${index}`">
                         <product-card
                             :product-date="item"
+                            :productType="`program-details`"
                             product-style-class="no-overlay"
                         />
                     </div>

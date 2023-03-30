@@ -55,11 +55,11 @@
                 <div :class="[`thumbnail`, {'varified': false}]">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
                     <router-link :to="`/school-details/`+school.id">
-                        <img v-if="school.img" :src="`/backend/static/`+school.img" alt="school-img">
+                        <img v-if="school.img" :src="`/backend/static/`+school.img" alt="school-img" style="height: 50px;width: 50px">
                         <img v-else :src="require(`@/assets/images/client/client-1.png`)" alt="school-img">
                     </router-link>
                 </div>
-            
+
                 <div class="top-seller-content">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
                     <router-link :to="`/school-details/`+school.id">
@@ -596,7 +596,7 @@
                                                 <div class="top-seller-wrapper">
                                                     <div class="thumbnail">
                                                         <router-link to="#">
-                                                            <img :src="`/backend/static/` + product.img" alt="Nft_Profile">
+                                                            <img :src="`/backend/static/` + product.img" alt="Nft_Profile" style="height: 50px; width: 50px">
                                                         </router-link>
                                                     </div>
                                                     <div class="top-seller-content">
@@ -723,8 +723,8 @@
         mixins: [ProductMixin],
         data() {
             return {
-                id: this.$route.params.id.split("X")[0],
-                schoolId: this.$route.params.id.split("X")[1],
+                id: this.$route.params.id,
+                // schoolId: this.$route.params.id.split("X")[1],
                 product: {},
                 activeTabIndex: 0,
                 relatedSchools: [],
@@ -740,17 +740,27 @@
               this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
             },
             getPrograms() {
+              let that = this;
                 programApi.getAllPrograms().then(response => {
                     this.products = response['data']['programs']
                     console.log(this.products)
                     console.log(this.id + " 6666")
                     this.getProduct(this.id)
                 })
-                schoolApi.getById(this.schoolId).then(response => {
-                    this.school = response['data']['school']
-                    console.log(this.response)
-                })
-                
+              request({
+                url: `/api/program/public/getSchoolByProgram/` + that.id,
+                method: 'get'
+              }).then(function (res){
+                let school = res.data.school;
+                console.log(school)
+                that.school = school;
+                // schoolApi.getById(school.id).then(response => {
+                //   this.school = response['data']['school']
+                //   console.log(this.response)
+                // })
+              });
+
+
             },
             getData(){
               let that = this;
@@ -786,16 +796,14 @@
 
         },
         created() {
-            this.id = this.$route.params.id.split("X")[0],
-            this.schoolId = this.$route.params.id.split("X")[1],
+            this.id = this.$route.params.id,
             this.getData();
             this.getPrograms();
-            console.log(this.id, this.schoolId)
+            console.log(this.id)
         },
         watch: {
             '$route.params.id': function (val) {
-                this.id = this.$route.params.id.split("X")[0],
-                this.schoolId = this.$route.params.id.split("X")[1],
+                this.id = this.$route.params.id,
                 this.getProduct(this.id);
             }
         },
