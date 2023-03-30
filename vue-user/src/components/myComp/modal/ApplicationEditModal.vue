@@ -47,7 +47,7 @@
                         <div class="report-button mt-5">
                             <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
                             <button v-else type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update</button>
-                            <button type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
+                            <button :id="`btn-close-edit-application-modal-${application.id}`" type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
 
                     </div>
@@ -77,6 +77,8 @@
                 applicationApi.updateApplication(updateObj)
                     .then(response => {
                         window.alert("Application Updated Successful!");
+                        // close the modal
+                        document.getElementById(`btn-close-edit-application-modal-${this.application.id}`).click();
                     })
             }
         }
