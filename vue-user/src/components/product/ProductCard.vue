@@ -2,7 +2,11 @@
     <div :class="`product-style-one ${productStyleClass}`">
         <div class="card-thumbnail">
             <router-link :to="`/school-details/${productDate.id}`">
-                <img style="height: 150px" :src="`/backend/static/`+productDate.img" :alt="productDate.name" @load="$emit('handleImageLoad')">
+              <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                <b-spinner label="Spinning" style="position: absolute; width: 40px; height: 40px; z-index: 0"></b-spinner>
+
+                <img style="height: 150px; position: relative; z-index: 4" :src="`/backend/static/`+productDate.img" :alt="productDate.name" @load="$emit('handleImageLoad')">
+              </div>
             </router-link>
             <countdown v-if="productDate.countdown" :date="productDate.countdown.date"/>
             <router-link v-if="showPlaceBid" :to="`/school-details/${productDate.id}`" class="btn btn-primary">
