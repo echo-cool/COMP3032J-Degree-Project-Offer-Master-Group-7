@@ -59,18 +59,15 @@
                 </div>
             </div>
 
-
             <div>
                 <h6 class="title">Time Remaining</h6>
                 <countdown :date="application.deadline" class="mt--15"/>
             </div>
 
-
-
         </div>
     </div>
 
-    <application-edit-modal :application="application"/>
+    <application-edit-modal :application="application" @updateDeadline="updateDeadline"/>
 </template>
 
 <script>

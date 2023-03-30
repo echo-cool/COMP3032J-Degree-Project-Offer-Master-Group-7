@@ -48,6 +48,7 @@
                         <div class="input-two-wrapper">
                             <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--35" style="font-size: 15px;">Application Deadline</label>
                             <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" v-model="application.deadline">
+<!--                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" :value="application.deadline">-->
                         </div>
                         <!-- btn group -->
                         <div class="report-button mt-5">
@@ -72,9 +73,6 @@
         },
         methods: {
             updateApplication(){
-                // for test
-                console.log("---------------------------------------deadline: " + this.application.deadline);
-
                 // create the request body
                 let updateObj = {}
                 updateObj.id = this.application.id;
