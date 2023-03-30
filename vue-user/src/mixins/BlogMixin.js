@@ -12,6 +12,7 @@ export default {
                     title: '',
                     category: {id: 1, name: ""},
                     content: "",
+                    comments: []
                 },
             ],
             categories: [

@@ -1,9 +1,12 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "post",
@@ -27,8 +30,11 @@ public class Post {
     private String img = "default/default.jpg";
 
     @ManyToOne
-    @JsonBackReference
     private User author;
+
+    @OneToMany(mappedBy = "post")
+    @JsonManagedReference(value = "comments")
+    private Set<PostComment> comments = new HashSet<>();
 
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
