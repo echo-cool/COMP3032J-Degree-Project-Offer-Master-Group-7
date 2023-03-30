@@ -1,2 +1,6 @@
-package com.group7.db.jpa.utils;public enum ESource {
+package com.group7.db.jpa.utils;
+
+public enum ESource {
+    USER,
+    OPENCS,
 }
