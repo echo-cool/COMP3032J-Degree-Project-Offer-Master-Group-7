@@ -42,10 +42,13 @@
 import 'vue3-carousel/dist/carousel.css'
 import {Carousel, Navigation, Slide} from 'vue3-carousel'
 import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
-import profileApi from "@/api/profile";
+import LikeMixin from "@/mixins/user/LikeMixin";
 
 export default {
         name: 'MyProgramListTimerCarousel',
+        mixins: [
+            LikeMixin
+        ],
         computed: {
 
         },
@@ -73,8 +76,8 @@ export default {
         },
         data() {
             return {
-                likedPrograms: [],
-                likedProgramIds: [],
+                // likedPrograms: [],
+                // likedProgramIds: [],
                 breakpoints: {
                     576: {
                         itemsToShow: 2,
@@ -280,28 +283,28 @@ export default {
             this.getLikedPrograms();
         },
         methods:{
-            // get a list of ids of programs that the user liked
-            getLikedPrograms(){
-                // reset the lists to empty
-                this.likedPrograms = [];
-                this.likedProgramIds = [];
-                profileApi.getLikedPrograms()
-                    .then(response => {
-                        // update the liked programs
-                        this.likedPrograms = response.data.likedPrograms;
-                        // create the list of program id
-                        for (let k in this.likedPrograms){
-                            this.likedProgramIds.push(this.likedPrograms[k].id);
-                        }
-                    })
-            },
-
-            // whether the user liked a program
-            isLiked(programId){
-                return {
-                    isLiked: this.likedProgramIds.includes(programId)
-                };
-            }
+            // // get a list of ids of programs that the user liked
+            // getLikedPrograms(){
+            //     // reset the lists to empty
+            //     this.likedPrograms = [];
+            //     this.likedProgramIds = [];
+            //     profileApi.getLikedPrograms()
+            //         .then(response => {
+            //             // update the liked programs
+            //             this.likedPrograms = response.data.likedPrograms;
+            //             // create the list of program id
+            //             for (let k in this.likedPrograms){
+            //                 this.likedProgramIds.push(this.likedPrograms[k].id);
+            //             }
+            //         })
+            // },
+            //
+            // // whether the user liked a program
+            // isLiked(programId){
+            //     return {
+            //         isLiked: this.likedProgramIds.includes(programId)
+            //     };
+            // }
         }
     }
 </script>
