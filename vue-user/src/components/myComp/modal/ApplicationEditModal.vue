@@ -4,21 +4,17 @@
             <i class="feather-x"/>
         </button>
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 490px;">
-            <div class="modal-content report-content-wrapper">
 
+            <div class="modal-content report-content-wrapper">
                 <div class="modal-header report-modal-header">
                     <h1 class="modal-title">
-                        Update Your Application Here - {{ application.id }}
+                        Update Your Application Here - {{ application.id }} - {{ application.program.id }}
                     </h1>
                 </div>
+
                 <div class="modal-body">
                     <div class="mt--10 mb--15" style="font-size: 13px;">If your are ADMITTED or REJECTED, the application status and your background would be published to the Decision Exploration section.</div>
-
-                    <div class="report-form-box">
-
-<!--                        <h6 class="title">Message</h6>-->
-<!--                        <textarea name="message" placeholder="Write issues"></textarea>-->
-
+                        <div class="report-form-box">
                         <div class="input-two-wrapper">
                             <!-- application status -->
                             <div class="half-wid">
@@ -47,28 +43,42 @@
                             </div>
                         </div>
 
-
-
+                        <!-- btn group -->
                         <div class="report-button mt-5">
-                            <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto">Update and Report</button>
-                            <button v-else type="button" class="btn btn-primary mr--10 w-auto">Update</button>
+                            <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
+                            <button v-else type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update</button>
                             <button type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
 
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import applicationApi from "@/api/application";
+
     export default {
         name: 'ApplicationEditModal',
         props: {
             application: {},
         },
+        methods: {
+            updateApplication(){
+                // create the request body
+                let updateObj = {}
+                updateObj.id = this.application.id;
+                updateObj.status = this.application.eStatus;
+                updateObj.round = this.application.eRound;
+
+                // call api method
+                applicationApi.updateApplication(updateObj)
+                    .then(response => {
+                        window.alert("Application Updated Successful!");
+                    })
+            }
+        }
     }
 </script>
