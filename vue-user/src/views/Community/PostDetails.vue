@@ -2,7 +2,7 @@
     <layout>
         <breadcrumb title="Post Details" current="Post Details"/>
 
-        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop">
+        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop" v-if="blog.id">
             <div class="container">
                 <div class="row g-6">
                     <div class="col-xl-8 col-lg-8">
@@ -27,164 +27,30 @@
                                         </h5>
                                         <ul class="comment-list">
                                             <!-- Start Single Comment  -->
-                                            <li class="comment parent">
+                                            <li class="comment parent" v-if="blog.comments.length !== 0" v-for="comment in blog.comments">
                                                 <div class="single-comment">
                                                     <div class="comment-author comment-img">
                                                         <img class="comment-avatar"
-                                                             :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                             alt="Comment Image">
+                                                             :src="'/backend/static/' + comment.author.avatar"
+                                                             alt="Comment Image"
+                                                              style="width: 60px; border-radius: 100%;">
                                                         <div class="m-b-20">
-                                                            <div class="commenter">Parent</div>
-                                                            <div class="time-spent">August 20, at 8:44 pm</div>
+                                                            <div class="commenter">{{ comment.author.username }}</div>
+                                                            <div class="time-spent">{{ comment.createdAt }}</div>
                                                         </div>
                                                     </div>
                                                     <div class="comment-text">
                                                         <p>
-                                                            A component that allows for easy creation of menu
-                                                            items, quickly
-                                                            creating paragraphs of “Lorem Ipsum” and
-                                                            pictures with custom
-                                                            sizes.
+                                                            {{ comment.content }}
                                                         </p>
                                                     </div>
-                                                    <div class="reply-edit">
-                                                        <div class="reply">
-                                                            <a class="comment-reply-link" href="#">
-                                                                <i class="rbt feather-corner-down-right"/> Reply
-                                                            </a>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
-                                                <ul class="children">
-                                                    <li class="comment byuser">
-                                                        <div class="single-comment">
-                                                            <div class="comment-author comment-img">
-                                                                <img class="comment-avatar"
-                                                                     :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                                     alt="Comment Image">
-                                                                <div class="m-b-20">
-                                                                    <div class="commenter">Admin Comment</div>
-                                                                    <div class="time-spent"> August 20, at 8:44 pm</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-text">
-                                                                <p>
-                                                                    A component that allows for easy creation
-                                                                    of menu items,
-                                                                    quickly creating paragraphs of “Lorem
-                                                                    Ipsum” and
-                                                                    pictures with custom sizes.
-                                                                </p>
-                                                            </div>
-                                                            <div class="reply-edit">
-                                                                <div class="reply">
-                                                                    <a class="comment-reply-link" href="#">
-                                                                        <i class="rbt feather-corner-down-right"/> Reply
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+
                                             </li>
                                             <!-- End Single Comment  -->
 
-                                            <!-- Start Single Comment  -->
-                                            <li class="comment parent">
-                                                <div class="single-comment">
-                                                    <div class="comment-author comment-img">
-                                                        <img class="comment-avatar"
-                                                             :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                             alt="Comment Image">
-                                                        <div class="m-b-20">
-                                                            <div class="commenter">Craig E. Judge</div>
-                                                            <div class="time-spent"> August 20, at 8:44 pm</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>
-                                                            A component that allows for easy creation of menu
-                                                            items, quickly
-                                                            creating paragraphs of “Lorem Ipsum” and
-                                                            pictures with custom
-                                                            sizes.
-                                                        </p>
-                                                    </div>
-                                                    <div class="reply-edit">
-                                                        <div class="reply">
-                                                            <a class="comment-reply-link" href="#">
-                                                                <i class="rbt feather-corner-down-right"/> Reply
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="children">
-                                                    <li class="comment">
-                                                        <div class="single-comment">
-                                                            <div class="comment-author comment-img">
-                                                                <img class="comment-avatar"
-                                                                     :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                                     alt="Comment Image">
-                                                                <div class="m-b-20">
-                                                                    <div class="commenter"><a href="#">Child Comment</a></div>
-                                                                    <div class="time-spent"> August 20, at 8:44 pm</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="comment-text">
-                                                                <p>
-                                                                    A component that allows for easy creation
-                                                                    of menu items,
-                                                                    quickly creating paragraphs of “Lorem
-                                                                    Ipsum” and
-                                                                    pictures with custom sizes.
-                                                                </p>
-                                                            </div>
-                                                            <div class="reply-edit">
-                                                                <div class="reply">
-                                                                    <a class="comment-reply-link" href="#">
-                                                                        <i class="rbt feather-corner-down-right"/> Reply
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <ul class="children">
-                                                            <li class="comment">
-                                                                <div class="single-comment">
-                                                                    <div class="comment-author comment-img">
-                                                                        <img class="comment-avatar"
-                                                                             :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                                             alt="Comment Image">
-                                                                        <div class="m-b-20">
-                                                                            <div class="commenter">
-                                                                                <a href="#">Child Comment</a>
-                                                                            </div>
-                                                                            <div class="time-spent">August 20, at 8:44 pm</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="comment-text">
-                                                                        <p>
-                                                                            A component that allows for easy
-                                                                            creation of menu
-                                                                            items,
-                                                                            quickly creating paragraphs of
-                                                                            “Lorem Ipsum” and
-                                                                            pictures with custom sizes.
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="reply-edit">
-                                                                        <div class="reply">
-                                                                            <a class="comment-reply-link" href="#">
-                                                                                <i class="rbt feather-corner-down-right"/> Reply
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <!-- End Single Comment  -->
+
                                         </ul>
                                     </div>
                                 </div>
@@ -197,20 +63,15 @@
                                         <span class="subtitle">Have a Comment?</span>
                                         <h2 class="title">Leave a Reply</h2>
                                     </div>
-                                    <form class="mt--40" action="#">
+                                    <form class="mt--40" action="#" id="comment-form" onsubmit="return false">
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-12 col-12">
-                                                <div class="rnform-group"><input type="text" placeholder="Name"></div>
-                                                <div class="rnform-group"><input type="email" placeholder="Email"></div>
-                                                <div class="rnform-group"><input type="text" placeholder="Website"></div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-12 col-12">
+                                            <div class="col-lg-12 col-md-12 col-12">
                                                 <div class="rnform-group">
-                                                    <textarea placeholder="Comment"></textarea>
+                                                    <textarea name="comment" placeholder="Comment"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="blog-btn">
+                                                <div class="blog-btn" v-on:click="submitComment()">
                                                     <a class="btn btn-primary-alta btn-large w-100" href="#">
                                                         <span>SEND MESSAGE</span>
                                                     </a>
@@ -255,7 +116,8 @@
     import BlogCard from '@/components/blog/BlogCard'
     import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
     import BlogSidebar from '@/components/blog/BlogSidebar'
-    import {getAllPosts} from "@/api/community";
+    import {getAllPosts, getPost} from "@/api/community";
+    import request from "@/utils/request";
 
     export default {
         name: 'PostDetails',
@@ -270,12 +132,26 @@
         methods: {
             getBlog(blogId) {
                 this.blog = this.posts.find(item => item.id == blogId);
+            },
+            submitComment() {
+                let form = document.getElementById("comment-form")
+                let formData = new FormData(form)
+                formData.append("postID", this.blog.id)
+                request({
+                  url: '/api/post/createPostComment',
+                  method: 'post',
+                  data: formData
+                }).then(response => {
+                  if (response['success'] === true) {
+                      window.location.reload(true)
+                  }
+                })
+                return false
             }
         },
         created() {
-            getAllPosts().then(response => {
-              this.posts = response['data']['posts']
-              this.getBlog(this.id);
+            getPost(this.id).then(response => {
+              this.blog = response['data']['post']
             })
         },
         watch: {

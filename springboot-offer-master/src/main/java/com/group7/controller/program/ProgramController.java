@@ -233,5 +233,26 @@ public class ProgramController {
 
     }
 
+    @RequestMapping("/public/getProgramsBySchool/{id}")
+    public R getProgramsBySchool(@PathVariable("id") long id){
+        Optional<School> school = schoolRepository.findById(id);
+        if (school.isPresent()){
+            Set<Program> programs = school.get().getPrograms();
+            return R.ok().data("programs", programs);
+        }
+        return R.error();
+
+    }
+
+    @GetMapping("/public/getAllPrograms")
+    public R getAllPrograms(){
+        List<Program> allPrograms = programRepository.findAll();
+        System.out.println("============");
+        System.out.println(allPrograms);
+        System.out.println("============");
+        return R.ok().data("programs", allPrograms);
+    }
+
+
 
 }

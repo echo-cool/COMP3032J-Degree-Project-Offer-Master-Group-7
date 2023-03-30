@@ -102,6 +102,33 @@ public class Profile {
         this.user = user;
     }
 
+    public Profile(String applicationRound, String targetDegree, String targetMajor, String targetOfferType, double gpa, int rank, String underGradSchoolCate, String underGradSchoolName, String underGradMajor, String testType, double totalIELTS, double listeningIELTS, double speakingIELTS, double readingIELTS, double writingIELTS, int totalTOEFL, int listeningTOEFL, int speakingTOEFL, int readingTOEFL, int writingTOEFL, int greTotal, int greAnalyticalWriting, int greVerbal, int greQuantitative) {
+        this.applicationRound = applicationRound;
+        TargetDegree = targetDegree;
+        TargetMajor = targetMajor;
+        TargetOfferType = targetOfferType;
+        this.gpa = gpa;
+        this.rank = rank;
+        this.underGradSchoolCate = underGradSchoolCate;
+        this.underGradSchoolName = underGradSchoolName;
+        this.underGradMajor = underGradMajor;
+        this.testType = testType;
+        this.totalIELTS = totalIELTS;
+        this.listeningIELTS = listeningIELTS;
+        this.speakingIELTS = speakingIELTS;
+        this.readingIELTS = readingIELTS;
+        this.writingIELTS = writingIELTS;
+        this.totalTOEFL = totalTOEFL;
+        this.listeningTOEFL = listeningTOEFL;
+        this.speakingTOEFL = speakingTOEFL;
+        this.readingTOEFL = readingTOEFL;
+        this.writingTOEFL = writingTOEFL;
+        this.greTotal = greTotal;
+        this.greAnalyticalWriting = greAnalyticalWriting;
+        this.greVerbal = greVerbal;
+        this.greQuantitative = greQuantitative;
+    }
+
     public Profile() {
 
     }

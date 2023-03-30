@@ -19,6 +19,13 @@ export default{
         })
     },
 
+    getAllPrograms() {
+        return request(({
+            url: `/api/program/public/getAllPrograms`,
+            method: 'get'
+        }))
+    },
+
     // like a program
     likeProgram(programId){
         return request({

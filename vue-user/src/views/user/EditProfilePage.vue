@@ -515,8 +515,6 @@
                                                                                     @reloadData="reloadData"
                                                                                     @removeLike="removeLike(application.program.id)"
                                                                                     @addLike="addLike(application.program.id)"/>
-
-                                                        <application-edit-modal :application="application"/>
                                                     </template>
                                             </div>
 
@@ -712,7 +710,6 @@
     import SelectedProgramListCard from "@/components/myComp/program/SelectedProgramListCard.vue";
     import app from "@/App.vue";
     import program from "@/api/program";
-    import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal.vue";
 
 
     export default {
@@ -720,8 +717,7 @@
         components: {
             Breadcrumb,
             Layout,
-            SelectedProgramListCard,
-            ApplicationEditModal
+            SelectedProgramListCard
         },
         mixins: [ApplicationListMixin, LikeMixin],
         data(){

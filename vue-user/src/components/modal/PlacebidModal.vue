@@ -4,37 +4,18 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Place a bid</h3>
+                    <h3 class="modal-title">Available Programs</h3>
                 </div>
                 <div class="modal-body">
-                    <p>You are about to purchase This Product Form Nuron</p>
-                    <div class="placebid-form-box">
-                        <h5 class="title">Your bid</h5>
-                        <div class="bid-content">
-                            <div class="bid-content-top">
-                                <div class="bid-content-left">
-                                    <input id="value" type="text" name="value">
-                                    <span>wETH</span>
-                                </div>
-                            </div>
-                            <div class="bid-content-mid">
-                                <div class="bid-content-left">
-                                    <span>Your Balance</span>
-                                    <span>Service fee</span>
-                                    <span>Total bid amount</span>
-                                </div>
-                                <div class="bid-content-right">
-                                    <span>9578 wETH</span>
-                                    <span>10 wETH</span>
-                                    <span>9588 wETH</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bit-continue-button">
-                            <router-link to="/connect" class="btn btn-primary w-100">Place a bid</router-link>
-                            <button type="button" class="btn btn-primary-alta mt--10" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
+<!--                  <div v-for=""></div>-->
+                  <ul>
+
+                  <div class=""
+                       v-for="(item, index) in programs"
+                       :key="`newest-item-${index}`">
+                      <a :href="`/program-details/`+item.id"><li class="program-item-class" style="text-decoration: underline;" >{{item.name}}</li></a>
+                  </div>
+                  </ul>
                 </div>
             </div>
         </div>
@@ -42,7 +23,35 @@
 </template>
 
 <script>
+    import request from "@/utils/request";
+
     export default {
-        name: 'PlacebidModal'
+        name: 'PlacebidModal',
+      data() {
+        return {
+          id: this.$route.params.id,
+          programs:{}
+        }
+      },
+      created() {
+          this.getData();
+      },
+      methods:{
+          getData(){
+            let that = this;
+            request({
+              url: `/api/program/public/getProgramsBySchool/` + that.id,
+              method: 'get'
+            }).then(function (res){
+              console.log(res.data);
+              that.programs = res.data.programs;
+            });
+          }
+      }
     }
 </script>
+<style>
+.program-item-class:hover{
+  color: black;
+}
+</style>

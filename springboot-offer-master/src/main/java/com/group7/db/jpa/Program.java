@@ -2,6 +2,8 @@ package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
 import com.group7.db.jpa.utils.EMajor;
+import com.group7.db.jpa.utils.ESource;
+import com.group7.db.jpa.utils.RandomSchoolImage;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -30,6 +32,9 @@ public class Program {
     private String name = "NULL";
 
     @Column
+    private ESource source = ESource.USER;
+
+    @Column
     private String degree;
 
     @Column
@@ -54,6 +59,16 @@ public class Program {
     @JsonManagedReference(value = "program")
     private Set<Application> applications = new HashSet<>();
 
+
+    public Program(String fullName, ESource source, String degree, School school) {
+        this.name = fullName;
+        this.source = ESource.OPENCS;
+        this.degree = degree;
+        this.school = school;
+        this.major = EMajor.CS;
+        generateRandomLike();
+        this.img = RandomSchoolImage.getRandomProgramImage();
+    }
 
     public Program(String name, School school) {
         this.name = name;

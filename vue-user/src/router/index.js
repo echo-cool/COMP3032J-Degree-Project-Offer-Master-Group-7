@@ -6,6 +6,7 @@ import EditProfilePage from '../views/user/EditProfilePage.vue'
 import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
+import ProgramDetails from "@/views/SchoolPrograms/ProgramDetails.vue";
 import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
@@ -13,6 +14,8 @@ import Community from "@/views/Community/Community";
 import PostDetails from "@/views/Community/PostDetails";
 import CreatePost from "@/views/Community/CreatePost";
 import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
+import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
+import MyApplications from "@/views/user/MyApplications.vue";
 
 const routes = [
 
@@ -53,6 +56,15 @@ const routes = [
         },
     },
 
+    {
+        path: '/my-applications',
+        name: 'MyApplications',
+        component: MyApplications,
+        meta: {
+            title: 'My Applications || OfferMaster',
+        },
+    },
+
     // ------------------------------ school & program ------------------------------
     {
         path: '/program-selection',
@@ -70,6 +82,14 @@ const routes = [
         component: SchoolDetails,
         meta: {
             title: 'School Details || OfferMaster',
+        },
+    },
+    {
+        path: '/program-details/:id',
+        name: 'ProgramDetails',
+        component: ProgramDetails,
+        meta: {
+            title: 'Program Details || OfferMaster',
         },
     },
     {
@@ -127,7 +147,15 @@ const routes = [
         meta: {
             title: 'Explore Application Decisions || OfferMaster',
         },
-    }
+    },
+    {
+        path: '/category/:slug',
+        name: 'PostCategoryPosts',
+        component: CommunityCategoryPosts,
+        meta: {
+            title: 'Community Category List || OfferMaster',
+        },
+    },
 ]
 
 const router = createRouter({

@@ -13,3 +13,17 @@ export function getAllCategories() {
         method: 'get'
     })
 }
+
+export function getPost(postID) {
+    return request({
+        url: `/api/post/getPost/` + postID,
+        method: 'get'
+    })
+}
+
+export function getPostsByCategory(category) {
+    return request({
+        url: `/api/post/getPostsByCategory/` + category,
+        method: 'get'
+    })
+}

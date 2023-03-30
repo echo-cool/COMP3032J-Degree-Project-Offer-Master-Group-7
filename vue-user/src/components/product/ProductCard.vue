@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <router-link :to="`/school-details/${productDate.id}`">
+        <router-link :to="`/${productType}/${productDate.id}`">
             <span class="product-name">{{ productDate.name }}</span>
         </router-link>
         <span class="latest-bid" v-if="productDate.rankQS">QS Ranking: {{ productDate.rankQS }}</span>
@@ -68,6 +68,10 @@
         name: 'ProductCard',
         components: {Countdown},
         props: {
+            productType:{
+              type: String,
+              default: "school-details",
+            },
             productDate: {},
             productStyleClass: {
                 type: String

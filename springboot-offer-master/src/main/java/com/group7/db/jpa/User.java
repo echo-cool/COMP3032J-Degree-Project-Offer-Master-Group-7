@@ -24,7 +24,7 @@ import java.util.Set;
 @Table(name = "user",
         uniqueConstraints = {
         })
-@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
+//@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

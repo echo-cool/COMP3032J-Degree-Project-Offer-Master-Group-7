@@ -1,10 +1,7 @@
 package com.group7.config;
 
 import com.group7.db.jpa.*;
-import com.group7.db.jpa.utils.EMajor;
-import com.group7.db.jpa.utils.ERole;
-import com.group7.db.jpa.utils.ERound;
-import com.group7.db.jpa.utils.EStatus;
+import com.group7.db.jpa.utils.*;
 import com.group7.utils.common.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.group7.config.LoadExternalData.loadExternalSchoolData;
 
 
 /**
@@ -146,7 +145,6 @@ class LoadDatabase {
 
 
 
-
         log.info("Preloading " + programRepository.save(program1));
         log.info("Preloading " + programRepository.save(program1_2));
         log.info("Preloading " + programRepository.save(program1_3));
@@ -194,7 +192,12 @@ class LoadDatabase {
         log.info("Preloading " + userRepository.save(user10));
         log.info("Preloading " + userRepository.save(user11));
         log.info("Preloading " + userRepository.save(user12));
+        log.info("Preloading " + userRepository.save(user13));
 
+        Profile profile = new Profile("2023 - Fall", "PhD", "CS", "AD - With Fellowship", 4.0, 1,
+                "Oversea Undergraduate", "BJUT", "CS", "IELTS", 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 340, 6, 170, 170);
+        user1.setProfile(profile);
+        userRepository.save(user1);
 
         // for default deadline
         String str = "2024-02-15";
@@ -229,6 +232,7 @@ class LoadDatabase {
         postRepository.save(post1);
         postRepository.save(post2);
 
+        loadExternalSchoolData(schoolRepository, programRepository);
 
         return args -> log.warn("Preloaded database, completed.");
     }
