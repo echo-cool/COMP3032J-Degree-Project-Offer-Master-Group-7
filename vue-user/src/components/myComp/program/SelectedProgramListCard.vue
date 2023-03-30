@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <application-edit-modal :application="application" @updateDeadline="updateDeadline"/>
+    <application-edit-modal :application="application"/>
 </template>
 
 <script>
