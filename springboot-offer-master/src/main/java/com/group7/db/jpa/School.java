@@ -71,6 +71,17 @@ public class School {
         this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
     }
 
+    public School(String fullName ,ESource source, String lat, String lng) {
+        this.name = fullName;
+        this.lat = lat;
+        this.lng = lng;
+        this.source = ESource.OPENCS;
+        this.rankQS = MyRandomUtils.getRandomInt(1,200);
+        this.rankUSNews = MyRandomUtils.getRandomInt(1,200);
+        this.img = RandomSchoolImage.getRandomImage();
+        this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
+    }
+
     public School(String name) {
         this.name = name;
     }

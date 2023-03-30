@@ -67,7 +67,15 @@
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-12">
                                                 <div class="rnform-group">
-                                                    <textarea name="comment" placeholder="Comment"></textarea>
+                                                    <grammarly-editor-plugin :config="{
+                                                  activation: 'focus',
+                                                  autocomplete: 'on',
+                                                  underlines: 'on',
+                                                  toneDetector: 'on'
+                                                  }" clientId="client_FB5htQfgvMprDoEMqvDsLw">
+                                                      <textarea name="comment" placeholder="Comment" />
+                                                      <grammarly-button />
+                                                    </grammarly-editor-plugin>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -116,12 +124,14 @@
     import BlogCard from '@/components/blog/BlogCard'
     import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
     import BlogSidebar from '@/components/blog/BlogSidebar'
-    import {getAllPosts, getPost} from "@/api/community";
+    import {getPost} from "@/api/community";
     import request from "@/utils/request";
+
+    import { GrammarlyEditorPlugin, GrammarlyButton } from "@grammarly/editor-sdk-vue";
 
     export default {
         name: 'PostDetails',
-        components: {BlogSidebar, BlogCard, Breadcrumb, Layout},
+        components: {BlogSidebar, BlogCard, Breadcrumb, Layout, GrammarlyEditorPlugin, GrammarlyButton},
         mixins: [SalScrollAnimationMixin, BlogMixin],
         data() {
             return {
