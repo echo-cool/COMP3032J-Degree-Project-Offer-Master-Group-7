@@ -81,7 +81,7 @@
         <!-- Top Top Program End -->
 
 <!--         Top Explore Programs Start-->
-        <explore-filter-programs :query="''" :limit="10" :current-user="currentUser"/>
+        <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
 <!--         Top Explore Programs End-->
 
     </layout>
