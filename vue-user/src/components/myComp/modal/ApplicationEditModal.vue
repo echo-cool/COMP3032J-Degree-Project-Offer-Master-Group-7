@@ -13,8 +13,10 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="mt--10 mb--15" style="font-size: 13px;">If your are ADMITTED or REJECTED, the application status and your background would be published to the Decision Exploration section.</div>
-                        <div class="report-form-box">
+                    <div class="mt--10 mb--35" style="font-size: 13px;">
+                        If your are ADMITTED or REJECTED, the application status and your background would be published to the Decision Exploration section.
+                    </div>
+                    <div class="report-form-box">
                         <div class="input-two-wrapper">
                             <!-- application status -->
                             <div class="half-wid">
@@ -42,14 +44,15 @@
                                 </select>
                             </div>
                         </div>
-
+                        <!-- application deadline -->
+                        <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--15" style="font-size: 15px;">Application Status</label>
+                        <input :id="`application-deadline-update-${application.id}`" type="date" v-model="application.deadline">
                         <!-- btn group -->
                         <div class="report-button mt-5">
                             <button v-if="application.eStatus === `ADMITTED` || application.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
                             <button v-else type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update</button>
                             <button :id="`btn-close-edit-application-modal-${application.id}`" type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -67,11 +70,15 @@
         },
         methods: {
             updateApplication(){
+                // for test
+                console.log("---------------------------------------deadline: " + this.application.deadline);
+
                 // create the request body
                 let updateObj = {}
                 updateObj.id = this.application.id;
                 updateObj.status = this.application.eStatus;
                 updateObj.round = this.application.eRound;
+                updateObj.deadline = this.application.deadline;
 
                 // call api method
                 applicationApi.updateApplication(updateObj)
