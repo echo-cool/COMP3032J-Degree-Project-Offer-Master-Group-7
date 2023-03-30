@@ -4,7 +4,7 @@
 
 
           <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-            <router-link :to="`/school-details/`+school.id">
+            <router-link :to="`/program-details/`+program.id">
 
                 <img style="height: 200px" v-if="program.img" :src="`/backend/static/`+ program.img" :alt="program.name" @load="$emit('handleImageLoad')">
 
@@ -51,10 +51,12 @@
             </div>
         </div>
 <!--        <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
-        <router-link :to="`/school-details/`+school.id">
-            <span class="product-name">{{ school.name }}</span>
+        <router-link :to="`/program-details/`+program.id">
+            <span class="product-name">{{ program.name }}</span>
         </router-link>
-        <span class="latest-bid">{{ program.name }}</span>
+        <router-link :to="`/school-details/`+school.id">
+          <span class="latest-bid">{{ school.name }}</span>
+        </router-link>
         <div class="bid-react-area">
             <div class="last-bid">{{ program.degree }} - {{ program.major }}</div>
             <div v-if="isLikedObj.isLiked" class="react-area" @click="likeProgram(program.id)" style="background: var(--color-primary); color: var(--color-white)">
@@ -117,3 +119,13 @@
         }
     }
 </script>
+
+<style>
+  ol li a {
+    color: #0d6efd !important;
+  }
+
+  ol li a:hover {
+    color: #00a3ff !important;
+  }
+</style>
