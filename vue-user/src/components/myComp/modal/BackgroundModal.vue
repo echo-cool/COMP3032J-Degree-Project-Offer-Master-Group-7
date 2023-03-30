@@ -6,7 +6,7 @@
 
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 60%;">
             <div class="modal-content report-content-wrapper">
-                <background-card :background="background" :card-title="cardTitle" :is-editable-obj="{isEditable: false}"/>
+                <background-card :background="background" :card-title="cardTitle" :is-editable="false"/>
 
 <!--                <div class="modal-header report-modal-header">-->
 <!--                    <h5 class="modal-title">-->

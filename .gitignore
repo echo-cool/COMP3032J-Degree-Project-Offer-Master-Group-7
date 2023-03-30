@@ -34,3 +34,5 @@ build/
 
 test.db
 /themeforestvue-js/
+.DS_Store
+portainer/
