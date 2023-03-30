@@ -13,6 +13,7 @@ import Community from "@/views/Community/Community";
 import PostDetails from "@/views/Community/PostDetails";
 import CreatePost from "@/views/Community/CreatePost";
 import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
+import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
 
 const routes = [
 
@@ -127,7 +128,15 @@ const routes = [
         meta: {
             title: 'Explore Application Decisions || OfferMaster',
         },
-    }
+    },
+    {
+        path: '/category/:slug',
+        name: 'PostCategoryPosts',
+        component: CommunityCategoryPosts,
+        meta: {
+            title: 'Community Category List || OfferMaster',
+        },
+    },
 ]
 
 const router = createRouter({

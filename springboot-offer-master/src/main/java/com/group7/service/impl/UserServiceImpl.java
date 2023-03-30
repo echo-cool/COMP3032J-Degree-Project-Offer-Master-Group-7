@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public String uploadAvatar(MultipartFile file, String preURL) {
+    public String uploadAvatar(MultipartFile file) {
         // e.g. test.png
         String filename = file.getOriginalFilename();
 
@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
         try {
             file.transferTo(new File(savePath));
             // generate the http url for this pic
-            String url = preURL + filename;
+//            String url = preURL + filename;
             // return the pic url to store in db
-            return url;
+            return "upload/avatar/" + filename;
         } catch (IOException e) {
             return null;
         }

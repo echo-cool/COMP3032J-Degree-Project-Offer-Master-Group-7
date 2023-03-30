@@ -1,6 +1,7 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class PostComment {
     private String content;
 
     @ManyToOne
+    @JsonManagedReference
     private User author;
 
     @ManyToOne
@@ -40,6 +42,14 @@ public class PostComment {
 
     public String getContent() {
         return content;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setContent(String content) {

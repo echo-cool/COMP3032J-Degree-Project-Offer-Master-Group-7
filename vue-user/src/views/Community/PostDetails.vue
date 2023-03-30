@@ -2,7 +2,7 @@
     <layout>
         <breadcrumb title="Post Details" current="Post Details"/>
 
-        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop">
+        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop" v-if="blog.id">
             <div class="container">
                 <div class="row g-6">
                     <div class="col-xl-8 col-lg-8">
@@ -31,8 +31,9 @@
                                                 <div class="single-comment">
                                                     <div class="comment-author comment-img">
                                                         <img class="comment-avatar"
-                                                             :src="require(`@/assets/images/blog/comment/comment-01.png`)"
-                                                             alt="Comment Image">
+                                                             :src="'/backend/static/' + comment.author.avatar"
+                                                             alt="Comment Image"
+                                                              style="width: 60px; border-radius: 100%;">
                                                         <div class="m-b-20">
                                                             <div class="commenter">{{ comment.author.username }}</div>
                                                             <div class="time-spent">{{ comment.createdAt }}</div>
@@ -115,7 +116,7 @@
     import BlogCard from '@/components/blog/BlogCard'
     import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
     import BlogSidebar from '@/components/blog/BlogSidebar'
-    import {getAllPosts} from "@/api/community";
+    import {getAllPosts, getPost} from "@/api/community";
     import request from "@/utils/request";
 
     export default {
@@ -142,16 +143,15 @@
                   data: formData
                 }).then(response => {
                   if (response['success'] === true) {
-                    window.location.reload()
+                      window.location.reload(true)
                   }
                 })
                 return false
             }
         },
         created() {
-            getAllPosts().then(response => {
-              this.posts = response['data']['posts']
-              this.getBlog(this.id);
+            getPost(this.id).then(response => {
+              this.blog = response['data']['post']
             })
         },
         watch: {

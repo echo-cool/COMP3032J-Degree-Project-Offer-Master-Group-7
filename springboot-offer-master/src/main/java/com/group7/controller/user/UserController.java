@@ -129,10 +129,10 @@ public class UserController {
         }
 
         // concatenate the Http schema, servername, and server port to get the avatar url
-        String preURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/img/upload/avatar/";
+//        String preURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/img/upload/avatar/";
 
         // store the file locally
-        String newFileName = userService.uploadAvatar(file, preURL);
+        String newFileName = userService.uploadAvatar(file);
         if (newFileName == null){
             return ResponseEntity
                     .badRequest()

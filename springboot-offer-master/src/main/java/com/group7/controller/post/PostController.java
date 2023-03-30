@@ -1,11 +1,13 @@
 package com.group7.controller.post;
 
 import com.group7.db.jpa.*;
+import com.group7.entitiy.UserQueryVo;
 import com.group7.service.PostService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -110,5 +112,17 @@ public class PostController {
         return R.ok();
 
     }
+
+    @GetMapping("/getPost/{postID}")
+    public R getPost(@PathVariable("postID") long postID) {
+        return R.ok().data("post", postRepository.findById(postID).orElse(null));
+    }
+
+    @GetMapping("/getPostsByCategory/{category}")
+    public R getPost(@PathVariable("category") String category) {
+        System.out.println(category);
+        return R.ok().data("posts", postRepository.findByCategory_NameIgnoreCase(category));
+    }
+
 
 }
