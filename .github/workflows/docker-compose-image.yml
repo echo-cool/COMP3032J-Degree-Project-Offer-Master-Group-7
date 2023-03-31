@@ -10,15 +10,15 @@ on:
 
 jobs:
   generateMatrix:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: Generate matrix with all modules of WhatTheHack repository
-      id: set-matrix
-      run: |
-        echo ::set-output name=matrix::["fyp_offer_master_springboot_admin", "fyp_offer_master_springboot", "fyp_offer_master_vue_user", "fyp_offer_master_vue_admin", "fyp_offer_master_django_ml"]
-  outputs:
-    matrix: ${{ steps.set-matrix.outputs.matrix }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate matrix with all modules of WhatTheHack repository
+        id: set-matrix
+        run: |
+          echo ::set-output name=matrix::["fyp_offer_master_springboot_admin", "fyp_offer_master_springboot", "fyp_offer_master_vue_user", "fyp_offer_master_vue_admin", "fyp_offer_master_django_ml"]
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
 
   build-docker:
     runs-on: ubuntu-latest
