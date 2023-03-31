@@ -3,10 +3,7 @@ package com.group7.controller.program;
 import com.group7.db.jpa.*;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.entitiy.ProgramUpdateVo;
-import com.group7.entitiy.SchoolQueryVo;
-import com.group7.entitiy.SchoolUpdateVo;
 import com.group7.service.ProgramService;
-import com.group7.service.SchoolService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.MyRandomUtils;
 import com.group7.utils.common.R;
@@ -15,8 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -119,7 +114,7 @@ public class ProgramController {
         userRepository.save(user);
         programRepository.save(program);
 
-        return R.ok().data("likes", program.getLikes());
+        return R.ok().data("likes", program.getLikesNumber());
     }
 
     @RequestMapping("/is-program-liked/{programId}")

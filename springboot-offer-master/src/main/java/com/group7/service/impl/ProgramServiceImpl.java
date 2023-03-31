@@ -51,7 +51,7 @@ public class ProgramServiceImpl implements ProgramService {
         Sort sort;
 
         // determine popularity on the number of likes
-        sort = Sort.by("likes").descending();
+        sort = Sort.by("likesNumber").descending();
 
         if (degree.equals("PhD")){
             popularPrograms = programRepository.findByDegree(degree, sort);
@@ -83,10 +83,10 @@ public class ProgramServiceImpl implements ProgramService {
 
         // sort by like numbers
         if (likes.equals("most-liked")){
-            sort = Sort.by("likes").descending();
+            sort = Sort.by("likesNumber").descending();
 
         } else if (likes.equals("least-liked")) {
-            sort = Sort.by("likes").ascending();
+            sort = Sort.by("likesNumber").ascending();
 
         }else{
             sort = Sort.unsorted();

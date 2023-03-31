@@ -39,7 +39,7 @@ public class Program {
     private EMajor major;
 
     @Column
-    private long likes;
+    private long likesNumber;
 
     @ManyToMany(mappedBy = "likedPrograms")
     @JsonBackReference
@@ -106,7 +106,7 @@ public class Program {
      */
     private void generateRandomLike(){
         Random random = new Random();
-        this.likes = random.nextInt(0, 501);
+        this.likesNumber = random.nextInt(0, 501);
     }
 
     public Long getId() {
@@ -150,12 +150,12 @@ public class Program {
         this.school = school;
     }
 
-    public long getLikes() {
-        return likes + this.likeUsers.size();
+    public long getLikesNumber() {
+        return likesNumber + this.likeUsers.size();
     }
 
-    public void setLikes(long likes) {
-        this.likes = likes;
+    public void setLikesNumber(long likes) {
+        this.likesNumber = likes;
     }
 
     public Set<User> getLikeUsers() {
