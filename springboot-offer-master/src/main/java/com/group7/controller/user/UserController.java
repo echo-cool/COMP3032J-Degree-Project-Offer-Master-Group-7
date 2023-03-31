@@ -1,14 +1,12 @@
 package com.group7.controller.user;
 
 
-import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.user.payload.ChangePasswordRequest;
 import com.group7.controller.user.payload.EditBackgroundRequest;
 import com.group7.controller.user.payload.EditPersonalInfoRequest;
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.db.jpa.utils.SpecificationsBuilder;
-import com.group7.entitiy.SchoolQueryVo;
 import com.group7.entitiy.UserQueryVo;
 import com.group7.entitiy.UserUpdateVo;
 import com.group7.utils.common.JwtUtils;
@@ -352,7 +350,7 @@ public class UserController {
 
         // update the undergraduate background section
         profile.setGpa(ebRequest.getGpa());
-        profile.setRank(ebRequest.getRank());
+        profile.setRanking(ebRequest.getRank());
         profile.setUnderGradSchoolCate(ebRequest.getUnderGradSchoolCate());
         profile.setUnderGradSchoolName(ebRequest.getUnderGradSchoolName());
         profile.setUnderGradMajor(ebRequest.getUnderGradMajor());

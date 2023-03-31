@@ -113,12 +113,12 @@ public class PostController {
 
     }
 
-    @GetMapping("/getPost/{postID}")
+    @GetMapping("/public/getPost/{postID}")
     public R getPost(@PathVariable("postID") long postID) {
         return R.ok().data("post", postRepository.findById(postID).orElse(null));
     }
 
-    @GetMapping("/getPostsByCategory/{category}")
+    @GetMapping("/public/getPostsByCategory/{category}")
     public R getPost(@PathVariable("category") String category) {
         System.out.println(category);
         return R.ok().data("posts", postRepository.findByCategory_NameIgnoreCase(category));

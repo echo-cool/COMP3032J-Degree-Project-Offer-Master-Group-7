@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Explore Filter" current="Explore Filter"/>
+        <breadcrumb title="Explore Programs" current="Explore Programs"/>
 
         <explore-filter-programs :query="query" :current-user="currentUser"/>
     </layout>

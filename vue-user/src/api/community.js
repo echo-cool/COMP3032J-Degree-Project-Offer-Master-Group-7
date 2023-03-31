@@ -16,14 +16,14 @@ export function getAllCategories() {
 
 export function getPost(postID) {
     return request({
-        url: `/api/post/getPost/` + postID,
+        url: `/api/post/public/getPost/` + postID,
         method: 'get'
     })
 }
 
 export function getPostsByCategory(category) {
     return request({
-        url: `/api/post/getPostsByCategory/` + category,
+        url: `/api/post/public/getPostsByCategory/` + category,
         method: 'get'
     })
 }

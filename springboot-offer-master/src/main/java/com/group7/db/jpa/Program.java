@@ -6,10 +6,7 @@ import com.group7.db.jpa.utils.ESource;
 import com.group7.db.jpa.utils.RandomSchoolImage;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: WangYuyang
@@ -25,7 +22,7 @@ import java.util.Set;
 //@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class Program {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
@@ -42,7 +39,7 @@ public class Program {
     private EMajor major;
 
     @Column
-    private long likes;
+    private long likesNumber;
 
     @ManyToMany(mappedBy = "likedPrograms")
     @JsonBackReference
@@ -109,7 +106,7 @@ public class Program {
      */
     private void generateRandomLike(){
         Random random = new Random();
-        this.likes = random.nextInt(0, 501);
+        this.likesNumber = random.nextInt(0, 501);
     }
 
     public Long getId() {
@@ -153,12 +150,12 @@ public class Program {
         this.school = school;
     }
 
-    public long getLikes() {
-        return likes + this.likeUsers.size();
+    public long getLikesNumber() {
+        return likesNumber + this.likeUsers.size();
     }
 
-    public void setLikes(long likes) {
-        this.likes = likes;
+    public void setLikesNumber(long likes) {
+        this.likesNumber = likes;
     }
 
     public Set<User> getLikeUsers() {
@@ -183,5 +180,29 @@ public class Program {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Program program = (Program) o;
+        return id.equals(program.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Program{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", source=" + source +
+                ", degree='" + degree + '\'' +
+                ", major=" + major +
+                ", likesNumber=" + likesNumber +
+                ", likeUsers=" + likeUsers +
+                ", school=" + school +
+                ", img='" + img + '\'' +
+                ", applications=" + applications +
+                '}';
     }
 }

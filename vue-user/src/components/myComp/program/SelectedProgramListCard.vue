@@ -2,7 +2,7 @@
     <div :class="[`lg-product-wrapper product-list-card`, {'colum-2 two-colum-parent-product col-lg-6': showTwoColumn}]">
         <div class="inner">
             <div class="lg-left-content">
-                <router-link :to="`#`" class="thumbnail">
+                <router-link :to="`/program-details/` + application.program.id" class="thumbnail">
                     <img :src="`/backend/static/`+application.program.img" :alt="application.program.school.name" @load="$emit('handleImageLoad')" style="max-width: 140px;">
                 </router-link>
                 <div class="read-content">
@@ -22,11 +22,13 @@
 <!--                        </div>-->
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
-                    <router-link :to="`#`">
+                    <router-link :to="`/program-details/` + application.program.id">
                         <h6 class="title">{{ application.program.name }} - {{ application.program.degree }} <span class="title">({{ application.eRound.toLowerCase().replace("_", " ") }})</span></h6>
                     </router-link>
 
-                    <span class="latest-bid mr--20 fs-5">{{ application.program.school.name }}</span>
+                    <router-link :to="`/school-details/`+application.program.school.id">
+                        <span class="latest-bid mr--20 fs-5 color-body">{{ application.program.school.name }}</span>
+                    </router-link>
 
                     <span v-if="application.eStatus === `REJECTED`" class="color-danger fs-5">{{ application.eStatus.replace("_", " ") }}</span>
                     <span v-else-if="application.eStatus === `ADMITTED`" class="color-green fs-5">{{ application.eStatus.replace("_", " ") }}</span>
@@ -36,11 +38,11 @@
                     <div class="share-wrapper d-flex">
                         <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ application.program.likes }}</span>
+                            <span class="number">{{ application.program.likesNumber }}</span>
                         </div>
                         <div v-else class="react-area mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ application.program.likes }}</span>
+                            <span class="number">{{ application.program.likesNumber }}</span>
                         </div>
 
                         <div class="share-btn share-btn-activation dropdown">
@@ -67,9 +69,24 @@
 
             </div>
 
-            <div>
-                <h6 class="title fs-4">Time Remaining</h6>
-                <countdown :date="application.deadline" class="mt--15"/>
+<!--            <div>-->
+<!--                <h6 class="title fs-4">Time Remaining</h6>-->
+<!--                <countdown :date="application.deadline" class="mt&#45;&#45;15"/>-->
+<!--            </div>-->
+
+<!--            <div class="read-content mr&#45;&#45;50">-->
+<!--                <h6 class="title fs-2 mb&#45;&#45;20">Application Deadline</h6>-->
+<!--                <div v-if="application.deadline" class="fs-3">{{ application.deadline }}</div>-->
+<!--                <div v-else class="fs-4">You have not set the Deadline yet.</div>-->
+<!--            </div>-->
+
+            <div v-if="application.deadline" class="read-content mr--120">
+                <h6 class="title fs-2 mb--20">Application Deadline</h6>
+                <div class="fs-3">{{ application.deadline }}</div>
+            </div>
+            <div v-else class="read-content mr--20">
+                <h6 class="title fs-2 mb--20">Application Deadline</h6>
+                <div class="fs-3">You have not set the Deadline yet</div>
             </div>
 
         </div>
@@ -143,7 +160,7 @@
                         if(response.success){
 
                             // tell the parent comp to change the liked status (statically)
-                            if (response.data.likes > this.application.program.likes){
+                            if (response.data.likesNumber > this.application.program.likesNumber){
                                 // add like
                                 this.$emit("addLike");
                             }else{
@@ -152,7 +169,7 @@
                             }
 
                             // update the like number of this program
-                            this.application.program.likes = response.data.likes;
+                            this.application.program.likesNumber = response.data.likesNumber;
                         }
                     })
             }

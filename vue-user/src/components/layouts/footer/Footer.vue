@@ -53,54 +53,54 @@
                             <h6 class="widget-title">OfferMaster</h6>
                             <ul class="footer-list-one">
                                 <li class="single-list">
-                                    <router-link to="#">Protocol Explore</router-link>
+                                    <router-link to="/about">About Us</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">System Token</router-link>
+                                    <router-link to="/explore-decisions">Decision Reports</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Optimize Time</router-link>
+                                    <router-link to="/program-selection">Explore Schools</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Visual Checking</router-link>
+                                    <router-link to="/explore?search=">Explore Programs</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Fadeup System</router-link>
+                                    <router-link to="/program-selection">AI Recommendation</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Activity Log</router-link>
+                                    <router-link to="/my-applications">My Applications</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">System Auto Since</router-link>
+                                    <router-link to="/community">Applicants' Community</router-link>
                                 </li>
+<!--                                <li class="single-list">-->
+<!--                                    <router-link to="#">System Auto Since</router-link>-->
+<!--                                </li>-->
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
                         <div class="footer-widget widget-information">
-                            <h6 class="widget-title">Information</h6>
+                            <h6 class="widget-title">Information & Tools</h6>
                             <ul class="footer-list-one">
                                 <li class="single-list">
-                                    <router-link to="#">Market Explore</router-link>
+                                    <router-link to="/edit-profile?to=application">My Application Background</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Ready Token</router-link>
+                                    <router-link to="/my-applications">Selected Program List</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Main Option</router-link>
+                                    <router-link to="/edit-profile">Refine My Profile</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="#">Product Checking</router-link>
+                                    <router-link to="/edit-profile?to=password">Change Password</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="/blog">Blog Grid</router-link>
+                                    <router-link to="/edit-profile?to=info">Change Email</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="/about">About Us</router-link>
-                                </li>
-                                <li class="single-list">
-                                    <router-link to="#">Fix Bug</router-link>
+                                    <router-link to="/sign-up">Register</router-link>
                                 </li>
                             </ul>
                         </div>
@@ -108,7 +108,7 @@
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--40 mt_sm--40">
                         <div class="footer-widget">
-                            <h6 class="widget-title">Recent Sold Out</h6>
+                            <h6 class="widget-title">Popular Universities</h6>
                             <ul class="footer-recent-post">
                               <div v-for="(school, index) in schools"
                                    :key="index">

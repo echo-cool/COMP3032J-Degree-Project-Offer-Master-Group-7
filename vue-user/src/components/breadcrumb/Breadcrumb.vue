@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <h5 class="title text-center text-md-start">{{ title }}</h5>
+                    <h3 class="title text-center text-md-start">{{ title }}</h3>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-list">

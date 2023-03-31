@@ -21,9 +21,7 @@
                                 <div class="comments-area">
                                     <div class="trydo-blog-comment">
                                         <h5 class="comment-title mb--40">
-                                            9 replies on “Have You Heard?
-                                            Agency Is Your Best
-                                            Bet To Grow”
+                                            {{blog.comments.length}} replies on “{{blog.title}}”
                                         </h5>
                                         <ul class="comment-list">
                                             <!-- Start Single Comment  -->
@@ -95,7 +93,7 @@
                                 <div class="col-lg-12">
                                     <h3 class="title">Related Post</h3>
                                 </div>
-                                <template v-for="(blog, index) in posts" :key="`blog-${index}`">
+                                <template v-if="posts[0].id !== 0" v-for="(blog, index) in posts" :key="`blog-${index}`">
                                     <div v-if="index < 3"
                                          class="col-xl-4 col-lg-6 col-md-6 col-12"
                                          data-sal="slide-up"
@@ -162,6 +160,7 @@
         created() {
             getPost(this.id).then(response => {
               this.blog = response['data']['post']
+              console.log(this.blog.content)
             })
         },
         watch: {

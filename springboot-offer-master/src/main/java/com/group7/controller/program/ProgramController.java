@@ -3,10 +3,7 @@ package com.group7.controller.program;
 import com.group7.db.jpa.*;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.entitiy.ProgramUpdateVo;
-import com.group7.entitiy.SchoolQueryVo;
-import com.group7.entitiy.SchoolUpdateVo;
 import com.group7.service.ProgramService;
-import com.group7.service.SchoolService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.MyRandomUtils;
 import com.group7.utils.common.R;
@@ -15,8 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -101,6 +96,8 @@ public class ProgramController {
         // remove like or add new like
         if (alreadyLiked){
             // remove the like relation
+            System.out.println(user);
+            System.out.println(likedProgram);
             user.getLikedPrograms().remove(likedProgram);
             // remove the user instance in the like list of this program
             // (the user obj is not the same reference stored in the list!)
@@ -115,11 +112,13 @@ public class ProgramController {
             user.getLikedPrograms().add(program);
             program.getLikeUsers().add(user);
         }
+        System.out.println(user);
+        System.out.println(program);
 
         userRepository.save(user);
         programRepository.save(program);
 
-        return R.ok().data("likes", program.getLikes());
+        return R.ok().data("likesNumber", program.getLikesNumber()).message(String.valueOf(alreadyLiked));
     }
 
     @RequestMapping("/is-program-liked/{programId}")

@@ -2,7 +2,7 @@
     <div :class="[`lg-product-wrapper product-list-card`, {'colum-2 two-colum-parent-product col-lg-6': showTwoColumn}]">
         <div class="inner">
             <div class="lg-left-content">
-                <router-link :to="`#`" class="thumbnail">
+                <router-link :to="`/program-details/`+program.id" class="thumbnail">
                     <img :src="`/backend/static/`+program.img" :alt="program.school.name" @load="$emit('handleImageLoad')" style="height: 160px; width: 250px;">
 <!--                    <img :src="require(`@/assets/images/portfolio/lg/portfolio-01.jpg`)" :alt="program.school.name" @load="$emit('handleImageLoad')">-->
                 </router-link>
@@ -23,18 +23,18 @@
 <!--                        </div>-->
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
-                    <router-link :to="`#`">
+                    <router-link :to="`/program-details/`+program.id">
                         <h6 class="title">{{ program.name }} - {{ program.degree }}</h6>
                     </router-link>
                     <span class="latest-bid">{{ program.school.name }}</span>
                     <div class="share-wrapper d-flex">
                         <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div v-else class="react-area mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
                             <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,7 +145,7 @@
                     .then(response => {
                         if(response.success){
                             // update the like number of this program
-                            this.program.likes = response.data.likes;
+                            this.program.likesNumber = response.data.likesNumber;
                             // change the liked status
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
                         }

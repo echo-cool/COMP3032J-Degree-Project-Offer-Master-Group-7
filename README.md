@@ -1,5 +1,7 @@
 # COMP3032J-Degree-Project-Offer-Master-Group-7
 
+View our project at: [http://ipa-008.ucd.ie/](http://ipa-008.ucd.ie/)
+
 ![Docker-compose build](https://github.com/echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7/actions/workflows/docker-compose-image.yml/badge.svg)
 
 ## Project Description

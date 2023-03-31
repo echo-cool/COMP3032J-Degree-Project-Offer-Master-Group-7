@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Product Details" current="Product Details"/>
+        <breadcrumb title="School Details" current="School Details"/>
 
         <!-- Start product details area -->
         <div class="product-details-area rn-section-gapTop">
@@ -57,7 +57,7 @@
                                 <div class="pd-react-area">
                                     <div class="heart-count">
                                         <i class="feather-heart"/>
-                                        <span>{{ product.likes }}</span>
+                                        <span>{{ product.likesNumber }}</span>
                                     </div>
                                     <div class="count">
                                         <div class="share-btn share-btn-activation dropdown">
@@ -693,7 +693,7 @@
 
         <report-modal/>
 
-        <placebid-modal/>
+        <placebid-modal :id="id" :key="id"/>
     </layout>
 </template>
 
@@ -783,7 +783,7 @@
             this.getSchools();
             this.getData();
         },
-        watch: {
+      watch: {
             '$route.params.id': function (val) {
                 this.id = val;
                 this.getProduct(this.id);

@@ -12,8 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,7 +51,7 @@ public class ProgramServiceImpl implements ProgramService {
         Sort sort;
 
         // determine popularity on the number of likes
-        sort = Sort.by("likes").descending();
+        sort = Sort.by("likesNumber").descending();
 
         if (degree.equals("PhD")){
             popularPrograms = programRepository.findByDegree(degree, sort);
@@ -84,16 +83,21 @@ public class ProgramServiceImpl implements ProgramService {
 
         // sort by like numbers
         if (likes.equals("most-liked")){
-            sort = Sort.by("likes").descending();
+            sort = Sort.by("likesNumber").descending();
 
         } else if (likes.equals("least-liked")) {
-            sort = Sort.by("likes").ascending();
+            sort = Sort.by("likesNumber").ascending();
 
         }else{
             sort = Sort.unsorted();
         }
 
-        List<Program> programsByQuery = programRepository.findBySchool_NameContainingOrNameContaining(query, query, sort);
+//        List<Program> programsByQuery = programRepository.findByNameContaining(query, sort);
+//        List<Program> programsByQuerySchoolName = programRepository.findBySchool_NameContaining(query, sort);
+//
+//        programsByQuerySchoolName.stream().filter(item -> programsByQuery.stream().map(Program::getId).noneMatch(id -> Objects.equals(item.getId(), id))).forEachOrdered(programsByQuery::add);
+
+        List<Program> programsByQuery = programRepository.findByNameContainingOrSchool_NameContaining(query, query, sort);
 
         // determine whether degree and major are "all"
         if (degree.equals("all") && major.equals("all")){

@@ -26,7 +26,7 @@ import java.util.Set;
 public class Application {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -56,6 +56,10 @@ public class Application {
     public Application(User user, Program program) {
         this.user = user;
         this.program = program;
+        // default status
+        this.eStatus = EStatus.AWAITING_REVIEW;
+        // default application round
+        this.eRound = ERound.FALL_2023;
     }
 
     public Application(User user, Program program, EStatus eStatus, Date deadline, ERound eRound, Date reportedTime) {
