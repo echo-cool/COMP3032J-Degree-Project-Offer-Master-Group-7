@@ -6,7 +6,7 @@
                 <div class="icon">
                     <img src="/img/shape-1.a3cb4828.png" alt="Shape">
                 </div>
-                <h3 class="title">{{ cardTitle }}</h3>
+                <h1 class="title">{{ cardTitle }}</h1>
                 <p class="mb--30">
                     <span class="mr--50"><strong>GPA: </strong>{{ background.gpa }}</span>
                     <span class="mr--50"><strong>Rank: </strong>{{ background.rank }}</span>
@@ -80,6 +80,10 @@ export default {
 <style>
   .mb--30 strong {
     color: #6c757d;
+  }
+
+  p span {
+    font-size: 15px;
   }
 </style>
 

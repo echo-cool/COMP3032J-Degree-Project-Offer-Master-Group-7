@@ -9,7 +9,7 @@
             <div class="content">
                 <div class="category-info">
                     <div class="category-list">
-                        <router-link :to="`/category/${categorySlug}`">{{ blog.category.name }}</router-link>
+                        <router-link :to="`/category/${blog.category.name}`">{{ blog.category.name }}</router-link>
                     </div>
                     <div class="meta">
                         <span><i class="feather-clock"/> {{ blog.createdAt }}</span>
@@ -45,3 +45,9 @@
         }
     }
 </script>
+
+<style>
+[data-sal|=slide] {
+   opacity: 1 !important;
+}
+</style>

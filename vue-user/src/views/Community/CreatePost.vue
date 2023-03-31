@@ -228,13 +228,31 @@
             editorRef.value = editor // 记录 editor 实例，重要！
           }
 
+          function submitEvent() {
+            let form = document.getElementById('post-form')
+            let formData = new FormData(form)
+            formData.append("content", editorRef.value.getHtml())
+            request({
+              url: '/api/post/createPost',
+              method: 'post',
+              data: formData
+            }).then(response => {
+              if (response['success'] === true) {
+                window.location.href = "/community"
+              }
+            })
+
+            return false
+          }
+
           return {
             editorRef,
             valueHtml,
             mode: 'default', // 或 'simple'
             toolbarConfig,
             editorConfig,
-            handleCreated
+            handleCreated,
+            submitEvent
           };
         },
         data() {
@@ -276,22 +294,21 @@
                     this.selectedImage = URL.createObjectURL(file);
                 }
             },
-            submitEvent() {
-              let form = document.getElementById('post-form')
-              let formData = new FormData(form)
-              formData.append("content", this.valueHtml)
-              console.log(formData.get("image"))
-              request({
-                url: '/api/post/createPost',
-                method: 'post',
-                data: formData
-              }).then(response => {
-                  if (response['success'] === true) {
-                    window.location.href = "/community"
-                  }
-              })
-              return false
-            }
+            // submitEvent() {
+            //   let form = document.getElementById('post-form')
+            //   let formData = new FormData(form)
+            //   formData.append("content", this.valueHtml)
+            //   request({
+            //     url: '/api/post/createPost',
+            //     method: 'post',
+            //     data: formData
+            //   }).then(response => {
+            //       if (response['success'] === true) {
+            //         window.location.href = "/community"
+            //       }
+            //   })
+            //   return false
+            // }
       },
       created() {
           getAllCategories().then(response => {
