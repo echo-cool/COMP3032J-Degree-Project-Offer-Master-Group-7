@@ -6,10 +6,7 @@ import com.group7.db.jpa.utils.ESource;
 import com.group7.db.jpa.utils.RandomSchoolImage;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: WangYuyang
@@ -184,4 +181,13 @@ public class Program {
     public void setImg(String img) {
         this.img = img;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Program program = (Program) o;
+        return id.equals(program.id);
+    }
+
 }

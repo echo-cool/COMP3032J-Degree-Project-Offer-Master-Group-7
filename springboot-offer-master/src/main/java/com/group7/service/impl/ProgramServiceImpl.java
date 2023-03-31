@@ -12,8 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -93,7 +92,10 @@ public class ProgramServiceImpl implements ProgramService {
             sort = Sort.unsorted();
         }
 
-        List<Program> programsByQuery = programRepository.findBySchool_NameContainingOrNameContaining(query, query, sort);
+        List<Program> programsByQuery = programRepository.findByNameContaining(query, sort);
+        List<Program> programsByQuerySchoolName = programRepository.findBySchool_NameContaining(query, sort);
+
+        programsByQuerySchoolName.stream().filter(item -> programsByQuery.stream().map(Program::getId).noneMatch(id -> Objects.equals(item.getId(), id))).forEachOrdered(programsByQuery::add);
 
         // determine whether degree and major are "all"
         if (degree.equals("all") && major.equals("all")){
