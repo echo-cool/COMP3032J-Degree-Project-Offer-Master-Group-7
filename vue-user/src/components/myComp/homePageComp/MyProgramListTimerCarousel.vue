@@ -285,3 +285,11 @@ export default {
         }
     }
 </script>
+
+<style>
+
+.carousel-navigation button{
+    background: red;
+}
+
+</style>
