@@ -53,6 +53,9 @@ class LoadDatabase {
     private PostRepository postRepository;
 
     @Autowired
+    private ArticleRepository articleRepository;
+
+    @Autowired
     private PostCategoryRepository postCategoryRepository;
 
     @Bean
@@ -231,6 +234,14 @@ class LoadDatabase {
 
         postRepository.save(post1);
         postRepository.save(post2);
+
+
+        Article article1 = new Article("1", "123", user1);
+        Article article2 = new Article("2", "qwq", user2);
+
+        articleRepository.save(article1);
+        articleRepository.save(article2);
+
 
         loadExternalSchoolData(schoolRepository, programRepository);
 
