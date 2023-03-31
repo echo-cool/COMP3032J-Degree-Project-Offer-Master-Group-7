@@ -5,9 +5,9 @@
                 <!-- start single category -->
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="200" data-sal="slide-up"
                      data-sal-duration="800">
-                    <a class="category-style-one" href="/program-selection">
+                    <a class="category-style-one" href="/explore-decisions">
                         <i class="feather-image"></i>
-                        <span class="category-label">Program Selection</span>
+                        <span class="category-label">Decision Reports</span>
                     </a>
                 </div>
                 <!-- end single category -->
@@ -41,9 +41,9 @@
                 <!-- start single category -->
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="600" data-sal="slide-up"
                      data-sal-duration="800">
-                    <a class="category-style-one" href="/edit-profile">
+                    <a class="category-style-one" href="/my-applications">
                         <i class="feather-grid"></i>
-                        <span class="category-label">My Background</span>
+                        <span class="category-label">My Applications</span>
                     </a>
                 </div>
                 <!-- end single category -->
