@@ -31,19 +31,21 @@
                                         data-sal="slide-up"
                                         data-sal-duration="800"
                                         data-sal-delay="150">
-                                        Why We Do This
+                                        Our Motivation
                                     </h2>
                                     <p class="about-disc"
                                        data-sal="slide-up"
                                        data-sal-duration="800"
                                        data-sal-delay="150">
-                                        NFTs are virtual tokens that represent ownership of something inherently
-                                        distinct and
-                                        scarce, whether it be a physical or digital item, such as artwork, a soundtrack,
-                                        a
-                                        collectible, an in-game item or real estate. Unlike regular cryptocurrencies
-                                        like
-                                        bitcoin or fiat money like the U.S.
+                                        To free applicants from collecting useful data from massive information,
+                                        we provide a University Database module for browsing the information of schools and programs.
+                                        Furthermore, applicants with little experience in applying may need some online tools to assist
+                                        with their program choosing, essay writing, etc. Therefore, we provide helpful functionalities
+                                        based on our University Database module, such as the essay refinement and GPA conversion.
+                                        The functionalities like GPA conversion will also be used to support the recommendation system,
+                                        which is the core feature of this platform.
+                                        To help users learn from others’ application experiences, we
+                                        provide an application community module to maintain the latest information.
                                     </p>
                                     <router-link to="/blog"
                                                  class="btn btn-primary-alta btn-large sal-animate mt--20"
@@ -60,17 +62,16 @@
                         <div class="rn-about-card transparent-bg">
                             <div class="inner">
                                 <h3 class="title" data-sal="slide-up" data-sal-duration="800" data-sal-delay="150">
-                                    Helping You <br>Grow In Every Stage.
+                                    Helping Candidates <br>Throughout Their Application Process.
                                 </h3>
                                 <p class="about-disc mb--0"
                                    data-sal="slide-up"
                                    data-sal-duration="800"
                                    data-sal-delay="150">
-                                    NFTs are virtual tokens that represent ownership of something inherently distinct
-                                    and
-                                    scarce, whether it be a physical or digital item, such as artwork, a soundtrack, a
-                                    collectible, an in-game item or real estate. Unlike regular cryptocurrencies like
-                                    bitcoin or fiat money like the U.S.
+                                    Our team is dedicated to developing an online website for potential
+                                    graduate students to choose their appropriate programs and simplify their applications, which would
+                                    mainly provide comprehensive information about universities and recommend suitable programs for
+                                    them based on their own application backgrounds.
                                 </p>
                             </div>
                         </div>
@@ -86,18 +87,17 @@
                     <div class="col-lg-6">
                         <div class="rn-about-title-wrapper">
                             <h3 class="title" data-sal="slide-up" data-sal-duration="800" data-sal-delay="150">
-                                Create, Sell well & Collect your Wonderful NFTs at Nuron Very Fast
+                                Lay a Solid Foundation for your Application Success
                             </h3>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="rn-about-wrapper" data-sal="slide-up" data-sal-duration="800" data-sal-delay="150">
                             <p>
-                                The NFTs is a one-trick pony that climbed the ladders of success in recent years. The
-                                growth
-                                of NFTs is tremendous, and according to Pymnts.com, the total sales volume of NFTs has
-                                nearly crossed $2.5 billion in the last six months of . Surprisingly, the total sales
-                                volume of NFTs was $13.7 million in 2020. On comparing both the values,
+                                Our company is dedicated to web application development with excellent user experience, high
+                                performance, and stability. Our potential users are those who aim to apply to overseas universities. Our
+                                platform provides applicants with one-stop application support, such as program selection, admission community, etc. The program recommendation
+                                based on applicants’ backgrounds is our key feature.
                             </p>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
             <div class="container">
                 <div class="row mb--30">
                     <div class="col-12 text-center">
-                        <h3>Nuron Statistics</h3>
+                        <h3>Application Statistics</h3>
                     </div>
                 </div>
                 <div class="row g-5">
@@ -121,7 +121,7 @@
                                     <count-up :startVal="0" :endVal="100" :duration="5" class="d-inline-block"/>
                                 </div>
                             </Waypoint>
-                            <div class="botton-title">Nuron All NFT's</div>
+                            <div class="botton-title">North America</div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -131,7 +131,7 @@
                                     <count-up :startVal="0" :endVal="500" :duration="5" class="d-inline-block"/>
                                 </div>
                             </Waypoint>
-                            <div class="botton-title">All Creators</div>
+                            <div class="botton-title">Europe</div>
                         </div>
                     </div>
                     <div class="offset-lg-2 col-lg-4 col-md-6">
@@ -141,7 +141,7 @@
                                     <count-up :startVal="0" :endVal="700" :duration="5" class="d-inline-block"/>
                                 </div>
                             </Waypoint>
-                            <div class="botton-title">Nuron Earning</div>
+                            <div class="botton-title">England</div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -151,7 +151,7 @@
                                     <count-up :startVal="0" :endVal="900" :duration="5" class="d-inline-block"/>
                                 </div>
                             </Waypoint>
-                            <div class="botton-title">Level One Seller</div>
+                            <div class="botton-title">Hongkong</div>
                         </div>
                     </div>
                 </div>
@@ -169,11 +169,11 @@
                                 <div class="col-lg-12">
                                     <div class="call-to-action-wrapper">
                                         <h3 data-sal="slide-up" data-sal-duration="800" data-sal-delay="150">
-                                            Discover rare digital art <br>and collect NFTs
+                                            Discover Programs <br> Best Match You
                                         </h3>
                                         <p data-sal="slide-up" data-sal-duration="800" data-sal-delay="150">
-                                            The NFTs is a one-trick pony that climbed the recent years. The growth of NFTs is
-                                            tremendous, and according to Pymnts.com, the total sales volume
+                                            Let us get started! Using Offer Master to help you success in your application process and
+                                            maximize your strengths.
                                         </p>
                                         <div class="callto-action-btn-wrapper"
                                              data-sal="slide-up"

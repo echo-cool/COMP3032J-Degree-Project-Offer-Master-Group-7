@@ -182,4 +182,27 @@ public class Program {
         this.img = img;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Program program = (Program) o;
+        return id.equals(program.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Program{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", source=" + source +
+                ", degree='" + degree + '\'' +
+                ", major=" + major +
+                ", likesNumber=" + likesNumber +
+                ", likeUsers=" + likeUsers +
+                ", school=" + school +
+                ", img='" + img + '\'' +
+                ", applications=" + applications +
+                '}';
+    }
 }

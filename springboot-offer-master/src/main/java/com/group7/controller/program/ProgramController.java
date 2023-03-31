@@ -96,6 +96,8 @@ public class ProgramController {
         // remove like or add new like
         if (alreadyLiked){
             // remove the like relation
+            System.out.println(user);
+            System.out.println(likedProgram);
             user.getLikedPrograms().remove(likedProgram);
             // remove the user instance in the like list of this program
             // (the user obj is not the same reference stored in the list!)
@@ -110,11 +112,13 @@ public class ProgramController {
             user.getLikedPrograms().add(program);
             program.getLikeUsers().add(user);
         }
+        System.out.println(user);
+        System.out.println(program);
 
         userRepository.save(user);
         programRepository.save(program);
 
-        return R.ok().data("likesNumber", program.getLikesNumber());
+        return R.ok().data("likesNumber", program.getLikesNumber()).message(String.valueOf(alreadyLiked));
     }
 
     @RequestMapping("/is-program-liked/{programId}")
