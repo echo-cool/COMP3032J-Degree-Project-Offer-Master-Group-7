@@ -92,19 +92,19 @@ services:
       - offer_master_network
     restart: on-failure
 
-  fyp_offer_master_minio:
-    image: echocool/fyp_offer_master_minio
-    ports:
-      - "9000:9000"
-      - "9090:9090"
-    networks:
-      - offer_master_network
-    volumes:
-      - ~/.fyp_offer_master/minio/data:/data
-    environment:
-      MINIO_ROOT_USER: group7
-      MINIO_ROOT_PASSWORD: group7group7
-    command: server /data --console-address ":9090"
+#  fyp_offer_master_minio:
+#    image: echocool/fyp_offer_master_minio
+#    ports:
+#      - "9000:9000"
+#      - "9090:9090"
+#    networks:
+#      - offer_master_network
+#    volumes:
+#      - ~/.fyp_offer_master/minio/data:/data
+#    environment:
+#      MINIO_ROOT_USER: group7
+#      MINIO_ROOT_PASSWORD: group7group7
+#    command: server /data --console-address ":9090"
 
   fyp_offer_master_portainer:
     image: portainer/portainer-ce
