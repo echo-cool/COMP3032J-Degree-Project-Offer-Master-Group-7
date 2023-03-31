@@ -11,7 +11,7 @@
                                 <h2 class="title">{{ article.title }}</h2>
                                 <span class="date">{{ article.createdAt }}</span>
                             </div>
-                            <div class="news-details" v-html="ariticle.content"/>
+                            <div class="news-details" v-html="article.content"/>
                             <div class="comments-wrapper pt--40">
                                 <div class="comments-area">
                                     <div class="trydo-blog-comment">
