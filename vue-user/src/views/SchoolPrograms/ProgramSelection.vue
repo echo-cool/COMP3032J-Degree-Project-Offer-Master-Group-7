@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Program Selection List" current="Program Selection List"/>
+        <breadcrumb title="AI Program Recommendation" current="AI Program Recommendation"/>
 
         <div class="rn-product-area rn-section-gapTop">
             <div class="container">

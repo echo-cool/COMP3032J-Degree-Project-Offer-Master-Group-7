@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Crete a New File" current="Crete a New File"/>
+        <breadcrumb title="Upload a New Post" current="Upload a New Post"/>
 
         <div class="create-area rn-section-gapTop">
             <div class="container">
