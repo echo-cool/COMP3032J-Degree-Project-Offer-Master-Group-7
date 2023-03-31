@@ -289,7 +289,7 @@ export default {
 <style>
 
 .carousel-navigation button{
-    background: red;
+
 }
 
 </style>
