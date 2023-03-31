@@ -25,36 +25,5 @@ import java.util.Optional;
 @RepositoryRestResource
 public interface SchoolRepository extends JpaRepository<School, Long>, PagingAndSortingRepository<School, Long>, CrudRepository<School, Long>, JpaSpecificationExecutor<School> {
 
-    @Override
-    @Cacheable(value = "school")
-    School getOne(Long aLong);
-
-    @Override
-    @Cacheable(value = "school")
-    School getById(Long aLong);
-
-    @Override
-    @Cacheable(value = "school")
-    Optional<School> findById(Long aLong);
-
-    @Override
-    @Cacheable(value = "school")
-    <S extends School> Optional<S> findOne(Example<S> example);
-
-    @Override
-    @Cacheable(value = "school")
-    boolean existsById(Long aLong);
-
-    @Override
-    @Cacheable(value = "school")
-    List<School> findAllById(Iterable<Long> longs);
-    @Override
-    @Cacheable(value = "school")
-    List<School> findAll();
-    @Override
-    @Cacheable(value = "school")
-    Page<School> findAll(Pageable pageable);
-
-    @Cacheable(value = "school")
     List<School> findByNameContaining(String name, Sort sort);
 }
