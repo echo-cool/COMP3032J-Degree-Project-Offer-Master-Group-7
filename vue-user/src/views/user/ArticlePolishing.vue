@@ -2,7 +2,7 @@
     <layout>
         <breadcrumb title="Ariticle Polishing" current="Ariticle Polishing"/>
 
-        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop" v-if="ariticle.id">
+        <div class="rn-blog-area rn-blog-details-default rn-section-gapTop" v-if="article.id">
             <div class="container">
                 <div class="row g-6">
                     <div class="col-xl-8 col-lg-8">
@@ -61,7 +61,8 @@
         },
         methods: {
             getArticle(ariticleId) {
-                article = this.articleApi.getById(ariticleId).then(response => {
+                this.article = articleApi.getById(ariticleId).then(response => {
+                    console.log(response)
                     this.article = response['data']['article']
                 })
             },
