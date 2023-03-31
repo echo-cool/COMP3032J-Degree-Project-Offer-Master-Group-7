@@ -55,7 +55,7 @@
             <div class="last-bid" v-if="productDate.rankUSNews">US News: {{ productDate.rankUSNews }}#</div>
             <div class="react-area">
                 <i class="feather-heart"/>
-                <span class="number">{{ productDate.likes }}</span>
+                <span class="number">{{ productDate.likesNumber }}</span>
             </div>
         </div>
     </div>

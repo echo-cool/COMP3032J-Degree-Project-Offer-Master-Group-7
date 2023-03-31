@@ -92,10 +92,12 @@ public class ProgramServiceImpl implements ProgramService {
             sort = Sort.unsorted();
         }
 
-        List<Program> programsByQuery = programRepository.findByNameContaining(query, sort);
-        List<Program> programsByQuerySchoolName = programRepository.findBySchool_NameContaining(query, sort);
+//        List<Program> programsByQuery = programRepository.findByNameContaining(query, sort);
+//        List<Program> programsByQuerySchoolName = programRepository.findBySchool_NameContaining(query, sort);
+//
+//        programsByQuerySchoolName.stream().filter(item -> programsByQuery.stream().map(Program::getId).noneMatch(id -> Objects.equals(item.getId(), id))).forEachOrdered(programsByQuery::add);
 
-        programsByQuerySchoolName.stream().filter(item -> programsByQuery.stream().map(Program::getId).noneMatch(id -> Objects.equals(item.getId(), id))).forEachOrdered(programsByQuery::add);
+        List<Program> programsByQuery = programRepository.findByNameContainingOrSchool_NameContaining(query, query, sort);
 
         // determine whether degree and major are "all"
         if (degree.equals("all") && major.equals("all")){

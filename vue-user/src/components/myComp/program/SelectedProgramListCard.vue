@@ -38,11 +38,11 @@
                     <div class="share-wrapper d-flex">
                         <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ application.program.likes }}</span>
+                            <span class="number">{{ application.program.likesNumber }}</span>
                         </div>
                         <div v-else class="react-area mr--15" @click="likeProgram(application.program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ application.program.likes }}</span>
+                            <span class="number">{{ application.program.likesNumber }}</span>
                         </div>
 
                         <div class="share-btn share-btn-activation dropdown">
@@ -160,7 +160,7 @@
                         if(response.success){
 
                             // tell the parent comp to change the liked status (statically)
-                            if (response.data.likes > this.application.program.likes){
+                            if (response.data.likesNumber > this.application.program.likesNumber){
                                 // add like
                                 this.$emit("addLike");
                             }else{
@@ -169,7 +169,7 @@
                             }
 
                             // update the like number of this program
-                            this.application.program.likes = response.data.likes;
+                            this.application.program.likesNumber = response.data.likesNumber;
                         }
                     })
             }

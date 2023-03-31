@@ -61,11 +61,11 @@
             <div class="last-bid">{{ program.degree }} - {{ program.major }}</div>
             <div v-if="isLikedObj.isLiked" class="react-area" @click="likeProgram(program.id)" style="background: var(--color-primary); color: var(--color-white)">
                 <i class="feather-heart"/>
-                <span class="number">{{ program.likes }}</span>
+                <span class="number">{{ program.likesNumber }}</span>
             </div>
             <div v-else class="react-area" @click="likeProgram(program.id)">
                 <i class="feather-heart"/>
-                <span class="number">{{ program.likes }}</span>
+                <span class="number">{{ program.likesNumber }}</span>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
                     .then(response => {
                         if(response.success){
                             // update the like number of this program
-                            this.program.likes = response.data.likes;
+                            this.program.likesNumber = response.data.likesNumber;
                             // change the liked status
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
                         }

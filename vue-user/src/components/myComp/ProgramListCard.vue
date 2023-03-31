@@ -30,11 +30,11 @@
                     <div class="share-wrapper d-flex">
                         <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div v-else class="react-area mr--15" @click="likeProgram(program.id)">
                             <i class="feather-heart"/>
-                            <span class="number">{{ program.likes }}</span>
+                            <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
                             <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,7 +145,7 @@
                     .then(response => {
                         if(response.success){
                             // update the like number of this program
-                            this.program.likes = response.data.likes;
+                            this.program.likesNumber = response.data.likesNumber;
                             // change the liked status
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
                         }

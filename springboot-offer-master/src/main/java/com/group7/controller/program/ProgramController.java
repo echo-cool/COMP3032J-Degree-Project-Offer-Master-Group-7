@@ -114,7 +114,7 @@ public class ProgramController {
         userRepository.save(user);
         programRepository.save(program);
 
-        return R.ok().data("likes", program.getLikesNumber());
+        return R.ok().data("likesNumber", program.getLikesNumber());
     }
 
     @RequestMapping("/is-program-liked/{programId}")

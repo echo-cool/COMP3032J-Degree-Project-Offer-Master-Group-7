@@ -57,7 +57,7 @@
                                 <div class="pd-react-area">
                                     <div class="heart-count">
                                         <i class="feather-heart"/>
-                                        <span>{{ product.likes }}</span>
+                                        <span>{{ product.likesNumber }}</span>
                                     </div>
                                     <div class="count">
                                         <div class="share-btn share-btn-activation dropdown">
