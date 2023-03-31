@@ -21,6 +21,10 @@ The **offer master** website provides the following main features:
 
 ### Using docker-compose
 Create an `docker-compose.yml`
+```shell
+docker-compose pull && docker-compose up -d --no-build --remove-orphans
+```
+
 ```yaml
 version: '3'
 
