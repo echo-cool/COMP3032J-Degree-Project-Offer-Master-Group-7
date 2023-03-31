@@ -69,9 +69,24 @@
 
             </div>
 
-            <div>
-                <h6 class="title fs-4">Time Remaining</h6>
-                <countdown :date="application.deadline" class="mt--15"/>
+<!--            <div>-->
+<!--                <h6 class="title fs-4">Time Remaining</h6>-->
+<!--                <countdown :date="application.deadline" class="mt&#45;&#45;15"/>-->
+<!--            </div>-->
+
+<!--            <div class="read-content mr&#45;&#45;50">-->
+<!--                <h6 class="title fs-2 mb&#45;&#45;20">Application Deadline</h6>-->
+<!--                <div v-if="application.deadline" class="fs-3">{{ application.deadline }}</div>-->
+<!--                <div v-else class="fs-4">You have not set the Deadline yet.</div>-->
+<!--            </div>-->
+
+            <div v-if="application.deadline" class="read-content mr--120">
+                <h6 class="title fs-2 mb--20">Application Deadline</h6>
+                <div class="fs-3">{{ application.deadline }}</div>
+            </div>
+            <div v-else class="read-content mr--20">
+                <h6 class="title fs-2 mb--20">Application Deadline</h6>
+                <div class="fs-3">You have not set the Deadline yet</div>
             </div>
 
         </div>
