@@ -190,4 +190,19 @@ public class Program {
         return id.equals(program.id);
     }
 
+    @Override
+    public String toString() {
+        return "Program{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", source=" + source +
+                ", degree='" + degree + '\'' +
+                ", major=" + major +
+                ", likesNumber=" + likesNumber +
+                ", likeUsers=" + likeUsers +
+                ", school=" + school +
+                ", img='" + img + '\'' +
+                ", applications=" + applications +
+                '}';
+    }
 }

@@ -193,4 +193,21 @@ public class User {
         this.applications = applications;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", bio='" + bio + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", openId='" + openId + '\'' +
+                ", createdAt=" + createdAt +
+                ", profile=" + profile +
+                ", roles=" + roles +
+                ", likedPrograms=" + likedPrograms.size() +
+                ", applications=" + applications +
+                '}';
+    }
 }
