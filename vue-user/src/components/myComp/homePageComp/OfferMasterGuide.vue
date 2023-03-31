@@ -75,7 +75,7 @@
                         subtitle: 'Step-01',
                         title: 'Complete your background',
                         description: `You can complete your application background in our background system, based on which the programs would be recommended to you.`,
-                        link: '/edit-profile'
+                        link: '/edit-profile?to=application'
                     },
                     {
                         image: require(`@/assets/images/icons/shape-1.png`),
@@ -96,7 +96,7 @@
                         subtitle: 'Step-04',
                         title: `Join the applicant's community`,
                         description: `Here applicants can discuss about everything related to their application. Feel free to help others and get helps from others.`,
-                        link: '/program-selection'
+                        link: '/community'
                     }
                 ],
             }
