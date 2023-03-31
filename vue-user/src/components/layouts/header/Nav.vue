@@ -160,7 +160,7 @@ export default {
                   hasDropdown: true,
                   megamenu: false,
                   dropdownItems:[
-                    {link: '/program-selection', title: 'Manual', icon: 'fast-forward'},
+                    {link: '/program-selection', title: 'AI Program Recommendation', icon: 'fast-forward'},
                   ]
               },
               {

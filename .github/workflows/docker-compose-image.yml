@@ -9,27 +9,44 @@ on:
 
 
 jobs:
+  generateMatrix:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - name: Generate matrix with all modules of WhatTheHack repository
+      id: set-matrix
+      run: |
+        echo ::set-output name=matrix::["fyp_offer_master_springboot_admin", "fyp_offer_master_springboot", "fyp_offer_master_vue_user", "fyp_offer_master_vue_admin", "fyp_offer_master_django_ml"]
+  outputs:
+    matrix: ${{ steps.set-matrix.outputs.matrix }}
 
   build-docker:
     runs-on: ubuntu-latest
+    needs: generateMatrix
+    strategy:
+       matrix:
+         service: ${{ fromJson(needs.generateMatrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - run: docker-compose --version
       - name: Build with docker-compose
-        run: docker-compose build --parallel
+        run: docker-compose build ${{ matrix.service }}
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           username: echocool
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: docker-compose push
-      - run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan "${{ secrets.HOST }}" >> ~/.ssh/known_hosts
-      - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
-          rm -rf /${{ secrets.USERNAME }}/tmp/;
-          mkdir -p /${{ secrets.USERNAME }}/tmp/;
-          cd /${{ secrets.USERNAME }}/tmp/;
-          git clone git@github.com:echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7.git;
-          cd /${{ secrets.USERNAME }}/tmp/COMP3032J-Degree-Project-Offer-Master-Group-7/;
-          pwd;
-          ls;
-          bash update_and_deploy.sh;"
+      - run: docker-compose push ${{ matrix.service }}
+  deploy:
+    - needs: [generateMatrix, build-docker]
+    - uses: actions/checkout@v3
+    - run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan "${{ secrets.HOST }}" >> ~/.ssh/known_hosts
+    - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
+        rm -rf /${{ secrets.USERNAME }}/tmp/;
+        mkdir -p /${{ secrets.USERNAME }}/tmp/;
+        cd /${{ secrets.USERNAME }}/tmp/;
+        git clone git@github.com:echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7.git;
+        cd /${{ secrets.USERNAME }}/tmp/COMP3032J-Degree-Project-Offer-Master-Group-7/;
+        pwd;
+        ls;
+        bash update_and_deploy.sh;"
