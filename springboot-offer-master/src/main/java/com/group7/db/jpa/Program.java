@@ -182,12 +182,4 @@ public class Program {
         this.img = img;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Program program = (Program) o;
-        return id.equals(program.id);
-    }
-
 }
