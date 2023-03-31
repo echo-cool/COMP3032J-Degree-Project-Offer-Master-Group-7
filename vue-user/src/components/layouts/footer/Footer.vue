@@ -94,7 +94,7 @@
                                     <router-link to="#">Product Checking</router-link>
                                 </li>
                                 <li class="single-list">
-                                    <router-link to="/blog">Blog Grid</router-link>
+                                    <router-link to="/community">Blog Grid</router-link>
                                 </li>
                                 <li class="single-list">
                                     <router-link to="/about">About Us</router-link>

@@ -29,8 +29,13 @@
         name: 'PlacebidModal',
       data() {
         return {
-          id: this.$route.params.id,
           programs:{}
+        }
+      },
+      props: {
+        id: {
+          type: String,
+          default: "1"
         }
       },
       created() {

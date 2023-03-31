@@ -9,20 +9,42 @@ on:
 
 
 jobs:
+  generateBuildMatrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate matrix with all modules of WhatTheHack repository
+        id: set-matrix
+        run: |
+          echo "::set-output name=matrix::$(docker-compose config --services | jq -R -s -c 'split("\n") | map(select(length > 0))')"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
 
   build-docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: generateBuildMatrix
+    strategy:
+       matrix:
+         service: ${{ fromJson(needs.generateBuildMatrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
       - run: docker-compose --version
       - name: Build with docker-compose
-        run: docker-compose build --parallel
+        run: docker-compose build ${{ matrix.service }}
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           username: echocool
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: docker-compose push
+      - run: docker-compose push ${{ matrix.service }}
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [generateBuildMatrix, build-docker]
+    steps:
+      - uses: actions/checkout@v3
       - run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan "${{ secrets.HOST }}" >> ~/.ssh/known_hosts
       - run: ssh -C ${{ secrets.USERNAME }}@${{ secrets.HOST }} "
           rm -rf /${{ secrets.USERNAME }}/tmp/;

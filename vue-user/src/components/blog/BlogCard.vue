@@ -3,7 +3,7 @@
         <div class="inner">
             <div class="thumbnail">
                 <router-link :to="`/post-details/${blog.id}`">
-                    <img :src="`/backend/static/`+blog.img" :alt="blog.title">
+                    <img :src="`/backend/static/`+blog.img" :alt="blog.title" >
                 </router-link>
             </div>
             <div class="content">

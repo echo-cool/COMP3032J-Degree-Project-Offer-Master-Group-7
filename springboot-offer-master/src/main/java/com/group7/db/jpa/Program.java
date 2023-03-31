@@ -25,7 +25,7 @@ import java.util.Set;
 //@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
 public class Program {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)

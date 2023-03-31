@@ -77,14 +77,16 @@
 
                                     <td>
                                         <button type="button"
+                                                :id="`backgroundModalButton-${row.user.profile.id}`"
                                                 class="btn btn-primary save-btn-edit"
                                                 :data-bs-toggle="`modal`"
+                                                @click="getUserProfile"
                                                 :data-bs-target="`#backgroundModal-${row.user.profile.id}`">
                                             Peek Background
                                         </button>
                                     </td>
 
-                                    <background-modal :background="row.user.profile" :card-title="`Application Background of [` + row.user.username + `]`"/>
+                                    <background-modal  :background="row.user.profile" :card-title="`Application Background of [` + row.user.username + `]`"/>
                                 </tr>
                                 </tbody>
                             </table>
@@ -258,6 +260,19 @@
             }
         },
         methods: {
+          getUserProfile(event){
+            // console.log(event);
+            // let userID = event.target.id.split("-")[1];
+            // // console.log(userID);
+            // // request the profile (background) for this user
+            // let profileURL = `/rest/users/${userID}/profile`
+            // commonApi.getByRestURL(profileURL)
+            //     .then(response => {
+            //       this.applications[k].user.profile = response;
+            //       this.loadCountProfile += 1;
+            //     })
+          },
+
             setPage(idx) {
                 if(idx <= 0 || idx > this.totalPage) {
                     return;

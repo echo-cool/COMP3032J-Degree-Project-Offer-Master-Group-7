@@ -35,8 +35,13 @@ services:
       context: ./springboot-offer-master
     depends_on:
       - fyp_offer_master_springboot_admin
+      - fyp_offer_master_db
     environment:
       - SERVER_ADDRESS=fyp_offer_master_springboot
+      - DB_URL=jdbc:mysql://fyp_offer_master_db:3306/offermaster
+      - DB_USERNAME=root
+      - DB_PASSWORD=offermaster
+      - DB_DRIVER=com.mysql.jdbc.Driver
     expose:
       - "8080"
     networks:
@@ -94,13 +99,13 @@ services:
     networks:
       - offer_master_network
     volumes:
-      - ~/minio/data:/data
+      - ~/.fyp_offer_master/minio/data:/data
     environment:
       MINIO_ROOT_USER: group7
       MINIO_ROOT_PASSWORD: group7group7
     command: server /data --console-address ":9090"
 
-  portainer:
+  fyp_offer_master_portainer:
     image: portainer/portainer-ce
     restart: always
     ports:
@@ -108,8 +113,19 @@ services:
       - "9900:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ~/portainer/data:/data
-
+      - ~/.fyp_offer_master/portainer/data:/data
+  fyp_offer_master_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=offermaster
+      - MYSQL_ROOT_PASSWORD=offermaster
+    expose:
+      - "3306"
+    networks:
+      - offer_master_network
+    volumes:
+      - ~/.fyp_offer_master/db:/var/lib/mysql
 
 networks:
   offer_master_network:

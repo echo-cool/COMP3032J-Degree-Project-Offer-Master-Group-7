@@ -61,9 +61,6 @@
                 this.pageStart = pageStart;
                 this.countOfPage = countOfPage;
             }
-        },
-        mounted() {
-          console.log(this.filteredRows)
         }
     }
 </script>
