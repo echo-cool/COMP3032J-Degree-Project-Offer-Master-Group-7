@@ -3,13 +3,13 @@
         <div class="inner">
             <div class="thumbnail">
                 <router-link :to="`/post-details/${blog.id}`">
-                    <img :src="`/backend/static/`+blog.img" :alt="blog.title">
+                    <img :src="`/backend/static/`+blog.img" :alt="blog.title" >
                 </router-link>
             </div>
             <div class="content">
                 <div class="category-info">
                     <div class="category-list">
-                        <router-link :to="`/category/${categorySlug}`">{{ blog.category.name }}</router-link>
+                        <router-link :to="`/category/${blog.category.name}`">{{ blog.category.name }}</router-link>
                     </div>
                     <div class="meta">
                         <span><i class="feather-clock"/> {{ blog.createdAt }}</span>
@@ -45,3 +45,9 @@
         }
     }
 </script>
+
+<style>
+[data-sal|=slide] {
+   opacity: 1 !important;
+}
+</style>

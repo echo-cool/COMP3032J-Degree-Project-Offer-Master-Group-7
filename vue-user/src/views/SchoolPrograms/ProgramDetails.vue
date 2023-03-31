@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Product Details" current="Product Details"/>
+        <breadcrumb title="Program Details" current="Program Details"/>
 
         <!-- Start product details area -->
         <div class="product-details-area rn-section-gapTop">
@@ -611,12 +611,18 @@
                                             <countdown :date="'2025-12-09'" class="mt--15"/>
                                         </div>
                                     </div>
-                                    <button type="button"
-                                            class="btn btn-primary-alta mt--30"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#placebidModal">
-                                        Add to Apply List
-                                    </button>
+                                    <div>
+                                        <button v-if="programSelected" type="button"
+                                                class="btn btn-primary-alta mt--30"
+                                                @click="removeProgramFromUserApplications(product.id)">
+                                            Remove From Apply List
+                                        </button>
+                                        <button v-else type="button"
+                                                class="btn btn-primary-alta mt--30"
+                                                @click="addProgramIntoUserApplications(product.id)">
+                                            Add to Apply List
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -705,6 +711,9 @@
     // import TopSchoolItem from "@/components/myComp/homePageComp/TopSchoolItem.vue";
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+    import programSelectionApi from "@/api/programSelection";
+    import cookie from "js-cookie";
+    import profileApi from "@/api/profile";
 
     export default {
 
@@ -729,7 +738,11 @@
                 activeTabIndex: 0,
                 relatedSchools: [],
                 relatedPrograms: [],
-                school: {}
+                school: {},
+
+                selectedPrograms: [],
+                selectedProgramIDs: [],
+                programSelected: false,
             }
         },
         methods: {
@@ -738,6 +751,9 @@
               // !!! IMPORTANT !!!
               // load google map after finish requesting the school obj
               this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
+              // check whether the user selected this program
+              this.isProgramSelected(this.product.id);
+
             },
             getPrograms() {
               let that = this;
@@ -792,6 +808,58 @@
                     });
                 }
               });
+            },
+
+            getUserSelectedPrograms(checkProgramId){
+                // call the api method
+                profileApi.getSelectedPrograms()
+                    .then(response => {
+
+                        // get the list of user selected programs
+                        this.selectedPrograms = response.data.selectedPrograms;
+                        // reset the selectedProgramIDs list to empty
+                        this.selectedProgramIDs = [];
+                        // initialize the list of selected program id
+                        for (let k in this.selectedPrograms){
+                            this.selectedProgramIDs.push(this.selectedPrograms[k].id);
+                        }
+
+                        // check whether contains this program
+                        this.programSelected = this.selectedProgramIDs.includes(checkProgramId);
+
+                    })
+            },
+
+            // request whether the program is selected
+            isProgramSelected(programId){
+                // request only when user logged in
+                let userStr = cookie.get("current_user");
+                if (userStr){
+                    // require all the selected programs
+                    this.getUserSelectedPrograms(programId);
+                }
+            },
+
+            // add a program into user application list
+            addProgramIntoUserApplications(programId){
+                programSelectionApi.addApplication(programId)
+                    .then(response => {
+                        // add successfully
+                        window.alert("The program added successfully into your list!")
+                        // update the button
+                        this.programSelected = !this.programSelected;
+                    })
+            },
+
+            // remove a program from user application list
+            removeProgramFromUserApplications(programId){
+                programSelectionApi.deleteApplicationByProgramId(programId)
+                    .then(response => {
+                        // delete successfully
+                        window.alert("Program removed successfully from your list!")
+                        // update the button
+                        this.programSelected = !this.programSelected;
+                    })
             }
 
         },
@@ -799,7 +867,6 @@
             this.id = this.$route.params.id,
             this.getData();
             this.getPrograms();
-            console.log(this.id)
         },
         watch: {
             '$route.params.id': function (val) {

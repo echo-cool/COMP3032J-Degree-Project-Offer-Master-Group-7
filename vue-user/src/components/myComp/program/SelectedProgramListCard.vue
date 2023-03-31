@@ -2,7 +2,7 @@
     <div :class="[`lg-product-wrapper product-list-card`, {'colum-2 two-colum-parent-product col-lg-6': showTwoColumn}]">
         <div class="inner">
             <div class="lg-left-content">
-                <router-link :to="`#`" class="thumbnail">
+                <router-link :to="`/program-details/` + application.program.id" class="thumbnail">
                     <img :src="`/backend/static/`+application.program.img" :alt="application.program.school.name" @load="$emit('handleImageLoad')" style="max-width: 140px;">
                 </router-link>
                 <div class="read-content">
@@ -22,11 +22,13 @@
 <!--                        </div>-->
 <!--                        <div class="last-bid">{{ program.name }}</div>-->
 <!--                    </div>-->
-                    <router-link :to="`#`">
+                    <router-link :to="`/program-details/` + application.program.id">
                         <h6 class="title">{{ application.program.name }} - {{ application.program.degree }} <span class="title">({{ application.eRound.toLowerCase().replace("_", " ") }})</span></h6>
                     </router-link>
 
-                    <span class="latest-bid mr--20 fs-5">{{ application.program.school.name }}</span>
+                    <router-link :to="`/school-details/`+application.program.school.id">
+                        <span class="latest-bid mr--20 fs-5 color-body">{{ application.program.school.name }}</span>
+                    </router-link>
 
                     <span v-if="application.eStatus === `REJECTED`" class="color-danger fs-5">{{ application.eStatus.replace("_", " ") }}</span>
                     <span v-else-if="application.eStatus === `ADMITTED`" class="color-green fs-5">{{ application.eStatus.replace("_", " ") }}</span>
