@@ -41,7 +41,7 @@ services:
       - DB_URL=jdbc:mysql://fyp_offer_master_db:3306/offermaster
       - DB_USERNAME=root
       - DB_PASSWORD=offermaster
-      - DB_DRIVER=com.mysql.jdbc.Driver
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
     expose:
       - "8080"
     networks:
@@ -126,6 +126,19 @@ services:
       - offer_master_network
     volumes:
       - ~/.fyp_offer_master/db:/var/lib/mysql
+
+  fyp_offer_master_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fyp_offer_master_phpmyadmin
+    environment:
+      PMA_HOST: fyp_offer_master_db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    networks:
+      - offer_master_network
+    ports:
+      - "8088:80"
 
 networks:
   offer_master_network:
