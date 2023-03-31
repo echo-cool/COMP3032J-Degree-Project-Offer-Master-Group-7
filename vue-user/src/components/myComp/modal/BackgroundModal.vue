@@ -35,6 +35,7 @@
 <script>
 
 import BackgroundCard from "@/components/myComp/background/BackgroundCard.vue";
+import commonApi from "@/api/common";
 
 export default {
     name: "BackgroundModal",
@@ -47,6 +48,25 @@ export default {
     },
     components: {
         BackgroundCard
+    },
+    beforeOpen (event) {
+      console.log('Opening...')
+    },
+  mounted() {
+    this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
+      console.log('Modal is about to be shown', bvEvent, modalId)
+    })
+  },
+
+  methods: {
+      // getData(){
+      //   let profileURL = `/rest/users/${this.applications[k].user.id}/profile`
+      //   commonApi.getByRestURL(profileURL)
+      //       .then(response => {
+      //         this.applications[k].user.profile = response;
+      //         this.loadCountProfile += 1;
+      //       })
+      // }
     }
 }
 </script>

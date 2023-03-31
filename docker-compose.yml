@@ -21,6 +21,8 @@ services:
   fyp_offer_master_springboot_admin:
     image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
     container_name: fyp_offer_master_springboot_admin
+    depends_on:
+      - db
     expose:
       - "8081"
     networks:
@@ -37,6 +39,10 @@ services:
       - fyp_offer_master_springboot_admin
     environment:
       - SERVER_ADDRESS=fyp_offer_master_springboot
+      - DB_URL=jdbc:mysql://db:3306/offermaster
+      - DB_USERNAME=root
+      - DB_PASSWORD=offermaster
+      - DB_DRIVER=com.mysql.jdbc.Driver
     expose:
       - "8080"
     networks:
@@ -109,7 +115,18 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/portainer/data:/data
-
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=offermaster
+      - MYSQL_ROOT_PASSWORD=offermaster
+    expose:
+      - "3306"
+    networks:
+      - offer_master_network
+    volumes:
+      - ./db:/var/lib/mysql
 
 networks:
   offer_master_network:

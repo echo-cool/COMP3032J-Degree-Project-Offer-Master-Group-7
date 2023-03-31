@@ -5,11 +5,9 @@ import com.group7.db.jpa.utils.EStatus;
 import com.group7.service.RecommendationServiceKNN;
 import com.group7.service.util.ProgramInfo;
 import jakarta.annotation.Resource;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
@@ -42,10 +40,10 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         List<Profile> profiles = profileRepository.findAll();
 
-        if (profileRepository.findByRank(0).size() != profiles.size() ){
-            List<Profile> profilesSortedByGpa = profiles.stream().filter(filter -> filter.getRank() != 0).sorted((o1, o2) -> (int) (o1.getGpa() - o2.getGpa())).toList();
-            List<Profile> profilesSortedByIELTS = profiles.stream().filter(filter -> filter.getRank() != 0).sorted((o1, o2) -> (int) (o1.getTotalIELTS() - o2.getTotalIELTS())).toList();
-            List<Profile> profilesSortedByTOEFL = profiles.stream().filter(filter -> filter.getRank() != 0).sorted(Comparator.comparingInt(Profile::getTotalTOEFL)).toList();
+        if (profileRepository.findByRanking(0).size() != profiles.size() ){
+            List<Profile> profilesSortedByGpa = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getGpa() - o2.getGpa())).toList();
+            List<Profile> profilesSortedByIELTS = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getTotalIELTS() - o2.getTotalIELTS())).toList();
+            List<Profile> profilesSortedByTOEFL = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted(Comparator.comparingInt(Profile::getTotalTOEFL)).toList();
 
             maxGpa = profilesSortedByGpa.get(profilesSortedByGpa.size() - 1).getGpa();
             minGpa = profilesSortedByGpa.get(0).getGpa();
