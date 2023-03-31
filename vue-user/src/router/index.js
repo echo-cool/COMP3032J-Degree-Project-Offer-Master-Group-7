@@ -3,11 +3,13 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Login from '../views/auth/Login.vue'
 import Signup from '../views/auth/Signup.vue'
 import EditProfilePage from '../views/user/EditProfilePage.vue'
+import ArticlePolishing from '../views/user/ArticlePolishing.vue'
 import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import ProgramDetails from "@/views/SchoolPrograms/ProgramDetails.vue";
 import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
+
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
 import Community from "@/views/Community/Community";
@@ -55,7 +57,16 @@ const routes = [
             title: 'Personal Profile || OfferMaster',
         },
     },
+    {
+        path: '/article-polishing/:id',
+        name: 'ArticlePolishing',
+        component: ArticlePolishing,
+        meta: {
+            title: 'Article Polishing || OfferMaster',
+        },
+    },
 
+    
     {
         path: '/my-applications',
         name: 'MyApplications',
@@ -84,6 +95,8 @@ const routes = [
             title: 'School Details || OfferMaster',
         },
     },
+    
+
     {
         path: '/program-details/:id',
         name: 'ProgramDetails',
