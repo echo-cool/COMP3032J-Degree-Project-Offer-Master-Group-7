@@ -10,7 +10,7 @@
                                 OfferMaster Graduate Application Helper
                             </span>
                             <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
-                                Get recommended programs for you
+                                Get Recommended Programs for You
                             </h2>
                             <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">
                                 We can recommend you graduate programs that are the best fit for
@@ -42,7 +42,22 @@
                                         :title="`Due Date Countdown of My Selected Programs`"
                                         :applications="applications"/>
         <!-- End My program carousel Area -->
-
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Our Competitiveness</h1>
+                            <p class="discription">
+                                Offer master website features the program and university recommendation (highlighting matched programs),
+                                university database (used for searching and recommendation system training), applicant background system
+                                and the applicants' community with the admission information and the recent offer timelines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Start OfferMaster Guide Area -->
         <offer-master-guide/>
         <!-- End OfferMaster Guide Area -->
@@ -54,16 +69,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="about-wrapper text-center">
-                            <h2>The Top Ranked Schools In US</h2>
+                            <h1>Best Global Universities for Computer Science</h1>
                             <p class="discription">
-                                Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
-                                auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
-                                nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a
-                                odio
-                                tincidunt auctor a ornare odio sed non.
-
-                                Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
-                                auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.
+                                Offer Master platform is experienced in assisting applicants in applying for
+                                programs. To fulfill our objective, we have formalized a list of the top 100
+                                American institutions and colleges following the just-released QS World University Rankings 2023.
                             </p>
                         </div>
                     </div>
@@ -74,8 +84,24 @@
 
         <!-- Start Top School Area -->
         <top-schools/>
-        <!-- End Top School Area -->
 
+        <!-- End Top School Area -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Best Global Programs for Computer Science</h1>
+                            <p class="discription">
+                                Computer science covers a broad variety of topics.
+                                Programming languages, information systems, artificial intelligence theory, and information technology are typical
+                                study of computer science and how they are used.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Top Top Program Start -->
         <top-programs/>
         <!-- Top Top Program End -->
