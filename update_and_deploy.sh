@@ -3,8 +3,8 @@ git fetch --all
 git reset --hard origin/main
 
 
-docker-compose pull
-docker-compose down
-docker-compose up -d --no-build
+/home/student/.local/bin/docker-compose pull
+/home/student/.local/bin/docker-compose down
+/home/student/.local/bin/docker-compose up -d --no-build --remove-orphans
 
 #docker image prune -a --force
