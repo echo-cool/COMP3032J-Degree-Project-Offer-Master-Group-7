@@ -11,6 +11,7 @@ services:
       - fyp_offer_master_springboot
       - fyp_offer_master_vue_user
       - fyp_offer_master_vue_admin
+      - fyp_offer_master_portainer
     volumes:
       - ./nginx-reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
     ports:
