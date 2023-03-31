@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Product Details" current="Product Details"/>
+        <breadcrumb title="School Details" current="School Details"/>
 
         <!-- Start product details area -->
         <div class="product-details-area rn-section-gapTop">

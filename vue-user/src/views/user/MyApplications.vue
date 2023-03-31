@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Explore Application Decisions" current="Decision Reports"/>
+        <breadcrumb title="My Selected Programs" current="My Applications"/>
 
         <div class="rn-product-area rn-section-gapTop">
             <div class="container">
