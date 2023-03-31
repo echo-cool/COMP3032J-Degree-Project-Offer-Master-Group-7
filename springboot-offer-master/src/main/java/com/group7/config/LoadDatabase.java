@@ -3,20 +3,21 @@ package com.group7.config;
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.*;
 import com.group7.utils.common.DateUtil;
+import com.group7.utils.common.MyRandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.group7.config.LoadExternalData.loadExternalSchoolData;
 
@@ -66,67 +67,71 @@ class LoadDatabase {
         log.info("Preloading " + roleRepository.save(role2));
         log.info("Preloading " + roleRepository.save(role3));
 
-        School school1 = new School("Duke University",1, 10, "Duke University logo.png", "Duke University.webp",
-                "36.001465","-78.939133",
+        School school1 = new School("Duke University", 1, 10, "Duke University logo.png", "Duke University.webp",
+                "36.001465", "-78.939133",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school2 = new School("University of Toronto", 2, 9, "University of Toronto logo.png", "University of Toronto.webp",
-                "43.664486","-79.399689",
+                "43.664486", "-79.399689",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school3 = new School("University of Waterloo", 3, 8, "University of Waterloo logo.png", "University of Waterloo.png",
-                "43.4723","-80.5449",
+                "43.4723", "-80.5449",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school4 = new School("University of British Columbia", 4, 7, "University of British Columbia logo.png", "University of British Columbia.jpg",
-                "49.2667","-123.2500",
+                "49.2667", "-123.2500",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school5 = new School("Stanford University", 5, 6, "Stanford University logo.webp", "Stanford University.webp",
-                "37.428230","-122.168861",
+                "37.428230", "-122.168861",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school6 = new School("University of California, Berkeley", 6, 5, "University of British Columbia logo.png", "University of British Columbia.jpg",
-                "37.871960","-122.259094",
+                "37.871960", "-122.259094",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school7 = new School("Princeton University", 7, 4, "Princeton University logo.svg", "Princeton University.jpg",
-                "40.343899","-74.660049",
+                "40.343899", "-74.660049",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school8 = new School("Harvard University", 8, 3, "Harvard University logo.png", "Harvard University.webp",
-                "42.374443","-71.116943",
+                "42.374443", "-71.116943",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school9 = new School("Yale University", 9, 2, "Yale University logo.png", "Yale University.png",
-                "41.316307","-72.922585",
+                "41.316307", "-72.922585",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
         School school10 = new School("Dartmouth College", 10, 1, "Dartmouth College logo.png", "Dartmouth College.jpg",
-                "43.704540","-72.288986",
+                "43.704540", "-72.288986",
                 new String[]{
-                "default/default.jpg",
-        });
+                        "default/default.jpg",
+                });
 
-        log.info("Preloading " + schoolRepository.save(school1));
-        log.info("Preloading " + schoolRepository.save(school2));
-        log.info("Preloading " + schoolRepository.save(school3));
-        log.info("Preloading " + schoolRepository.save(school4));
-        log.info("Preloading " + schoolRepository.save(school5));
-        log.info("Preloading " + schoolRepository.save(school6));
-        log.info("Preloading " + schoolRepository.save(school7));
-        log.info("Preloading " + schoolRepository.save(school8));
-        log.info("Preloading " + schoolRepository.save(school9));
-        log.info("Preloading " + schoolRepository.save(school10));
+        List<School> schools = new ArrayList<>();
+        schools.add(school1);
+        schools.add(school2);
+        schools.add(school3);
+        schools.add(school4);
+        schools.add(school5);
+        schools.add(school6);
+        schools.add(school7);
+        schools.add(school8);
+        schools.add(school9);
+        schools.add(school10);
+        for (School school : schools) {
+            log.info("Preloading " + schoolRepository.save(school));
+        }
 
         Program program1 = new Program("Computer Science", school1, "MS", EMajor.CS, "MS Computer Science.jpg");
         Program program1_2 = new Program("Computer Science", school1, "MEng", EMajor.CS, "MEng Computer Science.jpg");
@@ -143,21 +148,23 @@ class LoadDatabase {
         Program program11 = new Program("Financial Technology", school1, "MS", EMajor.EE, "Financial Technology.webp");
 
 
-
-
-        log.info("Preloading " + programRepository.save(program1));
-        log.info("Preloading " + programRepository.save(program1_2));
-        log.info("Preloading " + programRepository.save(program1_3));
-        log.info("Preloading " + programRepository.save(program2));
-        log.info("Preloading " + programRepository.save(program3));
-        log.info("Preloading " + programRepository.save(program4));
-        log.info("Preloading " + programRepository.save(program5));
-        log.info("Preloading " + programRepository.save(program6));
-        log.info("Preloading " + programRepository.save(program7));
-        log.info("Preloading " + programRepository.save(program8));
-        log.info("Preloading " + programRepository.save(program9));
-        log.info("Preloading " + programRepository.save(program10));
-        log.info("Preloading " + programRepository.save(program11));
+        List<Program> programs = new ArrayList<>();
+        programs.add(program1);
+        programs.add(program1_2);
+        programs.add(program1_3);
+        programs.add(program2);
+        programs.add(program3);
+        programs.add(program4);
+        programs.add(program5);
+        programs.add(program6);
+        programs.add(program7);
+        programs.add(program8);
+        programs.add(program9);
+        programs.add(program10);
+        programs.add(program11);
+        for (Program program : programs) {
+            log.info("Preloading " + programRepository.save(program));
+        }
 
         Set<Role> test1Roles = new HashSet<>();
         test1Roles.add(role1);
@@ -180,19 +187,23 @@ class LoadDatabase {
         User user12 = new User("test12", "me12@echo.cool", encoder.encode("111"), test3Roles);
         User user13 = new User("test13", "me13@echo.cool", encoder.encode("111"), test3Roles);
 
-        log.info("Preloading " + userRepository.save(user1));
-        log.info("Preloading " + userRepository.save(user2));
-        log.info("Preloading " + userRepository.save(user3));
-        log.info("Preloading " + userRepository.save(user4));
-        log.info("Preloading " + userRepository.save(user5));
-        log.info("Preloading " + userRepository.save(user6));
-        log.info("Preloading " + userRepository.save(user7));
-        log.info("Preloading " + userRepository.save(user8));
-        log.info("Preloading " + userRepository.save(user9));
-        log.info("Preloading " + userRepository.save(user10));
-        log.info("Preloading " + userRepository.save(user11));
-        log.info("Preloading " + userRepository.save(user12));
-        log.info("Preloading " + userRepository.save(user13));
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        users.add(user5);
+        users.add(user6);
+        users.add(user7);
+        users.add(user8);
+        users.add(user9);
+        users.add(user10);
+        users.add(user11);
+        users.add(user12);
+        users.add(user13);
+        for (User user : users) {
+            log.info("Preloading " + userRepository.save(user));
+        }
 
         Profile profile = new Profile("2023 - Fall", "PhD", "CS", "AD - With Fellowship", 4.0, 1,
                 "Oversea Undergraduate", "BJUT", "CS", "IELTS", 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 340, 6, 170, 170);
@@ -211,6 +222,7 @@ class LoadDatabase {
         Application application5 = new Application(user1, program1_2, EStatus.ADMITTED, ddl, ERound.SPRING_2024, DateUtil.getRandomPastDate());
         Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
         Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+
 
         applicationRepository.save(application1);
         applicationRepository.save(application2);
@@ -233,7 +245,47 @@ class LoadDatabase {
         postRepository.save(post2);
 
         loadExternalSchoolData(schoolRepository, programRepository);
-
+        generateRandomApplication(users, programs);
         return args -> log.warn("Preloaded database, completed.");
     }
+
+    public static <E> List<E> pickNRandomElements(List<E> list, int n, Random r) {
+        int length = list.size();
+
+        if (length < n) return null;
+
+        //We don't need to shuffle the whole list
+        for (int i = length - 1; i >= length - n; --i) {
+            Collections.swap(list, i, r.nextInt(i + 1));
+        }
+        return list.subList(length - n, length);
+    }
+
+    public static <E> List<E> pickNRandomElements(List<E> list, int n) {
+        return pickNRandomElements(list, n, ThreadLocalRandom.current());
+    }
+
+    private void generateRandomApplication(List<User> users, List<Program> programs) {
+        String str = "2024-02-15";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date ddl = null;
+        EStatus[] statuses = new EStatus[]{EStatus.ADMITTED, EStatus.REJECTED, EStatus.AWAITING_DECISION};
+        try {
+            ddl = sdf.parse(str);
+            for (User user : users) {
+                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(0, programs.size()));
+                System.out.println(user + ": " + programsUser);
+                for (Program p : programsUser) {
+                    Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+                    System.out.println("\t" + application);
+                    applicationRepository.save(application);
+                }
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 }

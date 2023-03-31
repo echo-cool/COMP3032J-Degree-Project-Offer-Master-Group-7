@@ -1,5 +1,9 @@
 package com.group7.db.jpa;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -7,7 +11,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author: WangYuyang
@@ -18,5 +24,37 @@ import java.util.List;
  **/
 @RepositoryRestResource
 public interface SchoolRepository extends JpaRepository<School, Long>, PagingAndSortingRepository<School, Long>, CrudRepository<School, Long>, JpaSpecificationExecutor<School> {
+
+    @Override
+    @Cacheable(value = "school")
+    School getOne(Long aLong);
+
+    @Override
+    @Cacheable(value = "school")
+    School getById(Long aLong);
+
+    @Override
+    @Cacheable(value = "school")
+    Optional<School> findById(Long aLong);
+
+    @Override
+    @Cacheable(value = "school")
+    <S extends School> Optional<S> findOne(Example<S> example);
+
+    @Override
+    @Cacheable(value = "school")
+    boolean existsById(Long aLong);
+
+    @Override
+    @Cacheable(value = "school")
+    List<School> findAllById(Iterable<Long> longs);
+    @Override
+    @Cacheable(value = "school")
+    List<School> findAll();
+    @Override
+    @Cacheable(value = "school")
+    Page<School> findAll(Pageable pageable);
+
+    @Cacheable(value = "school")
     List<School> findByNameContaining(String name, Sort sort);
 }

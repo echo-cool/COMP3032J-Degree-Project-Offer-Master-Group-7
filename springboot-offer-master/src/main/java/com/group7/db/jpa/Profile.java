@@ -1,15 +1,13 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
 
 
 @Entity
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne(mappedBy = "profile")
@@ -36,7 +34,7 @@ public class Profile {
     private double gpa;
 
     @Column
-    private int rank;
+    private int ranking;
 
     @Column(length = 45)
     private String underGradSchoolCate;
@@ -102,13 +100,13 @@ public class Profile {
         this.user = user;
     }
 
-    public Profile(String applicationRound, String targetDegree, String targetMajor, String targetOfferType, double gpa, int rank, String underGradSchoolCate, String underGradSchoolName, String underGradMajor, String testType, double totalIELTS, double listeningIELTS, double speakingIELTS, double readingIELTS, double writingIELTS, int totalTOEFL, int listeningTOEFL, int speakingTOEFL, int readingTOEFL, int writingTOEFL, int greTotal, int greAnalyticalWriting, int greVerbal, int greQuantitative) {
+    public Profile(String applicationRound, String targetDegree, String targetMajor, String targetOfferType, double gpa, int ranking, String underGradSchoolCate, String underGradSchoolName, String underGradMajor, String testType, double totalIELTS, double listeningIELTS, double speakingIELTS, double readingIELTS, double writingIELTS, int totalTOEFL, int listeningTOEFL, int speakingTOEFL, int readingTOEFL, int writingTOEFL, int greTotal, int greAnalyticalWriting, int greVerbal, int greQuantitative) {
         this.applicationRound = applicationRound;
         TargetDegree = targetDegree;
         TargetMajor = targetMajor;
         TargetOfferType = targetOfferType;
         this.gpa = gpa;
-        this.rank = rank;
+        this.ranking = ranking;
         this.underGradSchoolCate = underGradSchoolCate;
         this.underGradSchoolName = underGradSchoolName;
         this.underGradMajor = underGradMajor;
@@ -189,12 +187,12 @@ public class Profile {
         TargetOfferType = targetOfferType;
     }
 
-    public int getRank() {
-        return rank;
+    public int getRanking() {
+        return ranking;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setRanking(int rank) {
+        this.ranking = rank;
     }
 
     public String getUnderGradSchoolCate() {
