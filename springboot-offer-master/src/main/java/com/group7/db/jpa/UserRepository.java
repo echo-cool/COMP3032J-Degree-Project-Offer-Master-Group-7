@@ -25,26 +25,6 @@ import java.util.Optional;
 @RepositoryRestResource
 public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long>, CrudRepository<User, Long>, ListCrudRepository<User, Long>, JpaSpecificationExecutor<User>{
 
-    @Override
-    @Cacheable(value = "user")
-    Optional<User> findOne(Specification<User> spec);
-
-    @Override
-    @Cacheable(value = "user")
-    Optional<User> findById(Long aLong);
-
-    @Override
-    @Cacheable(value = "user")
-    <S extends User> Optional<S> findOne(Example<S> example);
-
-    @Override
-    @Cacheable(value = "user")
-    List<User> findAllById(Iterable<Long> longs);
-
-    @Override
-    @Cacheable(value = "user")
-    List<User> findAll();
-
     Optional<User> findByUsername(String username);
 
     Boolean existsByUsername(String username);
