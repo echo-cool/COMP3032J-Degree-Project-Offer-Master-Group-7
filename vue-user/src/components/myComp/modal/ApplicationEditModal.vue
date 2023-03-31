@@ -10,9 +10,6 @@
                     <h1 class="modal-title">
                         Update Your Application Here
                     </h1>
-                    <h1 class="modal-title">
-                        Update Your Application Here - {{ application.id }} - {{ application.program.id }}
-                    </h1>
                 </div>
 
                 <div class="modal-body">
