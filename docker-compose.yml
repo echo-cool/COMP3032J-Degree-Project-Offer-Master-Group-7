@@ -111,6 +111,15 @@ services:
     ports:
       - "8800:8000"
       - "9900:9000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`ipa-008.ucd.ie`) && PathPrefix(`/portainer`)"
+      - "traefik.http.middlewares.portainer-stripprefix.stripprefix.prefixes=/portainer"
+      - "traefik.http.routers.whoami.middlewares=portainer-stripprefix@docker"
+      - "traefik.http.routers.whoami.entrypoints=web-secure"
+      - "traefik.http.routers.whoami.tls=false"
+      - "traefik.http.services.whoami.loadbalancer.server.scheme=http"
+      - "traefik.http.services.whoami.loadbalancer.server.port=9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.fyp_offer_master/portainer/data:/data
