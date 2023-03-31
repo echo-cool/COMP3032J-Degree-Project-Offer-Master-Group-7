@@ -11,6 +11,7 @@ on:
 jobs:
   generateBuildMatrix:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
       - name: Generate matrix with all modules of WhatTheHack repository
@@ -22,6 +23,7 @@ jobs:
 
   build-docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: generateBuildMatrix
     strategy:
        matrix:
@@ -39,6 +41,7 @@ jobs:
       - run: docker-compose push ${{ matrix.service }}
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: [generateBuildMatrix, build-docker]
     steps:
       - uses: actions/checkout@v3
