@@ -35,8 +35,9 @@ services:
       - fyp_offer_master_springboot
       - fyp_offer_master_vue_user
       - fyp_offer_master_vue_admin
+      - fyp_offer_master_portainer
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx-reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     networks:
@@ -56,11 +57,16 @@ services:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
     container_name: fyp_offer_master_springboot
     build:
-      context: .
+      context: ./springboot-offer-master
     depends_on:
-      - fyp_offer_master_springboot_admin
+        fyp_offer_master_db:
+          condition: service_healthy
     environment:
       - SERVER_ADDRESS=fyp_offer_master_springboot
+      - DB_URL=jdbc:mysql://fyp_offer_master_db:3306/offermaster
+      - DB_USERNAME=root
+      - DB_PASSWORD=offermaster
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
     expose:
       - "8080"
     networks:
@@ -97,23 +103,87 @@ services:
       - offer_master_network
     restart: on-failure
 
+  fyp_offer_master_django_ml:
+    image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
+    container_name: fyp_offer_master_django_ml
+    build:
+      context: ./django_ml
+    depends_on:
+      - fyp_offer_master_springboot
+    expose:
+      - "8080"
+    networks:
+      - offer_master_network
+    restart: on-failure
 
-  fyp_offer_master_minio:
-    image: quay.io/minio/minio
+#  fyp_offer_master_minio:
+#    image: echocool/fyp_offer_master_minio
+#    ports:
+#      - "9000:9000"
+#      - "9090:9090"
+#    networks:
+#      - offer_master_network
+#    volumes:
+#      - ~/.fyp_offer_master/minio/data:/data
+#    environment:
+#      MINIO_ROOT_USER: group7
+#      MINIO_ROOT_PASSWORD: group7group7
+#    command: server /data --console-address ":9090"
+
+  fyp_offer_master_portainer:
+    image: portainer/portainer-ce
+    restart: always
     ports:
-      - "9000:9000"
-      - "9090:9090"
+      - "8800:8000"
+      - "9900:9000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`ipa-008.ucd.ie`) && PathPrefix(`/portainer`)"
+      - "traefik.http.middlewares.portainer-stripprefix.stripprefix.prefixes=/portainer"
+      - "traefik.http.routers.whoami.middlewares=portainer-stripprefix@docker"
+      - "traefik.http.routers.whoami.entrypoints=web-secure"
+      - "traefik.http.routers.whoami.tls=false"
+      - "traefik.http.services.whoami.loadbalancer.server.scheme=http"
+      - "traefik.http.services.whoami.loadbalancer.server.port=9000"
     networks:
       - offer_master_network
     volumes:
-      - ~/minio/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.fyp_offer_master/portainer/data:/data
+  fyp_offer_master_db:
+    image: mysql:8.0
+    restart: always
     environment:
-      MINIO_ROOT_USER: group7
-      MINIO_ROOT_PASSWORD: group7group7
-    command: server /data --console-address ":9090"
+      - MYSQL_DATABASE=offermaster
+      - MYSQL_ROOT_PASSWORD=offermaster
+    expose:
+      - "3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 2s
+      retries: 100
+    networks:
+      - offer_master_network
+    volumes:
+      - ~/.fyp_offer_master/db:/var/lib/mysql
+
+  fyp_offer_master_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fyp_offer_master_phpmyadmin
+    environment:
+      PMA_HOST: fyp_offer_master_db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_ABSOLUTE_URI: http://ipa-008.ucd.ie/phpmyadmin
+    restart: always
+    networks:
+      - offer_master_network
+    ports:
+      - "8088:80"
 
 networks:
   offer_master_network:
+
 ```
 
 ```shell
