@@ -121,6 +121,8 @@ services:
       - "traefik.http.routers.whoami.tls=false"
       - "traefik.http.services.whoami.loadbalancer.server.scheme=http"
       - "traefik.http.services.whoami.loadbalancer.server.port=9000"
+    networks:
+      - offer_master_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.fyp_offer_master/portainer/data:/data
