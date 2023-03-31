@@ -22,6 +22,9 @@ public interface ProgramRepository extends JpaRepository<Program, Long>, PagingA
 
     List<Program> findByNameContaining(String name, Sort sort);
 
+    List<Program> findByNameContaining(String name);
+
+
     List<Program> findByDegree(String degree, Sort sort);
 
     List<Program> findByDegreeNot(String degree, Sort sort);

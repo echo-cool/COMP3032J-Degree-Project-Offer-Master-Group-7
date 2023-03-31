@@ -43,6 +43,7 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=offermaster
       - DB_DRIVER=com.mysql.cj.jdbc.Driver
+      - DB_PLATFORM=
     expose:
       - "8080"
     networks:
@@ -134,6 +135,8 @@ services:
       - MYSQL_ROOT_PASSWORD=offermaster
     expose:
       - "3306"
+#    ports:
+#      - "3306:3306"
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 2s
