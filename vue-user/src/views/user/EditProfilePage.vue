@@ -27,7 +27,7 @@
                                     <i class="feather-edit"/> Edit Profile Image
                                 </button>
                                 <button class="nav-link"
-                                        id="nav-home-tabs"
+                                        id="nav-info-tab"
                                         data-bs-toggle="tab"
                                         data-bs-target="#nav-homes"
                                         type="button"
@@ -57,7 +57,7 @@
                                     <i class="feather-clipboard"/> My Program List
                                 </button>
                                 <button class="nav-link"
-                                        id="nav-profile-tab"
+                                        id="nav-password-tab"
                                         data-bs-toggle="tab"
                                         data-bs-target="#nav-profile"
                                         type="button"
@@ -148,7 +148,7 @@
                             </div>
 
                             <!-- Personal Info Panel -->
-                            <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade" id="nav-homes" role="tabpanel" aria-labelledby="nav-info-tab">
                                 <div class="nuron-information">
                                     <div class="profile-form-wrapper">
 <!--                                        <div class="input-two-wrapper mb&#45;&#45;15">-->
@@ -551,7 +551,7 @@
                             </div>
 
                             <!-- Password Management Panel -->
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-password-tab">
                                 <div class="nuron-information">
                                     <div class="condition">
                                         <h5 class="title">Change Your Password</h5>
@@ -808,7 +808,14 @@
         mounted() {
           if (this.$route.query.to === "application") {
             (document.getElementById("nav-background-tab")).click()
+
+          }else if(this.$route.query.to === "password"){
+              (document.getElementById("nav-password-tab")).click()
+
+          }else if(this.$route.query.to === "info"){
+              (document.getElementById("nav-info-tab")).click()
           }
+
         },
 
       computed: {
