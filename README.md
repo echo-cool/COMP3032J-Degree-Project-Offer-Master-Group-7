@@ -44,6 +44,12 @@ The **offer master** website provides the following main features:
 
 ## Build this project
 
+### Generate SSL certificate
+
+```shell
+docker-compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d ipa-008.ucd.ie
+```
+
 ### Using docker-compose
 Create an `docker-compose.yml`
 ```shell
