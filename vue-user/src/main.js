@@ -15,6 +15,7 @@ import Loading from 'vue3-loading-screen'
 //         key: 'AIzaSyDJ7ELJuZaigtiB50_buOhvcjyGvOTk5MY',
 //     },
 // }).mount('#app')
+// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -29,8 +30,8 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 library.add(faUserSecret)
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 const cors = require('cors')
@@ -39,9 +40,9 @@ let app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 // Make BootstrapVue available throughout your project
-app.use(BootstrapVue)
+// app.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
-app.use(IconsPlugin)
+// app.use(IconsPlugin)
 app.use(router)
 app.use(Loading, {
     bg: '#41b883ad',
