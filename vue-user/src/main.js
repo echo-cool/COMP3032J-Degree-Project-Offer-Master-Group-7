@@ -9,7 +9,7 @@ import 'bootstrap'
 import axios from "axios";
 import Loading from 'vue3-loading-screen'
 // import VueGoogleMaps from '@fawmi/vue-google-maps'
-
+import $ from 'jquery'
 // createApp(App).use(router).use(VueGoogleMaps, {
 //     load: {
 //         key: 'AIzaSyDJ7ELJuZaigtiB50_buOhvcjyGvOTk5MY',
@@ -44,12 +44,12 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 // Optionally install the BootstrapVue icon components plugin
 // app.use(IconsPlugin)
 app.use(router)
-app.use(Loading, {
-    bg: '#41b883ad',
-    slot: `
-    <div class="px-5 py-3 bg-gray-800 rounded">
-      <h1 class="text-3xl text-white"><i class="fas fa-spinner fa-spin"></i> Loading...</h1>
-    </div>
-  `
-})
+// app.use(Loading, {
+//     bg: '#41b883ad',
+//     slot: `
+//     <div class="px-5 py-3 bg-gray-800 rounded">
+//       <h1 class="text-3xl text-white"><i class="fas fa-spinner fa-spin"></i> Loading...</h1>
+//     </div>
+//   `
+// })
 app.mount('#app')

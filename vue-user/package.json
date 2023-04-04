@@ -28,6 +28,7 @@
         "cors": "^2.8.5",
         "eslint": "^8.37.0",
         "isotope-layout": "^3.0.6",
+        "jquery": "^3.6.4",
         "js-cookie": "^3.0.1",
         "lodash": "^4.17.21",
         "odometer": "^0.4.8",
