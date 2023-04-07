@@ -8,7 +8,6 @@ import com.group7.entitiy.ApplicationUpdateVo;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
-import io.sentry.protocol.App;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

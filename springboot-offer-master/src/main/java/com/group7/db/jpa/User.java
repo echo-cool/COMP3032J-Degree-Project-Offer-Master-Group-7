@@ -1,7 +1,6 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
-import io.sentry.protocol.App;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

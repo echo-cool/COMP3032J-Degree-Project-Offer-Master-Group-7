@@ -1,10 +1,16 @@
 package com.group7.controller.auth;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
+import cn.hutool.json.JSONObject;
+import com.google.gson.Gson;
 import com.group7.controller.auth.payload.LoginRequest;
 import com.group7.controller.auth.payload.SignupRequest;
 import com.group7.controller.user.UserDetailsImpl;
@@ -12,15 +18,23 @@ import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.ERole;
 import com.group7.utils.common.JwtResponse;
 import com.group7.utils.common.JwtUtils;
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
@@ -50,6 +64,94 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @GetMapping("oath/echocool/redirection")
+    public R getOAuthRedirectionURL(){
+        String authUrl = "http://auth.echo.cool/o/authorize/";
+        String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
+        String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
+        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String responseType = "code";
+        String scope = "openid";
+        // Return the OAuth server redirection URL
+        return R.ok().data("url", authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope);
+    }
+    @GetMapping("oath/echocool/callback")
+    public R getJWTfromOAuthToken(ServletRequest request) throws IOException {
+        String authUrl = "http://auth.echo.cool/o/authorize/";
+        String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
+        String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
+        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String responseType = "code";
+        String scope = "openid";
+        String token = request.getParameter("code");
+        //http://auth.echo.cool/o/token
+        okhttp3.Request request1 = new okhttp3.Request.Builder()
+                .url("http://auth.echo.cool/o/token/")
+                .post(okhttp3.RequestBody.create(okhttp3.MediaType.parse("application/x-www-form-urlencoded"), "client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl))
+                .build();
+
+        okhttp3.Response response = null;
+        try {
+            response = new OkHttpClient().newCall(request1).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(response == null){
+            return R.error().message("Failed to get the response from the OAuth server, response is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+        }
+        if (!response.isSuccessful()) {
+            return R.error().message("Failed to get the response from the OAuth server, response code: " + response.code() + ", message: " + response.message() + ", body: " + response.body().string()).data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+        }
+        if(response.body() == null){
+            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+        }
+        String body = null;
+        try {
+            body = response.body().string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //{\"access_token\": \"TxzEpRQuQakJAiXV7k46npDEEXwHrM\", \"expires_in\": 36000, \"token_type\": \"Bearer\", \"scope\": \"openid\", \"refresh_token\": \"OSdOlkcTBbV6Rp6pyUPyieRngWED8r\", \"id_token\": \"eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAieDRud0dzcThUcEM5RVJ2ZnRkZTJpYnE5ZGk2Wlctcm5scHV1c1dLTmhLOCJ9.eyJhdWQiOiAiT2p4ZmN2TWlUUGI3REVJb29wSWVidkpOTnpXdHI4T2czUjF1VlJ1VSIsICJpYXQiOiAxNjgwODc2NjQyLCAiYXRfaGFzaCI6ICJyUlJBTWc4a2tEZ1JnNXExQUZpdThBIiwgInN1YiI6ICIyIiwgImdpdmVuX25hbWUiOiAid3l5IiwgImZhbWlseV9uYW1lIjogInd5eSIsICJuYW1lIjogInd5eSIsICJwcmVmZXJyZWRfdXNlcm5hbWUiOiAid3l5IiwgImVtYWlsIjogIiIsICJtYWlsIjogIiIsICJpc3MiOiAiaHR0cDovL2F1dGguZWNoby5jb29sL28iLCAiZXhwIjogMTY4MDkxMjY0MiwgImF1dGhfdGltZSI6IDE2ODA4NzE0ODEsICJqdGkiOiAiYTgzZTlmZTQtMmI2Ny00OGEzLTkzYjAtMDlhOWI4MDQ0YzVmIn0.mLVUGOWO-pdMzfqSqeDXdjl0febfZcmUcRdrKjANy3hV2kfgY4i7I2ZbHSgVSnneigiKA_c0baHjzwwXjd9g7sIS2zeMip1bghrTxQZt0-HMxqsEPzZ__8Q0MA-ZeK4dgriPDJ2VVevo-r4ybBK4fYjZPsxWKcu14_rI9Dq-O-Eatv_JER1UaTWrM5nA5Q0IIXhmPzIR4zIn7PQJ2GHaeomN9IzJZCds732BvAOv__86JaOiv8ui5yx46sdq8HigPFSMYdJ64eGR1xOqDcZhfbXCWbuvNuO1au6BpWZyMqXTSXxtznFb836AVnK2h69nISZcounV5Y8jBFQpTFzldLF6BhqMC9FnAzQMS5psH5x5NOX_48phFSOkb_CgSqTHJRCTn-VaiypjCk6D3aVwqzGbwDrH77uMY-ZCI9pe3ewZqxhosX83BjjBZbhR5PDTKJO9jBpa8TSxUjcZ4TCzwY7f87Druxr_A9Dhacz3t_EEkcMoa_K7Ss8hifvPauFKnr6Sp-FZaOecD5B__vkPzcRg41mWeUG0F3GYUxM38zxtY-0b5GZjh2c3LCpOpdKVZ75zz2ih0blHbmPZvY3Md2dbUqb7NLPdlsD0NwCcOVo0dP06HB86MdV-AEbWtXEXcLovSmsUoebxseyohhQr-jRbAQ2h1rO7MsqAqpWzUYk\"}"
+        JSONObject json = new JSONObject(body);
+        String access_token = (String) json.get("access_token");
+
+        //http://auth.echo.cool/o/userinfo/
+        Request request2 = new Request.Builder()
+                .url("http://auth.echo.cool/o/userinfo/")
+                .get()
+                .addHeader("Authorization", "Bearer " + access_token)
+                .build();
+        Response response2 = null;
+
+        try {
+            response2 = new OkHttpClient().newCall(request2).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert response2 != null;
+        if(response2.body() == null){
+            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+        }
+        String body2 = response2.body().string();
+        JSONObject json2 = new JSONObject(body2);
+        System.out.println(json2);
+        String username = (String) json2.get("name");
+
+        User user = userRepository.findByUsername(username).orElse(null);
+        if (user != null){
+            return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
+        }
+
+        return R.error().message("NO USER FOUND")
+                .data("code", token)
+                .data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl)
+                .data("response",body)
+                .data("access_token", access_token)
+                .data("userInfo", body2)
+                .data("username", username)
+                ;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
