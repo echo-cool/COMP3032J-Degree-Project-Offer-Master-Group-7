@@ -159,6 +159,7 @@
             }
         },
         created() {
+            // this.$isLoading(true) // show loading screen
             this.programQuery.query = this.query
             this.getProgramsByQuery();
             if(this.currentUser.id){
@@ -195,6 +196,7 @@
                         this.programs = response.data.programs.content;
                         // update the school list corresponding to the programs
                         this.schoolsOfPrograms = response.data.schoolsOfPrograms.content;
+                        // this.$isLoading(false) // show loading screen
                     })
             },
 

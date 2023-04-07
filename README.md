@@ -1,8 +1,8 @@
 # COMP3032J-Degree-Project-Offer-Master-Group-7
 
-View our project at: [http://ipa-008.ucd.ie/](http://ipa-008.ucd.ie/)
-
 ![Docker-compose build](https://github.com/echo-cool/COMP3032J-Degree-Project-Offer-Master-Group-7/actions/workflows/docker-compose-image.yml/badge.svg)
+
+View our project at: [http://ipa-008.ucd.ie/](http://ipa-008.ucd.ie/)
 
 ## Project Description
 We aim to build web application with excellent user experience, high performance, and stability. Our potential users are who aim to apply to overseas universities. Our platform will help the users with school applications by providing them with one-stop application tools, such as program selection and admission community. Especially the program recommendation based on applicants' backgrounds is the key feature of our platform.
@@ -17,7 +17,38 @@ The **offer master** website provides the following main features:
 * **Applicant background system**: We will provide a background system for our users (applicants) to support our recommendation system. Users can update their application backgrounds in this system, including their GPA, undergraduate school, language proficiency, and GRE score. Therefore, according to their uploaded background, our recommendation system is able to recommend appropriate schools and programs.
 * **Applicants community**: To help our users to apply, an application community is also provided where our users can have a discussion with other applicants on topics of universities, programs, offers, etc. Moreover, they can post their admission information and check the offer timelines of recent years in this platform.
 
+### Integrated Features
+
+#### Spring Boot Admin
+
+* URL: [http://localhost/springboot-admin](http://localhost/springboot-admin)
+
+![Screenshot 2023-04-03 at 14.46.33.jpg](.github%2Fimages%2FScreenshot%202023-04-03%20at%2014.46.33.jpg)
+
+#### phpMyAdmin
+
+* URL: [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+* Username: root
+* Password: offermaster
+
+![Screenshot 2023-04-03 at 14.44.37.jpg](.github%2Fimages%2FScreenshot%202023-04-03%20at%2014.44.37.jpg)
+
+#### Portainer
+
+* URL: [http://localhost/portainer/](http://localhost/portainer/)
+* Username: admin
+* Password: offermaster7
+
+![Screenshot 2023-04-03 at 14.43.59.jpg](.github%2Fimages%2FScreenshot%202023-04-03%20at%2014.43.59.jpg)
+
+
 ## Build this project
+
+### Generate SSL certificate
+
+```shell
+docker-compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d ipa-008.ucd.ie
+```
 
 ### Using docker-compose
 Create an `docker-compose.yml`
