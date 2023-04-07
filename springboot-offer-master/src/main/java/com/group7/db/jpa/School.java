@@ -16,7 +16,7 @@ import java.util.*;
  * @Description:
  **/
 @Entity
-public class School {
+public class School implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -222,4 +222,12 @@ public class School {
     }
 
 
+    @Override
+    public School clone() {
+        try {
+            return (School) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

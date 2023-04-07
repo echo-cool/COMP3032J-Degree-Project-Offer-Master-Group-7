@@ -101,7 +101,7 @@
 <!--                            :show-place-bid="true"-->
 <!--                        />-->
                         <program-card :program="program"
-                                      :school="schoolsOfPrograms[index]"
+                                      :school="program.school"
                                       :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>

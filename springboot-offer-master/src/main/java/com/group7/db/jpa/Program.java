@@ -20,7 +20,7 @@ import java.util.*;
         uniqueConstraints = {
         })
 //@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
-public class Program {
+public class Program implements Cloneable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -141,9 +141,10 @@ public class Program {
         this.major = major;
     }
 
-    @JsonBackReference
     public School getSchool() {
-        return school;
+        School newSchool = this.school.clone();
+        newSchool.setPrograms(null);
+        return newSchool;
     }
 
     public void setSchool(School school) {
@@ -204,5 +205,14 @@ public class Program {
                 ", img='" + img + '\'' +
                 ", applications=" + applications +
                 '}';
+    }
+
+    @Override
+    public Program clone() {
+        try {
+            return (Program) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -179,7 +179,6 @@ public class ProgramController {
         String major = programQueryVo.getMajor();
 
         Page<Program> programList;
-        Page<School> schoolList;
 
         if (likes == null || degree == null || major == null ||
                 likes.isBlank() || degree.isBlank() || major.isBlank()){
@@ -192,22 +191,15 @@ public class ProgramController {
 
         List<Program> programs = programService.getProgramsByQuery(programQueryVo);
 
-        // get school of each program (this is also need at frontend)
-        List<School> schoolsOfPrograms = new ArrayList<>();
-        for (Program p : programs){
-            schoolsOfPrograms.add(p.getSchool());
-        }
-
         if (limit == -1) {
-            limit = schoolsOfPrograms.size();
+            limit = programs.size();
         }
 
         Pageable pageable = PageRequest.of((int)current - 1, (int)limit);
 
         programList = listToPage(programs, pageable);
-        schoolList = listToPage(schoolsOfPrograms, pageable);
 
-        return R.ok().data("programs", programList).data("schoolsOfPrograms", schoolList);
+        return R.ok().data("programs", programList);
     }
 
     @RequestMapping("/public/getRandomPrograms/{size}")
@@ -246,9 +238,9 @@ public class ProgramController {
     @GetMapping("/public/getAllPrograms")
     public R getAllPrograms(){
         List<Program> allPrograms = programRepository.findAll();
-        System.out.println("============");
-        System.out.println(allPrograms);
-        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println(allPrograms);
+//        System.out.println("============");
         return R.ok().data("programs", allPrograms);
     }
 
