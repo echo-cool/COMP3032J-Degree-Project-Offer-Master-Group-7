@@ -128,4 +128,13 @@
   ol li a:hover {
     color: #00a3ff !important;
   }
+
+  .latest-bid {
+    color: #0d6efd;
+    transition: var(--transition);
+  }
+
+  .latest-bid:hover {
+    color: #00a3ff;
+  }
 </style>
