@@ -69,6 +69,7 @@ export default {
 
                             })
                     }
+                    // console.log(this.applications)
 
                 })
         }

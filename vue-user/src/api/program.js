@@ -34,6 +34,13 @@ export default{
         })
     },
 
+    getProgramById(programId){
+        return request({
+            url: `/api/program/getById/${programId}`,
+            method: 'get'
+        })
+    },
+
     // whether the user liked a specific program
     isProgramLiked(programId){
         return request({
