@@ -16,7 +16,7 @@ import java.util.*;
  * @Description:
  **/
 @Entity
-public class School {
+public class School implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,6 +50,7 @@ public class School {
     @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
 
+    @Column
     private String extraImages = "default/default.jpg;default/default.jpg;default/default.jpg";
 
     @Column
@@ -222,4 +223,12 @@ public class School {
     }
 
 
+    @Override
+    public School clone() {
+        try {
+            return (School) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

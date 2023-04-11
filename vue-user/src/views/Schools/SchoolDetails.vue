@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row g-5">
                     <!-- Product image area Start -->
-                    <div class="col-lg-7 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="product-tab-wrapper rbt-sticky-top-adjust">
                             <div class="pd-tab-inner">
                                 <div class="nav rn-pd-nav rn-pd-rt-content nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

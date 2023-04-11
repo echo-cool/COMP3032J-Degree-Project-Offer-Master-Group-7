@@ -222,7 +222,8 @@
                              class="col-xl-3 col-lg-4 col-md-6 col-12"
                              data-sal="slide-up"
                              data-sal-duration="800"
-                             data-sal-delay="150">
+                             data-sal-delay="150"
+                             style="transform: none;">
                             <blog-card :blog="blog"/>
                         </div>
                     </template>
