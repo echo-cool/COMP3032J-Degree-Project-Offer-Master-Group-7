@@ -65,23 +65,23 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("oath/echocool/redirection")
+    @GetMapping("oauth/echocool/redirection")
     public R getOAuthRedirectionURL(){
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String redirectUrl = "http://localhost:8080/api/auth/oauth/echocool/callback";
         String responseType = "code";
         String scope = "openid";
         // Return the OAuth server redirection URL
         return R.ok().data("url", authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope);
     }
-    @GetMapping("oath/echocool/callback")
+    @GetMapping("oauth/echocool/callback")
     public R getJWTfromOAuthToken(ServletRequest request) throws IOException {
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String redirectUrl = "http://localhost:8080/api/auth/oauth/echocool/callback";
         String responseType = "code";
         String scope = "openid";
         String token = request.getParameter("code");
