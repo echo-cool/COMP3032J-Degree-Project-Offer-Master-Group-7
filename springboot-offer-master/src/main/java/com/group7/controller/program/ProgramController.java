@@ -244,6 +244,15 @@ public class ProgramController {
         return R.ok().data("programs", allPrograms);
     }
 
+    @GetMapping("/public/getProgramById/{id}")
+    public R getProgramById(@PathVariable("id") long id){
+        Optional<Program> program = programRepository.findById(id);
+        if (program.isPresent()){
+            return R.ok().data("program", program.get());
+        }
+        return R.error();
+    }
+
 
 
 }
