@@ -38,6 +38,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuth
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @Author: WangYuyang
@@ -66,7 +68,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @GetMapping("oauth/echocool/redirection")
-    public R getOAuthRedirectionURL(){
+    public RedirectView getOAuthRedirectionURL(RedirectAttributes attributes){
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
@@ -74,7 +76,9 @@ public class AuthController {
         String responseType = "code";
         String scope = "openid";
         // Return the OAuth server redirection URL
-        return R.ok().data("url", authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope);
+        String url = authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope;
+        return new RedirectView(url, true, true, false);
+//        return R.ok().data("url", );
     }
     @GetMapping("oauth/echocool/callback")
     public R getJWTfromOAuthToken(ServletRequest request) throws IOException {
@@ -137,8 +141,11 @@ public class AuthController {
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
         String email = (String) json2.get("email");
-
+        System.out.println(email);
         User user = userRepository.findByEmail(email).orElse(null);
+        if (user != null)
+            user.setApplications(null);
+        System.out.println(user);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
