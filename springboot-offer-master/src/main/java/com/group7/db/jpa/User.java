@@ -192,6 +192,22 @@ public class User {
         this.applications = applications;
     }
 
+//    public User getMinimalUserObject(){
+//        User user = new User();
+//        user.setId(this.getId());
+//        user.setUsername(this.getUsername());
+//        user.setAvatar(this.getAvatar());
+//        user.setBio(this.getBio());
+//        user.setCreatedAt(this.getCreatedAt());
+//        user.setEmail(this.getEmail());
+//        user.setOpenId(this.getOpenId());
+//        user.setProfile(this.getProfile());
+//        user.setRoles(this.getRoles());
+////        user.setLikedPrograms(this.getLikedPrograms());
+////        user.setApplications(this.getApplications());
+//        return user;
+//    }
+
     @Override
     public String toString() {
         return "User{" +

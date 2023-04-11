@@ -278,6 +278,8 @@ public class AuthController {
                     .badRequest()
                     .body(R.error().message("Invalid token! User not found! You should login first."));
         }
+        user.setApplications(null);
+
 
         // return the user info
         return ResponseEntity.ok(R.ok().data("user", user));
