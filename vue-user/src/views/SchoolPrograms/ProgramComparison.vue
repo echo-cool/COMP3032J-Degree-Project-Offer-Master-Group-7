@@ -3,14 +3,14 @@
     <breadcrumb title="Program Comparison" current="Program Comparison"/>
     <div class="rn-product-area rn-section-gapTop">
             <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-8 custom-product-col">
-                        <program-card-plus :programId="idList[0]" v-if="idList[0]" @deleteSelf="deleteSelf"/>
-                         <program-card-plus :programId="idList[1]" v-if="idList[1]" @deleteSelf="deleteSelf"/>
+                <div class="row g-5"> 
+                    <div class="col-lg-4 custom-product-col">
+                        <program-card-plus :p="'l'" :programId="l" v-if="l" @deleteSelf="deleteSelf" />
+                         
                     </div>
-                    <!-- <div class="col-lg-4 custom-product-col">
-                       
-                    </div> -->
+                    <div class="col-lg-4 custom-product-col">
+                        <program-card-plus :p="'r'" :programId="r" v-if="r" @deleteSelf="deleteSelf" />
+                    </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt_md--20 mt_sm--15">
                             <!-- Notification area -->
@@ -77,7 +77,8 @@
         data() {
             return {
                 currentUser: {},
-                idList: [],
+                r: null,
+                l: null,
                 // schoolId: this.$route.params.id.split("X")[1],
                 // product: {},
                 // activeTabIndex: 0,
@@ -115,14 +116,17 @@
 
             // to fetch data again for updating showing
             reloadData(id){
-                this.idList.push(id)
-                this.idList = this.idList.slice(0,2)
-                console.log(this.idList)
+                if (this.l == null) this.l = id
+                else if (this.l != null && this.r == null){
+                    this.r = id
+                }
             },
 
-            deleteSelf(id){
-                console.log(id)
-                this.idList = this.idList.filter(item => {return item != id})
+            deleteSelf(t){
+                console.log(t)
+                if (t == 'l') this.l = null
+                else this.r = null
+                // this.idList = this.idList.filter(item => {return item != id})
             }
 
 
