@@ -5,8 +5,8 @@
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-8 custom-product-col">
-                        <program-card-plus :programId="idList[0]" v-if="idList[0]"/>
-                         <program-card-plus :programId="idList[1]" v-if="idList[1]"/>
+                        <program-card-plus :programId="idList[0]" v-if="idList[0]" @deleteSelf="deleteSelf"/>
+                         <program-card-plus :programId="idList[1]" v-if="idList[1]" @deleteSelf="deleteSelf"/>
                     </div>
                     <!-- <div class="col-lg-4 custom-product-col">
                        
@@ -119,6 +119,11 @@
                 this.idList = this.idList.slice(0,2)
                 console.log(this.idList)
             },
+
+            deleteSelf(id){
+                console.log(id)
+                this.idList = this.idList.filter(item => {return item != id})
+            }
 
 
         },

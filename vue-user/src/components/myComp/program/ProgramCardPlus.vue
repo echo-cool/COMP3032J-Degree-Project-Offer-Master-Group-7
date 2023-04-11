@@ -23,14 +23,9 @@
                                 <button type="button"
                                         class="btn-setting-text share-text"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#shareModal">
-                                    Share
-                                </button>
-                                <button type="button"
-                                        class="btn-setting-text report-text"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reportModal">
-                                    Report
+                                        data-bs-target="#shareModal"
+                                        @click="removeSelf(programId)">
+                                    delete
                                 </button>
                             </div>
                         </div>
@@ -50,7 +45,7 @@
         components: {Countdown},
         props: {
             programId: "",
-            
+        
             productStyleClass: {
                 type: String
             },
@@ -86,6 +81,9 @@
                     
                     console.log(this.program)
                 })
+            },
+            removeSelf(id){
+                this.$emit("deleteSelf", id)
             }
         },
         created(){
