@@ -136,9 +136,9 @@ public class AuthController {
         String body2 = response2.body().string();
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
-        String username = (String) json2.get("name");
+        String email = (String) json2.get("email");
 
-        User user = userRepository.findByUsername(username).orElse(null);
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
@@ -149,7 +149,7 @@ public class AuthController {
                 .data("response",body)
                 .data("access_token", access_token)
                 .data("userInfo", body2)
-                .data("username", username)
+                .data("username", email)
                 ;
     }
 
