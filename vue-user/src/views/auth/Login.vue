@@ -60,6 +60,7 @@
 
     import loginApi from "@/api/login"
     import cookie from "js-cookie"
+    import request from "@/utils/request";
 
     export default {
         name: 'Login',
@@ -75,7 +76,22 @@
         },
 
         created() {
+            const code = this.$route.query.code
+          console.log(code)
+            if (code) {
+                request({
+                    url: `/api/auth/oauth/echocool/callback?code=` + code,
+                    method: "get",
+                }).then(response => {
+                    const token = response['data']['jwt']
 
+                    cookie.set("user_token", token);
+                    console.log("user_token:" + token);
+                    // store user info into the cookie
+                    this.getUserInfo();
+
+                })
+            }
         },
 
         methods: {
@@ -114,7 +130,7 @@
                         // and store it into the cookie
                         this.currentUser = response.data.user;
                         cookie.set("current_user", JSON.stringify(this.currentUser));
-                        console.log("current_user:" +JSON.stringify(this.currentUser));
+
                         // redirect to the index page
                         window.location.href = "/edit-profile";
 
