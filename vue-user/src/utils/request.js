@@ -20,9 +20,7 @@ service.interceptors.request.use(
         // 在发送请求之前做些什么
 
         // check weather there is a token in the cookie
-        // console.log(cookie.get("user_token"))
         if(cookie.get("user_token")){
-            // console.log("Setting Authorization and token...")
             // put the token into the header of this request
             config.headers['Authorization'] = 'Bearer ' + cookie.get("user_token");
             config.headers['token'] = cookie.get("user_token");

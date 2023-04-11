@@ -244,7 +244,7 @@ public class ProgramController {
         return R.ok().data("programs", allPrograms);
     }
 
-    @GetMapping("/public/getProgramById/{id}")
+    @GetMapping("/public/getById/{id}")
     public R getProgramById(@PathVariable("id") long id){
         Optional<Program> program = programRepository.findById(id);
         if (program.isPresent()){
@@ -252,6 +252,7 @@ public class ProgramController {
         }
         return R.error();
     }
+
 
 
 

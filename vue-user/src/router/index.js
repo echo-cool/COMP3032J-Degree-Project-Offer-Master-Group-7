@@ -9,7 +9,7 @@ import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
 import ProgramDetails from "@/views/SchoolPrograms/ProgramDetails.vue";
 import SchoolDetailsTestMap from "@/views/Schools/SchoolDetailsTestMap.vue";
-
+import ProgramComparison from "@/views/SchoolPrograms/ProgramComparison"
 import About from '../views/About'
 import Explore from "@/views/Explore/Explore";
 import Community from "@/views/Community/Community";
@@ -87,6 +87,16 @@ const routes = [
     },
 
     // ------------------------------ school & program ------------------------------
+
+    {
+        path: '/program-comparison',
+        name: 'Program Comparison',
+        component: ProgramComparison,
+        meta: {
+            title: 'Program Comparison',
+        },
+    },
+
     {
         path: '/school-details/:id',
         name: 'SchoolDetails',
