@@ -57,7 +57,7 @@
                             </button>
                             <button class="another-login login-linkedin">
                                 <img class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
-                                <span>Log in with linkedin</span>
+                                <span>Log in with OAuth</span>
                             </button>
                         </div>
                     </div>

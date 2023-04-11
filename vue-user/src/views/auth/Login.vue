@@ -42,9 +42,9 @@
                                 <img class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
                                 <span>Log in with Twitter</span>
                             </button>
-                            <button class="another-login login-linkedin">
+                            <button v-on:click="loginByOAuth" class="another-login login-linkedin">
                                 <img class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
-                                <span>Log in with linkedin</span>
+                                <span>Log in with OAuth</span>
                             </button>
                         </div>
                     </div>
@@ -123,6 +123,10 @@
                         // notify user
                         window.alert(error.response.data.message);
                     })
+            },
+
+            loginByOAuth() {
+                window.location.href = "/backend/oauth/echocool/redirection"
             }
         }
 

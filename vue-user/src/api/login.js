@@ -17,5 +17,12 @@ export default{
             url: `/api/auth/getUserInfo`,
             method: "get"
         })
+    },
+
+    getOAuthRedirectionURL() {
+        return request({
+            url: `/oauth/echocool/redirection`,
+            method: "get"
+        })
     }
 }
