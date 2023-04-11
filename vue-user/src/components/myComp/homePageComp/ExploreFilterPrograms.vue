@@ -101,7 +101,7 @@
 <!--                            :show-place-bid="true"-->
 <!--                        />-->
                         <program-card :program="program"
-                                      :school="schoolsOfPrograms[index]"
+                                      :school="program.school"
                                       :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>
@@ -154,8 +154,7 @@
                     major: "all",
                     query: ""
                 },
-                programs: [],
-                schoolsOfPrograms: []
+                programs: []
             }
         },
         created() {
@@ -194,9 +193,6 @@
                     .then(response => {
                         // update the program list
                         this.programs = response.data.programs.content;
-                        // update the school list corresponding to the programs
-                        this.schoolsOfPrograms = response.data.schoolsOfPrograms.content;
-                        // this.$isLoading(false) // show loading screen
                     })
             },
 

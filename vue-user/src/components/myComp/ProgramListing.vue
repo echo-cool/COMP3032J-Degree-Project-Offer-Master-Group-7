@@ -25,7 +25,7 @@
 
             <!-- !!! we must load this component after loading all the schools !!! -->
             <!-- !!! Otherwise, the schools would be undefined !!! -->
-            <template v-if="schoolLoadNum === programs.length" v-for="(program, index) in programs"
+            <template v-if="programs.length !== 0" v-for="(program, index) in programs"
                       :key="`program-${index}`">
                 <program-list-card :program="program"
                                    :is-program-selected="isProgramSelected(program.id)"
@@ -82,21 +82,13 @@
                 ],
 
                 programs: [
-                    {
-                        id: "",
-                        name: "",
-                        school:{
-                            id: "",
-                            name: "",
-                            img: ""
-                        }
-                    }
+
                 ],
 
                 selectedPrograms: [],
                 selectedProgramIDs: [],
 
-                schoolLoadNum: 0    // number of schools finished loading
+                // schoolLoadNum: 0    // number of schools finished loading
 
             }
         },
@@ -132,19 +124,19 @@
                         this.programs = response.data.data;
 
                         // for each of the program, send request to get the school info
-                        for (let k in this.programs){
-                            // create the request url for the school of this program
-                            let schoolURL = `/rest/programs/${this.programs[k].id}/school`;
-
-                            // send request to update the school info of this program
-                            commonApi.getByRestURL(schoolURL)
-                                .then(response => { // response is the school
-                                    // update the school of this program
-                                    this.programs[k].school = response;
-                                    // update the number of finished loading schools
-                                    this.schoolLoadNum += 1;
-                                })
-                        }
+                        // for (let k in this.programs){
+                        //     // create the request url for the school of this program
+                        //     let schoolURL = `/rest/programs/${this.programs[k].id}/school`;
+                        //
+                        //     // send request to update the school info of this program
+                        //     commonApi.getByRestURL(schoolURL)
+                        //         .then(response => { // response is the school
+                        //             // update the school of this program
+                        //             this.programs[k].school = response;
+                        //             // update the number of finished loading schools
+                        //             this.schoolLoadNum += 1;
+                        //         })
+                        // }
                     })
             },
 

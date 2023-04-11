@@ -50,7 +50,7 @@ export default{
     // get user applications by id
     getApplicationsByUid(uid){
         return request({
-            url: `/rest/users/${uid}/applications`,
+            url: `/api/user/getApplicationsByUser/${uid}`,
             method: 'get'
         })
     },

@@ -473,4 +473,13 @@ public class UserController {
         Set<Program> likedPrograms = user.getLikedPrograms();
         return R.ok().data("likedPrograms", likedPrograms);
     }
+
+    @GetMapping("/getApplicationsByUser/{userId}")
+    public R getApplicationsByUser(@PathVariable("userId") long userId){
+        User user = userRepository.findById(userId).orElse(null);
+        assert user != null;
+        Set<Application> applications = user.getApplications();
+
+        return R.ok().data("applications", applications);
+    }
 }
