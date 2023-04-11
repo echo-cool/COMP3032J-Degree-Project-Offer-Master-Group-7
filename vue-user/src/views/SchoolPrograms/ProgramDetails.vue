@@ -10,9 +10,39 @@
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="product-tab-wrapper rbt-sticky-top-adjust">
                             <div class="pd-tab-inner">
+                                <div class="nav rn-pd-nav rn-pd-rt-content nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <button :class="[`nav-link`, {'active': index === activeTabIndex}]"
+                                            :id="`v-pills-${index}-tab`"
+                                            data-bs-toggle="pill"
+                                            :data-bs-target="`#v-pills-home-${index}`"
+                                            type="button"
+                                            role="tab"
+                                            :aria-controls="`v-pills-home-${index}`"
+                                            :aria-selected="index === activeTabIndex ? 'true' : 'false'"
+                                            v-for="(thumbnailSm, index) in product.extraImages"
+                                            :key="`small-thumbnail-${index}`">
+                                        <span class="rn-pd-sm-thumbnail">
+                                          <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                            <b-spinner label="Spinning" style="position: absolute; width: 30px; height: 30px; z-index: 0"></b-spinner>
+                                            <img style="position: relative; z-index: 4" width="164" height="164" :src="`/backend/static/`+thumbnailSm" alt="Nft_Profile">
+                                          </div>
+                                        </span>
+                                    </button>
+                                </div>
                                 <div class="tab-content rn-pd-content" id="v-pills-tabContent">
-                                    <div class="rn-pd-thumbnail">
-                                        <img :src="`/backend/static/`+product.img" alt="Nft_Profile">
+                                    <div :class="[`tab-pane fade`, {'show active': index === activeTabIndex}]"
+                                         :id="`v-pills-home-${index}`"
+                                         role="tabpanel"
+                                         :aria-labelledby="`v-pills-${index}-tab`"
+                                         v-for="(thumbnailLg, index) in product.extraImages"
+                                         :key="`large-thumbnail-${index}`">
+                                        <div class="rn-pd-thumbnail">
+                                            <div class="text-center" style="display: flex; justify-content: center; align-content: center; align-items: center">
+                                                <b-spinner label="Spinning" style="position: absolute; width: 40px; height: 40px; z-index: 0"></b-spinner>
+
+                                                <img style="min-height: 330px; position: relative; z-index: 4" :src="`/backend/static/`+thumbnailLg" alt="Nft_Profile">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

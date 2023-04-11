@@ -22,7 +22,7 @@
         <!-- We must use the application list in child component AFTER -->
         <!-- the list finishes loading in the Mixin -->
         <!-- Otherwise, the navbar would be unavailable -->
-        <div v-if="appListMixinLoadSchoolCount === applications.length" class="rn-notification-wrapper">
+        <div v-if="applications.length !== 0" class="rn-notification-wrapper">
             <div class="single-notice"
                  v-for="(application, index) in applications"
                  :key="`application-${index}`">
@@ -68,8 +68,7 @@
                 default: function () {
                     return [];
                 }
-            },
-            appListMixinLoadSchoolCount: 0
+            }
         },
         data() {
             return {

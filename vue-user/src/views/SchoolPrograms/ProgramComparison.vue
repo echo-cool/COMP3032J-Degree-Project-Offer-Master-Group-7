@@ -4,12 +4,13 @@
     <div class="rn-product-area rn-section-gapTop">
             <div class="container">
                 <div class="row g-5">
-                    <div class="col-lg-4 custom-product-col">
-                        <program-card-plus :program="idList[0]"/>
+                    <div class="col-lg-8 custom-product-col">
+                        <program-card-plus :programId="idList[0]" v-if="idList[0]"/>
+                         <program-card-plus :programId="idList[1]" v-if="idList[1]"/>
                     </div>
-                    <div class="col-lg-4 custom-product-col">
-                        <program-card-plus :program="idList[1]"/>
-                    </div>
+                    <!-- <div class="col-lg-4 custom-product-col">
+                       
+                    </div> -->
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt_md--20 mt_sm--15">
                             <!-- Notification area -->
@@ -21,8 +22,7 @@
                             <!-- End creators area -->
 
                             <!-- Start My Program List area -->
-                            <my-program-list-sidebar-plus :app-list-mixin-load-school-count="appListMixinLoadSchoolCount"
-                                                     :current-user="currentUser"
+                            <my-program-list-sidebar-plus :current-user="currentUser"
                                                      :applications="applications"
                                                      @reloadData="reloadData"/>
                             <!-- End My Program List area -->
@@ -54,7 +54,7 @@
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
     // import programSelectionApi from "@/api/programSelection";
     import cookie from "js-cookie";
-    import ProgramCardPlusVue from '../../components/myComp/program/ProgramCardPlus.vue';
+
     // import profileApi from "@/api/profile";
 
     export default {

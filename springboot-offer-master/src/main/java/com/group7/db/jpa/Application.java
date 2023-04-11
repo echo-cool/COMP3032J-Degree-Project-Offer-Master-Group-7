@@ -35,7 +35,6 @@ public class Application {
     private User user;
 
     @ManyToOne
-    @JsonBackReference
     private Program program;
 
     @Column(nullable = false)
@@ -85,7 +84,9 @@ public class Application {
     }
 
     public Program getProgram() {
-        return program;
+        Program newProgram = this.program.clone();
+        newProgram.setApplications(null);
+        return newProgram;
     }
 
     public void setProgram(Program program) {

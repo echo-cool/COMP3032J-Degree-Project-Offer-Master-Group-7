@@ -28,8 +28,7 @@
                             <!-- End creators area -->
 
                             <!-- Start My Program List area -->
-                            <my-program-list-sidebar :app-list-mixin-load-school-count="appListMixinLoadSchoolCount"
-                                                     :current-user="currentUser"
+                            <my-program-list-sidebar :current-user="currentUser"
                                                      :applications="applications"
                                                      @reloadData="reloadData"/>
                             <!-- End My Program List area -->

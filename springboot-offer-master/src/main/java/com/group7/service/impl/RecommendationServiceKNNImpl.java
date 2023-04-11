@@ -38,9 +38,11 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
         double maxTOEFL = 0;
         double minTOEFL = 0;
 
+        long before = System.currentTimeMillis();
+
         List<Profile> profiles = profileRepository.findAll();
 
-        if (profileRepository.findByRanking(0).size() != profiles.size() ){
+        if (profileRepository.findByRanking(0).size() != profiles.size() ) {
             List<Profile> profilesSortedByGpa = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getGpa() - o2.getGpa())).toList();
             List<Profile> profilesSortedByIELTS = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getTotalIELTS() - o2.getTotalIELTS())).toList();
             List<Profile> profilesSortedByTOEFL = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted(Comparator.comparingInt(Profile::getTotalTOEFL)).toList();
@@ -52,6 +54,12 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             maxTOEFL = profilesSortedByTOEFL.get(profilesSortedByGpa.size() - 1).getTotalTOEFL();
             minTOEFL = profilesSortedByTOEFL.get(0).getTotalTOEFL();
         }
+
+        long after = System.currentTimeMillis();
+
+        System.out.println("First:" + (after - before));
+
+        before = System.currentTimeMillis();
 
         List<Program> result = new ArrayList<>();
 
@@ -77,6 +85,12 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             }
         }
 
+        after = System.currentTimeMillis();
+
+        System.out.println("Second:" + (after - before));
+
+        before = System.currentTimeMillis();
+
         for (long programID: map.keySet()) {
             Program program = programRepository.findById(programID).orElse(null);
             ProgramInfo programInfo = new ProgramInfo(program);
@@ -87,6 +101,12 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             }
             programs.add(programInfo);
         }
+
+        after = System.currentTimeMillis();
+
+        System.out.println("Third:" + (after - before));
+
+        before = System.currentTimeMillis();
 
         for (ProgramInfo programInfo: programs) {
 
@@ -101,6 +121,12 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         }
 
+        after = System.currentTimeMillis();
+
+        System.out.println("Forth:" + (after - before));
+
+        before = System.currentTimeMillis();
+
         programScores.entrySet()
                 .stream().sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(x -> {
@@ -109,6 +135,10 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
                 });
 
         result.addAll(allPrograms);
+
+        after = System.currentTimeMillis();
+
+        System.out.println("Fifth:" + (after - before));
 
         return result;
 
