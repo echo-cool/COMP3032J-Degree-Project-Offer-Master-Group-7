@@ -126,7 +126,7 @@
             },
 
             loginByOAuth() {
-                window.location.href = "/backend/oauth/echocool/redirection"
+                window.location.href = "/backend/api/auth/oauth/echocool/redirection"
             }
         }
 
