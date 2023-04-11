@@ -65,7 +65,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("oath/echocool/redirection")
+    @GetMapping("oauth/echocool/redirection")
     public R getOAuthRedirectionURL(){
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
@@ -136,9 +136,9 @@ public class AuthController {
         String body2 = response2.body().string();
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
-        String username = (String) json2.get("name");
+        String email = (String) json2.get("email");
 
-        User user = userRepository.findByUsername(username).orElse(null);
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
