@@ -42,9 +42,9 @@
                                 <img class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
                                 <span>Log in with Twitter</span>
                             </button>
-                            <button class="another-login login-linkedin">
+                            <button v-on:click="loginByOAuth" class="another-login login-linkedin">
                                 <img class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
-                                <span>Log in with linkedin</span>
+                                <span>Log in with OAuth</span>
                             </button>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
 
         created() {
             const code = this.$route.query.code
-          console.log(code)
+            console.log(code)
             if (code) {
                 request({
                     url: `/api/auth/oauth/echocool/callback?code=` + code,
@@ -139,6 +139,10 @@
                         // notify user
                         window.alert(error.response.data.message);
                     })
+            },
+
+            loginByOAuth() {
+                window.location.href = "/backend/api/auth/oauth/echocool/redirection";
             }
         }
 
