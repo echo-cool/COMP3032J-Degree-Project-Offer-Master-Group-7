@@ -38,6 +38,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuth
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.group7.utils.common.R;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @Author: WangYuyang
@@ -65,23 +67,25 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("oath/echocool/redirection")
-    public R getOAuthRedirectionURL(){
+    @GetMapping("oauth/echocool/redirection")
+    public RedirectView getOAuthRedirectionURL(RedirectAttributes attributes){
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String redirectUrl = "http://localhost:3000/login";
         String responseType = "code";
         String scope = "openid";
         // Return the OAuth server redirection URL
-        return R.ok().data("url", authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope);
+        String url = authUrl + "?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=" + responseType + "&scope=" + scope;
+        return new RedirectView(url, true, true, false);
+//        return R.ok().data("url", );
     }
-    @GetMapping("oath/echocool/callback")
+    @GetMapping("oauth/echocool/callback")
     public R getJWTfromOAuthToken(ServletRequest request) throws IOException {
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oath/echocool/callback";
+        String redirectUrl = "http://localhost:3000/login";
         String responseType = "code";
         String scope = "openid";
         String token = request.getParameter("code");
@@ -136,9 +140,12 @@ public class AuthController {
         String body2 = response2.body().string();
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
-        String username = (String) json2.get("name");
-
-        User user = userRepository.findByUsername(username).orElse(null);
+        String email = (String) json2.get("email");
+        System.out.println(email);
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user != null)
+            user.setApplications(null);
+        System.out.println(user);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
@@ -149,7 +156,7 @@ public class AuthController {
                 .data("response",body)
                 .data("access_token", access_token)
                 .data("userInfo", body2)
-                .data("username", username)
+                .data("username", email)
                 ;
     }
 
