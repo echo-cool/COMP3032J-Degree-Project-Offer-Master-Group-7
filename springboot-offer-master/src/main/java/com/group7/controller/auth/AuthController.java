@@ -149,7 +149,7 @@ public class AuthController {
                 .data("response",body)
                 .data("access_token", access_token)
                 .data("userInfo", body2)
-                .data("username", username)
+                .data("username", email)
                 ;
     }
 
