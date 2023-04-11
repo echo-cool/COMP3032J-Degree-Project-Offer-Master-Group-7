@@ -137,8 +137,11 @@ public class AuthController {
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
         String email = (String) json2.get("email");
-
+        System.out.println(email);
         User user = userRepository.findByEmail(email).orElse(null);
+        if (user != null)
+            user.setApplications(null);
+        System.out.println(user);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
