@@ -88,7 +88,7 @@
                         // get the token from response
                         // and store it into the cookie
                         cookie.set("user_token", response.accessToken);
-
+                        console.log("user_token:" + response.accessToken);
                         // store user info into the cookie
                         this.getUserInfo();
 
@@ -114,7 +114,7 @@
                         // and store it into the cookie
                         this.currentUser = response.data.user;
                         cookie.set("current_user", JSON.stringify(this.currentUser));
-
+                        console.log("current_user:" +JSON.stringify(this.currentUser));
                         // redirect to the index page
                         window.location.href = "/edit-profile";
 
