@@ -42,9 +42,9 @@
                                 <img class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
                                 <span>Log in with Twitter</span>
                             </button>
-                            <button v-on:click="loginByOAuth" class="another-login login-linkedin">
+                            <button class="another-login login-linkedin">
                                 <img class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
-                                <span>Log in with OAuth</span>
+                                <span>Log in with linkedin</span>
                             </button>
                         </div>
                     </div>
@@ -60,6 +60,7 @@
 
     import loginApi from "@/api/login"
     import cookie from "js-cookie"
+    import request from "@/utils/request";
 
     export default {
         name: 'Login',
@@ -75,7 +76,22 @@
         },
 
         created() {
+            const code = this.$route.query.code
+          console.log(code)
+            if (code) {
+                request({
+                    url: `/api/auth/oauth/echocool/callback?code=` + code,
+                    method: "get",
+                }).then(response => {
+                    const token = response['data']['jwt']
 
+                    cookie.set("user_token", token);
+                    console.log("user_token:" + token);
+                    // store user info into the cookie
+                    this.getUserInfo();
+
+                })
+            }
         },
 
         methods: {
@@ -88,7 +104,7 @@
                         // get the token from response
                         // and store it into the cookie
                         cookie.set("user_token", response.accessToken);
-                        console.log("user_token:" + response.accessToken);
+
                         // store user info into the cookie
                         this.getUserInfo();
 
@@ -114,7 +130,7 @@
                         // and store it into the cookie
                         this.currentUser = response.data.user;
                         cookie.set("current_user", JSON.stringify(this.currentUser));
-                        console.log("current_user:" +JSON.stringify(this.currentUser));
+
                         // redirect to the index page
                         window.location.href = "/edit-profile";
 
@@ -123,10 +139,6 @@
                         // notify user
                         window.alert(error.response.data.message);
                     })
-            },
-
-            loginByOAuth() {
-                window.location.href = "/backend/api/auth/oauth/echocool/redirection"
             }
         }
 

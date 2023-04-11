@@ -72,7 +72,7 @@ public class AuthController {
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oauth/echocool/callback";
+        String redirectUrl = "http://localhost:3000/login";
         String responseType = "code";
         String scope = "openid";
         // Return the OAuth server redirection URL
@@ -85,7 +85,7 @@ public class AuthController {
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:8080/api/auth/oauth/echocool/callback";
+        String redirectUrl = "http://localhost:3000/login";
         String responseType = "code";
         String scope = "openid";
         String token = request.getParameter("code");
