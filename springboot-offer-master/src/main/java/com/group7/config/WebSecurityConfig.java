@@ -3,6 +3,7 @@ package com.group7.config;
 import com.group7.controller.auth.AuthEntryPointJwt;
 import com.group7.controller.user.UserDetailsServiceImpl;
 import com.group7.filters.AuthTokenFilter;
+import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,11 +30,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Description:
  **/
 @Configuration
-@EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
-        prePostEnabled = true)
+@EnableWebSecurity
 public class WebSecurityConfig {
+
+
 
     @Value("${spring.h2.console.path}")
     private String h2ConsolePath;
@@ -56,6 +59,8 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
+
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
@@ -65,6 +70,10 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web..requestMatchers("/login").and().;
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -80,6 +89,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/test/**").permitAll()
 //                .requestMatchers("/**").permitAll()
                 .requestMatchers("/admin/**").permitAll()
+                .requestMatchers("/login/**").permitAll()
                 .requestMatchers(h2ConsolePath + "/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/static/**").permitAll()
@@ -91,7 +101,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/rest/applications/**").permitAll()
                 .requestMatchers("/rest/programs/**").permitAll()
                 .requestMatchers("/rest/users/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and().oauth2Client().and().formLogin();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()
 

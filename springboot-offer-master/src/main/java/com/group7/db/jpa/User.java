@@ -1,7 +1,6 @@
 package com.group7.db.jpa;
 
 import com.fasterxml.jackson.annotation.*;
-import io.sentry.protocol.App;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -192,6 +191,22 @@ public class User {
     public void setApplications(Set<Application> applications) {
         this.applications = applications;
     }
+
+//    public User getMinimalUserObject(){
+//        User user = new User();
+//        user.setId(this.getId());
+//        user.setUsername(this.getUsername());
+//        user.setAvatar(this.getAvatar());
+//        user.setBio(this.getBio());
+//        user.setCreatedAt(this.getCreatedAt());
+//        user.setEmail(this.getEmail());
+//        user.setOpenId(this.getOpenId());
+//        user.setProfile(this.getProfile());
+//        user.setRoles(this.getRoles());
+////        user.setLikedPrograms(this.getLikedPrograms());
+////        user.setApplications(this.getApplications());
+//        return user;
+//    }
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
-@EnableAdminServer
+//@EnableAdminServer
 @MapperScan("com.group7.db.mappers")
 @ServletComponentScan(basePackages = "com.group7.filters")
 public class MainApplication {

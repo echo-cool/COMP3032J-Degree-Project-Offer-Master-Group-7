@@ -50,6 +50,7 @@ public class School implements Cloneable {
     @JsonManagedReference(value = "programs")
     private Set<Program> programs = new HashSet<>();
 
+    @Column
     private String extraImages = "default/default.jpg;default/default.jpg;default/default.jpg";
 
     @Column

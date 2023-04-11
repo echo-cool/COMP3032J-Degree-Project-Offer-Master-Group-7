@@ -176,19 +176,20 @@ class LoadDatabase {
         Set<Role> test3Roles = new HashSet<>();
         test3Roles.add(role3);
 
-        User user1 = new User("test1", "me1@echo.cool", encoder.encode("111"), test1Roles);
-        User user2 = new User("test2", "me2@echo.cool", encoder.encode("111"), test2Roles);
-        User user3 = new User("test3", "me3@echo.cool", encoder.encode("111"), test3Roles);
-        User user4 = new User("test4", "me4@echo.cool", encoder.encode("111"), test3Roles);
-        User user5 = new User("test5", "me5@echo.cool", encoder.encode("111"), test3Roles);
-        User user6 = new User("test6", "me6@echo.cool", encoder.encode("111"), test3Roles);
-        User user7 = new User("test7", "me7@echo.cool", encoder.encode("111"), test3Roles);
-        User user8 = new User("test8", "me8@echo.cool", encoder.encode("111"), test3Roles);
-        User user9 = new User("test9", "me9@echo.cool", encoder.encode("111"), test3Roles);
-        User user10 = new User("test10", "me10@echo.cool", encoder.encode("111"), test3Roles);
-        User user11 = new User("test11", "me11@echo.cool", encoder.encode("111"), test3Roles);
-        User user12 = new User("test12", "me12@echo.cool", encoder.encode("111"), test3Roles);
-        User user13 = new User("test13", "me13@echo.cool", encoder.encode("111"), test3Roles);
+        User user1 = new User("Yuyang Wang", "me1@echo.cool", encoder.encode("111"), test1Roles);
+        User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test2Roles);
+        User user3 = new User("Zhe Liu", "me3@echo.cool", encoder.encode("111"), test3Roles);
+        User user4 = new User("Zixiao Ma", "me4@echo.cool", encoder.encode("111"), test3Roles);
+        User user5 = new User("Liuxin Yang", "me5@echo.cool", encoder.encode("111"), test3Roles);
+        User user6 = new User("Zheyu Chen", "me6@echo.cool", encoder.encode("111"), test3Roles);
+        User user7 = new User("Zhuoyi Zhang", "me7@echo.cool", encoder.encode("111"), test3Roles);
+        User user8 = new User("Mingjia Zhang", "me8@echo.cool", encoder.encode("111"), test3Roles);
+        User user9 = new User("San Zhang", "me9@echo.cool", encoder.encode("111"), test3Roles);
+        User user10 = new User("Wu Wang", "me10@echo.cool", encoder.encode("111"), test3Roles);
+        User user11 = new User("Zhuo Song", "me11@echo.cool", encoder.encode("111"), test3Roles);
+        User user12 = new User("Ba Xue", "me12@echo.cool", encoder.encode("111"), test3Roles);
+        User user13 = new User("Ge Shan", "me13@echo.cool", encoder.encode("111"), test3Roles);
+        User user14 = new User("Jiaxin Wei", "me14@echo.cool", encoder.encode("111"), test3Roles);
 
         List<User> users = new ArrayList<>();
         users.add(user1);

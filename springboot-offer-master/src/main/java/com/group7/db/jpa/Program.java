@@ -52,6 +52,9 @@ public class Program implements Cloneable{
     @Column
     private String img = "default/default.jpg";
 
+    @Column
+    private String extraImages = "default/default.jpg;default/default.jpg;default/default.jpg";
+
     @OneToMany(mappedBy = "program")
     @JsonManagedReference(value = "program")
     private Set<Application> applications = new HashSet<>();
@@ -65,6 +68,7 @@ public class Program implements Cloneable{
         this.major = EMajor.CS;
         generateRandomLike();
         this.img = RandomSchoolImage.getRandomProgramImage();
+        this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
     }
 
     public Program(String name, School school) {
@@ -190,6 +194,24 @@ public class Program implements Cloneable{
         Program program = (Program) o;
         return id.equals(program.id);
     }
+
+    public ESource getSource() {
+        return source;
+    }
+
+    public void setSource(ESource source) {
+        this.source = source;
+    }
+
+    public String[] getExtraImages() {
+        return extraImages.split(";");
+    }
+
+    public void setExtraImages(String[] extraImages) {
+        this.extraImages = String.join(";", extraImages);
+    }
+
+
 
     @Override
     public String toString() {

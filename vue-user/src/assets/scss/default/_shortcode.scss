@@ -1,9 +1,9 @@
 /*==============================
  *  Utilities
 =================================*/
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-/* 
+/*
 font-family: 'Red Hat Display', sans-serif;
 */
 
@@ -38,7 +38,7 @@ iframe {
 }
 
 /*===============================
-    Background Color 
+    Background Color
 =================================*/
 
 @include config-bg-colors('bg-color-',
@@ -51,7 +51,7 @@ iframe {
         'extra03' var(--color-extra03));
 
 /*===========================
-Background Image 
+Background Image
 =============================*/
 .bg_image {
   background-repeat: no-repeat;
@@ -453,7 +453,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*=============================
-	Overlay styles 
+	Overlay styles
 ==============================*/
 
 [data-overlay],
@@ -509,7 +509,7 @@ textarea:-ms-input-placeholder {
 
 
 /*------------------------------
-    Scroll Up 
+    Scroll Up
 --------------------------------*/
 
 #scrollUp {
@@ -611,7 +611,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*--------------------
-    Contact Form 
+    Contact Form
 ----------------------*/
 .form-message {
   margin-bottom: 0;
