@@ -680,10 +680,10 @@
             <div class="container">
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
-                        <h3 class="title mb--0">Virtual Campus Tour</h3>
+                        <h3 class="title mb--0">Offer Timeline</h3>
                     </div>
                 </div>
-                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>
+
             </div>
         </div>
         <!-- Offer Timeline End -->
