@@ -101,13 +101,12 @@ public class WebSecurityConfig {
                 .requestMatchers("/rest/applications/**").permitAll()
                 .requestMatchers("/rest/programs/**").permitAll()
                 .requestMatchers("/rest/users/**").permitAll()
-                .anyRequest().authenticated().and().oauth2Client().and().formLogin();
+                .anyRequest().authenticated();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()
 
 //
 //                .requestMatchers("/secure/getUser").permitAll()
-
         // fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'
         http.headers().frameOptions().sameOrigin();
 
