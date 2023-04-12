@@ -1,5 +1,5 @@
 <template>
-    <div :class="[`lg-product-wrapper product-list-card`, {'colum-2 two-colum-parent-product col-lg-6': showTwoColumn}]">
+    <div :class="[ {'colum-2 two-colum-parent-product col-lg-12': true}]">
         <div class="inner">
             <div class="lg-left-content">
                 <router-link :to="`/program-details/${program.id}`" class="thumbnail">
@@ -45,7 +45,7 @@
         components: {Countdown},
         props: {
             programId: "",
-        
+            p: null,
             productStyleClass: {
                 type: String
             },
@@ -60,7 +60,8 @@
         },
         data() {
             return {
-                program: {}
+                program: {},
+                pp : ""
                 // schoolId: this.$route.params.id.split("X")[1],
                 // product: {},
                 // activeTabIndex: 0,
@@ -79,15 +80,18 @@
                      console.log(response.data.program)
                     this.program = response.data.program
                     
-                    console.log(this.program)
+                    // console.log(this.program)
                 })
             },
-            removeSelf(id){
-                this.$emit("deleteSelf", id)
+            removeSelf(){
+                console.log("pp: " + this.pp)
+                this.$emit("deleteSelf", this.pp)
             }
         },
         created(){
             this.getById(this.programId)
+            console.log(this.p)
+            this.pp = this.p
         }
     }
 </script>
