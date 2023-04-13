@@ -3,8 +3,8 @@
         <breadcrumb title="OfferMaster Login" current="OfferMaster Login"/>
 
         <div class="login-area rn-section-gapTop">
-            <div class="container">
-                <div class="row g-5">
+            <div class="container" >
+                <div class="row g-5" id="login-area-forms" v-if="code == null">
                     <div class=" offset-2 col-lg-4 col-md-6 ml_md--0 ml_sm--0 col-sm-12">
                         <div class="form-wrapper-one">
                             <h4>Login</h4>
@@ -49,6 +49,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="row g-5" id="login-area-forms" v-else>
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" style="zoom: 5">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-center">
+                    <h2>Authenticating...</h2>
+                    </div>
+                </div>
+
             </div>
         </div>
     </layout>
@@ -71,14 +83,17 @@
                     email: "",
                     password: ""
                 },
-                currentUser: {}
+                currentUser: {},
+                code: null
             }
         },
 
         created() {
             const code = this.$route.query.code
             console.log(code)
+            this.code = code;
             if (code) {
+
                 request({
                     url: `/api/auth/oauth/echocool/callback?code=` + code,
                     method: "get",
