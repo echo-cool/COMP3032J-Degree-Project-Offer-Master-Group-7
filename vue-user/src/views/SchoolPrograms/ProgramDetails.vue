@@ -670,7 +670,7 @@
                         <h3 class="title mb--0">Virtual Campus Tour</h3>
                     </div>
                 </div>
-                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>
+<!--                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>-->
             </div>
         </div>
         <!-- Virtual Campus Tour area End -->
@@ -683,7 +683,8 @@
                         <h3 class="title mb--0">Offer Timeline</h3>
                     </div>
                 </div>
-
+<!--                <offer-timeline-frame/>-->
+                <offer-timeline-frame-high-charts/>
             </div>
         </div>
         <!-- Offer Timeline End -->
@@ -754,9 +755,12 @@
     // import TopSchoolItem from "@/components/myComp/homePageComp/TopSchoolItem.vue";
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+    import OfferTimelineFrame from "@/components/myComp/OfferTimelineFrame.vue";
+    import OfferTimelineFrameHighCharts from "@/components/myComp/OfferTimelineFrameHighCharts.vue";
     import programSelectionApi from "@/api/programSelection";
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
+
 
     export default {
 
@@ -770,7 +774,9 @@
             ProductCard,
             Breadcrumb,
             Layout,
-            VirtualCampusTourFrame
+            VirtualCampusTourFrame,
+            OfferTimelineFrame,
+            OfferTimelineFrameHighCharts
         },
         mixins: [ProductMixin],
         data() {
@@ -802,8 +808,6 @@
               let that = this;
                 programApi.getAllPrograms().then(response => {
                     this.products = response['data']['programs']
-                    console.log(this.products)
-                    console.log(this.id + " 6666")
                     this.getProduct(this.id)
                 })
               request({
@@ -811,7 +815,6 @@
                 method: 'get'
               }).then(function (res){
                 let school = res.data.school;
-                console.log(school)
                 that.school = school;
                 // schoolApi.getById(school.id).then(response => {
                 //   this.school = response['data']['school']
@@ -903,6 +906,11 @@
                         // update the button
                         this.programSelected = !this.programSelected;
                     })
+            },
+
+            // load offer-timeline
+            loadOfferTimeline(){
+
             }
 
         },
@@ -910,6 +918,11 @@
             this.id = this.$route.params.id,
             this.getData();
             this.getPrograms();
+        },
+        mounted(){
+            // // for test
+            // console.log("----------------------here mounted");
+            // this.loadOfferTimeline();
         },
         watch: {
             '$route.params.id': function (val) {
