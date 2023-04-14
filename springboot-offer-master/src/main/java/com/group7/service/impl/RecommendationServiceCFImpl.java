@@ -3,9 +3,17 @@ package com.group7.service.impl;
 import com.group7.db.jpa.*;
 import com.group7.service.RecommendationServiceCF;
 import jakarta.annotation.Resource;
+import org.apache.mahout.cf.taste.impl.common.FastByIDMap;
+import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
+import org.apache.mahout.cf.taste.impl.model.GenericPreference;
+import org.apache.mahout.cf.taste.impl.model.GenericUserPreferenceArray;
+import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.model.Preference;
+import org.apache.mahout.cf.taste.model.PreferenceArray;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 @Service
 public class RecommendationServiceCFImpl implements RecommendationServiceCF {
@@ -32,6 +40,16 @@ public class RecommendationServiceCFImpl implements RecommendationServiceCF {
 
         return null;
     }
+
+//    private DataModel getDataModel(Map<Long, > listData){
+//        FastByIDMap<PreferenceArray> preferenceFastByIDMap = new FastByIDMap();
+//        PreferenceArray a = new GenericUserPreferenceArray();
+//        a.setUserID();
+//
+//        GenericDataModel dataModel = new GenericDataModel(preferenceFastByIDMap);
+//
+//
+//    }
 
     @Override
     public List<long[]> getData() {
