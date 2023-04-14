@@ -219,22 +219,22 @@ class LoadDatabase {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date ddl = sdf.parse(str);
 
-        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-        Application application5 = new Application(user1, program1_2, EStatus.ADMITTED, ddl, ERound.SPRING_2024, DateUtil.getRandomPastDate());
-        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
-
-
-        applicationRepository.save(application1);
-        applicationRepository.save(application2);
-        applicationRepository.save(application3);
-        applicationRepository.save(application4);
-        applicationRepository.save(application5);
-        applicationRepository.save(application6);
-        applicationRepository.save(application7);
+//        Application application1 = new Application(user1, program1, EStatus.REJECTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//        Application application2 = new Application(user1, program2, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//        Application application3 = new Application(user1, program3, EStatus.AWAITING_DECISION, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//        Application application4 = new Application(user1, program4, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//        Application application5 = new Application(user1, program1_2, EStatus.ADMITTED, ddl, ERound.SPRING_2024, DateUtil.getRandomPastDate());
+//        Application application6 = new Application(user1, program1_3, EStatus.AWAITING_REVIEW, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//        Application application7 = new Application(user2, program3, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+//
+//
+//        applicationRepository.save(application1);
+//        applicationRepository.save(application2);
+//        applicationRepository.save(application3);
+//        applicationRepository.save(application4);
+//        applicationRepository.save(application5);
+//        applicationRepository.save(application6);
+//        applicationRepository.save(application7);
 
 //        for (User user : users) {
 //            for (Program program: programs){
@@ -296,7 +296,7 @@ class LoadDatabase {
         try {
             ddl = sdf.parse(str);
             for (User user : users) {
-                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(5, 20));
+                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(3, 25));
                 System.out.println(user + ": " + programsUser);
                 for (Program p : programsUser) {
                     Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
