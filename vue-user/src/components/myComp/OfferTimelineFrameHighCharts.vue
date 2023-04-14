@@ -27,17 +27,25 @@
     export default {
         name: 'Offer-Timeline',
         props:{
-            dataAD: {
+            adCountThisYear: {
                 type: Array,
                 default: function () {
                     return new Array(52).fill(0);
                 }
             },
-            dataREJ: {
+            adCountLastYear: {
                 type: Array,
                 default: function () {
                     return new Array(52).fill(0);
                 }
+            },
+            programName: {
+                type: String,
+                default: ""
+            },
+            schoolName: {
+                type: String,
+                default: ""
             }
         },
         components: {
@@ -55,11 +63,11 @@
             this.loadChart();
         },
         watch: {
-            dataAD: function (newVal, oldVal) {
+            adCountThisYear: function (newVal, oldVal) {
                 this.loadChart();
             },
 
-            dataREJ: function (newVal, oldVal) {
+            adCountLastYear: function (newVal, oldVal) {
                 this.loadChart();
             },
         },
@@ -82,7 +90,7 @@
                     },
 
                     title: {
-                        text: 'Offer-Timeline of ',
+                        text: this.schoolName + " - " + this.programName,
                         align: 'left'
                     },
 
@@ -100,7 +108,7 @@
 
                     yAxis: {
                         title: {
-                            text: "Admission/Rejection Numbers"
+                            text: "Admission Numbers"
                         },
                     },
 
@@ -128,16 +136,16 @@
 
                     series: [
                         {
-                            name: 'Admissions',
+                            name: 'This Year',
                             lineWidth: 4,
                             marker: {
                                 radius: 4
                             },
-                            data: this.dataAD
+                            data: this.adCountThisYear
                         },
                         {
-                            name: 'Rejections',
-                            data: this.dataREJ
+                            name: 'Last Year',
+                            data: this.adCountLastYear
                         }
                     ]
                 });

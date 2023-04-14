@@ -282,15 +282,16 @@ public class ProgramController {
         // filter out the applications of last year
         List<Application> applicationsLastYear = applications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
 
-        // create the list of weekly admission count
-        long[] countLstThisYear = new long[52];
-        long[] countLstLastYear = new long[52];
+        // get the list of weekly admission count
+        long[] countLstThisYear = program.getCountLstThisYear();
+        long[] countLstLastYear = program.getCountLstLastYear();
+        // add real count to the baseline
         for (int i = 0; i < 52; i++){
             // the week num this index is representing
             int week = i + 1;
             // count the admissions in this week
-            countLstThisYear[i] = applicationsThisYear.stream().filter(a -> a.getReportWeekNum() == week).count();
-            countLstLastYear[i] = applicationsLastYear.stream().filter(a -> a.getReportWeekNum() == week).count();
+            countLstThisYear[i] += applicationsThisYear.stream().filter(a -> a.getReportWeekNum() == week).count();
+            countLstLastYear[i] += applicationsLastYear.stream().filter(a -> a.getReportWeekNum() == week).count();
         }
 
         return R.ok().data("countLstThisYear", countLstThisYear).data("countLstLastYear", countLstLastYear);

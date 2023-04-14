@@ -47,5 +47,13 @@ export default{
             url: `/api/program/is-program-liked/${programId}`,
             method: 'get'
         })
+    },
+
+    // for Offer-Timeline
+    getWeeklyAdmissionCountByProgramId(programId){
+        return request({
+            url: `/api/program/public/get-weekly-ad-count/${programId}`,
+            method: 'get'
+        })
     }
 }

@@ -8,10 +8,7 @@ import jakarta.persistence.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: WangYuyang
@@ -52,7 +49,6 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ERound eRound;
 
-
     public Application(User user, Program program) {
         this.user = user;
         this.program = program;
@@ -73,6 +69,7 @@ public class Application {
 
 
     public Application() {
+
     }
 
 

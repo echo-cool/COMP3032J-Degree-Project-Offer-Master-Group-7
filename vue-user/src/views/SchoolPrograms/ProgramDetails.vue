@@ -684,7 +684,11 @@
                     </div>
                 </div>
 <!--                <offer-timeline-frame/>-->
-                <offer-timeline-frame-high-charts :data-a-d="countLstAD" :data-r-e-j="countLstREJ" ref="childCompOfferTimeline"/>
+                <offer-timeline-frame-high-charts :ad-count-last-year="countLstLastYear"
+                                                  :ad-count-this-year="countLstThisYear"
+                                                  :program-name="this.product.name"
+                                                  :school-name="this.product.school.name"
+                                                  ref="childCompOfferTimeline"/>
             </div>
         </div>
         <!-- Offer Timeline End -->
@@ -793,8 +797,8 @@
                 selectedProgramIDs: [],
                 programSelected: false,
 
-                countLstAD: [], // a list of admission numbers each week (must be 52weeks(len) in total)
-                countLstREJ: [] // a list of rejection numbers each week (must be 52weeks(len) in total)
+                countLstThisYear: [], // a list of admission numbers each week (must be 52weeks(len) in total)
+                countLstLastYear: []
             }
         },
         methods: {
@@ -913,12 +917,15 @@
 
             // load data for offer-timeline
             // request the admission numbers each week to init countLstAD
-            getDataAD(){
-
-            },
-            // request the rejection numbers each week to init countLstREJ
-            getDataREJ(){
-
+            getWeeklyADCount(programId){
+                programApi.getWeeklyAdmissionCountByProgramId(programId)
+                    .then(response => {
+                        // for test
+                        console.log("=================================response: " + response.data.countLstThisYear);
+                        console.log("=================================response: " + response.data.countLstLastYear);
+                        this.countLstThisYear = response.data.countLstThisYear;
+                        this.countLstLastYear = response.data.countLstLastYear;
+                    })
             }
 
         },
@@ -926,6 +933,7 @@
             this.id = this.$route.params.id,
             this.getData();
             this.getPrograms();
+            this.getWeeklyADCount(this.id);
         },
         mounted(){
 

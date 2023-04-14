@@ -38,7 +38,7 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
     function (response) {
-        // console.log(response)
+        console.log(response)
         // 2xx 范围内的状态码都会触发该函数。
         // 对响应数据做点什么
         // dataAxios 是 axios 返回数据中的 data
