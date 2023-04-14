@@ -176,7 +176,7 @@ class LoadDatabase {
         Set<Role> test3Roles = new HashSet<>();
         test3Roles.add(role3);
 
-        User user1 = new User("Yuyang Wang", "me1@echo.cool", encoder.encode("111"), test1Roles);
+        User user1 = new User("Yuyang Wang", "me@echo.cool", encoder.encode("111"), test1Roles);
         User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test2Roles);
         User user3 = new User("Zhe Liu", "me3@echo.cool", encoder.encode("111"), test3Roles);
         User user4 = new User("Zixiao Ma", "me4@echo.cool", encoder.encode("111"), test3Roles);
@@ -236,6 +236,17 @@ class LoadDatabase {
         applicationRepository.save(application6);
         applicationRepository.save(application7);
 
+//        for (User user : users) {
+//            for (Program program: programs){
+//                if(MyRandomUtils.getRandomInt(0,10) > 7){
+//                    if (MyRandomUtils.getRandomInt(0,10) % 2 == 0){
+//                        applicationRepository.save(new Application(user, program, EStatus.REJECTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate()));
+//                    }else{
+//                        applicationRepository.save(new Application(user, program, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate()));
+//                    }
+//                }
+//            }
+//        }
         PostCategory postCategory1 = new PostCategory("Study");
         PostCategory postCategory2 = new PostCategory("Application");
 
@@ -257,7 +268,7 @@ class LoadDatabase {
 
 
         loadExternalSchoolData(schoolRepository, programRepository);
-        generateRandomApplication(users, programs);
+        generateRandomApplication(users, programRepository.findAll());
         return args -> log.warn("Preloaded database, completed.");
     }
 
@@ -285,7 +296,7 @@ class LoadDatabase {
         try {
             ddl = sdf.parse(str);
             for (User user : users) {
-                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(0, programs.size()));
+                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(5, 20));
                 System.out.println(user + ": " + programsUser);
                 for (Program p : programsUser) {
                     Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
