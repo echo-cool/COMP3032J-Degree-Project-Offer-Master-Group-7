@@ -30,4 +30,19 @@ public class DateUtil {
         return new Date(randomDate);
     }
 
+    public static Date getFirstDateOfYear(int year){
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.YEAR, year);
+        return calendar.getTime();
+    }
+
+    public static Date getLastDateOfYear(int year){
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.YEAR, year);
+        calendar.roll(Calendar.DAY_OF_YEAR, -1);
+        return calendar.getTime();
+    }
+
 }
