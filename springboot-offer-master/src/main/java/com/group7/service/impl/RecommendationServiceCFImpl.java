@@ -11,6 +11,7 @@ import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.CachingRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
+import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.model.Preference;
 import org.apache.mahout.cf.taste.model.PreferenceArray;
@@ -55,8 +56,8 @@ public class RecommendationServiceCFImpl implements RecommendationServiceCF {
         List<RecommendedItem> recommendations = null;
         try {
             DataModel model = this.getData();//构造数据模型
-            UserSimilarity similarity = new PearsonCorrelationSimilarity(model);//用PearsonCorrelation 算法计算用户相似度
-            UserNeighborhood neighborhood = new NearestNUserNeighborhood(3, similarity, model);//计算用户的“邻居”，这里将与该用户最近距离为 3 的用户设置为该用户的“邻居”。
+            UserSimilarity similarity = new TanimotoCoefficientSimilarity(model);//用PearsonCorrelation 算法计算用户相似度
+            UserNeighborhood neighborhood = new NearestNUserNeighborhood(5, similarity, model);//计算用户的“邻居”，这里将与该用户最近距离为 3 的用户设置为该用户的“邻居”。
             Recommender recommender = new CachingRecommender(new GenericUserBasedRecommender(model, neighborhood, similarity));//采用 CachingRecommender 为 RecommendationItem 进行缓存
             recommendations = recommender.recommend(userID, size);//得到推荐的结果，size是推荐结果的数目
         } catch (Exception e) {
