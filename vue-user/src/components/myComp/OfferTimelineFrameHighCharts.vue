@@ -83,7 +83,7 @@
                 if (this.chart) {
                     this.chart.destroy();
                 }
-                
+
                 // Init Highcharts offer-timeline
                 this.chart = new Highcharts.chart('chart',{
                     credits: {
@@ -91,6 +91,7 @@
                     },
 
                     chart: {
+                        type: "spline",
                         scrollablePlotArea: {
                             minWidth: 700
                         }
