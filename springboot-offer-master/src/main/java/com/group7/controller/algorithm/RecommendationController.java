@@ -10,7 +10,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class RecommendationController {
 
         User user = jwtUtils.getUserFromRequestByToken(request);
 
-        List<RecommendedItem> res = recommendationServiceCF.userBasedRecommender(user.getId(), 5);
+        List<Program> res = recommendationServiceCF.userBasedRecommender(user.getId(), 5);
         return ResponseEntity.ok(R.ok().data("data", res));
     }
 
