@@ -2,11 +2,13 @@ package com.group7.controller.algorithm;
 
 import com.group7.db.jpa.Program;
 import com.group7.db.jpa.User;
+import com.group7.service.RecommendationServiceCF;
 import com.group7.service.RecommendationServiceKNN;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +26,15 @@ public class RecommendationController {
     @Resource
     RecommendationServiceKNN recommendationServiceKNN;
 
+    @Resource
+    RecommendationServiceCF recommendationServiceCF;
+
     @RequestMapping("/similarity-calculation-cf")
     public ResponseEntity<?> similarityCalculationCF(HttpServletRequest request) {
 
-        Double res = 0d;
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        List<RecommendedItem> res = recommendationServiceCF.userBasedRecommender(user.getId(), 5);
         return ResponseEntity.ok(R.ok().data("data", res));
     }
 
