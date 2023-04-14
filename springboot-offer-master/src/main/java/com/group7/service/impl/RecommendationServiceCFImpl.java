@@ -42,8 +42,17 @@ public class RecommendationServiceCFImpl implements RecommendationServiceCF {
             result.add(new long[]{application.getUser().getId(), application.getProgram().getId(), 1});
         }
 
+        List<User> users = userRepository.findAll();
+        List<Program> programs = programRepository.findAll();
 
+        for (User user: users) {
+            for (Program program: programs) {
+                if (!applicationRepository.existsApplicationByUser_IdAndProgram_Id(user.getId(), program.getId())) {
+                    result.add(new long[]{user.getId(), program.getId(), 0});
+                }
+            }
+        }
 
-        return null;
+        return result;
     }
 }
