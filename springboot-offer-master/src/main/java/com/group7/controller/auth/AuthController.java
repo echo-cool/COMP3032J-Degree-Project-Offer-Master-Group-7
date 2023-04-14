@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -25,6 +26,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -67,12 +69,15 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Value("${oauth.echocool.redirectUrl}")
+    private String echocoolRedirectUrl;
+
     @GetMapping("oauth/echocool/redirection")
     public RedirectView getOAuthRedirectionURL(RedirectAttributes attributes){
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:3000/login";
+        String redirectUrl = echocoolRedirectUrl;
         String responseType = "code";
         String scope = "openid";
         // Return the OAuth server redirection URL
@@ -85,7 +90,7 @@ public class AuthController {
         String authUrl = "http://auth.echo.cool/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
-        String redirectUrl = "http://localhost:3000/login";
+        String redirectUrl = echocoolRedirectUrl;
         String responseType = "code";
         String scope = "openid";
         String token = request.getParameter("code");
@@ -141,6 +146,7 @@ public class AuthController {
         JSONObject json2 = new JSONObject(body2);
         System.out.println(json2);
         String email = (String) json2.get("email");
+        String name = (String) json2.get("name");
         System.out.println(email);
         User user = userRepository.findByEmail(email).orElse(null);
         if (user != null)
@@ -149,15 +155,23 @@ public class AuthController {
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }
+        else{
+            User tempUser = new User(name,
+                    email,
+                    encoder.encode(UUID.randomUUID().toString()));
+            userRepository.save(tempUser);
+            return R.ok().data("user", tempUser).data("jwt", jwtUtils.generateJWTfromUser(tempUser));
 
-        return R.error().message("NO USER FOUND")
-                .data("code", token)
-                .data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl)
-                .data("response",body)
-                .data("access_token", access_token)
-                .data("userInfo", body2)
-                .data("username", email)
-                ;
+        }
+
+//        return R.error().message("NO USER FOUND")
+//                .data("code", token)
+//                .data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl)
+//                .data("response",body)
+//                .data("access_token", access_token)
+//                .data("userInfo", body2)
+//                .data("username", email)
+//                ;
     }
 
     @PostMapping("/signin")

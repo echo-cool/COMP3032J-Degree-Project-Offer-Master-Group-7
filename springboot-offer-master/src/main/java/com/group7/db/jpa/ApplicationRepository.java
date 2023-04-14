@@ -21,4 +21,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long>,
 
     List<Application> findApplicationsByeStatus(EStatus status);
     List<Application> findApplicationByeStatusNot(EStatus status);
+    boolean existsApplicationByUser_IdAndProgram_Id(long userID, long programID);
 }
