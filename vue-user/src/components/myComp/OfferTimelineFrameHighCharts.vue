@@ -77,7 +77,7 @@
                 if (this.chart) {
                     this.chart.destroy();
                 }
-                // 初始化 Highcharts 图表
+                // Init Highcharts offer-timeline
                 this.chart = new Highcharts.chart('chart',{
                     credits: {
                         enabled: false
@@ -93,11 +93,6 @@
                         text: this.schoolName + " - " + this.programName,
                         align: 'left'
                     },
-
-                    // subtitle: {
-                    //     text: 'Source: Google Analytics',
-                    //     align: 'left'
-                    // },
 
                     xAxis: {
                         title: {
@@ -120,7 +115,8 @@
 
                     tooltip: {
                         shared: true,
-                        crosshairs: true
+                        crosshairs: true,
+                        headerFormat: '<span style="font-size: 10px">week-{point.key}</span><br/>'
                     },
 
                     plotOptions: {
