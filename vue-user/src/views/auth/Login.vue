@@ -30,21 +30,21 @@
                         <div class="social-share-media form-wrapper-one">
                             <h6>Another way to log in</h6>
                             <p>You can also login with the following ways.</p>
-                            <button class="another-login login-facebook">
-                                <img class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
-                                <span>Log in with Google</span>
+                            <button v-on:click="loginByOAuth" class="another-login login-facebook">
+                                <img v-on:click="loginByOAuth" class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
+                                <span v-on:click="loginByOAuth" >Log in with Google</span>
                             </button>
-                            <button class="another-login login-facebook">
-                                <img class="small-image" :src="require(`@/assets/images/icons/facebook.png`)" alt="">
-                                <span>Log in with Facebook</span>
+                            <button v-on:click="loginByOAuth" class="another-login login-facebook">
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/facebook.png`)" alt="">
+                                <span v-on:click="loginByOAuth" >Log in with Facebook</span>
                             </button>
-                            <button class="another-login login-twitter">
-                                <img class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
-                                <span>Log in with Twitter</span>
+                            <button v-on:click="loginByOAuth" class="another-login login-twitter">
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
+                                <span v-on:click="loginByOAuth" >Log in with Twitter</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-linkedin">
-                                <img class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
-                                <span>Log in with OAuth</span>
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
+                                <span v-on:click="loginByOAuth" >Log in with OAuth</span>
                             </button>
                         </div>
                     </div>
