@@ -684,7 +684,7 @@
                     </div>
                 </div>
 <!--                <offer-timeline-frame/>-->
-                <offer-timeline-frame-high-charts/>
+                <offer-timeline-frame-high-charts :data-a-d="countLstAD" :data-r-e-j="countLstREJ" ref="childCompOfferTimeline"/>
             </div>
         </div>
         <!-- Offer Timeline End -->
@@ -792,6 +792,9 @@
                 selectedPrograms: [],
                 selectedProgramIDs: [],
                 programSelected: false,
+
+                countLstAD: [], // a list of admission numbers each week (must be 52weeks(len) in total)
+                countLstREJ: [] // a list of rejection numbers each week (must be 52weeks(len) in total)
             }
         },
         methods: {
@@ -908,8 +911,13 @@
                     })
             },
 
-            // load offer-timeline
-            loadOfferTimeline(){
+            // load data for offer-timeline
+            // request the admission numbers each week to init countLstAD
+            getDataAD(){
+
+            },
+            // request the rejection numbers each week to init countLstREJ
+            getDataREJ(){
 
             }
 
@@ -920,9 +928,7 @@
             this.getPrograms();
         },
         mounted(){
-            // // for test
-            // console.log("----------------------here mounted");
-            // this.loadOfferTimeline();
+
         },
         watch: {
             '$route.params.id': function (val) {
