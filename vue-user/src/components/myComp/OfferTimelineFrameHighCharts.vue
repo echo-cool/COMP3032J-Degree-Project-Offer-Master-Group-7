@@ -74,9 +74,16 @@
         methods:{
 
             loadChart() {
+                // get year for labels
+                let date = new Date();
+                let year = date.getFullYear();
+                let lastYear = year - 1;
+
+                // clear the chart
                 if (this.chart) {
                     this.chart.destroy();
                 }
+                
                 // Init Highcharts offer-timeline
                 this.chart = new Highcharts.chart('chart',{
                     credits: {
@@ -132,7 +139,7 @@
 
                     series: [
                         {
-                            name: 'This Year',
+                            name: 'This Year (' + year + ')',
                             lineWidth: 4,
                             marker: {
                                 radius: 4
@@ -140,7 +147,7 @@
                             data: this.adCountThisYear
                         },
                         {
-                            name: 'Last Year',
+                            name: 'Last Year (' + lastYear + ')',
                             data: this.adCountLastYear
                         }
                     ]
