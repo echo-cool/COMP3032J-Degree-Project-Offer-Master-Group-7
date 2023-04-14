@@ -176,7 +176,7 @@ class LoadDatabase {
         Set<Role> test3Roles = new HashSet<>();
         test3Roles.add(role3);
 
-        User user1 = new User("Yuyang Wang", "me@echo.cool", encoder.encode("111"), test1Roles);
+        User user1 = new User("Yuyang Wang", "me1@echo.cool", encoder.encode("111"), test1Roles);
         User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test2Roles);
         User user3 = new User("Zhe Liu", "me3@echo.cool", encoder.encode("111"), test3Roles);
         User user4 = new User("Zixiao Ma", "me4@echo.cool", encoder.encode("111"), test3Roles);
