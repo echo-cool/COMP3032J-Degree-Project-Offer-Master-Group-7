@@ -22,10 +22,9 @@ services:
     networks:
       - offer_master_network
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
   certbot:
     image: certbot/certbot:latest
@@ -42,10 +41,9 @@ services:
       - offer_master_network
     restart: on-failure
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
   # springboot backend
   fyp_offer_master_springboot:
@@ -70,10 +68,9 @@ services:
       - offer_master_network
     restart: on-failure
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
 
   # user portal
@@ -90,10 +87,9 @@ services:
       - offer_master_network
     restart: on-failure
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
 
   # admin portal
@@ -110,10 +106,9 @@ services:
       - offer_master_network
     restart: on-failure
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
   fyp_offer_master_django_ml:
     image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
@@ -128,10 +123,9 @@ services:
       - offer_master_network
     restart: on-failure
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
 #  fyp_offer_master_minio:
 #    image: echocool/fyp_offer_master_minio
@@ -168,10 +162,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.fyp_offer_master/portainer/data:/data
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
 
   fyp_offer_master_db:
@@ -193,10 +186,9 @@ services:
     volumes:
       - ~/.fyp_offer_master/db:/var/lib/mysql
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -212,10 +204,9 @@ services:
     ports:
       - "8088:80"
     logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+        driver: "syslog"
+        options:
+          syslog-address: "tcp://node5.echo.cool:5555"
 
 
 networks:
