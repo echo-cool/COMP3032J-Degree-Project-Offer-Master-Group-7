@@ -24,7 +24,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
   certbot:
     image: certbot/certbot:latest
@@ -43,7 +43,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
   # springboot backend
   fyp_offer_master_springboot:
@@ -70,7 +70,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
 
   # user portal
@@ -89,7 +89,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
 
   # admin portal
@@ -108,7 +108,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
   fyp_offer_master_django_ml:
     image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
@@ -125,7 +125,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
 #  fyp_offer_master_minio:
 #    image: echocool/fyp_offer_master_minio
@@ -164,7 +164,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
 
   fyp_offer_master_db:
@@ -188,7 +188,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -206,7 +206,7 @@ services:
     logging:
         driver: "syslog"
         options:
-          syslog-address: "tcp://node5.echo.cool:5555"
+          syslog-address: "tcp://node5.echo.cool:5140"
 
 
 networks:
