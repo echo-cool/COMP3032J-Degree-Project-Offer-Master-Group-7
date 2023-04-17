@@ -24,7 +24,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   certbot:
@@ -44,7 +44,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   # springboot backend
@@ -72,7 +72,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -92,7 +92,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -112,7 +112,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_django_ml:
@@ -130,7 +130,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 #  fyp_offer_master_minio:
@@ -170,7 +170,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -195,7 +195,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_phpmyadmin:
@@ -214,7 +214,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "udp://node5.echo.cool:12201"
+        gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
