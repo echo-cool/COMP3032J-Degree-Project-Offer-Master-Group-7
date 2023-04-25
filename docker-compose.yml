@@ -50,13 +50,10 @@ services:
   fyp_offer_master_rasa:
     image: echocool/fyp_offer_master_rasa:${VERSION:-latest}
     container_name: fyp_offer_master_rasa
-    ports:
-      - "18888:18888"
-      - "18889:18889"
-      - "5005:5005"
+#    ports:
+#      - "5005:5005"
     expose:
-      - "18888"
-      - "18889"
+      - "5005"
     networks:
       - offer_master_network
     restart: on-failure

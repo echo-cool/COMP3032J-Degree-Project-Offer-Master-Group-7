@@ -25,4 +25,4 @@ USER 1001
 #CMD rasa run -p 18888 --enable-api --cors "*"
 # set entrypoint for interactive shells
 ENTRYPOINT ["rasa"]
-CMD ["run","-p","18888","-m","/app/models","--enable-api","--cors","*","--debug" ,"--endpoints", "endpoints.yml", "--log-file", "out.log", "--debug"]
+CMD ["run","-p","5005","-m","/app/models","--enable-api","--cors","*","--debug" ,"--endpoints", "endpoints.yml", "--log-file", "out.log", "--debug"]
