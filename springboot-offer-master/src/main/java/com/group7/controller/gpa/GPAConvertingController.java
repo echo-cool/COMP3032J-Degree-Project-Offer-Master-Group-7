@@ -117,4 +117,14 @@ public class GPAConvertingController {
 
         return R.ok();
     }
+
+    @RequestMapping("/download-gpa-report")
+    public R downloadGPAReport(HttpServletResponse response) {
+        // create the Excel of the converted GPA report
+
+        // download this Excel
+
+
+        return R.ok();
+    }
 }
