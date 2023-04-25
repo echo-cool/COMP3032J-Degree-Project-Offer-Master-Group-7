@@ -2,10 +2,7 @@ package com.group7.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.group7.db.jpa.Profile;
-import com.group7.db.jpa.ProfileRepository;
-import com.group7.db.jpa.User;
-import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.*;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.JwtUtils;
@@ -13,7 +10,9 @@ import com.group7.utils.handler.exception.Group7Exception;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author: LiuZhe
@@ -24,6 +23,9 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     // we have to get them from constructor
     // because Spring cannot control this class
     private ProfileRepository profileRepository;
+    private UserRepository userRepository;
+    private GradeRepository gradeRepository;
+
     private User user;
 
 
@@ -36,11 +38,17 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private Map<String, Double> convertMapUCD;
     private Map<Integer, Double> convertMapChina;
 
+    private Set<Grade> userGrades = new HashSet<>();  // for updating the Grade table in db
+
+
     public GradeDataListener() {};
-    public GradeDataListener(ProfileRepository profileRepository, User user){
+    public GradeDataListener(UserRepository userRepository, ProfileRepository profileRepository, GradeRepository gradeRepository, User user){
+        this.userRepository = userRepository;
         this.profileRepository = profileRepository;
+        this.gradeRepository = gradeRepository;
         this.user = user;
         initGradeConvertMap();
+        resetUserGrade(this.user);
     }
 
     /**
@@ -58,6 +66,11 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // update the total US grade points
         double gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
         this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
+
+        // create a new row of Grade table for this user
+        Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeData.getCredits(), gradePointUS);
+        this.userGrades.add(grade);
+        gradeRepository.save(grade);
     }
 
     /**
@@ -74,6 +87,10 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // update the GPA in the profile of this user
         profile.setGpa(convertedGPA);
         this.profileRepository.save(profile);
+
+        // store the grade rows into db
+        user.setGrades(userGrades);
+        this.userRepository.save(user);
 
         // for test
         System.out.println("Converted GPA: " + convertedGPA);
@@ -119,5 +136,9 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         convertMapDublin.put("E", 1.0);
         convertMapDublin.put("F", 0.0);
         this.convertMapUCD = convertMapDublin;
+    }
+
+    private void resetUserGrade(User user){
+        this.gradeRepository.deleteAllByUser(user);
     }
 }

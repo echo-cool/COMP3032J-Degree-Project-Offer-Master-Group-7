@@ -1,5 +1,6 @@
 package com.group7.controller.gpa;
 
+import com.group7.db.jpa.GradeRepository;
 import com.group7.db.jpa.ProfileRepository;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
@@ -38,6 +39,12 @@ public class GPAConvertingController {
     @Resource
     private ProfileRepository profileRepository;
 
+    @Resource
+    private UserRepository userRepository;
+
+    @Resource
+    private GradeRepository gradeRepository;
+
     @Resource JwtUtils jwtUtils;
 
     @PostMapping("gpa-convert-excel-upload")
@@ -61,7 +68,7 @@ public class GPAConvertingController {
 
         // convert the GPA using this file
         try{
-            gpaConvertingService.convertGPA(file, profileRepository, user);
+            gpaConvertingService.convertGPA(file, userRepository, profileRepository, gradeRepository, user);
         }catch (Group7Exception e){
             return R.error().message(e.getMsg());
         }

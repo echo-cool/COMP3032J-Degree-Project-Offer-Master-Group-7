@@ -9,4 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @Date: 2023/4/25 - 21:48
  */
 public interface GradeRepository extends JpaRepository<Grade, Long>, PagingAndSortingRepository<Grade, Long>, CrudRepository<Grade, Long> {
+
+    void deleteAllByUser(User user);
 }
