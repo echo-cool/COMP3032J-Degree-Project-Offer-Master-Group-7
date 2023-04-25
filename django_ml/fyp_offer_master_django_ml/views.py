@@ -37,7 +37,7 @@ def _rasa_chat(request):
             print(response.json())
             action = response.json()[0]['text']
             print(action)
-            time.sleep(0.8)
+            # time.sleep(0.8)
             if action in action_list.keys():
                 return action_list[action](request)
             return JsonResponse(response.json(), safe=False, json_dumps_params={'ensure_ascii': False})
@@ -45,7 +45,7 @@ def _rasa_chat(request):
             print(e)
             print("RASA NOT STARTED")
             data = [{
-                "recipient_id": request.user.username,
+                "recipient_id": 'Anonymous_' + request.get_host(),
                 "text": "RASA NOT STARTED!"
             }]
             return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
