@@ -32,6 +32,20 @@ public class GPAConvertingController {
 
     @PostMapping("gpa-convert-excel-upload")
     public R convertGPA(MultipartFile file){
+        // check file
+        if(file == null){
+            return R.error().message("The file cannot be empty!");
+        }
+
+        // check the file type (only xls and xlsx)
+        String filename = file.getOriginalFilename();
+        if (filename != null) {
+            // get the file extension
+            String extension = filename.substring(filename.lastIndexOf(".") + 1);
+            if (!(extension.equals("xls") || extension.equals("xlsx"))) {
+                return R.error().message("The file should be .xls or .xlsx only!");
+            }
+        }
 
         gpaConvertingService.convertGPA(file, gpaConvertingService);
 
