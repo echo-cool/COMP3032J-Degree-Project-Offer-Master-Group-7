@@ -25,14 +25,14 @@ def _rasa_chat(request):
         message = request.POST.get('message')
         message: str = str(message)
         print(message)
-        url = 'http://fyp_offer_master_rasa:18888/webhooks/rest/webhook'
+        url = 'http://fyp_offer_master_rasa:5005/webhooks/rest/webhook'
         data = {
             'sender': 'Anonymous_' + request.get_host(),
             'message': message
         }
         print(data)
         try:
-            response = requests.post(url, json=data, timeout=2)
+            response = requests.post(url, json=data, timeout=15)
             print(response.text)
             print(response.json())
             action = response.json()[0]['text']
@@ -46,7 +46,8 @@ def _rasa_chat(request):
             print("RASA NOT STARTED")
             data = [{
                 "recipient_id": 'Anonymous_' + request.get_host(),
-                "text": "RASA NOT STARTED!"
+                "text": "RASA NOT STARTED!",
+                "e": str(e)
             }]
             return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
     return JsonResponse([{
