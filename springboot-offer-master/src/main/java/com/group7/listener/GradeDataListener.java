@@ -3,6 +3,7 @@ package com.group7.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EGPAScale;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.JwtUtils;
@@ -25,9 +26,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private ProfileRepository profileRepository;
     private UserRepository userRepository;
     private GradeRepository gradeRepository;
-
     private User user;
-
 
 
     // grade point multiplied by the number of credit
@@ -36,19 +35,23 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
 
     // map the original grade to the US grade point
     private Map<String, Double> convertMapUCD;
-    private Map<Integer, Double> convertMapChina;
+    private  EGPAScale originalScale;
 
     private Set<Grade> userGrades = new HashSet<>();  // for updating the Grade table in db
 
 
     public GradeDataListener() {};
-    public GradeDataListener(UserRepository userRepository, ProfileRepository profileRepository, GradeRepository gradeRepository, User user){
+    public GradeDataListener(EGPAScale originalScale, UserRepository userRepository, ProfileRepository profileRepository, GradeRepository gradeRepository, User user){
+        this.originalScale = originalScale;
         this.userRepository = userRepository;
         this.profileRepository = profileRepository;
         this.gradeRepository = gradeRepository;
         this.user = user;
-        initGradeConvertMap();
         resetUserGrade(this.user);
+
+        if (originalScale == EGPAScale.UCD){
+            initGradeConvertMap();
+        }
     }
 
     /**
@@ -64,13 +67,21 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // update the total credits
         this.totalCredits += gradeData.getCredits();
         // update the total US grade points
-        double gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
+        double gradePointUS;
+        if (originalScale == EGPAScale.UCD){
+            // UCD 4.2
+            gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
+        }else{
+            // CHINA 0-100
+            gradePointUS = mapChinaScaleToUS(Double.parseDouble(gradeData.getGrade()));
+        }
         this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
 
         // create a new row of Grade table for this user
         Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeData.getCredits(), gradePointUS);
         this.userGrades.add(grade);
         gradeRepository.save(grade);
+
     }
 
     /**
@@ -103,7 +114,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
         // the correct header
         String headerCourseName = "Course Name";
-        String headerGrade = "Grade (A - F)";
+        String headerGrade = "Grade";
         String headerCredits = "Credits";
 
         // check the header and template
@@ -136,6 +147,20 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         convertMapDublin.put("E", 1.0);
         convertMapDublin.put("F", 0.0);
         this.convertMapUCD = convertMapDublin;
+    }
+
+    private double mapChinaScaleToUS(double grade){
+        if (grade >= 90){
+            return 4.0;
+        } else if (grade >= 80) {
+            return 3.0;
+        } else if (grade >= 70) {
+            return 2.0;
+        } else if (grade >= 60) {
+            return 1.0;
+        }else{
+            return 0.0;
+        }
     }
 
     private void resetUserGrade(User user){

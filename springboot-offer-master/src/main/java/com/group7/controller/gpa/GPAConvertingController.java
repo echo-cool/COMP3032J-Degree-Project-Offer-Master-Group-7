@@ -1,6 +1,7 @@
 package com.group7.controller.gpa;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EGPAScale;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
@@ -12,10 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -45,9 +43,14 @@ public class GPAConvertingController {
 
     @Resource JwtUtils jwtUtils;
 
-    @PostMapping("gpa-convert-excel-upload")
-    public R convertGPA(MultipartFile file, HttpServletRequest request){
+    @PostMapping("/gpa-convert-excel-upload")
+    public R convertGPA(MultipartFile file, HttpServletRequest request, @RequestParam(required = false) EGPAScale originalScale){
         User user = jwtUtils.getUserFromRequestByToken(request);
+
+        // check original scale
+        if (originalScale != EGPAScale.UCD && originalScale != EGPAScale.CHINA){
+            return R.error().message("Invalid original GPA scale!");
+        }
 
         // check file
         if(file == null){
@@ -66,7 +69,7 @@ public class GPAConvertingController {
 
         // convert the GPA using this file
         try{
-            gpaConvertingService.convertGPA(file, userRepository, profileRepository, gradeRepository, user);
+            gpaConvertingService.convertGPA(file, originalScale, userRepository, profileRepository, gradeRepository, user);
         }catch (Group7Exception e){
             return R.error().message(e.getMsg());
         }
