@@ -268,8 +268,8 @@ class LoadDatabase {
         articleRepository.save(article1);
         articleRepository.save(article2);
 
-        Chat chat1 = new Chat("Yuyang Wang", "Jinfeng Xu", "6661");
-        Chat chat2 = new Chat("Jinfeng Xu", "Yuyang Wang", "6662");
+        Chat chat1 = new Chat("Yuyang Wang", "Jinfeng Xu", "1", "2", "6661");
+        Chat chat2 = new Chat("Jinfeng Xu", "Yuyang Wang", "2", "1", "6662");
 
         chatRepository.save(chat1);
         chatRepository.save(chat2);

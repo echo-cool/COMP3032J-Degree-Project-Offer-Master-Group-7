@@ -21,7 +21,7 @@ public class ChatController {
         List<Chat> list2 = chatRepository.findAllBySender(name);
         list.addAll(list2);
         System.out.println("==========666");
-        System.out.println(name);
+        System.out.println(list);
         System.out.println("==========666");
         return R.ok().data("chatList", list);
     }

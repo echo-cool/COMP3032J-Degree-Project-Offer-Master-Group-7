@@ -28,13 +28,13 @@
         size="30%"
       >
         <!-- <el-table
-          :data="userList"
+          :data="chatList"
           border
           fit
           highlight-current-row>
-          <el-table-column prop="userId" label="userId" width="200"></el-table-column>
-          <el-table-column prop="username" label="username" width="100"></el-table-column>
-          <el-table-column prop="gmtCreate" label="time" width="200"></el-table-column>
+          <el-table-column prop="sender" label="sender" width="100"></el-table-column>
+          <el-table-column prop="receiver" label="receiver" width="100"></el-table-column>
+          <el-table-column prop="createdAt" label="time" width="200"></el-table-column>
             <el-table-column label="Operation" align="center">
               <template slot-scope="scope">
               <router-link :to="'/chat/container/'+scope.row.userId">
