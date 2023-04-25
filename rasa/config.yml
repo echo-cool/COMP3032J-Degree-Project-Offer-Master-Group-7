@@ -27,7 +27,7 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier          #意图分类
-    epochs: 300
+    epochs: 100
 #    - name: LogisticRegressionClassifier
 #      max_iter: 200
 #      solver: lbfgs
@@ -37,7 +37,7 @@ pipeline:
   - name: EntitySynonymMapper     #同义实体
   - name: ResponseSelector
     constrain_similarities: True
-    epochs: 300
+    epochs: 100
 
 #pipeline:
 ## # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
