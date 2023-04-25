@@ -2,7 +2,7 @@ FROM rasa/rasa:3.5.5-full
 # Set the working directory to /app
 WORKDIR /app
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY --chown=1001 . /app
 
 # Install any needed packages specified in requirements.txt
 #RUN apt update
@@ -11,8 +11,7 @@ COPY . /app
 
 RUN rm -rf models
 RUN rm -rf .rasa
-# Change mode to 777
-RUN chmod 777 -R /app
+
 RUN rasa train
 
 EXPOSE 18888
