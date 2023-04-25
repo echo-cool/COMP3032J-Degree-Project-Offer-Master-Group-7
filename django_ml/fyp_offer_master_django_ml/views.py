@@ -1,6 +1,7 @@
 import time
 
 import requests
+from asgiref.sync import sync_to_async
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -54,7 +55,9 @@ def _rasa_chat(request):
                 "text": "RASA NOT STARTED!"
             }]
             return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
-    return "Please send a POST request"
+    return JsonResponse([{
+        "error": "Please send a POST request"
+    }], safe=False, json_dumps_params={'ensure_ascii': False})
 
 
 rasa_chat = sync_to_async(_rasa_chat)
