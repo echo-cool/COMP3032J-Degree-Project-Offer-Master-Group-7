@@ -6,3 +6,10 @@ export function getRecommendedProgramsByKNN() {
         method: 'get'
     })
 }
+
+export function getRecommendedProgramsByCF() {
+    return request({
+        url: `/api/recommendation/program-recommendation-cf`,
+        method: 'get'
+    })
+}

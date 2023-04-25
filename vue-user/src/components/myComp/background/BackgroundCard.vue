@@ -9,7 +9,7 @@
                 <h1 class="title">{{ cardTitle }}</h1>
                 <p class="mb--30">
                     <span class="mr--50"><strong>GPA: </strong>{{ background.gpa }}</span>
-                    <span class="mr--50"><strong>Rank: </strong>{{ background.rank }}</span>
+                    <span class="mr--50"><strong>Rank: </strong>{{ background.ranking }}</span>
                 </p>
                 <p class="mb--30">
                     <span class="mr--50"><strong>Undergraduate School Level: </strong>{{ background.underGradSchoolCate }}</span>

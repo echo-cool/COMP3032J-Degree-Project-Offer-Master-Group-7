@@ -37,6 +37,8 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
         double minIELTS = 0;
         double maxTOEFL = 0;
         double minTOEFL = 0;
+        double maxRank = 0;
+        double minRank = 0;
 
         long before = System.currentTimeMillis();
 
@@ -46,6 +48,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             List<Profile> profilesSortedByGpa = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getGpa() - o2.getGpa())).toList();
             List<Profile> profilesSortedByIELTS = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted((o1, o2) -> (int) (o1.getTotalIELTS() - o2.getTotalIELTS())).toList();
             List<Profile> profilesSortedByTOEFL = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted(Comparator.comparingInt(Profile::getTotalTOEFL)).toList();
+            List<Profile> profilesSortedByRank = profiles.stream().filter(filter -> filter.getRanking() != 0).sorted(Comparator.comparingInt(Profile::getRanking)).toList();
 
             maxGpa = profilesSortedByGpa.get(profilesSortedByGpa.size() - 1).getGpa();
             minGpa = profilesSortedByGpa.get(0).getGpa();
@@ -53,6 +56,8 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             minIELTS = profilesSortedByIELTS.get(0).getTotalIELTS();
             maxTOEFL = profilesSortedByTOEFL.get(profilesSortedByGpa.size() - 1).getTotalTOEFL();
             minTOEFL = profilesSortedByTOEFL.get(0).getTotalTOEFL();
+            maxRank = profilesSortedByRank.get(profilesSortedByRank.size() - 1).getRanking();
+            minRank = profilesSortedByRank.get(0).getRanking();
         }
 
         long after = System.currentTimeMillis();
@@ -73,6 +78,11 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
                 map.get(application.getProgram().getId()).get("toefl")[0] += application.getUser().getProfile().getTotalTOEFL();
                 map.get(application.getProgram().getId()).get("toefl")[1] += 1;
+
+                map.get(application.getProgram().getId()).get("rank")[0] += application.getUser().getProfile().getRanking();
+                map.get(application.getProgram().getId()).get("rank")[1] += 1;
+
+
             }
             else {
                 Map<String, double[]> temp = new HashMap<>();
@@ -80,6 +90,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
                 temp.put("gpa", new double[]{application.getUser().getProfile().getGpa(), 1});
                 temp.put("ielts", new double[]{application.getUser().getProfile().getTotalIELTS(), 1});
                 temp.put("toefl", new double[]{application.getUser().getProfile().getTotalTOEFL(), 1});
+                temp.put("rank", new double[]{application.getUser().getProfile().getRanking(), 1});
 
                 map.put(application.getProgram().getId(), temp);
             }
@@ -114,6 +125,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
             score += Math.pow(((profile.getGpa() - minGpa) / (maxGpa - minGpa)) - ((programInfo.getAvgGPA() - minGpa) / (maxGpa - minGpa)), 2);
             score += Math.pow(((profile.getTotalIELTS() - minIELTS) / (maxIELTS - minIELTS)) - ((programInfo.getAvgIELTS() - minIELTS) / (maxIELTS - minIELTS)), 2);
             score += Math.pow(((profile.getTotalTOEFL() - minTOEFL) / (maxTOEFL - minTOEFL)) - ((programInfo.getAvgTOEFL() - minTOEFL) / (maxTOEFL - minTOEFL)), 2);
+            score += Math.pow(((profile.getRanking() - minRank) / (maxRank - minRank)) - ((programInfo.getAvgRank() - minRank) / (maxRank - minRank)), 2);
 
             score = Math.pow(score, 0.5);
 
@@ -131,10 +143,10 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
                 .stream().sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(x -> {
                     result.add(x.getKey());
-                    allPrograms.removeIf(filter -> Objects.equals(filter.getId(), x.getKey().getId()));
+//                    allPrograms.removeIf(filter -> Objects.equals(filter.getId(), x.getKey().getId()));
                 });
 
-        result.addAll(allPrograms);
+//        result.addAll(allPrograms);
 
         after = System.currentTimeMillis();
 

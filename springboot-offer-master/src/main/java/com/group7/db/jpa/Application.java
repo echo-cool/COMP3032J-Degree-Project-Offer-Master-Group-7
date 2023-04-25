@@ -140,7 +140,9 @@ public class Application {
         // 设置星期一为一周开始的第一天
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         // get the millisecond of the report time
-        calendar.setTimeInMillis(this.reportedTime.getTime());
+        if (this.reportedTime != null){
+            calendar.setTimeInMillis(this.reportedTime.getTime());
+        }
         // 获得当前日期属于今年的第几周
         int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
         return weekOfYear;

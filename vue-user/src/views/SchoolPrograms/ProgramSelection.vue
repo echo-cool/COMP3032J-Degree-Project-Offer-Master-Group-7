@@ -12,6 +12,11 @@
                         <!-- Background Card End -->
 
 
+                        <explore-live-carousel :current-user="currentUser"
+                                               @reloadData="reloadData"
+                                               ref="childCarouselProgram"
+                                              />
+
 <!--                        <explore-list-style/>-->
                         <program-listing :current-user="currentUser"
                                          @reloadData="reloadData"
@@ -65,6 +70,8 @@
     import commonApi from "@/api/common";
     import OfferMasterGuide from "@/components/myComp/homePageComp/OfferMasterGuide";
     import BackgroundCard from "@/components/myComp/background/BackgroundCard.vue";
+    import ExploreLive from "@/components/explore/ExploreLive";
+    import ExploreLiveCarousel from "@/components/explore/ExploreLiveCarousel";
 
     export default {
         name: 'ExploreNine',
@@ -75,6 +82,7 @@
         },
         mixins: [applicationListMixin, OfferMasterGuide],
         components: {
+            ExploreLiveCarousel,
             ReportModal,
             ShareModal,
             ExploreListStyle,
@@ -103,9 +111,11 @@
             if (cookie.get("current_user")){
                 // load data for the child program-listing component
                 // fetch data of programs
-                this.$refs.childCompProgramListing.getPrograms();
+                this.$refs.childCompProgramListing.getProgramsKNN();
                 // fetch data of user selected programs
                 this.$refs.childCompProgramListing.getUserSelectedPrograms();
+                this.$refs.childCarouselProgram.getPrograms();
+                this.$refs.childCarouselProgram.getUserSelectedPrograms();
             }
         },
         methods: {
@@ -137,6 +147,7 @@
                 this.getCurrentUser();
                 // update the user selected programs (for the left listing part)
                 this.$refs.childCompProgramListing.getUserSelectedPrograms();
+                this.$refs.childCarouselProgram.getUserSelectedPrograms();
             },
 
             getBackground() {
