@@ -1,0 +1,28 @@
+version: "3.1"
+
+nlu:
+- intent: ask_popular_instrument
+  examples: |
+    - popular instruments
+    - most popular instrument
+    - what's your most popular instrument
+    - what's your favorite instrument
+    - tell me your favorite instrument
+    - tell me the most popular instrument
+
+- intent: ask_order_number
+  examples: |
+    - how many orders have I made
+    - tell me the number of orders
+    - tell me the number of orders I have
+    - tell me the number of orders I have made
+    - quantity of orders I have
+    - quantity of orders I have made
+
+- intent: show_recent_orders
+  examples: |
+    - show me my recent orders
+    - my recent orders
+    - my recent orders list
+    - show me my recent orders list
+    - what did I order
