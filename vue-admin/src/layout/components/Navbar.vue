@@ -27,22 +27,23 @@
         :with-header="false"
         size="30%"
       >
-        <!-- <el-table
+        <el-table
           :data="chatList"
           border
           fit
-          highlight-current-row>
-          <el-table-column prop="sender" label="sender" width="100"></el-table-column>
-          <el-table-column prop="receiver" label="receiver" width="100"></el-table-column>
-          <el-table-column prop="createdAt" label="time" width="200"></el-table-column>
-            <el-table-column label="Operation" align="center">
-              <template slot-scope="scope">
-              <router-link :to="'/chat/container/'+scope.row.userId">
-                  <el-button type="primary" size="mini" icon="el-icon-edit">{{ $t('button.Chat') }}</el-button>
+          highlight-current-row
+        >
+          <el-table-column prop="sender" label="sender" width="100" />
+          <el-table-column prop="receiver" label="receiver" width="100" />
+          <el-table-column prop="createdAt" label="time" width="200" />
+          <el-table-column label="Operation" align="center">
+            <template slot-scope="scope">
+              <router-link :to="'/chat/container/'+scope.row.id">
+                <el-button type="primary" size="mini" icon="el-icon-edit">{{ $t('button.Chat') }}</el-button>
               </router-link>
-              </template>
+            </template>
           </el-table-column>
-        </el-table> -->
+        </el-table>
       </el-drawer>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -128,6 +129,7 @@ export default {
       console.log(this.username)
       getRelativeChat(this.username).then(response => {
         this.chatList = response.data.chatList
+        console.log(this.chatList)
         this.drawer = true
       })
     }
