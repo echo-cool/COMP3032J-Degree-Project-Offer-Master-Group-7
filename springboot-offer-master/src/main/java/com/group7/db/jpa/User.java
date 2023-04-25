@@ -76,6 +76,9 @@ public class User {
     @JsonManagedReference(value = "applications")
     private Set<Application> applications = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "grades")
+    private Set<Grade> grades = new HashSet<>();
 
 
 
@@ -192,7 +195,15 @@ public class User {
         this.applications = applications;
     }
 
-//    public User getMinimalUserObject(){
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
+    }
+
+    //    public User getMinimalUserObject(){
 //        User user = new User();
 //        user.setId(this.getId());
 //        user.setUsername(this.getUsername());
