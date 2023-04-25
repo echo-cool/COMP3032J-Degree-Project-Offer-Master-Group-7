@@ -1,5 +1,7 @@
 package com.group7.service.impl;
 
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.listener.GradeDataListener;
@@ -23,6 +25,16 @@ public class GPAConvertingServiceImpl implements GPAConvertingService {
         try {
             // read in the Excel data
             InputStream fis = file.getInputStream();
+
+            // check the empty template uploading
+            ExcelReader reader = ExcelUtil.getReader(fis, 0);
+            int rowCount = reader.getRowCount();
+            if (rowCount <= 1) {
+                throw new Group7Exception(20001, "An empty template is uploaded! Please fill in the template before uploading.");
+            }
+
+            // need to get stream again, otherwise there is an exception
+            fis = file.getInputStream();
             // read data row by row
             EasyExcel.read(fis, GradeData.class, new GradeDataListener(gpaConvertingService)).sheet().doRead();
         } catch (IOException e) {

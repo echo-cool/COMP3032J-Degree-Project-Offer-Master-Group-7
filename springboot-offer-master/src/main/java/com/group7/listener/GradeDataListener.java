@@ -17,7 +17,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private GPAConvertingService gpaConvertingService;
 
     // grade point multiplied by the number of credit
-    private float totalUSGradePoint;
+    private float totalUSGradePoint = 0;
 
     public GradeDataListener() {};
     public GradeDataListener(GPAConvertingService gpaConvertingService){
