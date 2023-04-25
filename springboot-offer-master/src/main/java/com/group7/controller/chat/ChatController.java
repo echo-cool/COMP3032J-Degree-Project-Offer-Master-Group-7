@@ -20,10 +20,22 @@ public class ChatController {
         List<Chat> list = chatRepository.findAllByReceiver(name);
         List<Chat> list2 = chatRepository.findAllBySender(name);
         list.addAll(list2);
+//        System.out.println("==========666");
+//        System.out.println(list);
+//        System.out.println("==========666");
+        return R.ok().data("chatList", list);
+    }
+
+    @PostMapping("getChatInfo/{id}")
+    public R getChatInfo(@PathVariable("id") Long id){
+        Chat chat = chatRepository.getOne(id);
+        List<Chat> list = chatRepository.findAllBySenderIdAndReceiverId(chat.getSenderId(), chat.getReceiverId());
         System.out.println("==========666");
         System.out.println(list);
         System.out.println("==========666");
-        return R.ok().data("chatList", list);
+        return R.ok().data("list", list);
     }
+
+
 
 }

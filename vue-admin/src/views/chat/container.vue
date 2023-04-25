@@ -81,11 +81,13 @@
   </div>
 </template>
 <script>
-import { getPugeUserInfo } from '@/utils/auth'
-import chat from '@/api/chat'
+import { getChatInfo, sendChat } from '@/api/chat'
 import Tinymce from '@/components/Tinymce'
 
+import { mapGetters } from 'vuex'
+
 export default {
+  name: 'Container',
   components: { Tinymce },
   data() {
     return {
@@ -94,10 +96,19 @@ export default {
       userInfo: {},
       vHeight: 10,
       content: '',
+      id: '',
       txt1: true, // 回到顶部
       txt2: true // 回到底部
       // up: ""
     }
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar',
+      'avatar',
+      'device',
+      'name'
+    ])
   },
   watch: {
     // 监听
@@ -111,9 +122,9 @@ export default {
   },
   mounted() {
     // 页面渲染之后执行
-    this.timer1 = setInterval(() => {
-      this.getChatInfo()
-    }, 3000)
+    // this.timer1 = setInterval(() => {
+    //   this.getChatInfo()
+    // }, 3000)
   },
   beforeDestroy() {
     clearInterval(this.timer1)
@@ -127,7 +138,7 @@ export default {
       }
       // console.log(Obj)
 
-      chat.sendChat(Obj).then((response) => {
+      sendChat(Obj).then((response) => {
         // console.log(222)
         this.init()
         this.$refs.content.setContent('')
@@ -135,29 +146,28 @@ export default {
     },
     init() {
       this.content = ''
-      const id = this.$route.params.id
-      var userInfo = getPugeUserInfo()
-      if (userInfo) {
-        userInfo = JSON.parse(userInfo)
-        this.staffInfo = userInfo
-      }
-      chat.getUserInfo(id).then((response) => {
-        this.userInfo = response.data.user
-        this.getChatInfo()
-      })
+      this.id = this.$route.params.id
+      // var userInfo = getPugeUserInfo()
+      // if (userInfo) {
+      //   userInfo = JSON.parse(userInfo)
+      //   this.staffInfo = userInfo
+      // }
+      // chat.getUserInfo(id).then((response) => {
+      //   this.userInfo = response.data.user
+      this.getChatInfo()
+      // // })
     },
 
     getChatInfo() {
       // 调用根据id查询的方法
       // console.log('222')
-      chat.getChatInfo(this.staffInfo.id, this.userInfo.id).then((response) => {
-        console.log(response)
-        this.recordContent = response.data.list
-        console.log('refreshing')
-        // console.log(this.userInfo.id)
-        // console.log(this.staffInfo.id)
-      })
       // console.log(this.userInfo
+      getChatInfo(this.id)
+        .then(response => {
+          console.log(response)
+          this.recordContent = response.data.list
+          console.log('refreshing')
+        })
     },
     // 鼠标移入加入class
     changeActive(/* $event */) {

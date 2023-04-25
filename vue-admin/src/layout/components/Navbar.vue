@@ -33,13 +33,13 @@
           fit
           highlight-current-row
         >
-          <el-table-column prop="sender" label="sender" width="100" />
-          <el-table-column prop="receiver" label="receiver" width="100" />
-          <el-table-column prop="createdAt" label="time" width="200" />
+          <el-table-column prop="sender" label="sender" width="120" />
+          <el-table-column prop="receiver" label="receiver" width="120" />
+          <el-table-column prop="createdAt" label="time" width="100" />
           <el-table-column label="Operation" align="center">
             <template slot-scope="scope">
               <router-link :to="'/chat/container/'+scope.row.id">
-                <el-button type="primary" size="mini" icon="el-icon-edit">{{ $t('button.Chat') }}</el-button>
+                <el-button type="primary" size="mini" icon="el-icon-edit">Chat</el-button>
               </router-link>
             </template>
           </el-table-column>

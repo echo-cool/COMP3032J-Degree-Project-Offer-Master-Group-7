@@ -11,3 +11,13 @@ export function getRelativeChat(name) {
   })
 }
 
+export function getChatInfo(id) {
+  return request({
+    url: '/backend/api/chat/getChatInfo/' + id,
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+
