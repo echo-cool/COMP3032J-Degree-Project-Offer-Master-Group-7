@@ -26,16 +26,10 @@ def _rasa_chat(request):
         message: str = str(message)
         print(message)
         url = 'http://fyp_offer_master_rasa:18888/webhooks/rest/webhook'
-        if request.user.is_authenticated:
-            data = {
-                'sender': request.user.username,
-                'message': message
-            }
-        else:
-            data = {
-                'sender': 'Anonymous_' + request.get_host(),
-                'message': message
-            }
+        data = {
+            'sender': 'Anonymous_' + request.get_host(),
+            'message': message
+        }
         print(data)
         try:
             response = requests.post(url, json=data, timeout=2)
