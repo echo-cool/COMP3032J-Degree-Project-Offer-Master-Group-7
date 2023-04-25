@@ -347,6 +347,14 @@ export const asyncRoutes = [
   },
 
   {
+    path: '/chat/container/:id',
+    component: () => import('@/views/chat/container'),
+    name: 'Container',
+    meta: { title: 'Container' },
+    hidden: true
+  },
+
+  {
     path: '/theme',
     component: Layout,
     children: [

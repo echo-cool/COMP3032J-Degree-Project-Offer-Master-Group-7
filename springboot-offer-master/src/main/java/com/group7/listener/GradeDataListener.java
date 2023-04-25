@@ -70,10 +70,19 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         double gradePointUS;
         if (originalScale == EGPAScale.UCD){
             // UCD 4.2
+            if (!this.convertMapUCD.containsKey(gradeData.getGrade())){
+                throw new Group7Exception(20001, "The Grade should from A To D with +/- or E, F!");
+            }
             gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
+
         }else{
             // CHINA 0-100
-            gradePointUS = mapChinaScaleToUS(Double.parseDouble(gradeData.getGrade()));
+            try{
+                double parsedGrade = Double.parseDouble(gradeData.getGrade());
+                gradePointUS = mapChinaScaleToUS(parsedGrade);
+            }catch (NumberFormatException e){
+                throw new Group7Exception(20001, "The Grade should be number!");
+            }
         }
         this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
 
