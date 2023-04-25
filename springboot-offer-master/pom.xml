@@ -74,6 +74,11 @@
             <artifactId>spring-boot-admin-starter-server</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <!--WebSocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server-ui</artifactId>
