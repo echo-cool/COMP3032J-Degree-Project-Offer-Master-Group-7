@@ -11,7 +11,8 @@ COPY . /app
 
 RUN rm -rf models
 RUN rm -rf .rasa
-
+# Change mode to 777
+RUN chmod 777 -R /app
 RUN rasa train
 
 EXPOSE 18888
