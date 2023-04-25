@@ -50,8 +50,8 @@ services:
   fyp_offer_master_rasa:
     image: echocool/fyp_offer_master_rasa:${VERSION:-latest}
     container_name: fyp_offer_master_rasa
-#    ports:
-#      - "5005:5005"
+    ports:
+      - "5005:5005"
     expose:
       - "5005"
     networks:
