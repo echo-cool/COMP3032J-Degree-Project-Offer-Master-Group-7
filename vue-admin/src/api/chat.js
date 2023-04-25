@@ -31,3 +31,13 @@ export function getInfo(name, id) {
   })
 }
 
+export function sendChat(tmp) {
+  return request({
+    url: `/backend/api/chat/sendChat`,
+    method: 'post',
+    data: tmp,
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}

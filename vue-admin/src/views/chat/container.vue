@@ -58,7 +58,7 @@
     <!-- recordContent 聊天记录数组-->
     <div v-for="(item, index) in recordContent" :key="index">
       <!-- 对方 -->
-      <div v-if="item.sender === username" class="word">
+      <div v-if="item.receiver === username" class="word">
         <!-- {{item.status}} -->
         <img :src="`/backend/static/` + receiverInfo.avatar">
         <div class="info">
@@ -70,10 +70,10 @@
       <div v-else class="word-my">
         <!-- {{item.status}} -->
         <div class="info">
-          <p class="time">{{ receiverInfo.username }} {{ item.createdAt }}</p>
+          <p class="time">{{ senderInfo.username }} {{ item.createdAt }}</p>
           <div class="info-content" v-html="item.content" />
         </div>
-        <img :src="`/backend/static/` + receiverInfo.avatar">
+        <img :src="`/backend/static/` + senderInfo.avatar">
       </div>
     </div>
     <tinymce ref="content" v-model="content" :height="200" />
@@ -83,7 +83,8 @@
 <script>
 import { getChatInfo, sendChat, getInfo } from '@/api/chat'
 import Tinymce from '@/components/Tinymce'
-
+import SockJS from 'sockjs-client'
+import Stomp from 'webstomp-client'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -99,7 +100,9 @@ export default {
       content: '',
       id: '',
       txt1: true, // 回到顶部
-      txt2: true // 回到底部
+      txt2: true, // 回到底部
+      stompClient: null,
+      ws: null
       // up: ""
     }
   },
@@ -126,25 +129,71 @@ export default {
     // this.timer1 = setInterval(() => {
     //   this.getChatInfo()
     // }, 3000)
+    this.initWebSocket()
   },
   beforeDestroy() {
-    clearInterval(this.timer1)
+    this.disconnect()
+    clearInterval(this.timer)
   },
   methods: {
     send() {
-      var Obj = {
-        staffId: this.staffInfo.id,
-        userId: this.userInfo.id,
+      var tmp = { sender: this.senderInfo.username,
+        receiver: this.receiverInfo.username,
+        senderId: this.senderInfo.id,
+        receiverId: this.receiverInfo.id,
         content: this.content
       }
-      // console.log(Obj)
-
-      sendChat(Obj).then((response) => {
-        // console.log(222)
-        this.init()
-        this.$refs.content.setContent('')
+      this.stompClient.send(this, this.content)
+      console.log(tmp)
+      sendChat(tmp)
+        .then(response => {
+          // console.log(222)
+          this.init()
+          this.$refs.content.setContent('')
+        })
+    },
+    initWebSocket() {
+      this.connection()
+      const that = this
+      // 断开重连机制,尝试发送消息,捕获异常发生时重连
+      this.timer = setInterval(() => {
+        try {
+          // that.stompClient.send('test')
+        } catch (err) {
+          console.log('断线了: ' + err)
+          that.connection()
+        }
+      }, 5000)
+    },
+    connection() {
+      // 建立连接对象
+      const socket = new SockJS('http://localhost:8080/ws')
+      // 获取STOMP子协议的客户端对象
+      this.stompClient = Stomp.over(socket)
+      const headers = {
+        Authorization: ''
+      }
+      // 向服务器发起websocket连接
+      this.stompClient.connect(headers, () => {
+        this.stompClient.subscribe('/info/app', (msg) => { // 订阅服务端提供的某个topic
+          console.log('广播成功')
+          console.log(msg) // msg.body存放的是服务端发送给我们的信息
+        }, headers)
+        this.stompClient.send('/app/chat.addUser',
+          headers,
+          JSON.stringify({ sender: '', chatType: 'JOIN' })
+        ) // 用户加入接口
+      }, (err) => {
+      // 连接发生错误时的处理函数
+        console.log('失败')
+        console.log(err)
       })
     },
+    disconnect() {
+      if (this.stompClient) {
+        this.stompClient.disconnect()
+      }
+    }, // 断开连接
     init() {
       this.content = ''
       this.id = this.$route.params.id
@@ -174,7 +223,7 @@ export default {
         .then(response => {
           console.log(response)
           this.recordContent = response.data.list
-          console.log('refreshing')
+          console.log(this.recordContent)
         })
     },
     // 鼠标移入加入class
@@ -217,6 +266,7 @@ export default {
       }
     }
   }
+
 }
 </script>
 

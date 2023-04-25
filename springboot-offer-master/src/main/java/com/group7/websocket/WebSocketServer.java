@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * author Micheal-QinTong
  */
-@ServerEndpoint("/websocket/{userId}")
+@ServerEndpoint("/ws")
 @Component
 @Slf4j
 public class WebSocketServer {
