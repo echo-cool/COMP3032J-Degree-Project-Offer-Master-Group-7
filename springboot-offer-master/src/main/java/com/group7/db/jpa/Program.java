@@ -60,7 +60,9 @@ public class Program implements Cloneable{
     private Set<Application> applications = new HashSet<>();
 
     // for offer-timeline
+    @Transient
     private long[] countLstThisYear;
+    @Transient
     private long[] countLstLastYear;
 
 

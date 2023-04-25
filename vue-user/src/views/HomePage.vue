@@ -38,8 +38,7 @@
         <!-- End Application Tools Area -->
 
         <!-- Start My program carousel Area -->
-        <my-program-list-timer-carousel v-if="currentUser.id && appListMixinLoadSchoolCount === applications.length"
-                                        :title="`Due Date Countdown of My Selected Programs`"
+        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"
                                         :applications="applications"/>
         <!-- End My program carousel Area -->
         <div class="about-market-area rn-section-gapTop">
@@ -109,7 +108,7 @@
 <!--         Top Explore Programs Start-->
         <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
 <!--         Top Explore Programs End-->
-
+        <chat-box1></chat-box1>
     </layout>
 </template>
 
@@ -127,6 +126,7 @@
     import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
 
     import cookie from "js-cookie";
+    import ChatBox1 from "@/components/wyy/ChatBox1.vue";
 
     export default {
         name: 'HomePageFour',
@@ -138,7 +138,8 @@
             TopPrograms,
             OfferMasterGuide,
             ApplicationTools,
-            ExploreFilterPrograms
+            ExploreFilterPrograms,
+            ChatBox1,
         },
         mixins: [SalScrollAnimationMixin, ApplicationListMixin],
 
