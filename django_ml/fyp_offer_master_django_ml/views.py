@@ -25,7 +25,7 @@ def _rasa_chat(request):
         message = request.POST.get('message')
         message: str = str(message)
         print(message)
-        url = 'http://fyp_offer_master_rasa:18888/webhooks/rest/webhook'
+        url = 'http://fyp_offer_master_rasa:5005/webhooks/rest/webhook'
         data = {
             'sender': 'Anonymous_' + request.get_host(),
             'message': message

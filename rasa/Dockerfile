@@ -16,6 +16,7 @@ RUN rasa train
 
 EXPOSE 18888
 EXPOSE 18889
+EXPOSE 5005
 RUN chmod 777 entrypoint.sh
 # set the user to run, don't run as root
 USER 1001
