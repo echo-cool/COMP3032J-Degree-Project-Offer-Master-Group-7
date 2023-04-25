@@ -1,5 +1,6 @@
 FROM rasa/rasa:3.5.5-full
 # Set the working directory to /app
+USER root
 WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY --chown=1001 . /app
