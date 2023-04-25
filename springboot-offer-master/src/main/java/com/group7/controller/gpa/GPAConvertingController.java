@@ -1,9 +1,6 @@
 package com.group7.controller.gpa;
 
-import com.group7.db.jpa.GradeRepository;
-import com.group7.db.jpa.ProfileRepository;
-import com.group7.db.jpa.User;
-import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.*;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
@@ -23,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * @Author: LiuZhe
@@ -73,7 +71,12 @@ public class GPAConvertingController {
             return R.error().message(e.getMsg());
         }
 
-        return R.ok();
+        // query out the user grade rows
+        List<Grade> userGrades = gradeRepository.findAllByUser(user);
+        // query out the converted GPA of this user
+        double convertedGPA = user.getProfile().getGpa();
+
+        return R.ok().data("gradeRows", userGrades).data("convertedGPA", convertedGPA);
     }
 
     @RequestMapping("/download-template")
