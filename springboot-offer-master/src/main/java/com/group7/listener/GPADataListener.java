@@ -14,7 +14,7 @@ import java.io.Reader;
  * @Author: LiuZhe
  * @Date: 2023/4/25 - 15:10
  */
-public class GPADataListener implements ReadListener<GradeData> {
+public class GPADataListener extends AnalysisEventListener<GradeData> {
 
     private GPAConvertingService gpaConvertingService;
 
@@ -33,8 +33,8 @@ public class GPADataListener implements ReadListener<GradeData> {
 
         // for test
         System.out.println("==================================================================================================================================================================");
-        System.out.printf("courseName: " + gradeData.getCourseName());
-        System.out.printf("grade: " + gradeData.getGrade());
+        System.out.println("courseName: " + gradeData.getCourseName());
+        System.out.println("grade: " + gradeData.getGrade());
         System.out.println("credits: " + gradeData.getCredits());
         System.out.println("==================================================================================================================================================================");
 

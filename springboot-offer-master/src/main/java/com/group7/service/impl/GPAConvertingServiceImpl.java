@@ -7,6 +7,9 @@ import com.group7.service.GPAConvertingService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * @Author: LiuZhe
  * @Date: 2023/4/25 - 14:04
@@ -15,8 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class GPAConvertingServiceImpl implements GPAConvertingService {
 
     @Override
-    public void convertGPA(MultipartFile file, GPAConvertingService gpaConvertingService) {
-        String filename = file.getOriginalFilename();
-        EasyExcel.read(filename, GradeData.class, new GPADataListener(gpaConvertingService)).sheet().doRead();
+    public void convertGPA(MultipartFile file, GPAConvertingService gpaConvertingService){
+        try {
+            // read in the Excel data
+            InputStream fis = file.getInputStream();
+            // read data row by row
+            EasyExcel.read(fis, GradeData.class, new GPADataListener(gpaConvertingService)).sheet().doRead();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

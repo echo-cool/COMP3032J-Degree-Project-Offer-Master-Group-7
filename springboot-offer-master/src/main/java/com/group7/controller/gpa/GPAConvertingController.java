@@ -3,6 +3,7 @@ package com.group7.controller.gpa;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.R;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
