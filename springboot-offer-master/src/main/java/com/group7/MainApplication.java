@@ -14,9 +14,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+
 @SpringBootApplication
 //@EnableAdminServer
 @MapperScan("com.group7.db.mappers")
+@EnableWebSocket
 @ServletComponentScan(basePackages = "com.group7.filters")
 public class MainApplication {
     public static void main(String[] args) {

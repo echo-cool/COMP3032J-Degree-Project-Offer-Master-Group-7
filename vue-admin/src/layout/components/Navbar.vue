@@ -18,6 +18,33 @@
 
       </template>
 
+      <el-button class="avatar-container2" type="primary" @click="getChatList">
+        ChatList
+      </el-button>
+      <el-drawer
+        title="Chat List"
+        :visible.sync="drawer"
+        :with-header="false"
+        size="30%"
+      >
+        <!-- <el-table
+          :data="userList"
+          border
+          fit
+          highlight-current-row>
+          <el-table-column prop="userId" label="userId" width="200"></el-table-column>
+          <el-table-column prop="username" label="username" width="100"></el-table-column>
+          <el-table-column prop="gmtCreate" label="time" width="200"></el-table-column>
+            <el-table-column label="Operation" align="center">
+              <template slot-scope="scope">
+              <router-link :to="'/chat/container/'+scope.row.userId">
+                  <el-button type="primary" size="mini" icon="el-icon-edit">{{ $t('button.Chat') }}</el-button>
+              </router-link>
+              </template>
+          </el-table-column>
+        </el-table> -->
+      </el-drawer>
+
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -53,6 +80,9 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+// import SockJS from 'sockjs-client'
+// import Stomp from 'webstomp-client'
+// import GUN from '@/js-extra/gun'
 
 export default {
   components: {
@@ -63,12 +93,24 @@ export default {
     SizeSelect,
     Search
   },
+  data() {
+    return {
+      drawer: false,
+      username: '',
+      chatList: {},
+      gun: null
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'device'
+      'device',
+      'name'
     ])
+  },
+  created() {
+    // this.gun = GUN("http://42.193.97.229:8765" + '/gun')
   },
   methods: {
     toggleSideBar() {
@@ -77,6 +119,19 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    getChatList() {
+      this.username = this.name
+      console.log(this.username)
+      // console.log(this.$gun.get(this.username))
+      // this.$gun.get(this.username).map().on((node, key) => {
+      //   // add results straight to the Vue component state
+      //   // and get updates when nodes are updated by GUN
+      //   this.vueState[key] = node
+      // })
+
+      // console.log(this.gun.get('admin').get(1))
+      // console.log(this.gun.get('admin').get('name1'))
     }
   }
 }
@@ -162,6 +217,35 @@ export default {
         }
       }
     }
+    .avatar-container2 {
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    right: 120px;
+    .avatar-wrapper {
+      cursor: pointer;
+      margin-top: 5px;
+      position: relative;
+      line-height: initial;
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .el-icon-caret-bottom {
+        position: absolute;
+        right: -20px;
+        top: 25px;
+        font-size: 12px;
+      }
+    }
+  }
+  .avatar-container3 {
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    right: 300px;
+  }
   }
 }
 </style>
