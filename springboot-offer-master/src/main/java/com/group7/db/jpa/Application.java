@@ -29,7 +29,6 @@ public class Application {
 
 
     @ManyToOne
-    @JsonBackReference
     private User user;
 
     @ManyToOne
@@ -74,7 +73,9 @@ public class Application {
 
 
     public User getUser() {
-        return user;
+        User newUser = this.user.clone();
+        newUser.setApplications(null);
+        return newUser;
     }
 
     public void setUser(User user) {
