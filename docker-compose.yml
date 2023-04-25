@@ -47,6 +47,20 @@ services:
         gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
+  fyp_offer_master_rasa:
+    image: echocool/fyp_offer_master_rasa:${VERSION:-latest}
+    container_name: fyp_offer_master_rasa
+    expose:
+      - "18888"
+      - "18889"
+    networks:
+      - offer_master_network
+    restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # springboot backend
   fyp_offer_master_springboot:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
