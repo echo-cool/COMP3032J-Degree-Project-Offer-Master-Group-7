@@ -30,6 +30,7 @@ pipeline:
     epochs: 100
 #    - name: LogisticRegressionClassifier
 #      max_iter: 200
+#      max_iter: 200
 #      solver: lbfgs
 #      tol: 0.0001
 #      random_state: 42
@@ -72,9 +73,9 @@ policies:
    - name: AugmentedMemoizationPolicy # 增强版本
    - name: UnexpecTEDIntentPolicy
      max_history: 5
-     epochs: 300
+     epochs: 100
    - name: TEDPolicy
      max_history: 5
-     epochs: 300
+     epochs: 100
      constrain_similarities: True
    - name: RulePolicy
