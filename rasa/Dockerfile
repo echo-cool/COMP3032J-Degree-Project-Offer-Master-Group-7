@@ -17,4 +17,11 @@ RUN rasa train
 EXPOSE 18888
 EXPOSE 18889
 RUN chmod 777 entrypoint.sh
-CMD ["./entrypoint.sh"]
+# set the user to run, don't run as root
+USER 1001
+
+#CMD ["./entrypoint.sh"]
+#CMD rasa run -p 18888 --enable-api --cors "*"
+# set entrypoint for interactive shells
+ENTRYPOINT ["rasa"]
+CMD ["run","-p","18888","-m","/app/models","--enable-api","--cors","*","--debug" ,"--endpoints", "endpoints.yml", "--log-file", "out.log", "--debug"]
