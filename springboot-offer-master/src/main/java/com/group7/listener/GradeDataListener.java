@@ -6,6 +6,7 @@ import com.group7.entitiy.excel.GradeData;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.handler.exception.Group7Exception;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,11 +18,17 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private GPAConvertingService gpaConvertingService;
 
     // grade point multiplied by the number of credit
-    private float totalUSGradePoint = 0;
+    private double totalUSGradePoints = 0;
+    private double totalCredits = 0;
+
+    // map the original grade to the US grade point
+    private Map<String, Double> convertMapUCD;
+    private Map<Integer, Double> convertMapChina;
 
     public GradeDataListener() {};
     public GradeDataListener(GPAConvertingService gpaConvertingService){
         this.gpaConvertingService = gpaConvertingService;
+        initGradeConvertMap();
     }
 
     /**
@@ -34,14 +41,11 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
             throw new Group7Exception(20001, "empty GPA Converting file");
         }
 
-        // for test
-        System.out.println("==================================================================================================================================================================");
-        System.out.println("courseName: " + gradeData.getCourseName());
-        System.out.println("grade: " + gradeData.getGrade());
-        System.out.println("credits: " + gradeData.getCredits());
-        System.out.println("==================================================================================================================================================================");
-
-        this.totalUSGradePoint += (1 * gradeData.getCredits());
+        // update the total credits
+        this.totalCredits += gradeData.getCredits();
+        // update the total US grade points
+        double gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
+        this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
     }
 
     /**
@@ -49,8 +53,13 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
      */
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+        // calculate the converted GPA
+        double convertedGPA = this.totalUSGradePoints / this.totalCredits;
+
+
+
         // for test
-        System.out.println("US total points: " + this.totalUSGradePoint);
+        System.out.println("Converted GPA: " + convertedGPA);
     }
 
     /**
@@ -60,7 +69,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
         // the correct header
         String headerCourseName = "Course Name";
-        String headerGrade = "Grade (A - D)";
+        String headerGrade = "Grade (A - F)";
         String headerCredits = "Credits";
 
         // check the header and template
@@ -73,5 +82,25 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
                 || !headMap.containsValue(headerGrade)) {
             throw new Group7Exception(20002, "A wrong template is uploaded!");
         }
+    }
+
+
+    private void initGradeConvertMap(){
+        Map<String, Double> convertMapDublin = new HashMap<>();
+        convertMapDublin.put("A+", 4.0);
+        convertMapDublin.put("A", 4.0);
+        convertMapDublin.put("A-", 4.0);
+        convertMapDublin.put("B+", 4.0);
+        convertMapDublin.put("B", 3.7);
+        convertMapDublin.put("B-", 3.7);
+        convertMapDublin.put("C+", 3.3);
+        convertMapDublin.put("C", 3.0);
+        convertMapDublin.put("C-", 2.7);
+        convertMapDublin.put("D+", 2.3);
+        convertMapDublin.put("D", 2.0);
+        convertMapDublin.put("D-", 1.7);
+        convertMapDublin.put("E", 1.0);
+        convertMapDublin.put("F", 0.0);
+        this.convertMapUCD = convertMapDublin;
     }
 }
