@@ -17,5 +17,5 @@ public class GradeData {
     private String grade;
 
     @ExcelProperty(index = 2)
-    private String credits;
+    private Float credits;
 }
