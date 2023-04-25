@@ -59,6 +59,10 @@ public class Program implements Cloneable{
     @JsonManagedReference(value = "program")
     private Set<Application> applications = new HashSet<>();
 
+    // for offer-timeline
+    private long[] countLstThisYear;
+    private long[] countLstLastYear;
+
 
     public Program(String fullName, ESource source, String degree, School school) {
         this.name = fullName;
@@ -69,12 +73,16 @@ public class Program implements Cloneable{
         generateRandomLike();
         this.img = RandomSchoolImage.getRandomProgramImage();
         this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school) {
         this.name = name;
         this.school = school;
         generateRandomLike();
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree) {
@@ -82,6 +90,8 @@ public class Program implements Cloneable{
         this.degree = degree;
         this.school = school;
         generateRandomLike();
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree, EMajor major) {
@@ -90,6 +100,8 @@ public class Program implements Cloneable{
         this.major = major;
         this.school = school;
         generateRandomLike();
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree, EMajor major, String img) {
@@ -99,10 +111,14 @@ public class Program implements Cloneable{
         this.school = school;
         generateRandomLike();
         this.img = "upload/img/" + img;
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     public Program() {
         generateRandomLike();
+        // random offer-timeline
+        generateRandomBaseOfferTimeline();
     }
 
     /**
@@ -211,7 +227,21 @@ public class Program implements Cloneable{
         this.extraImages = String.join(";", extraImages);
     }
 
+    public long[] getCountLstThisYear() {
+        return countLstThisYear;
+    }
 
+    public void setCountLstThisYear(long[] countLstThisYear) {
+        this.countLstThisYear = countLstThisYear;
+    }
+
+    public long[] getCountLstLastYear() {
+        return countLstLastYear;
+    }
+
+    public void setCountLstLastYear(long[] countLstLastYear) {
+        this.countLstLastYear = countLstLastYear;
+    }
 
     @Override
     public String toString() {
@@ -235,6 +265,45 @@ public class Program implements Cloneable{
             return (Program) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
+        }
+    }
+
+    /**
+     * Generate the base offer-timeline
+     */
+    private void generateRandomBaseOfferTimeline(){
+        Random random = new Random();
+        this.countLstThisYear = new long[52];
+        this.countLstLastYear = new long[52];
+
+        for (int i = 2; i < 9; i++){
+            countLstThisYear[i] = random.nextLong(6, 15);
+            countLstLastYear[i] = random.nextLong(6, 15);
+        }
+
+        for (int i = 9; i < 13; i++){
+            countLstThisYear[i] = random.nextLong(15, 36);
+            countLstLastYear[i] = random.nextLong(15, 36);
+        }
+
+        for (int i = 13; i < 22; i++){
+            countLstThisYear[i] = random.nextLong(6, 15);
+            countLstLastYear[i] = random.nextLong(6, 15);
+        }
+
+        for (int i = 22; i < 52; i++){
+            // determine whether you give value for this week (15% probability)
+            int prob = 15;
+
+            int rInt = random.nextInt(100);
+            if (rInt < prob){
+                countLstThisYear[i] = random.nextLong(1, 6);
+            }
+
+            rInt = random.nextInt(100);
+            if (rInt < prob){
+                countLstLastYear[i] = random.nextLong(1, 6);
+            }
         }
     }
 }

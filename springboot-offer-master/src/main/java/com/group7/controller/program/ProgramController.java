@@ -1,9 +1,11 @@
 package com.group7.controller.program;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.EStatus;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.entitiy.ProgramUpdateVo;
 import com.group7.service.ProgramService;
+import com.group7.utils.common.DateUtil;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.MyRandomUtils;
 import com.group7.utils.common.R;
@@ -253,5 +255,46 @@ public class ProgramController {
         return R.error();
     }
 
+    @GetMapping("/public/get-weekly-ad-count/{id}")
+    public R getWeeklyAdmissionCountByProgramId(@PathVariable("id") long id){
+        Program program = programRepository.findById(id).orElse(null);
+        if (program == null){
+            return R.error().message("invalid program id");
+        }
+
+        // get all applications of this program
+        Set<Application> applications = program.getApplications();
+
+        // get the current year and last year
+        Calendar currCal=Calendar.getInstance();
+        int currentYear = currCal.get(Calendar.YEAR);
+        int lastYear = currentYear - 1;
+        int lastLastYear = currentYear - 2;
+        // get the last day of the last year
+        Date lastDateOfLastYear = DateUtil.getLastDateOfYear(lastYear);
+        // get the first day of this year
+        Date firstDateOfThisYear = DateUtil.getFirstDateOfYear(currentYear);
+        // get the last day of the year before last year
+        Date lastDateOfLLYear = DateUtil.getLastDateOfYear(lastLastYear);
+
+        // filter out the applications of this year
+        List<Application> applicationsThisYear = applications.stream().filter(a -> a.getReportedTime().after(lastDateOfLastYear)).toList();
+        // filter out the applications of last year
+        List<Application> applicationsLastYear = applications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
+
+        // get the list of weekly admission count
+        long[] countLstThisYear = program.getCountLstThisYear();
+        long[] countLstLastYear = program.getCountLstLastYear();
+        // add real count to the baseline
+        for (int i = 0; i < 52; i++){
+            // the week num this index is representing
+            int week = i + 1;
+            // count the admissions in this week
+            countLstThisYear[i] += applicationsThisYear.stream().filter(a -> a.getReportWeekNum() == week).count();
+            countLstLastYear[i] += applicationsLastYear.stream().filter(a -> a.getReportWeekNum() == week).count();
+        }
+
+        return R.ok().data("countLstThisYear", countLstThisYear).data("countLstLastYear", countLstLastYear);
+    }
 
 }

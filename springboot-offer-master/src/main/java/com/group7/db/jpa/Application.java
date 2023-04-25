@@ -8,9 +8,7 @@ import jakarta.persistence.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: WangYuyang
@@ -51,7 +49,6 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ERound eRound;
 
-
     public Application(User user, Program program) {
         this.user = user;
         this.program = program;
@@ -72,6 +69,7 @@ public class Application {
 
 
     public Application() {
+
     }
 
 
@@ -132,4 +130,20 @@ public class Application {
     public void seteRound(ERound eRound) {
         this.eRound = eRound;
     }
+
+
+    /**
+     * Get the week number of report date (1-52)
+     */
+    public int getReportWeekNum(){
+        Calendar calendar = Calendar.getInstance();
+        // 设置星期一为一周开始的第一天
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        // get the millisecond of the report time
+        calendar.setTimeInMillis(this.reportedTime.getTime());
+        // 获得当前日期属于今年的第几周
+        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        return weekOfYear;
+    }
+
 }

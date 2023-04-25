@@ -684,7 +684,11 @@
                     </div>
                 </div>
 <!--                <offer-timeline-frame/>-->
-                <offer-timeline-frame-high-charts/>
+                <offer-timeline-frame-high-charts :ad-count-last-year="countLstLastYear"
+                                                  :ad-count-this-year="countLstThisYear"
+                                                  :program-name="this.product.name"
+                                                  :school-name="this.product.school.name"
+                                                  ref="childCompOfferTimeline"/>
             </div>
         </div>
         <!-- Offer Timeline End -->
@@ -792,6 +796,9 @@
                 selectedPrograms: [],
                 selectedProgramIDs: [],
                 programSelected: false,
+
+                countLstThisYear: [], // a list of admission numbers each week (must be 52weeks(len) in total)
+                countLstLastYear: []
             }
         },
         methods: {
@@ -908,9 +915,17 @@
                     })
             },
 
-            // load offer-timeline
-            loadOfferTimeline(){
-
+            // load data for offer-timeline
+            // request the admission numbers each week to init countLstAD
+            getWeeklyADCount(programId){
+                programApi.getWeeklyAdmissionCountByProgramId(programId)
+                    .then(response => {
+                        // for test
+                        console.log("=================================response: " + response.data.countLstThisYear);
+                        console.log("=================================response: " + response.data.countLstLastYear);
+                        this.countLstThisYear = response.data.countLstThisYear;
+                        this.countLstLastYear = response.data.countLstLastYear;
+                    })
             }
 
         },
@@ -918,11 +933,10 @@
             this.id = this.$route.params.id,
             this.getData();
             this.getPrograms();
+            this.getWeeklyADCount(this.id);
         },
         mounted(){
-            // // for test
-            // console.log("----------------------here mounted");
-            // this.loadOfferTimeline();
+
         },
         watch: {
             '$route.params.id': function (val) {

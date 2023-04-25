@@ -21,6 +21,11 @@ services:
       - "443:443"
     networks:
       - offer_master_network
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   certbot:
     image: certbot/certbot:latest
@@ -36,6 +41,11 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   # springboot backend
   fyp_offer_master_springboot:
@@ -59,6 +69,11 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
   # user portal
@@ -74,6 +89,11 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
   # admin portal
@@ -89,6 +109,11 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_django_ml:
     image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
@@ -102,6 +127,11 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 #  fyp_offer_master_minio:
 #    image: echocool/fyp_offer_master_minio
@@ -137,6 +167,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.fyp_offer_master/portainer/data:/data
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+
+
   fyp_offer_master_db:
     image: mysql:8.0
     restart: always
@@ -155,6 +192,11 @@ services:
       - offer_master_network
     volumes:
       - ~/.fyp_offer_master/db:/var/lib/mysql
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -169,6 +211,12 @@ services:
       - offer_master_network
     ports:
       - "8088:80"
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "tcp://node5.echo.cool:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+
 
 networks:
   offer_master_network:
