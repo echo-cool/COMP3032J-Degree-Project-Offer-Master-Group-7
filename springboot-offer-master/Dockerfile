@@ -14,7 +14,7 @@ ARG JAR_FILE=target/*.jar
 COPY --from=build /tmp/${JAR_FILE} app.jar
 COPY src/main/resources /src/main/resources
 EXPOSE 8080
-ENTRYPOINT ["java","-Xmx256m","-jar","/app.jar"]
+ENTRYPOINT ["java","-Xmx512m","-jar","/app.jar"]
 
 #
 #FROM openjdk:17
