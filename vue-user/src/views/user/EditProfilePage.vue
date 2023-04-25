@@ -326,7 +326,7 @@
                                             </div>
                                             <div class="role-area mt--15">
                                                 <label for="rank" class="form-label mb--10">Rank</label>
-                                                <input id="rank" type="number" v-model="currentUser.profile.rank">
+                                                <input id="rank" type="number" v-model="currentUser.profile.ranking">
                                             </div>
                                         </div>
                                         <div class="role-area mt--15 w-100 ml--25">
@@ -734,7 +734,7 @@
                         targetMajor: "",
                         targetOfferType: "",
                         gpa: "",
-                        rank: "",
+                        ranking: "",
                         underGradSchoolCate: "",
                         underGradSchoolName: "",
                         underGradMajor: "",

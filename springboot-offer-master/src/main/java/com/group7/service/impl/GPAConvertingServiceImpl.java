@@ -7,6 +7,7 @@ import com.group7.db.jpa.GradeRepository;
 import com.group7.db.jpa.ProfileRepository;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
+import com.group7.db.jpa.utils.EGPAScale;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.listener.GradeDataListener;
 import com.group7.service.GPAConvertingService;
@@ -26,7 +27,7 @@ import java.io.InputStream;
 public class GPAConvertingServiceImpl implements GPAConvertingService {
 
     @Override
-    public void convertGPA(MultipartFile file, UserRepository userRepository, ProfileRepository profileRepository, GradeRepository gradeRepository, User user) throws Group7Exception{
+    public void convertGPA(MultipartFile file, EGPAScale originalScale, UserRepository userRepository, ProfileRepository profileRepository, GradeRepository gradeRepository, User user) throws Group7Exception{
         try {
             // read in the Excel data
             InputStream fis = file.getInputStream();
@@ -41,7 +42,7 @@ public class GPAConvertingServiceImpl implements GPAConvertingService {
             // need to get stream again, otherwise there is an exception
             fis = file.getInputStream();
             // read data row by row
-            EasyExcel.read(fis, GradeData.class, new GradeDataListener(userRepository, profileRepository, gradeRepository, user)).sheet().doRead();
+            EasyExcel.read(fis, GradeData.class, new GradeDataListener(originalScale, userRepository, profileRepository, gradeRepository, user)).sheet().doRead();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

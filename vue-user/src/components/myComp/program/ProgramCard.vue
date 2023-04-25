@@ -19,6 +19,12 @@
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
+              <button v-if="isProgramSelected && isRecommended"
+                      type="button"
+                      @click="removeProgramFromUserApplications(program.id)">Remove</button>
+              <button v-if="!isProgramSelected && isRecommended"
+                      type="button"
+                      @click="addProgramIntoUserApplications(program.id)">Add</button>
 <!--                <router-link v-for="(author, index) in productDate.authors"-->
 <!--                             :key="`author-${index}`"-->
 <!--                             :to="`/author/${author.id}`"-->
@@ -74,6 +80,7 @@
 <script>
     import Countdown from "@/components/myComp/program/Countdown.vue";
     import programAip from "@/api/program";
+    import programSelectionApi from "@/api/programSelection";
 
     export default {
         name: 'ProgramCard',
@@ -86,7 +93,15 @@
                 default: false
             },
             isLikedObj: {},
-            deadline: ""
+            deadline: "",
+            isProgramSelected: {
+              type: Boolean,
+              default: false
+            },
+            isRecommended: {
+              type: Boolean,
+              default: false
+            },
         },
         watch: {
             '$route': function (to, from) {
@@ -115,7 +130,29 @@
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
                         }
                     })
-            }
+            },
+
+            // remove a program from user application list
+            removeProgramFromUserApplications(programId){
+              programSelectionApi.deleteApplicationByProgramId(programId)
+                  .then(response => {
+                    // delete successfully
+                    window.alert("Program removed successfully from your list!")
+                    // tell the parent component to reload data for updating showing
+                    this.$emit("reloadData");
+                  })
+            },
+
+            // add a program into user application list
+            addProgramIntoUserApplications(programId){
+              programSelectionApi.addApplication(programId)
+                  .then(response => {
+                    // add successfully
+                    window.alert("The program added successfully into your list!")
+                    // tell the parent component to reload data for updating showing
+                    this.$emit("reloadData");
+                  })
+            },
         }
     }
 </script>

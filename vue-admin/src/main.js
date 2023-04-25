@@ -1,5 +1,4 @@
 import Vue from 'vue'
-
 import Cookies from 'js-cookie'
 
 import 'normalize.css/normalize.css' // a modern alternative to CSS resets
@@ -19,7 +18,10 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
+// import VueGun from 'vue-gun'
 
+// import '@gun-vue/components/style.css'
+// import { GunVuePlugin } from '@gun-vue/components'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -37,7 +39,11 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   locale: enLang // 如果使用中文，无需设置，请删除
 })
+// Vue.use(GunVuePlugin)
 
+// Vue.use(VueGun, {
+//   gun: "http://42.193.97.229:8765/gun"
+// })
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

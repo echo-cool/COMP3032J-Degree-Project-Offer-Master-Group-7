@@ -28,7 +28,7 @@ public class RecommendationController {
     @Resource
     RecommendationServiceCF recommendationServiceCF;
 
-    @RequestMapping("/similarity-calculation-cf")
+    @RequestMapping("/program-recommendation-cf")
     public ResponseEntity<?> similarityCalculationCF(HttpServletRequest request) {
 
         User user = jwtUtils.getUserFromRequestByToken(request);
