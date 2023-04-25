@@ -109,7 +109,7 @@
 <!--         Top Explore Programs Start-->
         <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
 <!--         Top Explore Programs End-->
-
+        <chat-box1></chat-box1>
     </layout>
 </template>
 
@@ -127,6 +127,7 @@
     import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
 
     import cookie from "js-cookie";
+    import ChatBox1 from "@/components/wyy/ChatBox1.vue";
 
     export default {
         name: 'HomePageFour',
@@ -138,7 +139,8 @@
             TopPrograms,
             OfferMasterGuide,
             ApplicationTools,
-            ExploreFilterPrograms
+            ExploreFilterPrograms,
+            ChatBox1,
         },
         mixins: [SalScrollAnimationMixin, ApplicationListMixin],
 

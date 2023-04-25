@@ -52,4 +52,6 @@ app.use(router)
 //     </div>
 //   `
 // })
+import Chat from 'vue-beautiful-chat'
+Vue.use(Chat)
 app.mount('#app')
