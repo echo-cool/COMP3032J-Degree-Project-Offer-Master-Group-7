@@ -3,10 +3,14 @@ package com.group7.service.impl;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
+import com.group7.db.jpa.ProfileRepository;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.listener.GradeDataListener;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.handler.exception.Group7Exception;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +25,7 @@ import java.io.InputStream;
 public class GPAConvertingServiceImpl implements GPAConvertingService {
 
     @Override
-    public void convertGPA(MultipartFile file, GPAConvertingService gpaConvertingService) throws Group7Exception{
+    public void convertGPA(MultipartFile file, ProfileRepository profileRepository, User user) throws Group7Exception{
         try {
             // read in the Excel data
             InputStream fis = file.getInputStream();
@@ -36,9 +40,11 @@ public class GPAConvertingServiceImpl implements GPAConvertingService {
             // need to get stream again, otherwise there is an exception
             fis = file.getInputStream();
             // read data row by row
-            EasyExcel.read(fis, GradeData.class, new GradeDataListener(gpaConvertingService)).sheet().doRead();
+            EasyExcel.read(fis, GradeData.class, new GradeDataListener(profileRepository, user)).sheet().doRead();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }

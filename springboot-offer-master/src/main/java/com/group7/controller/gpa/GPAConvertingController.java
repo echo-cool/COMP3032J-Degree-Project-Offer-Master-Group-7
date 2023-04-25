@@ -1,6 +1,10 @@
 package com.group7.controller.gpa;
 
+import com.group7.db.jpa.ProfileRepository;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
 import com.group7.service.GPAConvertingService;
+import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
 import com.group7.utils.handler.exception.Group7Exception;
 import jakarta.annotation.Resource;
@@ -31,8 +35,15 @@ public class GPAConvertingController {
     @Resource
     private GPAConvertingService gpaConvertingService;
 
+    @Resource
+    private ProfileRepository profileRepository;
+
+    @Resource JwtUtils jwtUtils;
+
     @PostMapping("gpa-convert-excel-upload")
-    public R convertGPA(MultipartFile file){
+    public R convertGPA(MultipartFile file, HttpServletRequest request){
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
         // check file
         if(file == null){
             return R.error().message("The file cannot be empty!");
@@ -50,7 +61,7 @@ public class GPAConvertingController {
 
         // convert the GPA using this file
         try{
-            gpaConvertingService.convertGPA(file, gpaConvertingService);
+            gpaConvertingService.convertGPA(file, profileRepository, user);
         }catch (Group7Exception e){
             return R.error().message(e.getMsg());
         }

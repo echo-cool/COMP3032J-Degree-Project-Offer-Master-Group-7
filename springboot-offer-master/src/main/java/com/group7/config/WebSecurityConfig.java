@@ -87,7 +87,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/assets/**").permitAll()
                 .requestMatchers("/instances/**").permitAll()
                 .requestMatchers("/api/test/**").permitAll()
-                .requestMatchers("/**").permitAll()
+//                .requestMatchers("/**").permitAll()
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers(h2ConsolePath + "/**").permitAll()

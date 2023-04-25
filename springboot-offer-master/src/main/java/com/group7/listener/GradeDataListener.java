@@ -2,9 +2,15 @@ package com.group7.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.group7.db.jpa.Profile;
+import com.group7.db.jpa.ProfileRepository;
+import com.group7.db.jpa.User;
+import com.group7.db.jpa.UserRepository;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.service.GPAConvertingService;
+import com.group7.utils.common.JwtUtils;
 import com.group7.utils.handler.exception.Group7Exception;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +21,12 @@ import java.util.Map;
  */
 public class GradeDataListener extends AnalysisEventListener<GradeData> {
 
-    private GPAConvertingService gpaConvertingService;
+    // we have to get them from constructor
+    // because Spring cannot control this class
+    private ProfileRepository profileRepository;
+    private User user;
+
+
 
     // grade point multiplied by the number of credit
     private double totalUSGradePoints = 0;
@@ -26,8 +37,9 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private Map<Integer, Double> convertMapChina;
 
     public GradeDataListener() {};
-    public GradeDataListener(GPAConvertingService gpaConvertingService){
-        this.gpaConvertingService = gpaConvertingService;
+    public GradeDataListener(ProfileRepository profileRepository, User user){
+        this.profileRepository = profileRepository;
+        this.user = user;
         initGradeConvertMap();
     }
 
@@ -56,7 +68,12 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // calculate the converted GPA
         double convertedGPA = this.totalUSGradePoints / this.totalCredits;
 
+        // get the profile of this user
+        Profile profile = this.user.getProfile();
 
+        // update the GPA in the profile of this user
+        profile.setGpa(convertedGPA);
+        this.profileRepository.save(profile);
 
         // for test
         System.out.println("Converted GPA: " + convertedGPA);
