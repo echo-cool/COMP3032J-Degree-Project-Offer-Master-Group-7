@@ -31,11 +31,6 @@ public class RecommendationServiceCFImpl implements RecommendationServiceCF {
     ProgramRepository programRepository;
 
     @Override
-    public List<User> similarityCalculate(User user) {
-        return null;
-    }
-
-    @Override
     public List<Program> userBasedRecommender(long userID, int size) {
         // step:1 构建模型 2 计算相似度 3 查找k紧邻 4 构造推荐引擎
         List<RecommendedItem> recommendations = null;
