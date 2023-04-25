@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.group7.entitiy.excel.GradeData;
 import com.group7.listener.GradeDataListener;
 import com.group7.service.GPAConvertingService;
+import com.group7.utils.handler.exception.Group7Exception;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,7 @@ import java.io.InputStream;
 public class GPAConvertingServiceImpl implements GPAConvertingService {
 
     @Override
-    public void convertGPA(MultipartFile file, GPAConvertingService gpaConvertingService){
+    public void convertGPA(MultipartFile file, GPAConvertingService gpaConvertingService) throws Group7Exception{
         try {
             // read in the Excel data
             InputStream fis = file.getInputStream();

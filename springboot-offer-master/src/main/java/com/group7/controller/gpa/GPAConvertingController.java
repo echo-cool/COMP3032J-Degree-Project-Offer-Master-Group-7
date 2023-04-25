@@ -2,6 +2,7 @@ package com.group7.controller.gpa;
 
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.R;
+import com.group7.utils.handler.exception.Group7Exception;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +48,12 @@ public class GPAConvertingController {
             }
         }
 
-        gpaConvertingService.convertGPA(file, gpaConvertingService);
+        // convert the GPA using this file
+        try{
+            gpaConvertingService.convertGPA(file, gpaConvertingService);
+        }catch (Group7Exception e){
+            return R.error().message(e.getMsg());
+        }
 
         return R.ok();
     }
