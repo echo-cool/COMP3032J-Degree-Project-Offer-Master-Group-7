@@ -11,7 +11,7 @@ COPY --chown=1001 . /app
 
 RUN rm -rf models
 RUN rm -rf .rasa
-
+RUN python -m spacy download en_core_web_trf
 RUN rasa train
 
 EXPOSE 18888
