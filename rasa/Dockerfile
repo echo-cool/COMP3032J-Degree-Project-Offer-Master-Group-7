@@ -17,4 +17,6 @@ RUN rasa train
 EXPOSE 18888
 EXPOSE 18889
 RUN chmod 777 entrypoint.sh
-CMD ["./entrypoint.sh"]
+#CMD ["./entrypoint.sh"]
+CMD rasa run -p 18888 --enable-api --cors "*"
+
