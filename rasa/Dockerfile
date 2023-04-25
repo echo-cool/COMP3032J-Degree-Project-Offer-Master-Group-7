@@ -1,4 +1,4 @@
-FROM rasa/rasa:3.5.5-full
+FROM echocool/fyp-rasa-base:3.5.5
 # Set the working directory to /app
 USER root
 WORKDIR /app
@@ -12,8 +12,7 @@ COPY --chown=1001 . /app
 
 RUN rm -rf models
 RUN rm -rf .rasa
-RUN python -m spacy download en_core_web_trf
-#RUN rasa train
+RUN rasa train
 
 EXPOSE 18888
 EXPOSE 18889
