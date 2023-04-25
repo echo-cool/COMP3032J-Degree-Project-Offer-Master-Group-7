@@ -80,6 +80,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+import { getRelativeChat } from '@/api/chat'
 // import SockJS from 'sockjs-client'
 // import Stomp from 'webstomp-client'
 // import GUN from '@/js-extra/gun'
@@ -97,8 +98,9 @@ export default {
     return {
       drawer: false,
       username: '',
-      chatList: {},
-      gun: null
+      // chatList: {},
+      // gun: null,
+      chatList: {}
     }
   },
   computed: {
@@ -111,6 +113,7 @@ export default {
   },
   created() {
     // this.gun = GUN("http://42.193.97.229:8765" + '/gun')
+  //   this.getChatList()
   },
   methods: {
     toggleSideBar() {
@@ -123,15 +126,10 @@ export default {
     getChatList() {
       this.username = this.name
       console.log(this.username)
-      // console.log(this.$gun.get(this.username))
-      // this.$gun.get(this.username).map().on((node, key) => {
-      //   // add results straight to the Vue component state
-      //   // and get updates when nodes are updated by GUN
-      //   this.vueState[key] = node
-      // })
-
-      // console.log(this.gun.get('admin').get(1))
-      // console.log(this.gun.get('admin').get('name1'))
+      getRelativeChat(this.username).then(response => {
+        this.chatList = response.data.chatList
+        this.drawer = true
+      })
     }
   }
 }

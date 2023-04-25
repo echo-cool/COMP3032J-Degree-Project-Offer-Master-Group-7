@@ -48,6 +48,8 @@ class LoadDatabase {
     private RoleRepository roleRepository;
 
     @Autowired
+    private ChatRepository chatRepository;
+    @Autowired
     private ApplicationRepository applicationRepository;
 
     @Autowired
@@ -177,7 +179,7 @@ class LoadDatabase {
         test3Roles.add(role3);
 
         User user1 = new User("Yuyang Wang", "me1@echo.cool", encoder.encode("111"), test1Roles);
-        User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test2Roles);
+        User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test1Roles);
         User user3 = new User("Zhe Liu", "me3@echo.cool", encoder.encode("111"), test3Roles);
         User user4 = new User("Zixiao Ma", "me4@echo.cool", encoder.encode("111"), test3Roles);
         User user5 = new User("Liuxin Yang", "me5@echo.cool", encoder.encode("111"), test3Roles);
@@ -265,6 +267,12 @@ class LoadDatabase {
 
         articleRepository.save(article1);
         articleRepository.save(article2);
+
+        Chat chat1 = new Chat("Yuyang Wang", "Jinfeng Xu", "6661");
+        Chat chat2 = new Chat("Jinfeng Xu", "Yuyang Wang", "6662");
+
+        chatRepository.save(chat1);
+        chatRepository.save(chat2);
 
 
         loadExternalSchoolData(schoolRepository, programRepository);
