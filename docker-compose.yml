@@ -75,7 +75,6 @@ services:
         gelf-address: "tcp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
-
   # user portal
   fyp_offer_master_vue_user:
     image: echocool/fyp_offer_master_vue_user:${VERSION:-latest}
