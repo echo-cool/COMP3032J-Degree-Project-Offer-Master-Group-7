@@ -21,3 +21,13 @@ export function getChatInfo(id) {
   })
 }
 
+export function getInfo(name, id) {
+  return request({
+    url: `/backend/api/chat/getInfo/${name}/${id}`,
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}
+

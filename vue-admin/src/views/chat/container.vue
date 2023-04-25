@@ -58,11 +58,11 @@
     <!-- recordContent 聊天记录数组-->
     <div v-for="(item, index) in recordContent" :key="index">
       <!-- 对方 -->
-      <div v-if="item.status === '0'" class="word">
+      <div v-if="item.sender === username" class="word">
         <!-- {{item.status}} -->
-        <img :src="userInfo.avatar">
+        <img :src="`/backend/static/` + receiverInfo.avatar">
         <div class="info">
-          <p class="time">{{ userInfo.username }} {{ item.gmtCreate }}</p>
+          <p class="time">{{ receiverInfo.username }} {{ item.createdAt }}</p>
           <div class="info-content" v-html="item.content" />
         </div>
       </div>
@@ -70,10 +70,10 @@
       <div v-else class="word-my">
         <!-- {{item.status}} -->
         <div class="info">
-          <p class="time">{{ staffInfo.nickname }} {{ item.gmtCreate }}</p>
+          <p class="time">{{ receiverInfo.username }} {{ item.createdAt }}</p>
           <div class="info-content" v-html="item.content" />
         </div>
-        <img :src="staffInfo.avatar">
+        <img :src="`/backend/static/` + receiverInfo.avatar">
       </div>
     </div>
     <tinymce ref="content" v-model="content" :height="200" />
@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import { getChatInfo, sendChat } from '@/api/chat'
+import { getChatInfo, sendChat, getInfo } from '@/api/chat'
 import Tinymce from '@/components/Tinymce'
 
 import { mapGetters } from 'vuex'
@@ -91,9 +91,10 @@ export default {
   components: { Tinymce },
   data() {
     return {
-      staffInfo: {},
+      senderInfo: {},
+      receiverInfo: {},
       recordContent: {},
-      userInfo: {},
+      username: '',
       vHeight: 10,
       content: '',
       id: '',
@@ -147,6 +148,13 @@ export default {
     init() {
       this.content = ''
       this.id = this.$route.params.id
+      this.username = this.name
+      this.getChatInfo()
+      getInfo(this.username, this.id).then((response) => {
+        console.log(response.data)
+        this.senderInfo = response.data.senderInfo
+        this.receiverInfo = response.data.receiverInfo
+      })
       // var userInfo = getPugeUserInfo()
       // if (userInfo) {
       //   userInfo = JSON.parse(userInfo)
@@ -154,7 +162,7 @@ export default {
       // }
       // chat.getUserInfo(id).then((response) => {
       //   this.userInfo = response.data.user
-      this.getChatInfo()
+
       // // })
     },
 
