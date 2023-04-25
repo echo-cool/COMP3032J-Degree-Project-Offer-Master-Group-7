@@ -13,9 +13,9 @@ COPY --chown=1001 . /app
 RUN rm -rf models
 RUN rm -rf .rasa
 RUN python -m spacy download en_core_web_trf
-RUN rasa train
+#RUN rasa train
 
 EXPOSE 18888
 EXPOSE 18889
-RUN chmod 777 entrypoint.sh
-CMD ["./entrypoint.sh"]
+#RUN chmod 777 entrypoint.sh
+#CMD ["./entrypoint.sh"]
