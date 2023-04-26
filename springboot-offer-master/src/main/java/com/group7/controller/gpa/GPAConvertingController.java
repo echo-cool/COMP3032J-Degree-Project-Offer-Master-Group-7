@@ -2,6 +2,7 @@ package com.group7.controller.gpa;
 
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.EGPAScale;
+import com.group7.entitiy.excel.GPAReportData;
 import com.group7.service.GPAConvertingService;
 import com.group7.utils.common.JwtUtils;
 import com.group7.utils.common.R;
@@ -18,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: LiuZhe
@@ -126,5 +129,34 @@ public class GPAConvertingController {
 
 
         return R.ok();
+    }
+
+    /**
+     * This is required for writing the GPA report Excel file.
+     * @param user We will query the Grade rows of this user.
+     * @return A list of Data obj, each will be a row in the Excel.
+     */
+    private List<GPAReportData> getGPAReportData(User user){
+        // create a list to store Data
+        ArrayList<GPAReportData> list = new ArrayList<>();
+
+        // query the Grades (rows) of this user
+        Set<Grade> grades = user.getGrades();
+        int order = 1;
+        for (Grade grade : grades){
+            // create a Data row
+            GPAReportData data = new GPAReportData();
+            data.setOrder(order);
+            data.setCourseName(grade.getCourseName());
+            data.setCredits(grade.getCredits());
+            data.setGrade(grade.getGrade());
+            data.setGradeUS("A+");  // temp
+            data.setGradePointsUS(grade.getGradePointUS());
+            // add row to list
+            list.add(data);
+            order++;
+        }
+
+        return list;
     }
 }

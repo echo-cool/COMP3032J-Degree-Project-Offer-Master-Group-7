@@ -50,7 +50,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         resetUserGrade(this.user);
 
         if (originalScale == EGPAScale.UCD){
-            initGradeConvertMap();
+            initGradeConvertMapUCDtoUS();
         }
     }
 
@@ -139,7 +139,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     }
 
 
-    private void initGradeConvertMap(){
+    private void initGradeConvertMapUCDtoUS(){
         Map<String, Double> convertMapDublin = new HashMap<>();
         convertMapDublin.put("A+", 4.0);
         convertMapDublin.put("A", 4.0);

@@ -31,7 +31,7 @@ public class GPAReportData {
 
     @NumberFormat("#.##")
     @ExcelProperty(value = "US Grade Points", index = 5)
-    private String gradePointsUS;
+    private double gradePointsUS;
 
 
 }
