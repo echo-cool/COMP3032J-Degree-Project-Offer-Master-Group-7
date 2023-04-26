@@ -898,7 +898,7 @@
                 programSelectionApi.addApplication(programId)
                     .then(response => {
                         // add successfully
-                        window.alert("The program added successfully into your list!")
+                        // window.alert("The program added successfully into your list!")
                         // update the button
                         this.programSelected = !this.programSelected;
                     })
@@ -909,7 +909,7 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        window.alert("Program removed successfully from your list!")
+                        // window.alert("Program removed successfully from your list!")
                         // update the button
                         this.programSelected = !this.programSelected;
                     })

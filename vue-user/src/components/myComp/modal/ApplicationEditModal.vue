@@ -65,6 +65,7 @@
 
 <script>
     import applicationApi from "@/api/application";
+    import Toastify from "toastify-js";
 
     export default {
         name: 'ApplicationEditModal',
@@ -91,7 +92,22 @@
                 // call api method
                 applicationApi.updateApplication(updateObj)
                     .then(response => {
-                        window.alert("Application Updated Successful!");
+                        Toastify({
+                            text: "Application Updated Successful!",
+                            duration: 3000,
+                            close: false,
+                            // avatar:"/img/logo-dark.44b49d43.png",
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: false, // Prevents dismissing of toast on hover
+                            style: {
+                                "font-size": "large",
+                                "font-family":"\"Roboto\", sans-serif",
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                        // window.alert("Application Updated Successful!");
                         // close the modal
                         document.getElementById(`btn-close-edit-application-modal-${this.application.id}`).click();
                     })

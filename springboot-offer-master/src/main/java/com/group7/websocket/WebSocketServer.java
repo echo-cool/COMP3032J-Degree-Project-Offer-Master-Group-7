@@ -1,176 +1,174 @@
 package com.group7.websocket;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
-
-import javax.websocket.*;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * author Micheal-QinTong
- */
-@ServerEndpoint("/ws")
-@Component
-@Slf4j
-public class WebSocketServer {
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 
-    /**静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。*/
-    private static int onlineCount = 0;
-    /**concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。*/
-    private static ConcurrentHashMap<String, WebSocketServer> webSocketMap = new ConcurrentHashMap<>();
-    /**与某个客户端的连接会话，需要通过它来给客户端发送数据*/
-    private Session session;
-    /**接收userId*/
-    private String userId="";
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.google.common.collect.Maps;
+import com.group7.config.WebSocketConfig;
+import org.springframework.stereotype.Component;
+/**
+ * author: Qintong
+ */
+
+@Component
+@ServerEndpoint(value = "/webSocket/{userId}")
+public class WebSocketServer{
 
     /**
-     * 连接建立成功调用的方法
-     * */
+     * 在线人数
+     */
+    public static int onlineNumber = 0;
+    /**
+     * 以用户的姓名为key，WebSocket为对象保存起来
+     */
+    private static Map<String, WebSocketServer> clients = new ConcurrentHashMap<String, WebSocketServer>();
+    /**
+     * 会话
+     */
+    private Session session;
+    /**
+     * 用户名称
+     */
+    private String userId;
+    /**
+     * 建立连接
+     *
+     * @param session
+     */
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId") String userId) {
-        this.session = session;
+    public void onOpen(@PathParam("userId") String userId, Session session) {
+        onlineNumber++;
+        System.out.println("Open！！！！！！！！！！666");
+        System.out.println("现在来连接的客户id："+session.getId()+"用户名："+userId);
         this.userId = userId;
-        if(webSocketMap.containsKey(userId)){
-            webSocketMap.remove(userId);
-            //加入set中
-        }else{
-            webSocketMap.put(userId,this);
-            //加入set中
-            addOnlineCount();
-            //在线数加1
-        }
-        System.out.println("用户连接:"+userId+",当前在线人数为:" + getOnlineCount());
-
+        this.session = session;
+        //  logger.info("有新连接加入！ 当前在线人数" + onlineNumber);
         try {
-            HashMap<Object, Object> map = new HashMap<>();
-            map.put("key","连接成功");
-            sendMessage(JSON.toJSONString(map));
-        } catch (IOException e) {
-            System.out.println("用户:"+userId+",网络异常!!!!!!");
+            //messageType 1代表上线 2代表下线 3代表在线名单 4代表普通消息
+            //先给所有人发送通知，说我上线了
+            Map<String,Object> map1 = Maps.newHashMap();
+            map1.put("messageType",1);
+            map1.put("userId",userId);
+            sendMessageAll(JSON.toJSONString(map1),userId);
+
+            //把自己的信息加入到map当中去
+            clients.put(userId, this);
+            System.out.println("有连接关闭！ 当前在线人数" + clients.size());
+            //给自己发一条消息：告诉自己现在都有谁在线
+            Map<String,Object> map2 = Maps.newHashMap();
+            map2.put("messageType",3);
+            //移除掉自己
+            Set<String> set = clients.keySet();
+            map2.put("onlineUsers",set);
+            sendMessageTo(JSON.toJSONString(map2),userId);
+        }
+        catch (IOException e){
+            System.out.println(userId+"上线的时候通知所有人发生了错误");
         }
     }
 
+    @OnError
+    public void onError(Session session, Throwable error) {
+        System.out.println("服务端发生了错误"+error.getMessage());
+        //error.printStackTrace();
+    }
     /**
-     * 连接关闭调用的方法
+     * 连接关闭
      */
     @OnClose
     public void onClose() {
-        if(webSocketMap.containsKey(userId)){
-            webSocketMap.remove(userId);
-            //从set中删除
-            subOnlineCount();
+        onlineNumber--;
+        //webSockets.remove(this);
+        clients.remove(userId);
+        try {
+            //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
+            Map<String,Object> map1 = Maps.newHashMap();
+            map1.put("messageType",2);
+            map1.put("onlineUsers",clients.keySet());
+            map1.put("userId",userId);
+            sendMessageAll(JSON.toJSONString(map1),userId);
         }
-        System.out.println("用户退出:"+userId+",当前在线人数为:" + getOnlineCount());
+        catch (IOException e){
+            System.out.println(userId+"下线的时候通知所有人发生了错误");
+        }
+        //logger.info("有连接关闭！ 当前在线人数" + onlineNumber);
+        System.out.println("有连接关闭！ 当前在线人数" + clients.size());
     }
 
     /**
-     * 收到客户端消息后调用的方法
+     * 收到客户端的消息
      *
-     * @param message 客户端发送过来的消息*/
+     * @param message 消息
+     * @param session 会话
+     */
     @OnMessage
-    public void onMessage(String message, Session session) {
-        log.info("用户消息:"+userId+",报文:"+message);
-        //可以群发消息
-        //消息保存到数据库、redis
-        if(StringUtils.isNotBlank(message)){
-            try {
-                //解析发送的报文
-                JSONObject jsonObject = JSONObject.parseObject(message);
-                //追加发送人(防止串改)
-                jsonObject.put("fromUserId",this.userId);
-                String fromUserId=jsonObject.getString("fromUserId");
-                //传送给对应toUserId用户的websocket
-                if(StringUtils.isNotBlank(fromUserId) && webSocketMap.containsKey(fromUserId)){
-                    webSocketMap.get(fromUserId).sendMessage(jsonObject.toJSONString());
-                    //自定义-业务处理
+    public void onMessage(byte[] message, Session session) {
+        try {
+            System.out.println("来自客户端消息：" + message+"客户端的id是："+session.getId());
 
-//                    DeviceLocalThread.paramData.put(jsonObject.getString("group"),jsonObject.toJSONString());
-                }else{
-                    System.out.println("请求的userId:"+fromUserId+"不在该服务器上");
-                    //否则不在这个服务器上，发送到mysql或者redis
-                }
-            }catch (Exception e){
-                e.printStackTrace();
+            System.out.println("------------  :"+message);
+
+            JSONObject jsonObject = JSON.parseObject(message);
+            String textMessage = jsonObject.getString("message");
+            String fromuserId = jsonObject.getString("userId");
+            String touserId = jsonObject.getString("to");
+            //如果不是发给所有，那么就发给某一个人
+            //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
+            Map<String,Object> map1 = Maps.newHashMap();
+            map1.put("messageType",4);
+            map1.put("textMessage",textMessage);
+            map1.put("fromuserId",fromuserId);
+            if(touserId.equals("All")){
+                map1.put("touserId","所有人");
+                sendMessageAll(JSON.toJSONString(map1),fromuserId);
+            }
+            else{
+                map1.put("touserId",touserId);
+                System.out.println("开始推送消息给"+touserId);
+                sendMessageTo(JSON.toJSONString(map1),touserId);
+            }
+        }
+        catch (Exception e){
+
+            e.printStackTrace();
+            System.out.println("发生了错误了");
+        }
+
+    }
+
+
+    public void sendMessageTo(String message, String TouserId) throws IOException {
+        for (WebSocketServer item : clients.values()) {
+
+
+            //    System.out.println("在线人员名单  ："+item.userId.toString());
+            if (item.userId.equals(TouserId) ) {
+                item.session.getAsyncRemote().sendText(message);
+
+                break;
             }
         }
     }
 
-    /**
-     *  发生错误时候
-     * @param session
-     * @param error
-     */
-    @OnError
-    public void onError(Session session, Throwable error) {
-        System.out.println("用户错误:"+this.userId+",原因:"+error.getMessage());
-        error.printStackTrace();
-    }
-    /**
-     * 实现服务器主动推送
-     */
-    public void sendMessage(String message) throws IOException {
-        //加入线程锁
-        synchronized (session){
-            try {
-                //同步发送信息
-                this.session.getBasicRemote().sendText(message);
-            } catch (IOException e) {
-                System.out.println("服务器推送失败:"+e.getMessage());
-            }
-        }
-    }
-
-
-    /**
-     * 发送自定义消息
-     * */
-    /**
-     * 发送自定义消息
-     * @param message 发送的信息
-     * @param toUserId  如果为null默认发送所有
-     * @throws IOException
-     */
-    public static void sendInfo(String message,String toUserId) throws IOException {
-        //如果userId为空，向所有群体发送
-        if(StringUtils.isEmpty(toUserId)) {
-        //向所有用户发送信息
-        Iterator<String> itera = webSocketMap.keySet().iterator();
-        while (itera.hasNext()) {
-            String keys = itera.next();
-            WebSocketServer item = webSocketMap.get(keys);
-            item.sendMessage(message);
-        }
-        }
-        //如果不为空，则发送指定用户信息
-       else if(webSocketMap.containsKey(toUserId)){
-            WebSocketServer item = webSocketMap.get(toUserId);
-            item.sendMessage(message);
-        }else{
-            System.out.println("请求的userId:"+toUserId+"不在该服务器上");
+    public void sendMessageAll(String message,String FromuserId) throws IOException {
+        for (WebSocketServer item : clients.values()) {
+            item.session.getAsyncRemote().sendText(message);
         }
     }
 
     public static synchronized int getOnlineCount() {
-        return onlineCount;
+        return onlineNumber;
     }
 
-    public static synchronized void addOnlineCount() {
-        WebSocketServer.onlineCount++;
-    }
-
-    public static synchronized void subOnlineCount() {
-        WebSocketServer.onlineCount--;
-    }
-
-    public static synchronized ConcurrentHashMap<String, WebSocketServer> getWebSocketMap(){
-        return WebSocketServer.webSocketMap;
-    }
 }

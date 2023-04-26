@@ -127,7 +127,8 @@
 
     import cookie from "js-cookie";
     import ChatBox1 from "@/components/wyy/ChatBox1.vue";
-
+    import Toastify from 'toastify-js'
+    import "toastify-js/src/toastify.css"
     export default {
         name: 'HomePageFour',
         components: {
@@ -150,7 +151,21 @@
             }
         },
         created() {
-
+            Toastify({
+                text: "Welcome to our site!",
+                duration: 3000,
+                close: false,
+                // avatar:"/img/logo-dark.44b49d43.png",
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: false, // Prevents dismissing of toast on hover
+                style: {
+                    "font-size": "large",
+                    "font-family":"\"Roboto\", sans-serif",
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                onClick: function(){} // Callback after click
+            }).showToast();
             this.getCurrentUser();
 
         },

@@ -81,6 +81,7 @@
     import Countdown from "@/components/myComp/program/Countdown.vue";
     import programAip from "@/api/program";
     import programSelectionApi from "@/api/programSelection";
+    import Toastify from "toastify-js";
 
     export default {
         name: 'ProgramCard',
@@ -137,7 +138,22 @@
               programSelectionApi.deleteApplicationByProgramId(programId)
                   .then(response => {
                     // delete successfully
-                    window.alert("Program removed successfully from your list!")
+                      Toastify({
+                          text: "The program removed successfully into your list!",
+                          duration: 3000,
+                          close: false,
+                          // avatar:"/img/logo-dark.44b49d43.png",
+                          gravity: "top", // `top` or `bottom`
+                          position: "right", // `left`, `center` or `right`
+                          stopOnFocus: false, // Prevents dismissing of toast on hover
+                          style: {
+                              "font-size": "large",
+                              "font-family":"\"Roboto\", sans-serif",
+                              background: "linear-gradient(to right, #00b09b, #96c93d)",
+                          },
+                          onClick: function(){} // Callback after click
+                      }).showToast();
+                    // window.alert("Program removed successfully from your list!")
                     // tell the parent component to reload data for updating showing
                     this.$emit("reloadData");
                   })
@@ -148,7 +164,22 @@
               programSelectionApi.addApplication(programId)
                   .then(response => {
                     // add successfully
-                    window.alert("The program added successfully into your list!")
+                      Toastify({
+                          text: "The program added successfully into your list!",
+                          duration: 3000,
+                          close: false,
+                          // avatar:"/img/logo-dark.44b49d43.png",
+                          gravity: "top", // `top` or `bottom`
+                          position: "right", // `left`, `center` or `right`
+                          stopOnFocus: false, // Prevents dismissing of toast on hover
+                          style: {
+                              "font-size": "large",
+                              "font-family":"\"Roboto\", sans-serif",
+                              background: "linear-gradient(to right, #00b09b, #96c93d)",
+                          },
+                          onClick: function(){} // Callback after click
+                      }).showToast();
+                    // window.alert("The program added successfully into your list!")
                     // tell the parent component to reload data for updating showing
                     this.$emit("reloadData");
                   })

@@ -192,6 +192,14 @@ class LoadDatabase {
         User user12 = new User("Ba Xue", "me12@echo.cool", encoder.encode("111"), test3Roles);
         User user13 = new User("Ge Shan", "me13@echo.cool", encoder.encode("111"), test3Roles);
         User user14 = new User("Jiaxin Wei", "me14@echo.cool", encoder.encode("111"), test3Roles);
+        User user15 = new User("Zhe Wei", "me15@echo.cool", encoder.encode("111"), test3Roles);
+        User user16 = new User("Wei Liu", "me16@echo.cool", encoder.encode("111"), test3Roles);
+        User user17 = new User("Maxiao Xu", "me17@echo.cool", encoder.encode("111"), test3Roles);
+        User user18 = new User("Jinzhe Wang", "me18@echo.cool", encoder.encode("111"), test3Roles);
+        User user19 = new User("Zhuozhe Ma", "me19@echo.cool", encoder.encode("111"), test3Roles);
+        User user20 = new User("Yuzhe Wang", "me20@echo.cool", encoder.encode("111"), test3Roles);
+        User user21 = new User("Mingfeng Xu", "me21@echo.cool", encoder.encode("111"), test3Roles);
+        User user22 = new User("Yiwu Zhen", "me22@echo.cool", encoder.encode("111"), test3Roles);
 
         List<User> users = new ArrayList<>();
         users.add(user1);
@@ -207,6 +215,17 @@ class LoadDatabase {
         users.add(user11);
         users.add(user12);
         users.add(user13);
+        users.add(user14);
+        users.add(user15);
+        users.add(user16);
+        users.add(user17);
+        users.add(user18);
+        users.add(user19);
+        users.add(user20);
+        users.add(user21);
+        users.add(user22);
+
+
         for (User user : users) {
             log.info("Preloading " + userRepository.save(user));
         }
@@ -215,6 +234,50 @@ class LoadDatabase {
                 "Oversea Undergraduate", "BJUT", "CS", "IELTS", 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 340, 6, 170, 170);
         user1.setProfile(profile);
         userRepository.save(user1);
+        for (User user : users) {
+            // From 3.0 to 4.0
+            double randomGPA = 3.0 + Math.random();
+            // From 1 to 30
+            int randomRanking = (int) (Math.random() * 30 + 1);
+            // Random IELTS Score 5.5 to 9.0
+            double listening = 5.5 + Math.random() * 3.5;
+            double speaking = 5.5 + Math.random() * 3.5;
+            double reading = 5.5 + Math.random() * 3.5;
+            double writing = 5.5 + Math.random() * 3.5;
+            double overallIELTS = (listening + speaking + reading + writing) / 4;
+            // Random GRE Score 260 to 340
+            int verbal = (int) (Math.random() * 80 + 260);
+            int quantitative = (int) (Math.random() * 80 + 260);
+            int analytical = (int) (Math.random() * 3 + 2.5);
+            int overallGRE = verbal + quantitative;
+            Profile tmpProfile = new Profile(
+                    "2023 - Fall",
+                    "PhD",
+                    "CS",
+                    "AD - With Fellowship",
+                    randomGPA,
+                    randomRanking,
+                    "Oversea Undergraduate",
+                    "BJUT",
+                    "CS",
+                    "IELTS",
+                    overallIELTS,
+                    listening,
+                    speaking,
+                    reading,
+                    writing,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    overallGRE,
+                    analytical,
+                    verbal,
+                    quantitative);
+            user.setProfile(tmpProfile);
+            log.info("Preloading " + userRepository.save(user));
+        }
 
         // for default deadline
         String str = "2024-02-15";
@@ -277,6 +340,13 @@ class LoadDatabase {
 
         loadExternalSchoolData(schoolRepository, programRepository);
         generateRandomApplication(users, programRepository.findAll());
+        for(Program program: programs){
+            if(program.getApplications().size() == 0){
+                User u = users.get(MyRandomUtils.getRandomInt(0, users.size()));
+                Application application = new Application(u, program, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+                applicationRepository.save(application);
+            }
+        }
         return args -> log.warn("Preloaded database, completed.");
     }
 
@@ -304,7 +374,7 @@ class LoadDatabase {
         try {
             ddl = sdf.parse(str);
             for (User user : users) {
-                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(3, 25));
+                List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(10, 50));
                 System.out.println(user + ": " + programsUser);
                 for (Program p : programsUser) {
                     Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());

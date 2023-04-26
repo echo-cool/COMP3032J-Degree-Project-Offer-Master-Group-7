@@ -28,6 +28,9 @@ public class Grade {
     private String grade;
 
     @Column
+    private String gradeUS;
+
+    @Column
     private double credits;
 
     @Column
@@ -36,10 +39,11 @@ public class Grade {
 
     public Grade(){}
 
-    public Grade(User user, String courseName, String grade, double credits, double gradePointUS) {
+    public Grade(User user, String courseName, String grade, String gradeUS, double credits, double gradePointUS) {
         this.user = user;
         this.courseName = courseName;
         this.grade = grade;
+        this.gradeUS = gradeUS;
         this.credits = credits;
         this.gradePointUS = gradePointUS;
     }
@@ -75,6 +79,14 @@ public class Grade {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getGradeUS() {
+        return gradeUS;
+    }
+
+    public void setGradeUS(String gradeUS) {
+        this.gradeUS = gradeUS;
     }
 
     public double getCredits() {
