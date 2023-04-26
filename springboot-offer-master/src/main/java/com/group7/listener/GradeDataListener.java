@@ -34,7 +34,8 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     private double totalCredits = 0;
 
     // map the original grade to the US grade point
-    private Map<String, Double> convertMapUCD;
+    private Map<String, String> convertMapUCDtoUS; // UCD grade : US grade
+    private Map<String, Double> convertMapUS;   // US grade : US point
     private  EGPAScale originalScale;
 
     private Set<Grade> userGrades = new HashSet<>();  // for updating the Grade table in db
@@ -47,8 +48,9 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         this.profileRepository = profileRepository;
         this.gradeRepository = gradeRepository;
         this.user = user;
-        resetUserGrade(this.user);
 
+        resetUserGrade(this.user);
+        initGradeConvertMapUS();
         if (originalScale == EGPAScale.UCD){
             initGradeConvertMapUCDtoUS();
         }
@@ -67,27 +69,30 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // update the total credits
         this.totalCredits += gradeData.getCredits();
         // update the total US grade points
-        double gradePointUS;
+        // convert to the US grade e.g. "A" -> "A+" or 90 -> "A"
+        String gradeUS;
         if (originalScale == EGPAScale.UCD){
             // UCD 4.2
-            if (!this.convertMapUCD.containsKey(gradeData.getGrade())){
+            if (!this.convertMapUCDtoUS.containsKey(gradeData.getGrade())){
                 throw new Group7Exception(20001, "The Grade should from A To D with +/- or E, F!");
             }
-            gradePointUS = this.convertMapUCD.get(gradeData.getGrade());
+            gradeUS = this.convertMapUCDtoUS.get(gradeData.getGrade());
 
         }else{
             // CHINA 0-100
             try{
                 double parsedGrade = Double.parseDouble(gradeData.getGrade());
-                gradePointUS = mapChinaScaleToUS(parsedGrade);
+                gradeUS = mapChinaScaleToUS(parsedGrade);
             }catch (NumberFormatException e){
                 throw new Group7Exception(20001, "The Grade should be number!");
             }
         }
+        // convert to the US grade point e.g. "A+" -> 4.0
+        double gradePointUS = this.convertMapUS.get(gradeUS);
         this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
 
         // create a new row of Grade table for this user
-        Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeData.getCredits(), gradePointUS);
+        Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeUS, gradeData.getCredits(), gradePointUS);
         this.userGrades.add(grade);
         gradeRepository.save(grade);
 
@@ -138,37 +143,57 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         }
     }
 
-
-    private void initGradeConvertMapUCDtoUS(){
-        Map<String, Double> convertMapDublin = new HashMap<>();
-        convertMapDublin.put("A+", 4.0);
-        convertMapDublin.put("A", 4.0);
-        convertMapDublin.put("A-", 4.0);
-        convertMapDublin.put("B+", 4.0);
-        convertMapDublin.put("B", 3.7);
-        convertMapDublin.put("B-", 3.7);
-        convertMapDublin.put("C+", 3.3);
-        convertMapDublin.put("C", 3.0);
-        convertMapDublin.put("C-", 2.7);
-        convertMapDublin.put("D+", 2.3);
-        convertMapDublin.put("D", 2.0);
-        convertMapDublin.put("D-", 1.7);
-        convertMapDublin.put("E", 1.0);
-        convertMapDublin.put("F", 0.0);
-        this.convertMapUCD = convertMapDublin;
+    private void initGradeConvertMapUS(){
+        Map<String, Double> convertMapUS = new HashMap<>();
+        convertMapUS.put("A+", 4.0);
+        convertMapUS.put("A", 4.0);
+        convertMapUS.put("A-", 3.7);
+        convertMapUS.put("B+", 3.3);
+        convertMapUS.put("B", 3.0);
+        convertMapUS.put("B-", 2.7);
+        convertMapUS.put("C+", 2.3);
+        convertMapUS.put("C", 2.0);
+        convertMapUS.put("C-", 1.7);
+        convertMapUS.put("D+", 1.3);
+        convertMapUS.put("D", 1.0);
+        convertMapUS.put("D-", 0.7);
+        convertMapUS.put("E", 0.3);
+        convertMapUS.put("F", 0.0);
+        this.convertMapUS = convertMapUS;
     }
 
-    private double mapChinaScaleToUS(double grade){
-        if (grade >= 90){
-            return 4.0;
+    private void initGradeConvertMapUCDtoUS(){
+        Map<String, String> convertUCDtoUS = new HashMap<>();
+        convertUCDtoUS.put("A+", "A+");
+        convertUCDtoUS.put("A", "A+");
+        convertUCDtoUS.put("A-", "A");
+        convertUCDtoUS.put("B+", "A");
+        convertUCDtoUS.put("B", "A-");
+        convertUCDtoUS.put("B-", "A-");
+        convertUCDtoUS.put("C+", "B+");
+        convertUCDtoUS.put("C", "B");
+        convertUCDtoUS.put("C-", "B-");
+        convertUCDtoUS.put("D+", "C+");
+        convertUCDtoUS.put("D", "C");
+        convertUCDtoUS.put("D-", "C-");
+        convertUCDtoUS.put("E", "D");
+        convertUCDtoUS.put("F", "F");
+        this.convertMapUCDtoUS = convertUCDtoUS;
+    }
+
+    private String mapChinaScaleToUS(double grade){
+        if (grade > 100 || grade < 0){
+            throw new Group7Exception(20001, "The Chinese Grade Scale should range from 0 to 100!");
+        } else if (grade >= 90){
+            return "A";
         } else if (grade >= 80) {
-            return 3.0;
+            return "B";
         } else if (grade >= 70) {
-            return 2.0;
+            return "C";
         } else if (grade >= 60) {
-            return 1.0;
+            return "D";
         }else{
-            return 0.0;
+            return "F";
         }
     }
 
