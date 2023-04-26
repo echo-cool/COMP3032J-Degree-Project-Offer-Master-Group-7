@@ -1,10 +1,9 @@
 package com.group7.entitiy.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.NumberFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
  * @Author: LiuZhe
@@ -20,6 +19,7 @@ public class GPAReportData {
     @ExcelProperty(value = "Course Name", index = 1)
     private String courseName;
 
+    @NumberFormat("#.#")
     @ExcelProperty(value = "Credits", index = 2)
     private double credits;
 
@@ -29,6 +29,7 @@ public class GPAReportData {
     @ExcelProperty(value = "US Grade", index = 4)
     private String gradeUS;
 
+    @NumberFormat("#.##")
     @ExcelProperty(value = "US Grade Points", index = 5)
     private String gradePointsUS;
 
