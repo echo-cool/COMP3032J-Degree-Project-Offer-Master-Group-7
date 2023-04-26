@@ -3,10 +3,10 @@
     <breadcrumb title="Program Comparison" current="Program Comparison"/>
     <div class="rn-product-area rn-section-gapTop">
             <div class="container">
-                <div class="row g-5"> 
+                <div class="row g-5">
                     <div class="col-lg-4 custom-product-col">
                         <program-card-plus :p="'l'" :programId="l" v-if="l" @deleteSelf="deleteSelf" />
-                         
+
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <program-card-plus :p="'r'" :programId="r" v-if="r" @deleteSelf="deleteSelf" />
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-       
+
     </layout>
 </template>
 
@@ -54,6 +54,7 @@
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
     // import programSelectionApi from "@/api/programSelection";
     import cookie from "js-cookie";
+    import Toastify from "toastify-js";
 
     // import profileApi from "@/api/profile";
 
@@ -109,7 +110,22 @@
 
                 }else{
                     // user should be redirected to the login page if not logged in
-                    window.alert("You should login first!");
+                    Toastify({
+                        text: "You should login first!",
+                        duration: 3000,
+                        close: false,
+                        // avatar:"/img/logo-dark.44b49d43.png",
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: false, // Prevents dismissing of toast on hover
+                        style: {
+                            "font-size": "large",
+                            "font-family":"\"Roboto\", sans-serif",
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    // window.alert("You should login first!");
                     router.push({path: '/login'});
                 }
             },
@@ -133,7 +149,7 @@
         },
         created() {
             this.getCurrentUser();
-            
+
         },
         watch: {
             '$route.params.id': function (val) {

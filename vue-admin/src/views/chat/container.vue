@@ -1,100 +1,130 @@
 <template>
-  <!-- recordContent 聊天记录数组-->
-  <div class="chat-content" show>
-    <!-- <el-backtop target=".chat-content" :visibility-height="vHeight">
-      <i class="el-icon-caret-top"></i>
-    </el-backtop> -->
-    <a
-      style="
-        width: 39px;
-        height: 39px;
-        position: fixed;
-        bottom: 119px;
-        right: 3px;
-        z-index: 999;
-      "
-      @mouseover="changeActive($event)"
-      @mouseout="removeActive($event)"
-      @click="backTOP"
-    >
-      <!-- style="width: 100%;height: 39px;position: absolute;bottom: 80px;z-index: 9000px;" -->
-      <el-image
-        v-show="txt1"
-        :src="require('@/assets/up.png')"
-        style="width: 39px; height: 39px; margin-right: 20%"
-      />
-      <span
-        v-show="!txt1"
-        class="show-txt"
-        style="width: 100%; height: 39px; display: block"
-      ><font color="#889AA4">回到顶部</font></span>
-    </a>
-    <a
-      style="
-        width: 39px;
-        height: 39px;
-        position: fixed;
-        bottom: 70px;
-        right: 3px;
-        z-index: 999;
-      "
-      @mouseover="changeActive2($event)"
-      @mouseout="removeActive2($event)"
-      @click="toBottom"
-    >
-      <!-- position: absolute;bottom: 40px; -->
-      <el-image
-        v-show="txt2"
-        :src="require('@/assets/down.png')"
-        style="width: 39px; height: 39px; margin-right: 20%"
-      />
-      <span
-        v-show="!txt2"
-        class="show-txt2"
-        style="width: 100%; height: 39px; display: block"
-      ><font color="#889AA4">回到底部</font></span>
-    </a>
-    <!-- <el-backtop :visibility-height="0">UP</el-backtop>  -->
+  <div class="app-container">
     <!-- recordContent 聊天记录数组-->
-    <div v-for="(item, index) in recordContent" :key="index">
-      <!-- 对方 -->
-      <div v-if="item.receiver === username" class="word">
-        <!-- {{item.status}} -->
-        <img :src="`/backend/static/` + receiverInfo.avatar">
-        <div class="info">
-          <p class="time">{{ receiverInfo.username }} {{ item.createdAt }}</p>
-          <div class="info-content" v-html="item.content" />
+    <div class="chat-content" show>
+      <!-- <el-backtop target=".chat-content" :visibility-height="vHeight">
+        <i class="el-icon-caret-top"></i>
+      </el-backtop> -->
+      <a
+        style="
+          width: 39px;
+          height: 39px;
+          position: fixed;
+          bottom: 119px;
+          right: 3px;
+          z-index: 999;
+        "
+        @mouseover="changeActive($event)"
+        @mouseout="removeActive($event)"
+        @click="backTOP"
+      >
+        <!-- style="width: 100%;height: 39px;position: absolute;bottom: 80px;z-index: 9000px;" -->
+        <el-image
+          v-show="txt1"
+          :src="require('@/assets/up.png')"
+          style="width: 39px; height: 39px; margin-right: 20%"
+        />
+        <span
+          v-show="!txt1"
+          class="show-txt"
+          style="width: 100%; height: 39px; display: block"
+        ><font color="#889AA4">回到顶部</font></span>
+      </a>
+      <a
+        style="
+          width: 39px;
+          height: 39px;
+          position: fixed;
+          bottom: 70px;
+          right: 3px;
+          z-index: 999;
+        "
+        @mouseover="changeActive2($event)"
+        @mouseout="removeActive2($event)"
+        @click="toBottom"
+      >
+        <!-- position: absolute;bottom: 40px; -->
+        <el-image
+          v-show="txt2"
+          :src="require('@/assets/down.png')"
+          style="width: 39px; height: 39px; margin-right: 20%"
+        />
+        <span
+          v-show="!txt2"
+          class="show-txt2"
+          style="width: 100%; height: 39px; display: block"
+        ><font color="#889AA4">回到底部</font></span>
+      </a>
+      <!-- <el-backtop :visibility-height="0">UP</el-backtop>  -->
+      <!-- recordContent 聊天记录数组-->
+      <div v-for="(item, index) in recordContent" :key="index">
+        <!-- 对方 -->
+        <div v-if="item.receiver === username" class="word">
+          <!-- {{item.status}} -->
+          <img :src="`/backend/static/` + receiverInfo.avatar">
+          <div class="info">
+            <p class="time">{{ receiverInfo.username }} {{ item.createdAt }}</p>
+            <div class="info-content" v-html="item.content" />
+          </div>
+        </div>
+        <!-- 我的 -->
+        <div v-else class="word-my">
+          <!-- {{item.status}} -->
+          <div class="info">
+            <p class="time">{{ senderInfo.username }} {{ item.createdAt }}</p>
+            <div class="info-content" v-html="item.content" />
+          </div>
+          <img :src="`/backend/static/` + senderInfo.avatar">
         </div>
       </div>
-      <!-- 我的 -->
-      <div v-else class="word-my">
-        <!-- {{item.status}} -->
-        <div class="info">
-          <p class="time">{{ senderInfo.username }} {{ item.createdAt }}</p>
-          <div class="info-content" v-html="item.content" />
-        </div>
-        <img :src="`/backend/static/` + senderInfo.avatar">
-      </div>
+      <tinymce ref="content" v-model="content" :height="200" />
+      <el-button type="success" round @click="send()">Send</el-button>
     </div>
-    <tinymce ref="content" v-model="content" :height="200" />
-    <el-button type="success" round @click="send()">Send</el-button>
   </div>
 </template>
 <script>
 import { getChatInfo, sendChat, getInfo } from '@/api/chat'
 import Tinymce from '@/components/Tinymce'
-import SockJS from 'sockjs-client'
-import Stomp from 'webstomp-client'
+import waves from '@/directive/waves' // waves directive
+// import SockJS from 'sockjs-client'
+// import Stomp from 'webstomp-client'
 import { mapGetters } from 'vuex'
+const calendarTypeOptions = [
+  { key: 'CN', display_name: 'China' },
+  { key: 'US', display_name: 'USA' },
+  { key: 'JP', display_name: 'Japan' },
+  { key: 'EU', display_name: 'Eurozone' }
+]
+
+// arr to obj, such as { CN : "China", US : "USA" }
+const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
 
 export default {
   name: 'Container',
   components: { Tinymce },
+  directives: { waves },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'info',
+        deleted: 'danger'
+      }
+      return statusMap[status]
+    },
+    typeFilter(type) {
+      return calendarTypeKeyValue[type]
+    }
+  },
   data() {
     return {
       senderInfo: {},
       receiverInfo: {},
       recordContent: {},
+      calendarTypeOptions,
       username: '',
       vHeight: 10,
       content: '',
@@ -102,7 +132,11 @@ export default {
       txt1: true, // 回到顶部
       txt2: true, // 回到底部
       stompClient: null,
-      ws: null
+      timeout: 28 * 1000, // 30秒一次心跳
+      timeoutObj: null, // 心跳心跳倒计时
+      serverTimeoutObj: null, // 心跳倒计时
+      timeoutnum: null, // 断开 重连倒计时
+      websocket: null
       // up: ""
     }
   },
@@ -118,6 +152,7 @@ export default {
     // 监听
     $route(to, from) {
       // 路由变化方式，路由发生变化，方法就会执行
+      this.myDestory()
       this.init()
     }
   },
@@ -126,16 +161,19 @@ export default {
   },
   mounted() {
     // 页面渲染之后执行
-    // this.timer1 = setInterval(() => {
-    //   this.getChatInfo()
-    // }, 3000)
-    this.initWebSocket()
+    this.timer = setInterval(() => {
+      this.getChatInfo()
+    }, 3000)
+    // this.initWebSocket()
   },
   beforeDestroy() {
-    this.disconnect()
-    clearInterval(this.timer)
+    this.myDestory()
   },
   methods: {
+    myDestory() {
+      this.disconnect()
+      clearInterval(this.timer)
+    },
     send() {
       var tmp = { sender: this.senderInfo.username,
         receiver: this.receiverInfo.username,
@@ -143,7 +181,7 @@ export default {
         receiverId: this.receiverInfo.id,
         content: this.content
       }
-      this.stompClient.send(this, this.content)
+      // this.websocketsend(this.content)
       console.log(tmp)
       sendChat(tmp)
         .then(response => {
@@ -153,47 +191,90 @@ export default {
         })
     },
     initWebSocket() {
-      this.connection()
-      const that = this
-      // 断开重连机制,尝试发送消息,捕获异常发生时重连
-      this.timer = setInterval(() => {
-        try {
-          // that.stompClient.send('test')
-        } catch (err) {
-          console.log('断线了: ' + err)
-          that.connection()
-        }
+      const url = `ws://localhost:8080/webSocket/${this.id}`
+      this.websocket = new WebSocket(url)
+      // 连接错误
+      this.websocket.onerror = this.setErrorMessage
+      // 连接成功
+      this.websocket.onopen = this.setOnopenMessage
+      // 收到消息的回调
+      this.websocket.onmessage = this.setOnmessageMessage
+      // 连接关闭的回调
+      this.websocket.onclose = this.setOncloseMessage
+    },
+    reconnect() { // 重新连接
+      if (this.lockReconnect) return
+      this.lockReconnect = true
+      // 没连接上会一直重连，设置延迟避免请求过多
+      this.timeoutnum && clearTimeout(this.timeoutnum)
+      this.timeoutnum = setTimeout(() => {
+        // 新连接
+        this.initWebSocket()
+        this.lockReconnect = false
       }, 5000)
     },
-    connection() {
-      // 建立连接对象
-      const socket = new SockJS('http://localhost:8080/ws')
-      // 获取STOMP子协议的客户端对象
-      this.stompClient = Stomp.over(socket)
-      const headers = {
-        Authorization: ''
-      }
-      // 向服务器发起websocket连接
-      this.stompClient.connect(headers, () => {
-        this.stompClient.subscribe('/info/app', (msg) => { // 订阅服务端提供的某个topic
-          console.log('广播成功')
-          console.log(msg) // msg.body存放的是服务端发送给我们的信息
-        }, headers)
-        this.stompClient.send('/app/chat.addUser',
-          headers,
-          JSON.stringify({ sender: '', chatType: 'JOIN' })
-        ) // 用户加入接口
-      }, (err) => {
-      // 连接发生错误时的处理函数
-        console.log('失败')
-        console.log(err)
-      })
+    reset() { // 重置心跳
+      // 清除时间
+      clearTimeout(this.timeoutObj)
+      clearTimeout(this.serverTimeoutObj)
+      // 重启心跳
+      this.start()
     },
-    disconnect() {
-      if (this.stompClient) {
-        this.stompClient.disconnect()
+    start() { // 开启心跳
+      this.timeoutObj && clearTimeout(this.timeoutObj)
+      this.serverTimeoutObj && clearTimeout(this.serverTimeoutObj)
+      this.timeoutObj = setTimeout(() => {
+        // 这里发送一个心跳，后端收到后，返回一个心跳消息，
+        if (this.websocket && this.websocket.readyState === 1) { // 如果连接正常
+          this.websocketsend('heartbeat')
+        } else { // 否则重连
+          this.reconnect()
+        }
+        this.serverTimeoutObj = setTimeout(() => {
+          // 超时关闭
+          this.websocket.close()
+        }, this.timeout)
+      }, this.timeout)
+    },
+    setOnmessageMessage(event) {
+      const obj = JSON.parse(event.data)
+      console.log('obj', obj)
+      switch (obj.type) {
+        case 'heartbeat':
+          // 收到服务器信息，心跳重置
+          this.reset()
+          break
+        case 'sendMessage':
+          this.data = obj.data
+          console.log('接收到的服务器消息：', obj.data)
       }
-    }, // 断开连接
+    },
+    setErrorMessage() {
+      // 重连
+      this.reconnect()
+      console.log('WebSocket连接发生错误' + '   状态码：' + this.websocket.readyState)
+    },
+    setOnopenMessage() {
+      // 开启心跳
+      this.start()
+      console.log('WebSocket连接成功' + '   状态码：' + this.websocket.readyState)
+    },
+    setOncloseMessage() {
+      // 重连
+      this.reconnect()
+      console.log('WebSocket连接关闭' + '   状态码：' + this.websocket.readyState)
+    },
+    onbeforeunload() {
+      this.closeWebSocket()
+    },
+    // websocket发送消息
+    websocketsend(message) {
+      console.log('send Message', message)
+      this.websocket.send(message)
+    },
+    closeWebSocket() { // 关闭websocket
+      this.websocket.close()
+    },
     init() {
       this.content = ''
       this.id = this.$route.params.id
