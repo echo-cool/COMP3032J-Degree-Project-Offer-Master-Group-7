@@ -1,5 +1,6 @@
 package com.group7.db.jpa;
 
+import cn.hutool.core.date.DateTime;
 import jakarta.persistence.*;
 import lombok.experimental.Accessors;
 
@@ -30,8 +31,8 @@ public class Chat {
     @Column(nullable = false)
     private String content;
 
-    @Temporal(TemporalType.DATE)
-    private Date createdAt = new Date();
+    @Temporal(TemporalType.TIME)
+    private DateTime createdAt = new DateTime();
 
     public Chat() {
     }
@@ -92,11 +93,11 @@ public class Chat {
         this.content = content;
     }
 
-    public Date getCreatedAt() {
+    public DateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

@@ -2,6 +2,7 @@ package com.group7.controller.chat;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+
 import com.group7.db.jpa.Chat;
 import com.group7.db.jpa.ChatRepository;
 import com.group7.db.jpa.User;
@@ -9,6 +10,7 @@ import com.group7.db.jpa.UserRepository;
 import com.group7.entitiy.ChatDto;
 import com.group7.entitiy.UserVo;
 import com.group7.utils.common.R;
+import com.group7.websocket.WebSocketServer;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,14 @@ public class ChatController {
         List<Chat> list = chatRepository.findAllBySenderIdAndReceiverId(chat.getSenderId(), chat.getReceiverId());
         List<Chat> list_Extra = chatRepository.findAllBySenderIdAndReceiverId(chat.getReceiverId(), chat.getSenderId());
         list.addAll(list_Extra);
+
+        Comparator<Chat> tmpComparator = new Comparator<Chat>() {
+            @Override
+            public int compare(Chat o1, Chat o2) {
+                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+            }
+        };
+        Collections.sort(list,tmpComparator);
 //        System.out.println("==========666");
 //        System.out.println(list);
 //        System.out.println("==========666");
@@ -96,6 +106,7 @@ public class ChatController {
         chat.setReceiverId(chatDto.getReceiverId());
         chat.setSenderId(chatDto.getSenderId());
         chatRepository.save(chat);
+        System.out.println("onlineNumber: " + WebSocketServer.onlineNumber);
         return R.ok();
     }
 }
