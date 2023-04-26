@@ -150,7 +150,7 @@ public class GPAConvertingController {
             data.setCourseName(grade.getCourseName());
             data.setCredits(grade.getCredits());
             data.setGrade(grade.getGrade());
-            data.setGradeUS("A+");  // temp
+            data.setGradeUS(grade.getGradeUS());
             data.setGradePointsUS(grade.getGradePointUS());
             // add row to list
             list.add(data);

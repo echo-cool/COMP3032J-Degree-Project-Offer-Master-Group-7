@@ -80,6 +80,14 @@ public class Grade {
         this.grade = grade;
     }
 
+    public String getGradeUS() {
+        return gradeUS;
+    }
+
+    public void setGradeUS(String gradeUS) {
+        this.gradeUS = gradeUS;
+    }
+
     public double getCredits() {
         return credits;
     }
