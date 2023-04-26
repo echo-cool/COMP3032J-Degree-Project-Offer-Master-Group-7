@@ -49,8 +49,10 @@ export default {
             ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
             titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
             messageList: [
-                { type: 'text', author: `me`, data: { text: `Say yes!` } },
-                { type: 'text', author: `2`, data: { text: `No.` } }
+                { type: 'text', author: 2, data: { text: `Connecting......` } },
+                { type: 'text', author: 2, data: { text: 'Can I help you?' } },
+                // { type: 'text', author: 'me', data: { text: "Sure!" } },
+                //  { type: 'text', author: 2, data: { text: `Can I help you2?` } }
             ], // the list of the messages to show, can be paginated and adjusted dynamically
             newMessagesCount: 0,
             isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -96,6 +98,7 @@ export default {
                 this.participants[1].id = this.user.id
                 this.participants[1].name = this.user.username
                 this.participants[1].imageUrl = this.user.avatar
+                this.messageList[1].author = this.user.id
                 console.log(this.participants)
             }
             else{
@@ -103,27 +106,58 @@ export default {
             }
         },
         sendMessage(text) {
+            // console.log(1212)
             if (text.length > 0) {
                 this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-                this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
+                this.onMessageWasSent({ author: 'me', type: 'text', data: { text } })
             }
         },
         onMessageWasSent (message) {
             // called when the user sends a message
-            this.messageList = [ ...this.messageList, message ]
+            // console.log(message)
+            // var tmpT = message.data
+            var tmp = { 
+                    sender: this.participants[1].name,
+                    receiver: this.participants[0].name,
+                    senderId: this.participants[1].id,
+                    receiverId: this.participants[0].id,
+                    content: ""
+            }
+            tmp.content = message.data.text
+            console.log(tmp)
+            chatApi.sendChat(tmp).then(response => {
+                // console.log("666")
+                this.messageList = [ ...this.messageList, message ]
+            })
+            console.log("777")
         },
         openChat () {
-            // called when the user clicks on the fab button to open the chat
             this.getCurrentUser()
             chatApi.getInfoById(this.participants[1].id, this.participants[0].id).then(response => {
-                    console.log(response.data)
+                const listTmp = response.data.list
+                for (const tmp of listTmp) {
+                    let t = { type: '', author: '', data: { text: "" } }
+                    t.type = tmp.type
+                    if (tmp.author != 2){
+                        t.author = 'me'
+                    }
+                    t.data.text = tmp.content
+                    this.messageList = [ ...this.messageList, t ]
+                }
+                this.isChatOpen = true
+                // this.
                 // this.isChatOpen = true
             })
-            this.isChatOpen = true
             this.newMessagesCount = 0
         },
         closeChat () {
             // called when the user clicks on the botton to close the chat
+            this.messageList = []
+            console.log(this.messageList)
+            this.messageList = [
+                { type: 'text', author: 2, data: { text: `Connecting......` } },
+                { type: 'text', author: 2, data: { text: 'Can I help you?' } }
+            ]
             this.isChatOpen = false
         },
         handleScrollToTop () {

@@ -8,6 +8,7 @@ import com.group7.db.jpa.ChatRepository;
 import com.group7.db.jpa.User;
 import com.group7.db.jpa.UserRepository;
 import com.group7.entitiy.ChatDto;
+import com.group7.entitiy.ChatFrontDto;
 import com.group7.entitiy.UserVo;
 import com.group7.utils.common.R;
 import com.group7.websocket.WebSocketServer;
@@ -97,8 +98,22 @@ public class ChatController {
         List<Chat> list = chatRepository.findAllBySenderIdAndReceiverId(id1, id2);
         List<Chat> list_Extra = chatRepository.findAllBySenderIdAndReceiverId(id2, id1);
         list.addAll(list_Extra);
-
-        return R.ok().data("list", list);
+        Comparator<Chat> tmpComparator = new Comparator<Chat>() {
+            @Override
+            public int compare(Chat o1, Chat o2) {
+                return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+            }
+        };
+        Collections.sort(list,tmpComparator);
+        List<ChatFrontDto> fList = new ArrayList<>();
+        for (Chat chat : list) {
+            ChatFrontDto tmp = new ChatFrontDto();
+            tmp.setType("text");
+            tmp.setAuthor(chat.getId());
+            tmp.setContent(chat.getContent());
+            fList.add(tmp);
+        }
+        return R.ok().data("list", fList);
     }
 
     @PostMapping("sendChat")
