@@ -14,13 +14,13 @@ import org.hibernate.validator.constraints.Range;
 @EqualsAndHashCode
 public class GPAReportData {
 
-    @ExcelProperty(value = "", index = 0)
+    @ExcelProperty(value = "  ", index = 0)
     private int order;
 
     @ExcelProperty(value = "Course Name", index = 1)
     private String courseName;
 
-    @NumberFormat("#.#")
+//    @NumberFormat("#.#")
     @ExcelProperty(value = "Credits", index = 2)
     private Double credits;
 
@@ -30,7 +30,7 @@ public class GPAReportData {
     @ExcelProperty(value = "US Grade", index = 4)
     private String gradeUS;
 
-    @NumberFormat("#.##")
+//    @NumberFormat("#.##")
     @ExcelProperty(value = "US Grade Points", index = 5)
     private Double gradePointsUS;
 
