@@ -78,8 +78,6 @@ public class ChatController {
             receiverInfo.setId(user2.getId());
             receiverInfo.setUsername(user2.getUsername());
             receiverInfo.setAvatar(user2.getAvatar());
-//            BeanUtil.copyProperties(user1, senderInfo);
-//            BeanUtil.copyProperties(user2, receiverInfo);
         }else{
             senderInfo.setId(user2.getId());
             senderInfo.setUsername(user2.getUsername());
@@ -87,13 +85,20 @@ public class ChatController {
             receiverInfo.setId(user1.getId());
             receiverInfo.setUsername(user1.getUsername());
             receiverInfo.setAvatar(user1.getAvatar());
-//            BeanUtil.copyProperties(user2, senderInfo);
-//            BeanUtil.copyProperties(user1, receiverInfo);
         }
         System.out.println(senderInfo);
         System.out.println(receiverInfo);
         System.out.println("-=-=-=-=-=-=-=-=-=-=888");
         return R.ok().data("senderInfo", senderInfo).data("receiverInfo", receiverInfo);
+    }
+
+    @GetMapping("getInfoById/{id1}/{id2}")
+    public R getInfoById(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2){
+        List<Chat> list = chatRepository.findAllBySenderIdAndReceiverId(id1, id2);
+        List<Chat> list_Extra = chatRepository.findAllBySenderIdAndReceiverId(id2, id1);
+        list.addAll(list_Extra);
+
+        return R.ok().data("list", list);
     }
 
     @PostMapping("sendChat")

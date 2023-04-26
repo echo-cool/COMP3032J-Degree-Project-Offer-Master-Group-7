@@ -26,15 +26,20 @@
     </div>
 </template>
 <script>
+import cookie from "js-cookie"
+import chatApi from "@/api/chat"
+
 export default {
     name: 'app',
     data() {
         return {
+            user: "",
             participants: [
                 {
-                    id: 'user1',
-                    name: 'Matteo',
-                    imageUrl: 'https://avatars3.githubusercontent.com/u/1915989?s=230&v=4'
+                    id: 2,
+                    name: 'Jinfeng Xu',
+                    imageUrl: "/backend/static/" + "default/default-avatar.jpg"
+                    // imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
                 },
                 {
                     id: 'user2',
@@ -45,7 +50,7 @@ export default {
             titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
             messageList: [
                 { type: 'text', author: `me`, data: { text: `Say yes!` } },
-                { type: 'text', author: `user1`, data: { text: `No.` } }
+                { type: 'text', author: `2`, data: { text: `No.` } }
             ], // the list of the messages to show, can be paginated and adjusted dynamically
             newMessagesCount: 0,
             isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -78,8 +83,26 @@ export default {
             messageStyling: true // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
         }
     },
+    created(){
+        // this.getCurrentUser()
+    },
     methods: {
-        sendMessage (text) {
+        getCurrentUser(){
+            let userTemp = cookie.get("current_user")
+            // console.log(userTemp)
+            if (userTemp != null){
+                this.user = JSON.parse(userTemp);
+                // console.log(userTemp.id)
+                this.participants[1].id = this.user.id
+                this.participants[1].name = this.user.username
+                this.participants[1].imageUrl = this.user.avatar
+                console.log(this.participants)
+            }
+            else{
+                // TODO 反之要求登陆
+            }
+        },
+        sendMessage(text) {
             if (text.length > 0) {
                 this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
                 this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
@@ -91,6 +114,11 @@ export default {
         },
         openChat () {
             // called when the user clicks on the fab button to open the chat
+            this.getCurrentUser()
+            chatApi.getInfoById(this.participants[1].id, this.participants[0].id).then(response => {
+                    console.log(response.data)
+                // this.isChatOpen = true
+            })
             this.isChatOpen = true
             this.newMessagesCount = 0
         },
