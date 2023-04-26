@@ -98,6 +98,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/program/public/**").permitAll()
                 .requestMatchers("/api/application/public/**").permitAll()
                 .requestMatchers("/api/post/public/**").permitAll()
+                .requestMatchers("/api/gpa-convert/public/**").permitAll()
                 .requestMatchers("/rest/applications/**").permitAll()
                 .requestMatchers("/rest/programs/**").permitAll()
                 .requestMatchers("/rest/users/**").permitAll()

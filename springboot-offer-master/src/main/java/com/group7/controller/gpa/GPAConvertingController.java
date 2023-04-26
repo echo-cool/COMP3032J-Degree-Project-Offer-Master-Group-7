@@ -1,5 +1,7 @@
 package com.group7.controller.gpa;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.group7.db.jpa.*;
 import com.group7.db.jpa.utils.EGPAScale;
 import com.group7.entitiy.excel.GPAReportData;
@@ -19,9 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: LiuZhe
@@ -48,6 +48,7 @@ public class GPAConvertingController {
 
     @PostMapping("/gpa-convert-excel-upload")
     public R convertGPA(MultipartFile file, HttpServletRequest request, @RequestParam(required = false) EGPAScale originalScale){
+        // get user from the response
         User user = jwtUtils.getUserFromRequestByToken(request);
 
         // check original scale
@@ -87,23 +88,35 @@ public class GPAConvertingController {
 
     @RequestMapping("/download-template")
     public R downloadTemplate(HttpServletResponse response) {
+        // get the path of the template
+        String projectDir = System.getProperty("user.dir");
+        String pre = projectDir + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "static" + File.separatorChar + "excel" + File.separatorChar;
+        String path = pre + "GPA_Convert_Template.xlsx";
+
+        // download the template
+        downloadFile("GPA_Convert_Template.xlsx", path, response);
+        return R.ok();
+    }
+
+    /**
+     * @param filename e.g. GPA_Convert_Template.xlsx
+     * @param path e.g. .../static/excel/GPA_Convert_Template.xlsx
+     */
+    private void downloadFile(String filename, String path, HttpServletResponse response){
         FileInputStream fis = null;
         ServletOutputStream sos = null;
         try {
-            String fileName = "GPA_Convert_Template.xlsx";
-            // resources下路径，比如文件位置在：resources/file/test.docx
-            String path = "static/excel/" + fileName;
             // 设置响应头
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
 
-            ClassPathResource classPathResource = new ClassPathResource(path);
-            fis = new FileInputStream(classPathResource.getFile());
+            fis = new FileInputStream(path);
             sos = response.getOutputStream();
             IOUtils.copy(fis, sos);
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Download failed！");
+            throw new RuntimeException("Download failed!");
         } finally {
             try {
                 if (fis != null) {
@@ -117,16 +130,34 @@ public class GPAConvertingController {
                 e.printStackTrace();
             }
         }
-
-        return R.ok();
     }
 
     @RequestMapping("/download-gpa-report")
-    public R downloadGPAReport(HttpServletResponse response) {
+    public R downloadGPAReport(HttpServletRequest request, HttpServletResponse response) {
+        // get user from the response
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
         // create the Excel of the converted GPA report
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        String filename = "GPA_Convert_Report_" + user.getUsername().replaceAll(" ", "_") + uuid + ".xlsx";
+        String projectDir = System.getProperty("user.dir");
+        if(Objects.equals(projectDir, "/")){
+            projectDir = "";
+        }
+        String pre = projectDir + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "static" + File.separatorChar + "excel" + File.separatorChar
+                + "reports" + File.separatorChar;
+        String savePath = pre + filename;
+        File file = new File(savePath);
+
+        // write data into Excel
+        EasyExcel.write(file, GPAReportData.class)
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                .sheet("GPA converting report")
+                .doWrite(getGPAReportData(user));
 
         // download this Excel
-
+        downloadFile(filename, savePath, response);
 
         return R.ok();
     }
