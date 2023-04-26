@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.NumberFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * @Author: LiuZhe
@@ -21,7 +22,7 @@ public class GPAReportData {
 
     @NumberFormat("#.#")
     @ExcelProperty(value = "Credits", index = 2)
-    private double credits;
+    private Double credits;
 
     @ExcelProperty(value = "Grade", index = 3)
     private String grade;
@@ -31,7 +32,7 @@ public class GPAReportData {
 
     @NumberFormat("#.##")
     @ExcelProperty(value = "US Grade Points", index = 5)
-    private double gradePointsUS;
+    private Double gradePointsUS;
 
 
 }

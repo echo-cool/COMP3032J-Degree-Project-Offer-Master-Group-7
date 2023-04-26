@@ -63,17 +63,33 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
     public void invoke(GradeData gradeData, AnalysisContext analysisContext) {
         // empty file
         if (gradeData == null){
+            resetUserGrade(this.user);
             throw new Group7Exception(20001, "empty GPA Converting file");
+        }
+        // empty row item (any one)
+        if (gradeData.getGrade() == null || gradeData.getCredits() == null || gradeData.getCourseName() == null){
+            resetUserGrade(this.user);
+            throw new Group7Exception(20001, "You should fill in all the blanks for all inputted courses!");
+        }
+
+        // parse user inputted credits from string to double
+        double credits;
+        try{
+            credits = Double.parseDouble(gradeData.getCredits());
+        }catch (NumberFormatException e){
+            resetUserGrade(this.user);
+            throw new Group7Exception(20001, "The Credit should be number!");
         }
 
         // update the total credits
-        this.totalCredits += gradeData.getCredits();
+        this.totalCredits += credits;
         // update the total US grade points
         // convert to the US grade e.g. "A" -> "A+" or 90 -> "A"
         String gradeUS;
         if (originalScale == EGPAScale.UCD){
             // UCD 4.2
             if (!this.convertMapUCDtoUS.containsKey(gradeData.getGrade())){
+                resetUserGrade(this.user);
                 throw new Group7Exception(20001, "The Grade should from A To D with +/- or E, F!");
             }
             gradeUS = this.convertMapUCDtoUS.get(gradeData.getGrade());
@@ -84,15 +100,16 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
                 double parsedGrade = Double.parseDouble(gradeData.getGrade());
                 gradeUS = mapChinaScaleToUS(parsedGrade);
             }catch (NumberFormatException e){
+                resetUserGrade(this.user);
                 throw new Group7Exception(20001, "The Grade should be number!");
             }
         }
         // convert to the US grade point e.g. "A+" -> 4.0
         double gradePointUS = this.convertMapUS.get(gradeUS);
-        this.totalUSGradePoints += gradePointUS * gradeData.getCredits();
+        this.totalUSGradePoints += gradePointUS * credits;
 
         // create a new row of Grade table for this user
-        Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeUS, gradeData.getCredits(), gradePointUS);
+        Grade grade = new Grade(user, gradeData.getCourseName(), gradeData.getGrade(), gradeUS, credits, gradePointUS);
         this.userGrades.add(grade);
         gradeRepository.save(grade);
 
@@ -118,7 +135,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         this.userRepository.save(user);
 
         // for test
-        System.out.println("Converted GPA: " + convertedGPA);
+//        System.out.println("Converted GPA: " + convertedGPA);
     }
 
     /**
@@ -183,6 +200,7 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
 
     private String mapChinaScaleToUS(double grade){
         if (grade > 100 || grade < 0){
+            resetUserGrade(this.user);
             throw new Group7Exception(20001, "The Chinese Grade Scale should range from 0 to 100!");
         } else if (grade >= 90){
             return "A";

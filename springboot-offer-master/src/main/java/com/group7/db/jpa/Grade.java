@@ -43,6 +43,7 @@ public class Grade {
         this.user = user;
         this.courseName = courseName;
         this.grade = grade;
+        this.gradeUS = gradeUS;
         this.credits = credits;
         this.gradePointUS = gradePointUS;
     }
