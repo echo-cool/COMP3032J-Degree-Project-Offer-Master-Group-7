@@ -10,8 +10,7 @@
                     <div class="tab-content" id="nav-tabContent">
                         <!-- !!! we must load this component after loading all the schools !!! -->
                         <!-- !!! Otherwise, the schools would be undefined !!! -->
-                        <template v-if="appListMixinLoadSchoolCount === applications.length"
-                                  v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
+                        <template v-for="(application, index) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                   :key="`application-${index}`">
                             <selected-program-list-card :application="application"
                                                         :is-liked-obj="isLiked(application.program.id)"
