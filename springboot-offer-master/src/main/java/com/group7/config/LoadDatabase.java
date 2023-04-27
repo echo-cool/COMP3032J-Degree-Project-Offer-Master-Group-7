@@ -246,8 +246,8 @@ class LoadDatabase {
             double writing = 5.5 + Math.random() * 3.5;
             double overallIELTS = (listening + speaking + reading + writing) / 4;
             // Random GRE Score 260 to 340
-            int verbal = (int) (Math.random() * 80 + 260);
-            int quantitative = (int) (Math.random() * 80 + 260);
+            int verbal = (int) (Math.random() * 80 + 130);
+            int quantitative = (int) (Math.random() * 80 + 130);
             int analytical = (int) (Math.random() * 3 + 2.5);
             int overallGRE = verbal + quantitative;
             Profile tmpProfile = new Profile(
