@@ -64,7 +64,7 @@
     import Toastify from "toastify-js";
 
     export default {
-        name: 'ExploreDecisions',
+        name: 'MyApplications',
         components: {
             Breadcrumb,
             Layout,

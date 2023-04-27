@@ -45,9 +45,9 @@
         "vue-beautiful-chat": "^2.5.0",
         "vue-countup-v3": "^1.0.13",
         "vue-router": "^4.0.0-0",
-        "vue-step-wizard": "^0.1.17",
         "vue-waypoint": "^4.2.1",
         "vue3-carousel": "^0.1.38",
+        "vue3-form-wizard": "^0.2.0",
         "vue3-loading-screen": "^1.0.3"
     },
     "devDependencies": {
