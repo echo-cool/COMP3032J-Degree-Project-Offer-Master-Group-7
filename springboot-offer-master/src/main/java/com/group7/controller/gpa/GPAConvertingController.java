@@ -83,7 +83,10 @@ public class GPAConvertingController {
         // query out the converted GPA of this user
         double convertedGPA = user.getProfile().getGpa();
 
-        return R.ok().data("gradeRows", userGrades).data("convertedGPA", convertedGPA);
+        // generate GPA report to the resources dir
+        String reportURL = generateGPAReport(request);
+
+        return R.ok().data("gradeRows", userGrades).data("convertedGPA", convertedGPA).data("reportURL", reportURL);
     }
 
     @RequestMapping("/download-template")
@@ -130,6 +133,33 @@ public class GPAConvertingController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String generateGPAReport(HttpServletRequest request){
+        // get user from the response
+        User user = jwtUtils.getUserFromRequestByToken(request);
+
+        // create the Excel of the converted GPA report
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        String filename = "GPA_Convert_Report_" + user.getUsername().replaceAll(" ", "_") + uuid + ".xlsx";
+        String projectDir = System.getProperty("user.dir");
+        if(Objects.equals(projectDir, "/")){
+            projectDir = "";
+        }
+        String pre = projectDir + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar
+                + "resources" + File.separatorChar + "static" + File.separatorChar + "excel" + File.separatorChar
+                + "reports" + File.separatorChar;
+        String savePath = pre + filename;
+        File file = new File(savePath);
+
+        // write data into Excel
+        EasyExcel.write(file, GPAReportData.class)
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                .sheet("GPA converting report")
+                .doWrite(getGPAReportData(user));
+
+        // return the file url e.g. "static/excel/..."
+        return "static/excel/reports/" + filename;
     }
 
     @RequestMapping("/download-gpa-report")
