@@ -33,82 +33,82 @@
         </div>
         <!-- End banner area -->
 
-        <!-- Start Application Tools Area -->
-        <application-tools/>
-        <!-- End Application Tools Area -->
+<!--        &lt;!&ndash; Start Application Tools Area &ndash;&gt;-->
+<!--        <application-tools/>-->
+<!--        &lt;!&ndash; End Application Tools Area &ndash;&gt;-->
 
-        <!-- Start My program carousel Area -->
-        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"
-                                        :applications="applications"/>
-        <!-- End My program carousel Area -->
-        <div class="about-market-area rn-section-gapTop">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="about-wrapper text-center">
-                            <h1>Our Competitiveness</h1>
-                            <p class="discription">
-                                Offer master website features the program and university recommendation (highlighting matched programs),
-                                university database (used for searching and recommendation system training), applicant background system
-                                and the applicants' community with the admission information and the recent offer timelines.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Start OfferMaster Guide Area -->
-        <offer-master-guide/>
-        <!-- End OfferMaster Guide Area -->
+<!--        &lt;!&ndash; Start My program carousel Area &ndash;&gt;-->
+<!--        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"-->
+<!--                                        :applications="applications"/>-->
+<!--        &lt;!&ndash; End My program carousel Area &ndash;&gt;-->
+<!--        <div class="about-market-area rn-section-gapTop">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="about-wrapper text-center">-->
+<!--                            <h1>Our Competitiveness</h1>-->
+<!--                            <p class="discription">-->
+<!--                                Offer master website features the program and university recommendation (highlighting matched programs),-->
+<!--                                university database (used for searching and recommendation system training), applicant background system-->
+<!--                                and the applicants' community with the admission information and the recent offer timelines.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Start OfferMaster Guide Area &ndash;&gt;-->
+<!--        <offer-master-guide/>-->
+<!--        &lt;!&ndash; End OfferMaster Guide Area &ndash;&gt;-->
 
 
-        <!-- About Graduate Application Start -->
-        <div class="about-market-area rn-section-gapTop">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="about-wrapper text-center">
-                            <h1>Best Global Universities for Computer Science</h1>
-                            <p class="discription">
-                                Offer Master platform is experienced in assisting applicants in applying for
-                                programs. To fulfill our objective, we have formalized a list of the top 100
-                                American institutions and colleges following the just-released QS World University Rankings 2023.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About Graduate Application End -->
+<!--        &lt;!&ndash; About Graduate Application Start &ndash;&gt;-->
+<!--        <div class="about-market-area rn-section-gapTop">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="about-wrapper text-center">-->
+<!--                            <h1>Best Global Universities for Computer Science</h1>-->
+<!--                            <p class="discription">-->
+<!--                                Offer Master platform is experienced in assisting applicants in applying for-->
+<!--                                programs. To fulfill our objective, we have formalized a list of the top 100-->
+<!--                                American institutions and colleges following the just-released QS World University Rankings 2023.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; About Graduate Application End &ndash;&gt;-->
 
-        <!-- Start Top School Area -->
-        <top-schools/>
+<!--        &lt;!&ndash; Start Top School Area &ndash;&gt;-->
+<!--        <top-schools/>-->
 
-        <!-- End Top School Area -->
-        <div class="about-market-area rn-section-gapTop">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="about-wrapper text-center">
-                            <h1>Best Global Programs for Computer Science</h1>
-                            <p class="discription">
-                                Computer science covers a broad variety of topics.
-                                Programming languages, information systems, artificial intelligence theory, and information technology are typical
-                                study of computer science and how they are used.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Top Top Program Start -->
-        <top-programs/>
-        <!-- Top Top Program End -->
+<!--        &lt;!&ndash; End Top School Area &ndash;&gt;-->
+<!--        <div class="about-market-area rn-section-gapTop">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="about-wrapper text-center">-->
+<!--                            <h1>Best Global Programs for Computer Science</h1>-->
+<!--                            <p class="discription">-->
+<!--                                Computer science covers a broad variety of topics.-->
+<!--                                Programming languages, information systems, artificial intelligence theory, and information technology are typical-->
+<!--                                study of computer science and how they are used.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Top Top Program Start &ndash;&gt;-->
+<!--        <top-programs/>-->
+<!--        &lt;!&ndash; Top Top Program End &ndash;&gt;-->
 
-<!--&lt;!&ndash;         Top Explore Programs Start&ndash;&gt;-->
-<!--        <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>-->
-<!--&lt;!&ndash;         Top Explore Programs End&ndash;&gt;-->
-<!--        <chat-box1></chat-box1>-->
+<!--         Top Explore Programs Start-->
+        <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
+<!--         Top Explore Programs End-->
+        <chat-box1></chat-box1>
     </layout>
 </template>
 
