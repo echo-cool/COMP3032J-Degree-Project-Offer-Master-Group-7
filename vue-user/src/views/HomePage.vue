@@ -33,53 +33,53 @@
         </div>
         <!-- End banner area -->
 
-<!--        &lt;!&ndash; Start Application Tools Area &ndash;&gt;-->
-<!--        <application-tools/>-->
-<!--        &lt;!&ndash; End Application Tools Area &ndash;&gt;-->
+        <!-- Start Application Tools Area -->
+        <application-tools/>
+        <!-- End Application Tools Area -->
 
-<!--        &lt;!&ndash; Start My program carousel Area &ndash;&gt;-->
-<!--        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"-->
-<!--                                        :applications="applications"/>-->
-<!--        &lt;!&ndash; End My program carousel Area &ndash;&gt;-->
-<!--        <div class="about-market-area rn-section-gapTop">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="about-wrapper text-center">-->
-<!--                            <h1>Our Competitiveness</h1>-->
-<!--                            <p class="discription">-->
-<!--                                Offer master website features the program and university recommendation (highlighting matched programs),-->
-<!--                                university database (used for searching and recommendation system training), applicant background system-->
-<!--                                and the applicants' community with the admission information and the recent offer timelines.-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Start OfferMaster Guide Area &ndash;&gt;-->
-<!--        <offer-master-guide/>-->
-<!--        &lt;!&ndash; End OfferMaster Guide Area &ndash;&gt;-->
+        <!-- Start My program carousel Area -->
+        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"
+                                        :applications="applications"/>
+        <!-- End My program carousel Area -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Our Competitiveness</h1>
+                            <p class="discription">
+                                Offer master website features the program and university recommendation (highlighting matched programs),
+                                university database (used for searching and recommendation system training), applicant background system
+                                and the applicants' community with the admission information and the recent offer timelines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start OfferMaster Guide Area -->
+        <offer-master-guide/>
+        <!-- End OfferMaster Guide Area -->
 
 
-<!--        &lt;!&ndash; About Graduate Application Start &ndash;&gt;-->
-<!--        <div class="about-market-area rn-section-gapTop">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="about-wrapper text-center">-->
-<!--                            <h1>Best Global Universities for Computer Science</h1>-->
-<!--                            <p class="discription">-->
-<!--                                Offer Master platform is experienced in assisting applicants in applying for-->
-<!--                                programs. To fulfill our objective, we have formalized a list of the top 100-->
-<!--                                American institutions and colleges following the just-released QS World University Rankings 2023.-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; About Graduate Application End &ndash;&gt;-->
+        <!-- About Graduate Application Start -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Best Global Universities for Computer Science</h1>
+                            <p class="discription">
+                                Offer Master platform is experienced in assisting applicants in applying for
+                                programs. To fulfill our objective, we have formalized a list of the top 100
+                                American institutions and colleges following the just-released QS World University Rankings 2023.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About Graduate Application End -->
 
 <!--        &lt;!&ndash; Start Top School Area &ndash;&gt;-->
 <!--        <top-schools/>-->
