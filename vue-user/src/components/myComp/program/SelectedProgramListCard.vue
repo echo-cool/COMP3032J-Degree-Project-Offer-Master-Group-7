@@ -101,6 +101,7 @@
     import programApi from "@/api/program";
     import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal.vue";
     import app from "../../../App.vue";
+    import Toastify from "toastify-js";
 
     export default {
         name: 'SelectedProductListCard',
@@ -147,7 +148,22 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        window.alert("Program removed successfully from your list!")
+                        Toastify({
+                            text: "The program removed successfully into your list!",
+                            duration: 3000,
+                            close: false,
+                            // avatar:"/img/logo-dark.44b49d43.png",
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: false, // Prevents dismissing of toast on hover
+                            style: {
+                                "font-size": "large",
+                                "font-family":"\"Roboto\", sans-serif",
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                        // window.alert("Program removed successfully from your list!")
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
                     })

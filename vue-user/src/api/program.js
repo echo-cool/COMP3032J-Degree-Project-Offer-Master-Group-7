@@ -55,5 +55,12 @@ export default{
             url: `/api/program/public/get-weekly-ad-count/${programId}`,
             method: 'get'
         })
+    },
+
+    getAverageBackground(programId) {
+        return request({
+            url: `/api/program/public/getAverageMetricByProgramId/${programId}`,
+            method: 'get'
+        })
     }
 }

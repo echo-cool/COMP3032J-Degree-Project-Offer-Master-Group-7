@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +23,7 @@ import java.util.Set;
         uniqueConstraints = {
         })
 //@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@Id")
-public class User {
+public class User implements Cloneable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -76,6 +75,9 @@ public class User {
     @JsonManagedReference(value = "applications")
     private Set<Application> applications = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "grades")
+    private Set<Grade> grades = new HashSet<>();
 
 
 
@@ -192,7 +194,24 @@ public class User {
         this.applications = applications;
     }
 
-//    public User getMinimalUserObject(){
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
+    }
+
+    @Override
+    public User clone() {
+        try {
+            return (User) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    //    public User getMinimalUserObject(){
 //        User user = new User();
 //        user.setId(this.getId());
 //        user.setUsername(this.getUsername());

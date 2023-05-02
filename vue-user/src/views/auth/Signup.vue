@@ -73,6 +73,7 @@
 
     import router from "@/router";
     import registerApi from "@/api/register";
+    import Toastify from "toastify-js";
 
     export default {
         name: 'Signup',
@@ -98,15 +99,45 @@
                     .then(response => {
 
                         if(response.success){
+                            Toastify({
+                                text: "Registration success, you can login now!",
+                                duration: 3000,
+                                close: false,
+                                // avatar:"/img/logo-dark.44b49d43.png",
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: false, // Prevents dismissing of toast on hover
+                                style: {
+                                    "font-size": "large",
+                                    "font-family":"\"Roboto\", sans-serif",
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
                             // notify user
-                            window.alert("Registration success, you can login now!");
+                            // window.alert("Registration success, you can login now!");
 
                             // redirect to login page
                             router.push({path: '/login'});
 
                         }else{
                             // notify user
-                            window.alert(response.message);
+                            Toastify({
+                                text: response.message,
+                                duration: 3000,
+                                close: false,
+                                // avatar:"/img/logo-dark.44b49d43.png",
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: false, // Prevents dismissing of toast on hover
+                                style: {
+                                    "font-size": "large",
+                                    "font-family":"\"Roboto\", sans-serif",
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                            // window.alert(response.message);
                         }
                     })
                     .catch(error => {

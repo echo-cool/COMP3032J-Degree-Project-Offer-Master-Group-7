@@ -28,10 +28,7 @@
                                 </tr>
                                 </thead>
 
-                                <tbody v-if="loadCountUser === applications.length
-                                            && loadCountProgram === applications.length
-                                            && loadCountSchool === applications.length
-                                            && loadCountProfile === applications.length" class="ranking">
+                                <tbody v-if="applications.length !== 0" class="ranking">
                                 <tr :class="{'color-light': rowIndex%2 === 0}"
                                     v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                     :key="`application-decision-${rowIndex}`">
@@ -153,16 +150,7 @@
                     Reported_Time: "",
                     Operations: ""
                 },
-                applications: [
-                    {
-                        user:{
-                            profile: {}
-                        },
-                        program: {
-                            school: {}
-                        }
-                    }
-                ],
+                applications: [],
                 loadCountUser: 0,
                 loadCountProgram: 0,
                 loadCountSchool: 0,
@@ -290,45 +278,45 @@
                         this.applications = response.data.decisions;
 
                         // reset the loading count
-                        this.loadCountUser = 0;
-                        this.loadCountProgram = 0;
-                        this.loadCountProfile = 0;
-                        this.loadCountSchool = 0;
+                        // this.loadCountUser = 0;
+                        // this.loadCountProgram = 0;
+                        // this.loadCountProfile = 0;
+                        // this.loadCountSchool = 0;
 
                         // we need to request the user and program obj for each application
-                        for(let k in this.applications){
-                            // request the user
-                            let userURL = `/rest/applications/${this.applications[k].id}/user`;
-                            commonApi.getByRestURL(userURL)
-                                .then(response => {
-                                    this.applications[k].user = response;
-                                    this.loadCountUser += 1;
-
-                                    // request the profile (background) for this user
-                                    let profileURL = `/rest/users/${this.applications[k].user.id}/profile`
-                                    commonApi.getByRestURL(profileURL)
-                                        .then(response => {
-                                            this.applications[k].user.profile = response;
-                                            this.loadCountProfile += 1;
-                                        })
-                                })
+                        // for(let k in this.applications){
+                        //     // request the user
+                        //     let userURL = `/rest/applications/${this.applications[k].id}/user`;
+                        //     commonApi.getByRestURL(userURL)
+                        //         .then(response => {
+                        //             this.applications[k].user = response;
+                        //             this.loadCountUser += 1;
+                        //
+                        //             // request the profile (background) for this user
+                        //             let profileURL = `/rest/users/${this.applications[k].user.id}/profile`
+                        //             commonApi.getByRestURL(profileURL)
+                        //                 .then(response => {
+                        //                     this.applications[k].user.profile = response;
+                        //                     this.loadCountProfile += 1;
+                        //                 })
+                        //         })
 
                             // request the program
-                            let programURL = `/rest/applications/${this.applications[k].id}/program`;
-                            commonApi.getByRestURL(programURL)
-                                .then(response => {
-                                    this.applications[k].program = response;
-                                    this.loadCountProgram += 1;
-
-                                    // request the school for this program
-                                    let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`
-                                    commonApi.getByRestURL(schoolURL)
-                                        .then(response => {
-                                            this.applications[k].program.school = response;
-                                            this.loadCountSchool += 1;
-                                        })
-                                })
-                        }
+                            // let programURL = `/rest/applications/${this.applications[k].id}/program`;
+                            // commonApi.getByRestURL(programURL)
+                            //     .then(response => {
+                            //         this.applications[k].program = response;
+                            //         this.loadCountProgram += 1;
+                            //
+                            //         // request the school for this program
+                            //         let schoolURL = `/rest/programs/${this.applications[k].program.id}/school`
+                            //         commonApi.getByRestURL(schoolURL)
+                            //             .then(response => {
+                            //                 this.applications[k].program.school = response;
+                            //                 this.loadCountSchool += 1;
+                            //             })
+                            //     })
+                        // }
 
                     });
             }

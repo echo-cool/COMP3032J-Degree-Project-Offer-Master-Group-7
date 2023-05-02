@@ -14,8 +14,8 @@ services:
       - fyp_offer_master_portainer
     volumes:
       - ./nginx-reverse-proxy/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx-reverse-proxy/certbot/www:/var/www/certbot/:ro
-      - ./nginx-reverse-proxy/certbot/conf/:/etc/nginx/ssl/:ro
+#      - ./nginx-reverse-proxy/certbot/www:/var/www/certbot/:ro
+#      - ./nginx-reverse-proxy/certbot/conf/:/etc/nginx/ssl/:ro
     ports:
       - "80:80"
       - "443:443"
@@ -24,14 +24,14 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./nginx-reverse-proxy/certbot/www/:/var/www/certbot/:rw
-      - ./nginx-reverse-proxy/certbot/conf/:/etc/letsencrypt/:rw
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./nginx-reverse-proxy/certbot/www/:/var/www/certbot/:rw
+#      - ./nginx-reverse-proxy/certbot/conf/:/etc/letsencrypt/:rw
 
   fyp_offer_master_springboot_admin:
     image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
@@ -44,9 +44,24 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
+#  fyp_offer_master_rasa:
+#    image: echocool/fyp_offer_master_rasa:${VERSION:-latest}
+#    container_name: fyp_offer_master_rasa
+#    ports:
+#      - "5005:5005"
+#    expose:
+#      - "5005"
+#    networks:
+#      - offer_master_network
+#    restart: on-failure
+#    logging:
+#      driver: "gelf"
+#      options:
+#        gelf-address: "tcp://node5.echo.cool:12201"
+#        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # springboot backend
   fyp_offer_master_springboot:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
@@ -72,7 +87,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -92,7 +107,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -112,7 +127,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_django_ml:
@@ -130,7 +145,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 #  fyp_offer_master_minio:
@@ -170,7 +185,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
@@ -186,7 +201,7 @@ services:
 #      - "3306:3306"
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 2s
+      timeout: 5s
       retries: 100
     networks:
       - offer_master_network
@@ -195,7 +210,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_phpmyadmin:
@@ -214,7 +229,7 @@ services:
     logging:
       driver: "gelf"
       options:
-        gelf-address: "tcp://node5.echo.cool:12201"
+        gelf-address: "udp://node5.echo.cool:12201"
         tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 

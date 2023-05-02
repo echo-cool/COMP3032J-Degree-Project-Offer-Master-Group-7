@@ -37,7 +37,7 @@
                     </div>
                     <div class="setting-option header-btn rbt-site-header flex-shrink-0" id="rbt-site-header">
                         <div class="icon-box">
-                            <router-link id="connectbtn" style="margin: 5px" class="btn btn-primary-alta btn-small" to="/edit-profile">My Space</router-link>
+<!--                            <router-link id="connectbtn" style="margin: 5px" class="btn btn-primary-alta btn-small" to="/edit-profile">My Space</router-link>-->
                             <router-link v-if="currentUser" id="connectbtn" style="margin: 5px" @click.prevent="handleLogout" class="btn btn-primary-alta btn-small" to="/login" >Logout</router-link>
 
 

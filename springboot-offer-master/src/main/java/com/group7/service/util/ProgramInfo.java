@@ -11,6 +11,12 @@ public class ProgramInfo {
 
     Double avgTOEFL;
 
+    Double avgRank;
+
+    public void setAvgRank(Double avgRank) {
+        this.avgRank = avgRank;
+    }
+
     public Double getAvgIELTS() {
         return avgIELTS;
     }
@@ -48,10 +54,15 @@ public class ProgramInfo {
             case "gpa" -> this.setAvgGPA(value);
             case "ielts" -> this.setAvgIELTS(value);
             case "toefl" -> this.setAvgTOEFL(value);
+            case "rank" -> this.setAvgRank(value);
         }
     }
 
     public ProgramInfo(Program program) {
         this.program = program;
+    }
+
+    public Double getAvgRank() {
+        return avgRank;
     }
 }

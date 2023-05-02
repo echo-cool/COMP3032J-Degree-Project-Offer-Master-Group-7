@@ -662,7 +662,22 @@
         </div>
         <!-- End product details area -->
 
-        <!-- Virtual Campus Tour Start -->
+      <!-- Average Background Start -->
+      <div class="rn-new-items rn-section-gapTop">
+        <div class="container">
+          <div class="row mb--30 align-items-center">
+            <div class="col-12">
+              <h3 class="title mb--0">Average Background of Admitted Applicants</h3>
+            </div>
+          </div>
+
+          <background-card :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
+
+        </div>
+      </div>
+      <!-- Average Background End -->
+
+      <!-- Virtual Campus Tour Start -->
         <div class="rn-new-items rn-section-gapTop">
             <div class="container">
                 <div class="row mb--30 align-items-center">
@@ -764,6 +779,7 @@
     import programSelectionApi from "@/api/programSelection";
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
+    import BackgroundCard from "@/components/myComp/background/BackgroundCard";
 
 
     export default {
@@ -780,7 +796,8 @@
             Layout,
             VirtualCampusTourFrame,
             OfferTimelineFrame,
-            OfferTimelineFrameHighCharts
+            OfferTimelineFrameHighCharts,
+            BackgroundCard
         },
         mixins: [ProductMixin],
         data() {
@@ -798,7 +815,8 @@
                 programSelected: false,
 
                 countLstThisYear: [], // a list of admission numbers each week (must be 52weeks(len) in total)
-                countLstLastYear: []
+                countLstLastYear: [],
+                background: null,
             }
         },
         methods: {
@@ -898,7 +916,7 @@
                 programSelectionApi.addApplication(programId)
                     .then(response => {
                         // add successfully
-                        window.alert("The program added successfully into your list!")
+                        // window.alert("The program added successfully into your list!")
                         // update the button
                         this.programSelected = !this.programSelected;
                     })
@@ -909,7 +927,7 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        window.alert("Program removed successfully from your list!")
+                        // window.alert("Program removed successfully from your list!")
                         // update the button
                         this.programSelected = !this.programSelected;
                     })
@@ -926,6 +944,13 @@
                         this.countLstThisYear = response.data.countLstThisYear;
                         this.countLstLastYear = response.data.countLstLastYear;
                     })
+            },
+
+            getAverageBackground() {
+                programApi.getAverageBackground(this.id).then(response => {
+                    this.background = response.data
+                    console.log(this.background)
+                })
             }
 
         },
@@ -934,6 +959,7 @@
             this.getData();
             this.getPrograms();
             this.getWeeklyADCount(this.id);
+            this.getAverageBackground();
         },
         mounted(){
 

@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.group7.utils.common.ListToPage.listToPage;
 
@@ -254,6 +255,56 @@ public class ProgramController {
         }
         return R.error();
     }
+
+    @GetMapping("/public/getAverageMetricByProgramId/{id}")
+    public R getAverageMetricByProgramId(@PathVariable("id") long id){
+        Program program = programRepository.findById(id).orElse(null);
+        if(program != null){
+            List<Application> applications = program.getApplications()
+                    .stream()
+                    .filter(application -> application.geteStatus() == EStatus.ADMITTED)
+                    .toList();
+            System.out.println(applications);
+            // 0: GPA, 1: GRE Overall, 2: GRE Verbal, 3: GRE Quantitative, 4: GRE Writing
+            // 5: IELTS Listening, 6: IELTS Reading, 7: IELTS Writing, 8: IELTS Speaking, 9: IELTS Overall
+            // 10: Ranking
+            double[] sumMetric = new double[11];
+            for(Application application : applications){
+                sumMetric[0] += application.getUser().getProfile().getGpa();
+                sumMetric[1] += application.getUser().getProfile().getGreTotal();
+                sumMetric[2] += application.getUser().getProfile().getGreVerbal();
+                sumMetric[3] += application.getUser().getProfile().getGreQuantitative();
+                sumMetric[4] += application.getUser().getProfile().getGreAnalyticalWriting();
+                sumMetric[5] += application.getUser().getProfile().getListeningIELTS();
+                sumMetric[6] += application.getUser().getProfile().getReadingIELTS();
+                sumMetric[7] += application.getUser().getProfile().getWritingIELTS();
+                sumMetric[8] += application.getUser().getProfile().getSpeakingIELTS();
+                sumMetric[9] += application.getUser().getProfile().getTotalIELTS();
+                sumMetric[10] += application.getUser().getProfile().getRanking();
+            }
+            for(int i = 0; i < sumMetric.length; i++){
+                sumMetric[i] /= applications.size();
+            }
+            return R.ok()
+//                    .data("0-averageMetric", sumMetric)
+                    .data("ApplicationCount", applications.size())
+                    .data("gpa", sumMetric[0])
+                    .data("greTotal", sumMetric[1])
+                    .data("greVerbal", sumMetric[2])
+                    .data("greQuantitative", sumMetric[3])
+                    .data("greAnalyticalWriting", sumMetric[4])
+                    .data("listeningIELTS", sumMetric[5])
+                    .data("readingIELTS", sumMetric[6])
+                    .data("writingIELTS", sumMetric[7])
+                    .data("speakingIELTS", sumMetric[8])
+                    .data("totalIELTS", sumMetric[9])
+                    .data("ranking", sumMetric[10])
+                    ;
+        }
+        return R.error();
+    }
+
+
 
     @GetMapping("/public/get-weekly-ad-count/{id}")
     public R getWeeklyAdmissionCountByProgramId(@PathVariable("id") long id){

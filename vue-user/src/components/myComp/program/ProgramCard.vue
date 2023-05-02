@@ -19,6 +19,12 @@
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
+              <button v-if="isProgramSelected && isRecommended"
+                      type="button"
+                      @click="removeProgramFromUserApplications(program.id)">Remove</button>
+              <button v-if="!isProgramSelected && isRecommended"
+                      type="button"
+                      @click="addProgramIntoUserApplications(program.id)">Add</button>
 <!--                <router-link v-for="(author, index) in productDate.authors"-->
 <!--                             :key="`author-${index}`"-->
 <!--                             :to="`/author/${author.id}`"-->
@@ -74,6 +80,8 @@
 <script>
     import Countdown from "@/components/myComp/program/Countdown.vue";
     import programAip from "@/api/program";
+    import programSelectionApi from "@/api/programSelection";
+    import Toastify from "toastify-js";
 
     export default {
         name: 'ProgramCard',
@@ -86,7 +94,15 @@
                 default: false
             },
             isLikedObj: {},
-            deadline: ""
+            deadline: "",
+            isProgramSelected: {
+              type: Boolean,
+              default: false
+            },
+            isRecommended: {
+              type: Boolean,
+              default: false
+            },
         },
         watch: {
             '$route': function (to, from) {
@@ -115,7 +131,59 @@
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
                         }
                     })
-            }
+            },
+
+            // remove a program from user application list
+            removeProgramFromUserApplications(programId){
+              programSelectionApi.deleteApplicationByProgramId(programId)
+                  .then(response => {
+                    // delete successfully
+                      Toastify({
+                          text: "The program removed successfully into your list!",
+                          duration: 3000,
+                          close: false,
+                          // avatar:"/img/logo-dark.44b49d43.png",
+                          gravity: "top", // `top` or `bottom`
+                          position: "right", // `left`, `center` or `right`
+                          stopOnFocus: false, // Prevents dismissing of toast on hover
+                          style: {
+                              "font-size": "large",
+                              "font-family":"\"Roboto\", sans-serif",
+                              background: "linear-gradient(to right, #00b09b, #96c93d)",
+                          },
+                          onClick: function(){} // Callback after click
+                      }).showToast();
+                    // window.alert("Program removed successfully from your list!")
+                    // tell the parent component to reload data for updating showing
+                    this.$emit("reloadData");
+                  })
+            },
+
+            // add a program into user application list
+            addProgramIntoUserApplications(programId){
+              programSelectionApi.addApplication(programId)
+                  .then(response => {
+                    // add successfully
+                      Toastify({
+                          text: "The program added successfully into your list!",
+                          duration: 3000,
+                          close: false,
+                          // avatar:"/img/logo-dark.44b49d43.png",
+                          gravity: "top", // `top` or `bottom`
+                          position: "right", // `left`, `center` or `right`
+                          stopOnFocus: false, // Prevents dismissing of toast on hover
+                          style: {
+                              "font-size": "large",
+                              "font-family":"\"Roboto\", sans-serif",
+                              background: "linear-gradient(to right, #00b09b, #96c93d)",
+                          },
+                          onClick: function(){} // Callback after click
+                      }).showToast();
+                    // window.alert("The program added successfully into your list!")
+                    // tell the parent component to reload data for updating showing
+                    this.$emit("reloadData");
+                  })
+            },
         }
     }
 </script>

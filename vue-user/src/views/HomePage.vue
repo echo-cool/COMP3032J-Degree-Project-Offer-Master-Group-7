@@ -38,8 +38,7 @@
         <!-- End Application Tools Area -->
 
         <!-- Start My program carousel Area -->
-        <my-program-list-timer-carousel v-if="currentUser.id && appListMixinLoadSchoolCount === applications.length"
-                                        :title="`Due Date Countdown of My Selected Programs`"
+        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"
                                         :applications="applications"/>
         <!-- End My program carousel Area -->
         <div class="about-market-area rn-section-gapTop">
@@ -109,7 +108,7 @@
 <!--         Top Explore Programs Start-->
         <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
 <!--         Top Explore Programs End-->
-
+        <chat-box1></chat-box1>
     </layout>
 </template>
 
@@ -127,7 +126,9 @@
     import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
 
     import cookie from "js-cookie";
-
+    import ChatBox1 from "@/components/wyy/ChatBox1.vue";
+    import Toastify from 'toastify-js'
+    import "toastify-js/src/toastify.css"
     export default {
         name: 'HomePageFour',
         components: {
@@ -138,7 +139,8 @@
             TopPrograms,
             OfferMasterGuide,
             ApplicationTools,
-            ExploreFilterPrograms
+            ExploreFilterPrograms,
+            ChatBox1,
         },
         mixins: [SalScrollAnimationMixin, ApplicationListMixin],
 
@@ -149,7 +151,21 @@
             }
         },
         created() {
-
+            Toastify({
+                text: "Welcome to our site!",
+                duration: 3000,
+                close: false,
+                // avatar:"/img/logo-dark.44b49d43.png",
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: false, // Prevents dismissing of toast on hover
+                style: {
+                    "font-size": "large",
+                    "font-family":"\"Roboto\", sans-serif",
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                onClick: function(){} // Callback after click
+            }).showToast();
             this.getCurrentUser();
 
         },

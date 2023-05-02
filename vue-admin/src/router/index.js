@@ -346,6 +346,29 @@ export const asyncRoutes = [
     hidden: true
   },
 
+  // {
+  //   path: '/chat/container/:id',
+  //   component: () => import('@/views/chat/container'),
+  //   name: 'Container',
+  //   meta: { title: 'Container' },
+  //   hidden: true
+  // },
+  {
+    path: '/chat',
+    component: Layout,
+    redirect: '/chat/container/:id',
+    children: [
+      {
+        path: 'container/:id',
+        component: () => import('@/views/chat/container'),
+        name: 'Container',
+        meta: { title: 'Container' },
+        hidden: true
+      }
+    ],
+    hidden: true
+  },
+
   {
     path: '/theme',
     component: Layout,
