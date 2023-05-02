@@ -37,29 +37,29 @@
         <application-tools/>
         <!-- End Application Tools Area -->
 
-<!--        &lt;!&ndash; Start My program carousel Area &ndash;&gt;-->
+        <!-- Start My program carousel Area -->
 <!--        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"-->
 <!--                                        :applications="applications"/>-->
-<!--        &lt;!&ndash; End My program carousel Area &ndash;&gt;-->
-<!--        <div class="about-market-area rn-section-gapTop">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="about-wrapper text-center">-->
-<!--                            <h1>Our Competitiveness</h1>-->
-<!--                            <p class="discription">-->
-<!--                                Offer master website features the program and university recommendation (highlighting matched programs),-->
-<!--                                university database (used for searching and recommendation system training), applicant background system-->
-<!--                                and the applicants' community with the admission information and the recent offer timelines.-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Start OfferMaster Guide Area &ndash;&gt;-->
-<!--        <offer-master-guide/>-->
-<!--        &lt;!&ndash; End OfferMaster Guide Area &ndash;&gt;-->
+        <!-- End My program carousel Area -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Our Competitiveness</h1>
+                            <p class="discription">
+                                Offer master website features the program and university recommendation (highlighting matched programs),
+                                university database (used for searching and recommendation system training), applicant background system
+                                and the applicants' community with the admission information and the recent offer timelines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start OfferMaster Guide Area -->
+        <offer-master-guide/>
+        <!-- End OfferMaster Guide Area -->
 
 
         <!-- About Graduate Application Start -->
