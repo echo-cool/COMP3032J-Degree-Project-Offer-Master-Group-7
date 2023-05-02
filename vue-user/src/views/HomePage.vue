@@ -1,36 +1,36 @@
 <template>
     <layout>
         <!-- Start banner area -->
-<!--        <div class="banner-style-4 rn-section-gapTop">-->
-<!--            <div class="container">-->
-<!--                <div class="row align-items-center">-->
-<!--                    <div class="col-xl-6 col-lg-6 col-md-12 order-2 order-lg-1 mt_md&#45;&#45;40 mt_sm&#45;&#45;40">-->
-<!--                        <div class="sldier-content">-->
-<!--                            <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">-->
-<!--                                OfferMaster Graduate Application Helper-->
-<!--                            </span>-->
-<!--                            <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">-->
-<!--                                Get Recommended Programs for You-->
-<!--                            </h2>-->
-<!--                            <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">-->
-<!--                                We can recommend you graduate programs that are the best fit for-->
-<!--                                <br> your academic background, which can maximize the success rate-->
-<!--                                <br> of your application.-->
-<!--                            </p>-->
-<!--                            <div class="button-group">-->
-<!--                                <router-link to="/program-selection" class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Get Started</router-link>-->
-<!--                                <router-link to="/edit-profile?to=application" class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Complete Background</router-link>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">-->
-<!--                        <div class="slider slick-activation-04">-->
-<!--                            <banner-carousel/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="banner-style-4 rn-section-gapTop">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-lg-6 col-md-12 order-2 order-lg-1 mt_md--40 mt_sm--40">
+                        <div class="sldier-content">
+                            <span class="title-badge" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">
+                                OfferMaster Graduate Application Helper
+                            </span>
+                            <h2 class="title" data-sal="slide-up" data-sal-delay="200" data-sal-duration="800">
+                                Get Recommended Programs for You
+                            </h2>
+                            <p class="banner-disc-one" data-sal="slide-up" data-sal-delay="250" data-sal-duration="800">
+                                We can recommend you graduate programs that are the best fit for
+                                <br> your academic background, which can maximize the success rate
+                                <br> of your application.
+                            </p>
+                            <div class="button-group">
+                                <router-link to="/program-selection" class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Get Started</router-link>
+                                <router-link to="/edit-profile?to=application" class="btn btn-large btn-primary-alta" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">Complete Background</router-link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 order-1 order-lg-2">
+                        <div class="slider slick-activation-04">
+                            <banner-carousel/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- End banner area -->
 
         <!-- Start Application Tools Area -->
@@ -105,10 +105,10 @@
         <top-programs/>
         <!-- Top Top Program End -->
 
-<!--         Top Explore Programs Start-->
-        <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
-<!--         Top Explore Programs End-->
-        <chat-box1></chat-box1>
+<!--&lt;!&ndash;         Top Explore Programs Start&ndash;&gt;-->
+<!--        <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>-->
+<!--&lt;!&ndash;         Top Explore Programs End&ndash;&gt;-->
+<!--        <chat-box1></chat-box1>-->
     </layout>
 </template>
 
