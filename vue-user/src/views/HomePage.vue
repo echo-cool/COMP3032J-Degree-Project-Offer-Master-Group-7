@@ -37,29 +37,29 @@
         <application-tools/>
         <!-- End Application Tools Area -->
 
-        <!-- Start My program carousel Area -->
-        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"
-                                        :applications="applications"/>
-        <!-- End My program carousel Area -->
-        <div class="about-market-area rn-section-gapTop">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="about-wrapper text-center">
-                            <h1>Our Competitiveness</h1>
-                            <p class="discription">
-                                Offer master website features the program and university recommendation (highlighting matched programs),
-                                university database (used for searching and recommendation system training), applicant background system
-                                and the applicants' community with the admission information and the recent offer timelines.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Start OfferMaster Guide Area -->
-        <offer-master-guide/>
-        <!-- End OfferMaster Guide Area -->
+<!--        &lt;!&ndash; Start My program carousel Area &ndash;&gt;-->
+<!--        <my-program-list-timer-carousel :title="`Due Date Countdown of My Selected Programs`"-->
+<!--                                        :applications="applications"/>-->
+<!--        &lt;!&ndash; End My program carousel Area &ndash;&gt;-->
+<!--        <div class="about-market-area rn-section-gapTop">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="about-wrapper text-center">-->
+<!--                            <h1>Our Competitiveness</h1>-->
+<!--                            <p class="discription">-->
+<!--                                Offer master website features the program and university recommendation (highlighting matched programs),-->
+<!--                                university database (used for searching and recommendation system training), applicant background system-->
+<!--                                and the applicants' community with the admission information and the recent offer timelines.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Start OfferMaster Guide Area &ndash;&gt;-->
+<!--        <offer-master-guide/>-->
+<!--        &lt;!&ndash; End OfferMaster Guide Area &ndash;&gt;-->
 
 
         <!-- About Graduate Application Start -->
@@ -81,29 +81,29 @@
         </div>
         <!-- About Graduate Application End -->
 
-<!--        &lt;!&ndash; Start Top School Area &ndash;&gt;-->
-<!--        <top-schools/>-->
+        <!-- Start Top School Area -->
+        <top-schools/>
 
-<!--        &lt;!&ndash; End Top School Area &ndash;&gt;-->
-<!--        <div class="about-market-area rn-section-gapTop">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="about-wrapper text-center">-->
-<!--                            <h1>Best Global Programs for Computer Science</h1>-->
-<!--                            <p class="discription">-->
-<!--                                Computer science covers a broad variety of topics.-->
-<!--                                Programming languages, information systems, artificial intelligence theory, and information technology are typical-->
-<!--                                study of computer science and how they are used.-->
-<!--                            </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Top Top Program Start &ndash;&gt;-->
-<!--        <top-programs/>-->
-<!--        &lt;!&ndash; Top Top Program End &ndash;&gt;-->
+        <!-- End Top School Area -->
+        <div class="about-market-area rn-section-gapTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-wrapper text-center">
+                            <h1>Best Global Programs for Computer Science</h1>
+                            <p class="discription">
+                                Computer science covers a broad variety of topics.
+                                Programming languages, information systems, artificial intelligence theory, and information technology are typical
+                                study of computer science and how they are used.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top Top Program Start -->
+        <top-programs/>
+        <!-- Top Top Program End -->
 
 <!--         Top Explore Programs Start-->
         <explore-filter-programs :query="''" :limit="20" :current-user="currentUser"/>
