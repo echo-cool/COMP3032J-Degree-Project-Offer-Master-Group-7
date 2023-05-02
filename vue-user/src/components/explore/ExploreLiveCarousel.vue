@@ -1,12 +1,15 @@
 <template>
   <div class="rn-live-bidding-area">
     <div class="container">
+      <template v-if="toggle">
       <carousel v-if="programs.length !== 0" class="portfolio-slider"
                 :items-to-show="1"
                 :wrap-around="true"
                 :breakpoints="breakpoints"
                 @init="handleInit"
+                ref="myCarousel"
       >
+
         <template #addons>
           <div class="carousel-header">
             <div class="section-title">
@@ -31,6 +34,7 @@
           />
         </slide>
       </carousel>
+      </template>
     </div>
   </div>
 </template>
@@ -85,6 +89,7 @@ export default {
         }
       },
       programs: [],
+      toggle: true,
       buttonIcon: '<svg class="carousel__icon" viewBox="0 0 24 24" role="img" ariaLabel="arrowRight"><title>arrowRight</title><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg>'
     }
   },
@@ -119,6 +124,7 @@ export default {
       this.$emit("reloadData");
       // reload likes
       this.getLikedPrograms();
+      const myCarousel = this.$refs.myCarousel
     },
 
     // check whether the application list contains a program
