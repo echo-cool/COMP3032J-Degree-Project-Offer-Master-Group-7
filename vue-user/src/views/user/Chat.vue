@@ -6,56 +6,6 @@
         <!-- <el-backtop target=".chat-content" :visibility-height="vHeight">
             <i class="el-icon-caret-top"></i>
         </el-backtop> -->
-        <a
-            style="
-            width: 39px;
-            height: 39px;
-            position: fixed;
-            bottom: 119px;
-            right: 3px;
-            z-index: 999;
-            "
-            @mouseover="changeActive($event)"
-            @mouseout="removeActive($event)"
-            @click="backTOP"
-        >
-            <!-- style="width: 100%;height: 39px;position: absolute;bottom: 80px;z-index: 9000px;" -->
-            <el-image
-            v-show="txt1"
-            :src="require('@/assets/up.png')"
-            style="width: 39px; height: 39px; margin-right: 20%"
-            />
-            <span
-            v-show="!txt1"
-            class="show-txt"
-            style="width: 100%; height: 39px; display: block"
-            ><font color="#889AA4">回到顶部</font></span>
-        </a>
-        <a
-            style="
-            width: 39px;
-            height: 39px;
-            position: fixed;
-            bottom: 70px;
-            right: 3px;
-            z-index: 999;
-            "
-            @mouseover="changeActive2($event)"
-            @mouseout="removeActive2($event)"
-            @click="toBottom"
-        >
-            <!-- position: absolute;bottom: 40px; -->
-            <el-image
-            v-show="txt2"
-            :src="require('@/assets/down.png')"
-            style="width: 39px; height: 39px; margin-right: 20%"
-            />
-            <span
-            v-show="!txt2"
-            class="show-txt2"
-            style="width: 100%; height: 39px; display: block"
-            ><font color="#889AA4">回到底部</font></span>
-        </a>
         <!-- <el-backtop :visibility-height="0">UP</el-backtop>  -->
         <!-- recordContent 聊天记录数组-->
         <div v-for="(item, index) in recordContent" :key="index">
@@ -78,16 +28,30 @@
             <img :src="`/backend/static/` + senderInfo.avatar">
             </div>
         </div>
-        <grammarly-editor-plugin :config="{
-            activation: 'focus',
-            autocomplete: 'on',
-            underlines: 'on',
-            toneDetector: 'on'
-        }" clientId="client_FB5htQfgvMprDoEMqvDsLw">
-            <textarea name="context" placeholder="Start Chatting" />
-            <grammarly-button />
-            </grammarly-editor-plugin>
-        <el-button type="success" round @click="send()">Send</el-button>
+        <form class="mt--20" action="#" id="comment-form" onsubmit="return false">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="rnform-group">
+                        <grammarly-editor-plugin :config="{
+                            activation: 'focus',
+                            autocomplete: 'on',
+                            underlines: 'on',
+                            toneDetector: 'on'
+                        }" clientId="client_FB5htQfgvMprDoEMqvDsLw">
+                        <textarea ref="content" v-model="content" placeholder="Start Chatting" />
+                        <grammarly-button />
+                        </grammarly-editor-plugin>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="blog-btn" v-on:click="send()">
+                        <a class="btn btn-primary-alta btn-large w-100" href="#">
+                            <span>Send</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
         </div>
     </layout>
 </template>
@@ -95,14 +59,17 @@
 import Layout from '@/components/layouts/Layout'
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import request from "@/utils/request";
+import SalScrollAnimationMixin from '@/mixins/SalScrollAnimationMixin'
 // import SockJS from 'sockjs-client'
-import { GrammarlyEditorPlugin, GrammarlyButton } from "@grammarly/editor-sdk-vue";
+import { GrammarlyEditorPlugin, GrammarlyButton } from "@grammarly/editor-sdk-vue"
 // import Stomp from 'webstomp-client'
 import cookie from "js-cookie"
-import chatApi from "@/api/chat";
+import chatApi from "@/api/chat"
+
 export default {
   name: 'Chat',
   components: { Breadcrumb, Layout, GrammarlyEditorPlugin, GrammarlyButton},
+  mixins: [SalScrollAnimationMixin],
   data() {
     return {
       senderInfo: {},
@@ -114,13 +81,6 @@ export default {
       id: '',
       txt1: true, // 回到顶部
       txt2: true, // 回到底部
-      stompClient: null,
-      timeout: 28 * 1000, // 30秒一次心跳
-      timeoutObj: null, // 心跳心跳倒计时
-      serverTimeoutObj: null, // 心跳倒计时
-      timeoutnum: null, // 断开 重连倒计时
-      websocket: null
-      // up: ""
     }
   },
   watch: {
@@ -139,7 +99,6 @@ export default {
     this.timer = setInterval(() => {
       this.getChatInfo()
     }, 3000)
-    // this.initWebSocket()
   },
   beforeDestroy() {
     this.myDestory()
@@ -152,7 +111,7 @@ export default {
             this.user = JSON.parse(userTemp);
             this.username = this.user.username
             // console.log(userTemp.id)
-            this.senderInfo.id = this.user.id
+            this.senderInfo.id = Number(this.user.id)
             this.senderInfo.username = this.user.username
             this.senderInfo.avatar = this.user.avatar
             console.log(this.senderInfo)
@@ -162,7 +121,6 @@ export default {
         }       
     },
     myDestory() {
-      this.disconnect()
       clearInterval(this.timer)
     },
     send() {
@@ -173,41 +131,35 @@ export default {
         content: this.content
       }
       // this.websocketsend(this.content)
-      console.log(tmp)
+      console.log(this.content)
       chatApi.sendChat(tmp)
         .then(response => {
           this.init()
-          this.$refs.content.setContent('')
+          this.$refs['content'].setContent('')
         })
     },
     init() {
       this.content = ''
-      this.receiverInfo.id = this.$route.params.id
+      this.receiverInfo.id = Number(this.$route.params.id)
+      console.log("111")
       this.getCurrentUser()
+    //   console.log(this.senderInfo)
+    //   console.log(this.receiverInfo)
       this.getChatInfo()
-      chatApi.getInfo(this.username, this.id).then((response) => {
-        console.log(response.data)
-        this.senderInfo = response.data.senderInfo
+      chatApi.getReceiverInfo(this.receiverInfo.id).then((response) => {
+        // console.log(response.data)
         this.receiverInfo = response.data.receiverInfo
       })
-      // var userInfo = getPugeUserInfo()
-      // if (userInfo) {
-      //   userInfo = JSON.parse(userInfo)
-      //   this.staffInfo = userInfo
-      // }
-      // chat.getUserInfo(id).then((response) => {
-      //   this.userInfo = response.data.user
-
-      // // })
     },
 
     getChatInfo() {
       // 调用根据id查询的方法
       // console.log('222')
       // console.log(this.userInfo
+    //   console.log(this.receiverInfo.id, this.senderInfo.id)
       chatApi.getChatInfoById(this.receiverInfo.id, this.senderInfo.id)
         .then(response => {
-          console.log(response)
+        //   console.log(response)
           this.recordContent = response.data.list
           console.log(this.recordContent)
         })
@@ -233,23 +185,6 @@ export default {
       // debugger
       this.txt2 = true
       // $event.currentTarget.className="";
-    },
-    // 点击回到页面顶端
-    backTOP() {
-      document.body.scrollTop = document.documentElement.scrollTop = 0
-    },
-    // 点击回到页面底部
-    toBottom(i) {
-      const clientHeight = document.documentElement.clientHeight || document.body.clientHeight
-      const scrollHeight = document.documentElement.scrollHeight
-      const rollheight = scrollHeight - clientHeight // 超出窗口上界的值就是底部的scrolTop的值
-      document.documentElement.scrollTop += 200
-      if (document.documentElement.scrollTop + 1 <= rollheight) {
-        // 之所以+1，可以打印这两个值的日志就知道了，下面+1也是同理
-        var c = setTimeout(() => this.toBottom(i), 10) // 调用setTimeout是为了“回到底部”这过程不是一瞬间
-      } else {
-        clearTimeout(c)
-      }
     }
   }
 

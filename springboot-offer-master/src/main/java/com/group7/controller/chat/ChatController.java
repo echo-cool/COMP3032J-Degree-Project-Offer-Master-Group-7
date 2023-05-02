@@ -63,7 +63,7 @@ public class ChatController {
     }
 
     @GetMapping("getChatInfoById/{id1}/{id2}")
-    public R getChatInfoById(@PathVariable("id1") Long id1, @PathVariable("id1") Long id2){
+    public R getChatInfoById(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2){
         List<Chat> list = chatRepository.findAllBySenderIdAndReceiverId(id1, id2);
         List<Chat> list_Extra = chatRepository.findAllBySenderIdAndReceiverId(id2, id1);
         list.addAll(list_Extra);
@@ -74,9 +74,9 @@ public class ChatController {
             }
         };
         Collections.sort(list,tmpComparator);
-//        System.out.println("==========666");
-//        System.out.println(list);
-//        System.out.println("==========666");
+        System.out.println("==========666");
+        System.out.println(list);
+        System.out.println("==========666");
         return R.ok().data("list", list);
     }
 
@@ -146,5 +146,17 @@ public class ChatController {
         chatRepository.save(chat);
         System.out.println("onlineNumber: " + WebSocketServer.onlineNumber);
         return R.ok();
+    }
+
+    @GetMapping("getReceiverInfo/{id}")
+    public R getReceiverInfo(@PathVariable("id") Long id){
+        User user1 = userRepository.getById(id);
+        UserVo Info = new UserVo();
+        Info.setId(user1.getId());
+        Info.setUsername(user1.getUsername());
+        Info.setAvatar(user1.getAvatar());
+        System.out.println(Info);
+        System.out.println("-=-=-=-=-=-=-=-=-=-=888");
+        return R.ok().data("receiverInfo", Info);
     }
 }

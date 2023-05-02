@@ -14,17 +14,10 @@ export default{
           data: tmp,
         })
     },
-    getInfo(name, id) {
+    getReceiverInfo(id) {
         return request({
-          url: `/api/chat/getInfo/${name}/${id}`,
+          url: `/api/chat/getReceiverInfo/${id}`,
           method: 'get',
-        })
-    },
-    sendChat(tmp) {
-        return request({
-          url: `/api/chat/sendChat`,
-          method: 'post',
-          data: tmp,
         })
     },
     getChatInfoById(id1, id2) {
