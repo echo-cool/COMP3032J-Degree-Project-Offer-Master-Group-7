@@ -62,7 +62,24 @@
 
                         <!-- step 3 -->
                         <tab-content title="Upload Your Filled Transcript" :before-change="beforeChange3">
-                            My second tab content
+                            <div class="about-market-area rn-section-gapTop">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="about-wrapper text-center">
+                                                <h1>Upload Your Course-by-Course Transcript</h1>
+                                                <p class="discription">
+                                                    After filling in our Transcript Template, you can upload it here for GPA converting.
+                                                    The file you upload should still be an Excel file with the extension of ".xlsx".
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <VueFileAgent v-model="fileRecords"></VueFileAgent>
+
                         </tab-content>
 
                         <!-- step 4 -->
@@ -107,6 +124,7 @@
         data() {
             return {
                 originalScale: "",
+                fileRecords: [],
             }
         },
         created() {

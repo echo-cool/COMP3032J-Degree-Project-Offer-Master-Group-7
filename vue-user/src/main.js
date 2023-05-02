@@ -57,4 +57,9 @@ app.use(router)
 
 import Chat from 'vue-beautiful-chat'
 Vue.use(Chat)
+
+import VueFileAgent from 'vue-file-agent';
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
+app.use(VueFileAgent);
+
 app.mount('#app')
