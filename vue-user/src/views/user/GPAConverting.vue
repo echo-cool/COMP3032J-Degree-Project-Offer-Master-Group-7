@@ -40,7 +40,24 @@
 
                         <!-- step 2 -->
                         <tab-content title="Download and Fill Transcript Template" :before-change="beforeChange2">
-                            My first tab content2
+                            <div class="about-market-area rn-section-gapTop">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="about-wrapper text-center">
+                                                <h1>Download and Fill in Our Transcript Template</h1>
+                                                <p class="discription">
+                                                    You can download the our Transcript Template here, which is an Excel file.
+                                                    You should input the information of all the courses you have taken, including
+                                                    the course name, credit hours and your grade. Each row is for a single course.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="/backend/static/excel/GPA_Convert_Template.xlsx" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto">Download Template</a>
                         </tab-content>
 
                         <!-- step 3 -->
@@ -69,6 +86,8 @@
     import cookie from "js-cookie";
     import router from "@/router";
     import Toastify from "toastify-js";
+
+    import GPAConvertApi from "@/api/GPAconvert";
 
 
     //local registration
