@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
+
 /* add icons to the library */
 library.add(faUserSecret)
 
@@ -38,6 +39,7 @@ const cors = require('cors')
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*'
 let app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
+
 
 // Make BootstrapVue available throughout your project
 // app.use(BootstrapVue)
@@ -52,6 +54,12 @@ app.use(router)
 //     </div>
 //   `
 // })
+
 import Chat from 'vue-beautiful-chat'
 Vue.use(Chat)
+
+import VueFileAgent from 'vue-file-agent';
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
+app.use(VueFileAgent);
+
 app.mount('#app')
