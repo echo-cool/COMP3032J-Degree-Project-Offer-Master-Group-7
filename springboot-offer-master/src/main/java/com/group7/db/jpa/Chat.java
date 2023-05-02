@@ -31,7 +31,8 @@ public class Chat {
     @Column(nullable = false)
     private String content;
 
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(length = 1000) //1000 will be fine
     private DateTime createdAt = new DateTime();
 
     public Chat() {
