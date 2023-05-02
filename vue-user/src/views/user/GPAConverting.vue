@@ -78,7 +78,14 @@
                                 </div>
                             </div>
 
-                            <VueFileAgent v-model="fileRecords"></VueFileAgent>
+                            <VueFileAgent v-model="fileRecords"
+                                          :multiple="false"
+                                          :meta="true"
+                                          :accept="`.xlsx`"
+                                          :helpText="'Upload your filled-in Excel Transcript Template'"
+                                          @change="getFile($event)"></VueFileAgent>
+
+                            <a class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript(this.fileForUpload)">Upload Transcript</a>
 
                         </tab-content>
 
@@ -125,6 +132,8 @@
             return {
                 originalScale: "",
                 fileRecords: [],
+                fileForUpload: null,
+                fileUploaded: false
             }
         },
         created() {
@@ -137,6 +146,24 @@
 
         },
         methods: {
+            notification(text){
+                Toastify({
+                    text: text,
+                    duration: 3000,
+                    close: false,
+                    // avatar:"/img/logo-dark.44b49d43.png",
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                        "font-size": "large",
+                        "font-family":"\"Roboto\", sans-serif",
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+            },
+
             // get current user info from cookie
             getCurrentUser(){
                 // we have stored this when logging in
@@ -191,23 +218,65 @@
                 }
             },
 
+            // download template
             beforeChange2(){
                 console.log("before change 2");
                 return true;
 
             },
 
+            // upload transcripts
             beforeChange3(){
-                console.log("before change 3");
-                return true;
-
+                if (this.fileUploaded){
+                    return true;
+                }else{
+                    this.notification("You should select your Excel transcript and upload!");
+                    return false;
+                }
             },
 
             beforeChange4(){
                 console.log("before change 4");
                 return true;
 
-            }
+            },
+
+            uploadTranscript(file) {
+                // if no file chosen
+                if (this.fileForUpload === null){
+                    this.notification("You should select your Excel transcript and upload!");
+                    return;
+                }
+
+                // encapsulate the Excel file and GPA scale into a form obj
+                let formData = new FormData();
+                formData.append("file", file);
+                formData.append('originalScale', this.originalScale);
+
+                GPAConvertApi.convertGPA(formData)
+                    .then(response => {
+                        if (response.success) {
+                            this.fileUploaded = true;
+                            this.notification("Transcript uploaded!");
+                            // for test
+                            console.log("success response: " + response.data.convertedGPA);
+
+                        } else {
+                            this.fileUploaded = false;
+                            this.notification(response.message);
+                            // for test
+                            console.log("not success response: " + response.message);
+                        }
+                    })
+
+            },
+
+            getFile(e) {
+                if (e.target.files && e.target.files.length > 0) {
+                    // update the file for uploading
+                    this.fileForUpload = e.target.files[0];
+                }
+            },
         }
     }
 </script>
