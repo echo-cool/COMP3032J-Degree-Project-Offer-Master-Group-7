@@ -6,7 +6,7 @@
                 <div class="icon">
                     <img src="/img/shape-1.a3cb4828.png" alt="Shape">
                 </div>
-                <h1 class="title">{{ cardTitle }}</h1>
+                <h2 class="title">{{ cardTitle }}</h2>
                 <p class="mb--30">
                     <span class="mr--50" v-if="!isNaN(background.gpa)"><strong>GPA: </strong>{{ background.gpa.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>GPA: </strong>No Reported Data</span>
@@ -98,7 +98,7 @@ export default {
   }
 
   p span {
-    font-size: 15px;
+    font-size: 18px;
   }
 </style>
 
