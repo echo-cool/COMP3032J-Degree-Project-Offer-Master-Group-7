@@ -7,13 +7,49 @@
                 <div class="row g-5">
 
                     <form-wizard>
-                        <tab-content title="Personal details">
-                            My first tab content
+
+                        <!-- step 1 -->
+                        <tab-content title="Select Original GPA Scale" :before-change="beforeChange1">
+                            <div class="about-market-area rn-section-gapTop">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="about-wrapper text-center">
+                                                <h1>Your Original GPA Scale</h1>
+                                                <p class="discription">
+                                                    You need to specify the original scale of your GPA. Our GPA converting tool will
+                                                    then convert your GPA into U.S. 4.0 scale using different algorithms according to
+                                                    the original scale you selected here.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-two-wrapper">
+                                <div class="half-wid">
+                                    <select id="original-scale" class="profile-edit-select mt--0" v-model="originalScale">
+                                        <option value="" disabled selected style="display: none">Select your original GPA Scale here</option>
+                                        <option value="UCD">University College Dublin 4.2 scale</option>
+                                        <option value="CHINA">Chinese 0 - 100 scale</option>
+                                    </select>
+                                </div>
+                            </div>
                         </tab-content>
-                        <tab-content title="Additional Info">
+
+                        <!-- step 2 -->
+                        <tab-content title="Download and Fill Transcript Template" :before-change="beforeChange2">
+                            My first tab content2
+                        </tab-content>
+
+                        <!-- step 3 -->
+                        <tab-content title="Upload Your Filled Transcript" :before-change="beforeChange3">
                             My second tab content
                         </tab-content>
-                        <tab-content title="Last step">
+
+                        <!-- step 4 -->
+                        <tab-content title="Your Converted GPA in 4.0 Scale" :before-change="beforeChange4">
                             Yuhuuu! This seems pretty damn simple
                         </tab-content>
                     </form-wizard>
@@ -51,7 +87,7 @@
         mixins: [],
         data() {
             return {
-
+                originalScale: "",
             }
         },
         created() {
@@ -93,6 +129,48 @@
                     router.push({path: '/login'});
                 }
             },
+
+            // select original GPA scale
+            beforeChange1(){
+                if (this.originalScale === "UCD" || this.originalScale === "CHINA"){
+                    return true;
+                }else{
+                    Toastify({
+                        text: "You should select your original GPA scale before next step!",
+                        duration: 3000,
+                        close: false,
+                        // avatar:"/img/logo-dark.44b49d43.png",
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: false, // Prevents dismissing of toast on hover
+                        style: {
+                            "font-size": "large",
+                            "font-family":"\"Roboto\", sans-serif",
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    return false;
+                }
+            },
+
+            beforeChange2(){
+                console.log("before change 2");
+                return true;
+
+            },
+
+            beforeChange3(){
+                console.log("before change 3");
+                return true;
+
+            },
+
+            beforeChange4(){
+                console.log("before change 4");
+                return true;
+
+            }
         }
     }
 </script>
