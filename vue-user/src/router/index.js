@@ -4,6 +4,7 @@ import Login from '../views/auth/Login.vue'
 import Signup from '../views/auth/Signup.vue'
 import EditProfilePage from '../views/user/EditProfilePage.vue'
 import ArticlePolishing from '../views/user/ArticlePolishing.vue'
+import Chat from '../views/user/Chat.vue'
 import ProgramSelection from "@/views/SchoolPrograms/ProgramSelection.vue";
 import HomePage from "@/views/HomePage.vue";
 import SchoolDetails from "@/views/Schools/SchoolDetails.vue";
@@ -66,6 +67,14 @@ const routes = [
         },
     },
 
+    {
+        path: '/chat/:id',
+        name: 'Chat',
+        component: Chat,
+        meta: {
+            title: 'Chat || OfferMaster',
+        },
+    },
     
     {
         path: '/my-applications',
