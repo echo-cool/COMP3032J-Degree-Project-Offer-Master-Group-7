@@ -108,7 +108,9 @@
                                       :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>
-                <div v-if="!programs.length">
+
+                <!-- loading icon -->
+                <div v-if="isLoading">
                     <div  class="d-flex justify-content-center">
                         <div class="spinner-border" role="status" style="zoom: 5">
                             <span class="sr-only">Loading...</span>
@@ -118,7 +120,9 @@
                         <h2>Loading...</h2>
                     </div>
                 </div>
-                <!--                <h3 v-if="!programs.length" class="text-center">No Match Found</h3>-->
+
+                <!-- no match -->
+                <h3 v-if="!programs.length && !isLoading" class="text-center">No Match Found</h3>
             </div>
 
             <!-- pagination -->
@@ -187,6 +191,7 @@ export default {
                 query: ""
             },
             programs: [],
+            isLoading: true,
 
             currPage: 1,
             totalItemCount: 0,
@@ -236,13 +241,17 @@ export default {
         },
 
         getProgramsByQuery() {
+            // clear the program list (for loading)
+            this.programs = [];
+            // update loading status
+            this.isLoading = true;
             // call the api method
             programApi.getProgramsByQuery(this.programQuery, this.limit, this.currPage)
                 .then(response => {
                     // update the program list
                     this.programs = response.data.programs.content;
                     this.totalItemCount = response.data.totalElements;
-
+                    this.isLoading = false;
                     // for test
                     console.log("response total elements: " + this.totalItemCount);
                 })
