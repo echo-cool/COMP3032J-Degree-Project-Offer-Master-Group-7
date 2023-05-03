@@ -122,31 +122,61 @@ table {
                             </table>
                         </div>
 
+<!--                        <nav class="pagination-wrapper" aria-label="Page navigation example">-->
+<!--                            <ul :class="`pagination`">-->
+<!--                                <li class="page-item"-->
+<!--                                    :class="{'disabled': (currPage === 1)}"-->
+<!--                                    @click.prevent="setPage(currPage-1)">-->
+<!--                                    <a class="page-link" href="">-->
+<!--                                        Previous-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item"-->
+<!--                                    v-for="n in totalPage"-->
+<!--                                    @click.prevent="setPage(n)">-->
+<!--                                    <a :class="[`page-link`, {'active': (currPage === (n))}]" href="">-->
+<!--                                        {{n}}-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item"-->
+<!--                                    :class="{'disabled': (currPage === totalPage)}"-->
+<!--                                    @click.prevent="setPage(currPage + 1)">-->
+<!--                                    <a class="page-link" href="">-->
+<!--                                        Next-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </nav>-->
+
+<!--                        <nav class="pagination-wrapper" aria-label="Page navigation example">-->
+<!--                            <paginate-->
+<!--                                :page-count="20"-->
+<!--                                :page-range="3"-->
+<!--                                :margin-pages="2"-->
+<!--                                :click-handler="pageClickCallback"-->
+<!--                                :prev-text="'Prev'"-->
+<!--                                :next-text="'Next'"-->
+<!--                                :container-class="'pagination'"-->
+<!--                                :page-class="'page-item'"-->
+<!--                            >-->
+<!--                            </paginate>-->
+<!--                        </nav>-->
+
                         <nav class="pagination-wrapper" aria-label="Page navigation example">
-                            <ul :class="`pagination`">
-                                <li class="page-item"
-                                    :class="{'disabled': (currPage === 1)}"
-                                    @click.prevent="setPage(currPage-1)">
-                                    <a class="page-link" href="">
-                                        Previous
-                                    </a>
-                                </li>
-                                <li class="page-item"
-                                    v-for="n in totalPage"
-                                    @click.prevent="setPage(n)">
-                                    <a :class="[`page-link`, {'active': (currPage === (n))}]" href="">
-                                        {{n}}
-                                    </a>
-                                </li>
-                                <li class="page-item"
-                                    :class="{'disabled': (currPage === totalPage)}"
-                                    @click.prevent="setPage(currPage + 1)">
-                                    <a class="page-link" href="">
-                                        Next
-                                    </a>
-                                </li>
-                            </ul>
+                            <paginate
+                                :page-count="this.countOfPage"
+                                :page-range="3"
+                                :margin-pages="2"
+                                :click-handler="pageClickCallback"
+                                :prev-text="'Prev'"
+                                :next-text="'Next'"
+                                :container-class="'pagination'"
+                                :page-class="'page-item'"
+                            >
+                            </paginate>
                         </nav>
+
+
                     </div>
                 </div>
             </div>
@@ -162,13 +192,15 @@ table {
     import commonApi from "@/api/common";
     import backgroundModal from "@/components/myComp/modal/BackgroundModal.vue";
     import backgroundCard from "@/components/myComp/background/BackgroundCard.vue";
+    import Paginate from "vuejs-paginate-next";
 
     export default {
         name: 'ExploreDecisions',
         components: {
             Breadcrumb,
             Layout,
-            backgroundModal
+            backgroundModal,
+            Paginate
         },
         mixins: [SalScrollAnimationMixin],
         data() {
@@ -189,76 +221,9 @@ table {
                 loadCountSchool: 0,
                 loadCountProfile: 0, // background
 
-                rankingList: [
-                    {
-                        id: 1,
-                        product: {
-                            title: 'Secure 25',
-                            slug: '/collection',
-                            image: {
-                                src: require(`@/assets/images/portfolio/portfolio-05.jpg`)
-                            }
-                        },
-                        volume: '7,50,000',
-                        one_day_average: {
-                            charge: '310.63%',
-                            status: '-'
-                        },
-                        seven_days_average: {
-                            charge: '62.21%',
-                            status: '+'
-                        },
-                        floor_price: '33.02',
-                        owners: '3k',
-                        items: '10k'
-                    },
-                    {
-                        id: 2,
-                        product: {
-                            title: 'Secure 25',
-                            slug: '/collection',
-                            image: {
-                                src: require(`@/assets/images/portfolio/portfolio-06.jpg`)
-                            }
-                        },
-                        volume: '20,50,000',
-                        one_day_average: {
-                            charge: '310.63%',
-                            status: '+'
-                        },
-                        seven_days_average: {
-                            charge: '62.21%',
-                            status: '-'
-                        },
-                        floor_price: '33.02',
-                        owners: '2.5k',
-                        items: '30k'
-                    },
-                    {
-                        id: 3,
-                        product: {
-                            title: 'Secure 25',
-                            slug: '/collection',
-                            image: {
-                                src: require(`@/assets/images/portfolio/portfolio-07.jpg`)
-                            }
-                        },
-                        volume: '11,50,000',
-                        one_day_average: {
-                            charge: '560.63%',
-                            status: '+'
-                        },
-                        seven_days_average: {
-                            charge: '62.21%',
-                            status: '+'
-                        },
-                        floor_price: '33.02',
-                        owners: '3.6k',
-                        items: '230k'
-                    }
-                ],
                 currPage: 1,
-                countOfPage: 20,
+                countOfPage: 15,
+
             }
         },
         created() {
@@ -352,7 +317,28 @@ table {
                         // }
 
                     });
+            },
+
+            pageClickCallback (pageNum) {
+                console.log(pageNum)
+                this.currPage = pageNum;
+                window.scrollTo(0, 0);
             }
         }
     }
 </script>
+
+<style>
+nav .active a {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+}
+
+nav li a:hover {
+    cursor: pointer;
+}
+
+nav li.disabled a{
+    background: var(--color-lighter) !important;
+}
+</style>
