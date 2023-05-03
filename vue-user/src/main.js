@@ -62,4 +62,7 @@ import VueFileAgent from 'vue-file-agent';
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 app.use(VueFileAgent);
 
+import Paginate from "vuejs-paginate-next";
+app.use(Paginate);
+
 app.mount('#app')
