@@ -124,6 +124,7 @@
             <!-- pagination -->
             <nav class="pagination-wrapper" aria-label="Page navigation example">
                 <paginate
+                    :force-page="currPage"
                     :page-count="totalPage"
                     :page-range="3"
                     :margin-pages="2"
@@ -228,12 +229,13 @@ export default {
         },
 
         filterChangeHandler() {
+            // reset the current page
+            this.currPage = 1;
             // request the programs again using new query
             this.getProgramsByQuery();
         },
 
         getProgramsByQuery() {
-            console.log(this.programQuery)
             // call the api method
             programApi.getProgramsByQuery(this.programQuery, this.limit, this.currPage)
                 .then(response => {
