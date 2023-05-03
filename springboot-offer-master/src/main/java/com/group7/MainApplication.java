@@ -1,6 +1,7 @@
 package com.group7;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import org.apache.log4j.BasicConfigurator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.annotation.MapperScans;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +26,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @ServletComponentScan(basePackages = "com.group7")
 public class MainApplication {
     public static void main(String[] args) {
+        BasicConfigurator.configure();
         SpringApplication.run(MainApplication.class, args);
     }
 
