@@ -331,11 +331,13 @@ class LoadDatabase {
         articleRepository.save(article1);
         articleRepository.save(article2);
 
-        Chat chat1 = new Chat("Yuyang Wang", "Jinfeng Xu", 1L, 2L, "6661");
-        Chat chat2 = new Chat("Jinfeng Xu", "Yuyang Wang", 2L, 1L, "6662");
+        Chat chat1 = new Chat("Jinfeng Xu", "Yuyang Wang", 2L, 1L, "虽然我送了你玫瑰花");
+        Chat chat2 = new Chat("Yuyang Wang", "Jinfeng Xu", 1L, 2L, "但昨晚我真的没睡她");
+        Chat chat3 = new Chat("Yuyang Wang", "Zhe Liu", 1L, 3L, "但昨晚我真的睡了她");
 
         chatRepository.save(chat1);
         chatRepository.save(chat2);
+        chatRepository.save(chat3);
 
 
         loadExternalSchoolData(schoolRepository, programRepository);

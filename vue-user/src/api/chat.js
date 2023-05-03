@@ -25,6 +25,12 @@ export default{
           url: `/api/chat/getChatInfoById/${id1}/${id2}`,
           method: 'get',
         })
-      }
+    },
+    getRelativeChatMember(id) {
+        return request({
+          url: '/api/chat/getRelativeChatMember/' + id,
+          method: 'get',
+        })
+    }
     
 }
