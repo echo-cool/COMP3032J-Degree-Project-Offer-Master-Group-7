@@ -1,7 +1,7 @@
 
 <template>
     <div class="rn-product-area rn-section-gapTop">
-        <div class="container">
+        <div id="explore-graduate-programs" class="container">
             <div class="row mb--30 align-items-center">
                 <div class="col-12">
                     <h3 class="title mb--0" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
@@ -173,10 +173,6 @@ export default {
             type: Number,
             default: -1
         },
-        // "current": {
-        //     type: Number,
-        //     default: 1
-        // },
         currentUser: {}
     },
     mixins: [ProductFilterMixin, LikeMixin],
@@ -192,6 +188,9 @@ export default {
             },
             programs: [],
             isLoading: true,
+
+            changePageScrollToX: 0,
+            changePageScrollToY: 0,
 
             currPage: 1,
             totalItemCount: 0,
@@ -252,14 +251,15 @@ export default {
                     this.programs = response.data.programs.content;
                     this.totalItemCount = response.data.totalElements;
                     this.isLoading = false;
-                    // for test
-                    console.log("response total elements: " + this.totalItemCount);
+                    // this is ridiculous!!
+                    // only here we can get the non-zero offsetTop!!
+                    this.changePageScrollToY = document.getElementById('explore-graduate-programs').offsetTop;
                 })
         },
 
         pageClickCallback (pageNum) {
             this.currPage = pageNum;
-            window.scrollTo(0, 0);
+            window.scrollTo(this.changePageScrollToX, this.changePageScrollToY);
             // request the programs again using new page
             this.getProgramsByQuery();
         }
