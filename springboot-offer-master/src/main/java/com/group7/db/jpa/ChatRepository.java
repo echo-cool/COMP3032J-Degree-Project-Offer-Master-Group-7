@@ -11,5 +11,5 @@ public interface ChatRepository extends JpaRepository<Chat, Long>, PagingAndSort
     List<Chat> findAllBySender(String sender);
     List<Chat> findAllByReceiver(String receiver);
     List<Chat> findAllBySenderIdAndReceiverId(Long senderId, Long receiverId);
-    List<Chat> findAllByReceiverId(Long Id);
+    List<Chat> findAllBySenderId(Long Id);
 }

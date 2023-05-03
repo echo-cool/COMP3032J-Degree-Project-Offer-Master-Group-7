@@ -44,7 +44,7 @@ public class ChatController {
 
     @GetMapping("/getRelativeChatMember/{id}")
     public R getRelativeChatMember(@PathVariable("id") Long id) {
-        List<Chat> list = chatRepository.findAllByReceiverId(id);
+        List<Chat> list = chatRepository.findAllBySenderId(id);
         Map<String, Chat> map = new HashMap<>();
         for (Chat chat : list) {
             map.put(chat.getReceiver(), chat);

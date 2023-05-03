@@ -74,7 +74,7 @@
                                         role="tab"
                                         aria-controls="nav-contact"
                                         aria-selected="false">
-                                    <i class="feather-bell"/> Notification Setting
+                                    <i class="feather-bell"/> Chat List
                                 </button>
                             </div>
                         </nav>
@@ -592,18 +592,18 @@
                                     <!-- <p class="notice-disc">
                                         ...
                                     </p> -->
-                                    <hr/>
                                     <div class="notice-parent-wrapper d-flex">
                                         <div class="notice-child-wrapper">
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting">
-                                                <div class="content-text" v-for="(item, index) in chatList" :key="index">
-                                                    <!-- <img :src="`/backend/static/` + item.avatar"> -->
-                                                    <p class="time">{{ item.receiver }} {{ item.createdAt }}</p>
+                                            <div class="single-notice-setting mt--15" v-for="(item, index) in chatList" :key="index">
+                                                <!-- single notice wrapper -->
+                                                <div class="single-notice-setting">
+                                                        <!-- <img :src="`/backend/static/` + item.avatar"> -->
+                                                    <!-- <span class="time">{{ item.receiver }} {{ item.createdAt }}</span> -->
+                                                    <router-link :to="`/chat/`+item.receiverId"  class="btn btn-large btn-primary" data-sal="slide-up" data-sal-delay="300" data-sal-duration="800">{{ item.receiver }} {{ item.createdAt }}</router-link>
                                                 </div>
+                                                <!-- single notice wrapper End -->
+                                                <!-- single notice wrapper End -->
                                             </div>
-                                            <!-- single notice wrapper End -->
-                                            <!-- single notice wrapper End -->
                                         </div>
                                         <div class="notice-child-wrapper"></div>
                                     </div>
