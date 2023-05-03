@@ -1,3 +1,36 @@
+<style>
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+table.table-fit thead th, table.table-fit tfoot th {
+    width: auto !important;
+}
+table.table-fit tbody td, table.table-fit tfoot td {
+    width: auto !important;
+}
+.upcoming-projects tr th span{
+    font-size: medium !important;
+}
+tbody tr td span{
+    font-size: small !important;
+    overflow: hidden;
+}
+tbody tr td{
+    white-space: nowrap;
+    overflow:hidden;
+}
+table {
+
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+</style>
 <template>
     <layout>
         <breadcrumb title="Explore Application Decisions" current="Decision Reports"/>
@@ -11,12 +44,12 @@
                             <h3>Application Decision Reports</h3>
                         </div>
                         <div class="box-table table-responsive">
-                            <table class="table upcoming-projects">
+                            <table class="table upcoming-projects table-fixed " >
                                 <thead>
                                 <tr>
                                     <template v-for="(th, thIndex) in Object.keys(tableHeader)"
                                               :key="`th-${thIndex}`">
-                                        <th>
+                                        <th class="fit">
 <!--                                            <span class="text-capitalize">-->
 <!--                                                {{ th === 'one_day_average' ? '24h%' : th.toLowerCase().replace('_', ' ') && th === 'seven_days_average' ? '7d%' : th.toLowerCase().replace('_', ' ') }}-->
 <!--                                            </span>-->
@@ -33,7 +66,7 @@
                                     v-for="(row, rowIndex) in filteredRows.slice(pageStart, pageStart + countOfPage)"
                                     :key="`application-decision-${rowIndex}`">
 
-                                    <td>
+                                    <td class="fit">
                                         <div class="product-wrapper d-flex align-items-center">
                                             <router-link to="#" class="thumbnail">
                                                 <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
@@ -42,37 +75,37 @@
                                         </div>
                                     </td>
 
-                                    <td>
+                                    <td class="fit" >
                                         <router-link :to="`/school-details/${row.program.school.id}`">
-                                            <span>{{ row.program.school.name }}</span>
+                                            <span style="width: 100px;overflow: hidden">{{ row.program.school.name }}</span>
                                         </router-link>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <router-link :to="`#`">
                                             <span>{{ row.program.name }}</span>
                                         </router-link>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <span>{{ row.program.degree }}</span>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <span>{{ row.eRound.toLowerCase().replace('_', ' - ') }}</span>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <span :class="row.eStatus === 'ADMITTED' ? 'color-green' : 'color-red'">
                                             {{ row.eStatus }}
                                         </span>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <span>{{ row.reportedTime }}</span>
                                     </td>
 
-                                    <td>
+                                    <td class="fit">
                                         <button type="button"
                                                 :id="`backgroundModalButton-${row.user.profile.id}`"
                                                 class="btn btn-primary save-btn-edit"
