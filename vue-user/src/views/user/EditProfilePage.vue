@@ -588,106 +588,28 @@
                             <!-- Notification Setting Panel -->
                             <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <div class="nuron-information">
-                                    <h5 class="title">Make Sure Your Notification setting </h5>
-                                    <p class="notice-disc">
-                                        Notification Center is where you can find app notifications and Quick Settings—which
-                                        give you quick access to commonly used settings and apps. You can change your
-                                        notification settings at any time from the Settings app. Select Start , then select
-                                        Settings
-                                    </p>
+                                    <h5 class="title">Chat List</h5>
+                                    <!-- <p class="notice-disc">
+                                        ...
+                                    </p> -->
                                     <hr/>
-
                                     <div class="notice-parent-wrapper d-flex">
                                         <div class="notice-child-wrapper">
                                             <!-- single notice wrapper -->
                                             <div class="single-notice-setting">
-                                                <div class="input">
-                                                    <input type="checkbox" id="themeSwitch" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="themeSwitch" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>Order Confirmation Notice</p>
+                                                <div class="content-text" v-for="(item, index) in chatList" :key="index">
+                                                    <!-- <img :src="`/backend/static/` + item.avatar"> -->
+                                                    <p class="time">{{ item.receiver }} {{ item.createdAt }}</p>
                                                 </div>
                                             </div>
                                             <!-- single notice wrapper End -->
-
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting mt--15">
-                                                <div class="input">
-                                                    <input type="checkbox" id="themeSwitchs" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="themeSwitchs" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>New Items Notification</p>
-                                                </div>
-                                            </div>
-                                            <!-- single notice wrapper End -->
-
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting mt--15">
-                                                <div class="input">
-                                                    <input type="checkbox" id="OrderNotice" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="OrderNotice" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>New Bid Notification</p>
-                                                </div>
-                                            </div>
-                                            <!-- single notice wrapper End -->
-
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting mt--15">
-                                                <div class="input">
-                                                    <input type="checkbox" id="newPAy" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="newPAy" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>Payment Card Notification</p>
-                                                </div>
-                                            </div>
-                                            <!-- single notice wrapper End -->
-
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting mt--15">
-                                                <div class="input">
-                                                    <input type="checkbox" id="EndBid" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="EndBid" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>Ending Bid Notification Before 5 min</p>
-                                                </div>
-                                            </div>
-                                            <!-- single notice wrapper End -->
-
-                                            <!-- single notice wrapper -->
-                                            <div class="single-notice-setting mt--15">
-                                                <div class="input">
-                                                    <input type="checkbox" id="Approve" name="theme-switch" class="theme-switch__input" />
-                                                    <label for="Approve" class="theme-switch__label">
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <div class="content-text">
-                                                    <p>Notification for approving product</p>
-                                                </div>
-                                            </div>
                                             <!-- single notice wrapper End -->
                                         </div>
                                         <div class="notice-child-wrapper"></div>
                                     </div>
-                                    <button class="btn btn-primary save-btn-edit" @click="alert('Successfully saved Your Notification setting')">
+                                    <!-- <button class="btn btn-primary save-btn-edit" @click="alert('Successfully saved Your Notification setting')">
                                         Save
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -701,6 +623,7 @@
 <script>
     import Layout from "@/components/layouts/Layout.vue";
     import Breadcrumb from "@/components/breadcrumb/Breadcrumb.vue";
+    import chatApi from "@/api/chat"
 
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
@@ -722,8 +645,10 @@
         mixins: [ApplicationListMixin, LikeMixin],
         data(){
             return {
+                chatList: {},
                 activeTabIndex: 0,
                 currentUser: {
+                    // id: "",
                     avatar: "",
                     email: "",
                     username: "",
@@ -800,9 +725,10 @@
         created() {
             // load the current user info as this page is created
             // user would be redirected to the login page if not logged in
-            this.getCurrentUser();
+            this.getCurrentUser()
             // load the like info
-            this.getLikedPrograms();
+            this.getLikedPrograms()
+            this.getChatList()
         },
 
         mounted() {
@@ -871,6 +797,12 @@
                     // window.alert("You should login first!");
                     router.push({path: '/login'});
                 }
+            },
+            getChatList() {
+                chatApi.getRelativeChatMember(this.currentUser.id).then(response => {
+                    this.chatList = response.data.chatList
+                    console.log(this.chatList)
+                })
             },
 
             // get selected program list of this user

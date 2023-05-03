@@ -42,6 +42,19 @@ public class ChatController {
         return R.ok().data("chatList", map.values());
     }
 
+    @GetMapping("/getRelativeChatMember/{id}")
+    public R getRelativeChatMember(@PathVariable("id") Long id) {
+        List<Chat> list = chatRepository.findAllByReceiverId(id);
+        Map<String, Chat> map = new HashMap<>();
+        for (Chat chat : list) {
+            map.put(chat.getReceiver(), chat);
+        }
+        System.out.println(list);
+        System.out.println("---===---999");
+
+        return R.ok().data("chatList", map.values());
+    }
+
     @GetMapping("getChatInfo/{id}")
     public R getChatInfo(@PathVariable("id") Long id){
         Chat chat = chatRepository.getOne(id);
