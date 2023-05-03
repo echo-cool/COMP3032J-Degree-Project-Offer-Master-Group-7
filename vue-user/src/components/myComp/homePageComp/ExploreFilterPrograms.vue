@@ -10,6 +10,7 @@
                 </div>
             </div>
 
+            <!-- filter bar -->
             <div class="default-exp-wrapper">
                 <div class="inner">
                     <div class="filter-select-option">
@@ -88,6 +89,7 @@
                 </div>
             </div>
 
+            <!-- program card area -->
             <div class="row g-5"
                  data-sal="slide-up"
                  data-sal-delay="150"
@@ -106,7 +108,9 @@
                                       :is-liked-obj="isLiked(program.id)"/>
                     </div>
                 </template>
-                <div v-if="!programs.length">
+
+                <!-- loading icon -->
+                <div v-if="isLoading">
                     <div  class="d-flex justify-content-center">
                         <div class="spinner-border" role="status" style="zoom: 5">
                             <span class="sr-only">Loading...</span>
@@ -116,8 +120,26 @@
                         <h2>Loading...</h2>
                     </div>
                 </div>
-                <!--                <h3 v-if="!programs.length" class="text-center">No Match Found</h3>-->
+
+                <!-- no match -->
+                <h3 v-if="!programs.length && !isLoading" class="text-center">No Match Found</h3>
             </div>
+
+            <!-- pagination -->
+            <nav class="pagination-wrapper" aria-label="Page navigation example">
+                <paginate
+                    :force-page="currPage"
+                    :page-count="totalPage"
+                    :page-range="3"
+                    :margin-pages="2"
+                    :click-handler="pageClickCallback"
+                    :prev-text="'Prev'"
+                    :next-text="'Next'"
+                    :container-class="'pagination'"
+                    :page-class="'page-item'"
+                >
+                </paginate>
+            </nav>
         </div>
     </div>
 </template>
@@ -130,6 +152,8 @@ import ProductFilterMixin from '@/mixins/ProductFilterMixin'
 import programApi from "@/api/program";
 import ProgramCard from "@/components/myComp/program/ProgramCard.vue";
 import LikeMixin from "@/mixins/user/LikeMixin";
+import Paginate from "vuejs-paginate-next";
+
 
 export default {
     name: 'ExploreFilterPrograms',
@@ -137,7 +161,8 @@ export default {
         ProgramCard,
         GPARangeSlider,
         NiceSelect,
-        ProductCard
+        ProductCard,
+        Paginate
     },
     props: {
         "query": {
@@ -148,10 +173,10 @@ export default {
             type: Number,
             default: -1
         },
-        "current": {
-            type: Number,
-            default: 1
-        },
+        // "current": {
+        //     type: Number,
+        //     default: 1
+        // },
         currentUser: {}
     },
     mixins: [ProductFilterMixin, LikeMixin],
@@ -165,7 +190,23 @@ export default {
                 major: "all",
                 query: ""
             },
-            programs: []
+            programs: [],
+            isLoading: true,
+
+            currPage: 1,
+            totalItemCount: 0,
+            // countOfPage: 10,         // number of items in a page
+        }
+    },
+    computed: {
+        filteredRows() {
+            return this.programs;
+        },
+        pageStart() {
+            return (this.currPage - 1) * this.limit;
+        },
+        totalPage() {
+            return Math.ceil(this.totalItemCount / this.limit);
         }
     },
     created() {
@@ -193,19 +234,35 @@ export default {
         },
 
         filterChangeHandler() {
+            // reset the current page
+            this.currPage = 1;
             // request the programs again using new query
             this.getProgramsByQuery();
         },
 
         getProgramsByQuery() {
-            console.log(this.programQuery)
+            // clear the program list (for loading)
+            this.programs = [];
+            // update loading status
+            this.isLoading = true;
             // call the api method
-            programApi.getProgramsByQuery(this.programQuery, this.limit, this.current)
+            programApi.getProgramsByQuery(this.programQuery, this.limit, this.currPage)
                 .then(response => {
                     // update the program list
                     this.programs = response.data.programs.content;
+                    this.totalItemCount = response.data.totalElements;
+                    this.isLoading = false;
+                    // for test
+                    console.log("response total elements: " + this.totalItemCount);
                 })
         },
+
+        pageClickCallback (pageNum) {
+            this.currPage = pageNum;
+            window.scrollTo(0, 0);
+            // request the programs again using new page
+            this.getProgramsByQuery();
+        }
 
         // // get a list of ids of programs that the user liked
         // getLikedPrograms(){
@@ -233,3 +290,19 @@ export default {
     }
 }
 </script>
+
+
+<style>
+nav .active a {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+}
+
+nav li a:hover {
+    cursor: pointer;
+}
+
+nav li.disabled a{
+    background: var(--color-lighter) !important;
+}
+</style>

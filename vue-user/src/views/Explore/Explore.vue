@@ -2,7 +2,7 @@
     <layout>
         <breadcrumb title="Explore Programs" current="Explore Programs"/>
 
-        <explore-filter-programs :query="query" :current-user="currentUser"/>
+        <explore-filter-programs :query="query" :current-user="currentUser" :limit="25"/>
     </layout>
 </template>
 

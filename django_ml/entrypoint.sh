@@ -19,5 +19,5 @@ else
     echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@echo.cool', '123456')" | python manage.py shell
 fi
 
-python manage.py runserver 0.0.0.0:8080
-#uwsgi --ini uwsgi.ini
+#python manage.py runserver 0.0.0.0:8080
+uwsgi --ini uwsgi.ini

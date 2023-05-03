@@ -202,7 +202,9 @@ public class ProgramController {
 
         programList = listToPage(programs, pageable);
 
-        return R.ok().data("programs", programList);
+        return R.ok().data("programs", programList)
+                .data("totalElements", programList.getTotalElements())
+                .data("totalPages", programList.getTotalPages());
     }
 
     @RequestMapping("/public/getRandomPrograms/{size}")

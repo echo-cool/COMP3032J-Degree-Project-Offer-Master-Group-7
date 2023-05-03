@@ -164,7 +164,7 @@ table {
 
                         <nav class="pagination-wrapper" aria-label="Page navigation example">
                             <paginate
-                                :page-count="this.countOfPage"
+                                :page-count="totalPage"
                                 :page-range="3"
                                 :margin-pages="2"
                                 :click-handler="pageClickCallback"
@@ -222,7 +222,7 @@ table {
                 loadCountProfile: 0, // background
 
                 currPage: 1,
-                countOfPage: 15,
+                countOfPage: 10,         // number of items in a page
 
             }
         },
@@ -246,6 +246,10 @@ table {
             }
         },
         methods: {
+            totalPage() {
+                return Math.ceil(this.filteredRows.length / this.countOfPage);
+            },
+
           getUserProfile(event){
             // console.log(event);
             // let userID = event.target.id.split("-")[1];
@@ -320,7 +324,6 @@ table {
             },
 
             pageClickCallback (pageNum) {
-                console.log(pageNum)
                 this.currPage = pageNum;
                 window.scrollTo(0, 0);
             }

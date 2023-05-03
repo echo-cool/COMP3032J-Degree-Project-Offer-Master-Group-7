@@ -21,30 +21,45 @@
                     </div>
 
                     <!-- pagination -->
+<!--                    <nav class="pagination-wrapper" aria-label="Page navigation example">-->
+<!--                        <ul :class="`pagination`">-->
+<!--                            <li class="page-item"-->
+<!--                                :class="{'disabled': (currPage === 1)}"-->
+<!--                                @click.prevent="setPage(currPage-1)">-->
+<!--                                <a class="page-link" href="">-->
+<!--                                    Previous-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item"-->
+<!--                                v-for="n in totalPage"-->
+<!--                                @click.prevent="setPage(n)">-->
+<!--                                <a :class="[`page-link`, {'active': (currPage === (n))}]" href="">-->
+<!--                                    {{n}}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item"-->
+<!--                                :class="{'disabled': (currPage === totalPage)}"-->
+<!--                                @click.prevent="setPage(currPage + 1)">-->
+<!--                                <a class="page-link" href="">-->
+<!--                                    Next-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+
+                    <!-- new pagination -->
                     <nav class="pagination-wrapper" aria-label="Page navigation example">
-                        <ul :class="`pagination`">
-                            <li class="page-item"
-                                :class="{'disabled': (currPage === 1)}"
-                                @click.prevent="setPage(currPage-1)">
-                                <a class="page-link" href="">
-                                    Previous
-                                </a>
-                            </li>
-                            <li class="page-item"
-                                v-for="n in totalPage"
-                                @click.prevent="setPage(n)">
-                                <a :class="[`page-link`, {'active': (currPage === (n))}]" href="">
-                                    {{n}}
-                                </a>
-                            </li>
-                            <li class="page-item"
-                                :class="{'disabled': (currPage === totalPage)}"
-                                @click.prevent="setPage(currPage + 1)">
-                                <a class="page-link" href="">
-                                    Next
-                                </a>
-                            </li>
-                        </ul>
+                        <paginate
+                            :page-count="totalPage"
+                            :page-range="3"
+                            :margin-pages="2"
+                            :click-handler="pageClickCallback"
+                            :prev-text="'Prev'"
+                            :next-text="'Next'"
+                            :container-class="'pagination'"
+                            :page-class="'page-item'"
+                        >
+                        </paginate>
                     </nav>
 
                 </div>
@@ -62,19 +77,22 @@
     import cookie from "js-cookie";
     import router from "@/router";
     import Toastify from "toastify-js";
+    import Paginate from "vuejs-paginate-next";
+
 
     export default {
         name: 'MyApplications',
         components: {
             Breadcrumb,
             Layout,
-            SelectedProgramListCard
+            SelectedProgramListCard,
+            Paginate
         },
         mixins: [ApplicationListMixin, LikeMixin],
         data() {
             return {
                 currPage: 1,
-                countOfPage: 3  // number of items per page
+                countOfPage: 5  // number of items per page
             }
         },
         created() {
@@ -140,7 +158,28 @@
             reloadData(){
                 this.getCurrentUser();
                 this.getLikedPrograms();
+            },
+
+            pageClickCallback (pageNum) {
+                this.currPage = pageNum;
+                window.scrollTo(0, 0);
             }
         }
     }
 </script>
+
+<style>
+nav .active a {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+}
+
+nav li a:hover {
+    cursor: pointer;
+}
+
+nav li.disabled a{
+    background: var(--color-lighter) !important;
+}
+</style>
+
