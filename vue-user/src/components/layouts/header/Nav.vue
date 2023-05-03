@@ -156,11 +156,15 @@ export default {
                 // ------ for testing ------
               {
                   link: '#',
-                  title: 'Program Selection',
+                  title: 'Apply',
                   hasDropdown: true,
                   megamenu: false,
                   dropdownItems:[
-                    {link: '/program-selection', title: 'AI Program Recommendation', icon: 'fast-forward'},
+                      {link: '/my-applications', title: 'My Applications', icon: 'fast-forward'},
+                      {link: '/edit-profile?to=application', title: 'My GPA, IELTS...', icon: 'fast-forward'},
+                      {link: '/explore?search=', title: 'Program Browsing', icon: 'fast-forward'},
+                      {link: '/program-selection', title: 'AI Matching', icon: 'fast-forward'},
+                      {link: '/explore-decisions', title: 'View Decision Reports', icon: 'fast-forward'},
                   ]
               },
               {
@@ -173,6 +177,17 @@ export default {
                   {link: '/create-post', title: 'Add Posts', icon: 'fast-forward'},
                 ]
               },
+                {
+                    link: '#',
+                    title: 'My',
+                    hasDropdown: true,
+                    megamenu: false,
+                    dropdownItems:[
+                        {link: '/edit-profile?to=info', title: 'Edit Personal Info', icon: 'fast-forward'},
+                        {link: '/edit-profile', title: 'Edit Avatar', icon: 'fast-forward'},
+                        {link: '/edit-profile?to=password', title: 'Update Password', icon: 'fast-forward'},
+                    ]
+                },
                 // {
                 //     link: '#',
                 //     title: 'Testing',

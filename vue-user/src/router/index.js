@@ -19,6 +19,7 @@ import CreatePost from "@/views/Community/CreatePost";
 import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
 import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
 import MyApplications from "@/views/user/MyApplications.vue";
+import GPAConverting from "@/views/user/GPAConverting.vue";
 
 const routes = [
 
@@ -75,13 +76,21 @@ const routes = [
             title: 'Chat || OfferMaster',
         },
     },
-    
+
     {
         path: '/my-applications',
         name: 'MyApplications',
         component: MyApplications,
         meta: {
             title: 'My Applications || OfferMaster',
+        },
+    },
+    {
+        path: '/gpa-convert',
+        name: 'GPAConverting',
+        component: GPAConverting,
+        meta: {
+            title: 'GPA Converting || OfferMaster',
         },
     },
 
@@ -114,7 +123,7 @@ const routes = [
             title: 'School Details || OfferMaster',
         },
     },
-    
+
 
     {
         path: '/program-details/:id',
