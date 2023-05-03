@@ -39,7 +39,8 @@ jobs:
         with:
           username: echocool
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: docker-compose push ${{ matrix.service }}
+#      - run: docker-compose push ${{ matrix.service }}
+      - run: docker-compose push
 #  deploy:
 #    runs-on: ubuntu-latest
 #    timeout-minutes: 10
