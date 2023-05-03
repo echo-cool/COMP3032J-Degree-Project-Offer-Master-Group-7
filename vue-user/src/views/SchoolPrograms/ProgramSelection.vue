@@ -164,6 +164,8 @@
                 // update the user selected programs (for the left listing part)
                 this.$refs.childCompProgramListing.getUserSelectedPrograms();
                 this.$refs.childCarouselProgram.getUserSelectedPrograms();
+
+                this.$refs.childCarouselProgram.getPrograms();
             },
 
             getBackground() {

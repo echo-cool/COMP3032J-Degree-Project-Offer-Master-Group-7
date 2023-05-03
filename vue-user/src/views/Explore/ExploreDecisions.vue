@@ -68,7 +68,7 @@ table {
 
                                     <td class="fit">
                                         <div class="product-wrapper d-flex align-items-center">
-                                            <router-link to="#" class="thumbnail">
+                                            <router-link :to="'/chat/' + row.user.id" class="thumbnail">
                                                 <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
                                                 <span>{{ row.user.username }}</span>
                                             </router-link>

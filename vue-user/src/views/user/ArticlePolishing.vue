@@ -29,7 +29,7 @@
                                                       <editor
                                                           :initialValue="text"
                                                           :init="{
-                                                          height: 300,
+                                                          height: 600,
                                                           menubar: true,
                                                         }"
                                                       />
