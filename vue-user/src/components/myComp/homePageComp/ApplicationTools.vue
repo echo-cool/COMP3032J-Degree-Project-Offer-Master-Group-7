@@ -14,7 +14,7 @@
                 <!-- start single category -->
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="300" data-sal="slide-up"
                      data-sal-duration="800">
-                    <a class="category-style-one" href="/program-selection">
+                    <a class="category-style-one" href="/school-browsing">
                         <i class="feather-music"></i>
                         <span class="category-label">School Browsing</span>
                     </a>

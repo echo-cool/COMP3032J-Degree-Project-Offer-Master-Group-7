@@ -20,6 +20,7 @@ import ExploreDecisions from "@/views/Explore/ExploreDecisions.vue";
 import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
 import MyApplications from "@/views/user/MyApplications.vue";
 import GPAConverting from "@/views/user/GPAConverting.vue";
+import ExploreSchool from "@/views/Explore/ExploreSchool";
 
 const routes = [
 
@@ -60,7 +61,7 @@ const routes = [
         },
     },
     {
-        path: '/article-polishing/:id',
+        path: '/article-polishing',
         name: 'ArticlePolishing',
         component: ArticlePolishing,
         meta: {
@@ -195,6 +196,14 @@ const routes = [
         component: CommunityCategoryPosts,
         meta: {
             title: 'Community Category List || OfferMaster',
+        },
+    },
+    {
+        path: '/school-browsing',
+        name: 'ExploreSchool',
+        component: ExploreSchool,
+        meta: {
+            title: 'School Browsing || OfferMaster',
         },
     },
 ]

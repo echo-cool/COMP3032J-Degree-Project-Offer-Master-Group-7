@@ -65,6 +65,8 @@ import { GrammarlyEditorPlugin, GrammarlyButton } from "@grammarly/editor-sdk-vu
 // import Stomp from 'webstomp-client'
 import cookie from "js-cookie"
 import chatApi from "@/api/chat"
+import Toastify from "toastify-js";
+import router from "@/router";
 
 export default {
   name: 'Chat',
@@ -107,7 +109,7 @@ export default {
     getCurrentUser(){
         let userTemp = cookie.get("current_user")
         // console.log(userTemp)
-        if (userTemp != null){
+        if (userTemp){
             this.user = JSON.parse(userTemp);
             this.username = this.user.username
             // console.log(userTemp.id)
@@ -118,6 +120,23 @@ export default {
         }
         else{
             // TODO 反之要求登陆
+            Toastify({
+              text: "You should login first!",
+              duration: 3000,
+              close: false,
+              // avatar:"/img/logo-dark.44b49d43.png",
+              gravity: "top", // `top` or `bottom`
+              position: "right", // `left`, `center` or `right`
+              stopOnFocus: false, // Prevents dismissing of toast on hover
+              style: {
+                "font-size": "large",
+                "font-family":"\"Roboto\", sans-serif",
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+              },
+              onClick: function(){} // Callback after click
+            }).showToast();
+            // window.alert("You should login first!");
+            router.push({path: '/login'});
         }       
     },
     myDestory() {
