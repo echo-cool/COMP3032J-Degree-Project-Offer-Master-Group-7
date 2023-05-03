@@ -104,6 +104,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/rest/applications/**").permitAll()
                 .requestMatchers("/rest/programs/**").permitAll()
                 .requestMatchers("/rest/users/**").permitAll()
+                .requestMatchers("/api/v1/map-reduce/**").permitAll()
+                .requestMatchers("/api/v1/hdfs/**").permitAll()
                 .anyRequest().authenticated();
 //                .requestMatchers("/rest/**").permitAll()
 //                .requestMatchers("/secure/getUser").permitAll()
