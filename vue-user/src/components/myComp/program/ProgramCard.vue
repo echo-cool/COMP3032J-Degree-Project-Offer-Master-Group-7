@@ -1,6 +1,6 @@
 <template>
     <div :class="`product-style-one`">
-        <div class="card-thumbnail" style="">
+        <div class="card-thumbnail" style="animation: fadeIn">
 
 
           <!--            <router-link :to="`/product/${productDate.id}`">--> <!-- e.g. -->
