@@ -116,7 +116,7 @@ table {
                                                 :data-bs-toggle="`modal`"
                                                 @click="getUserProfile"
                                                 :data-bs-target="`#backgroundModal-${row.user.profile.id}`">
-                                            Peek Background
+                                            Background
                                         </button>
                                     </td>
 
