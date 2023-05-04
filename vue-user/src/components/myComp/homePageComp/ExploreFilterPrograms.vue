@@ -184,8 +184,10 @@ export default {
                 likes: "most-liked",
                 degree: "all",
                 major: "all",
-                query: ""
+                query: "",
+                gpa: []
             },
+            // filterPrice: null,
             programs: [],
             isLoading: true,
 
@@ -218,7 +220,15 @@ export default {
         }
     },
     methods: {
+        filterPrice(){
+            this.currPage = 1;
+            this.getProgramsByQuery();
+        },
 
+        onChangeRange(item) {
+            console.log(item)
+            this.programQuery.gpa = item
+        },
         onChangeLikes(item) {
             this.programQuery.likes = item.value;
             this.filterChangeHandler();

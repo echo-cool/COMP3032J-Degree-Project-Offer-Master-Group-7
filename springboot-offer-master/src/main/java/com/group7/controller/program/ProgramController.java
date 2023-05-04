@@ -180,6 +180,7 @@ public class ProgramController {
         String likes = programQueryVo.getLikes();
         String degree = programQueryVo.getDegree();
         String major = programQueryVo.getMajor();
+        String[] gpa = programQueryVo.getGpa();
 
         Page<Program> programList;
 
