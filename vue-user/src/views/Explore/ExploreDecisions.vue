@@ -68,7 +68,11 @@ table {
 
                                     <td class="fit">
                                         <div class="product-wrapper d-flex align-items-center">
-                                            <router-link :to="'/chat/' + row.user.id" class="thumbnail">
+                                            <router-link v-if="selfId === row.user.id" to="#" class="thumbnail">
+                                                <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
+                                                <span>{{ row.user.username }}</span>
+                                            </router-link>
+                                            <router-link v-else :to="'/chat/' + row.user.id" class="thumbnail">
                                                 <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
                                                 <span>{{ row.user.username }}</span>
                                             </router-link>
@@ -193,6 +197,7 @@ table {
     import backgroundModal from "@/components/myComp/modal/BackgroundModal.vue";
     import backgroundCard from "@/components/myComp/background/BackgroundCard.vue";
     import Paginate from "vuejs-paginate-next";
+    import cookie from "js-cookie"
 
     export default {
         name: 'ExploreDecisions',
@@ -205,6 +210,7 @@ table {
         mixins: [SalScrollAnimationMixin],
         data() {
             return {
+                selfId: JSON.parse(cookie.get("current_user")).id,
                 tableHeader: {
                     Applicant: "",
                     School: "",
