@@ -147,7 +147,19 @@
                         cookie.set("current_user", JSON.stringify(this.currentUser));
 
                         // redirect to the index page
-                        window.location.href = "/edit-profile";
+                        // window.location.href = "/edit-profile";
+
+                        // get the page user wanted to go from cookie
+                        let goto = cookie.get("gotoAfterLogin");
+                        // clear the goto cookie
+                        cookie.set("gotoAfterLogin", "");
+                        // redirect user to the page
+                        if (goto){
+                            window.location.href = goto;
+                        }else{
+                            window.location.href = "/edit-profile";
+                        }
+
 
                     })
                     .catch(error => {

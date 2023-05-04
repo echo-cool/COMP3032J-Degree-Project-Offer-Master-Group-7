@@ -794,7 +794,9 @@
 
                 }else{
                     // user should be redirected to the login page if not logged in
-                    // window.alert("You should login first!");
+                    // record the url user wants to go in cookie
+                    cookie.set("gotoAfterLogin", window.location.pathname);
+                    // push to login page
                     router.push({path: '/login'});
                 }
             },

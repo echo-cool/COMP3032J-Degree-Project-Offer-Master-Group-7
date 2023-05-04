@@ -642,7 +642,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button v-if="programSelected" type="button"
+                                        <button v-if="this.selectedProgramIDs.includes(Number(this.id))" type="button"
                                                 class="btn btn-primary-alta mt--30"
                                                 @click="removeProgramFromUserApplications(product.id)">
                                             Remove From Apply List
@@ -780,6 +780,10 @@
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
     import BackgroundCard from "@/components/myComp/background/BackgroundCard";
+    import Toastify from "toastify-js";
+    import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import applicationListMixin from "@/mixins/user/ApplicationListMixin";
+    import router from "@/router";
 
 
     export default {
@@ -799,20 +803,17 @@
             OfferTimelineFrameHighCharts,
             BackgroundCard
         },
-        mixins: [ProductMixin],
+        mixins: [ProductMixin, applicationListMixin],
         data() {
             return {
                 id: this.$route.params.id,
                 // schoolId: this.$route.params.id.split("X")[1],
                 product: {},
+                currentUser: {},
                 activeTabIndex: 0,
                 relatedSchools: [],
                 relatedPrograms: [],
                 school: {},
-
-                selectedPrograms: [],
-                selectedProgramIDs: [],
-                programSelected: false,
 
                 countLstThisYear: [], // a list of admission numbers each week (must be 52weeks(len) in total)
                 countLstLastYear: [],
@@ -820,13 +821,29 @@
             }
         },
         methods: {
+            notification(text){
+                Toastify({
+                    text: text,
+                    duration: 3000,
+                    close: false,
+                    // avatar:"/img/logo-dark.44b49d43.png",
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                        "font-size": "large",
+                        "font-family":"\"Roboto\", sans-serif",
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+            },
+
             getProduct(productId) {
               this.product = this.products.find(item => item.id == productId);
               // !!! IMPORTANT !!!
               // load google map after finish requesting the school obj
               this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
-              // check whether the user selected this program
-              this.isProgramSelected(this.product.id);
 
             },
             getPrograms() {
@@ -881,44 +898,22 @@
               });
             },
 
-            getUserSelectedPrograms(checkProgramId){
-                // call the api method
-                profileApi.getSelectedPrograms()
-                    .then(response => {
-
-                        // get the list of user selected programs
-                        this.selectedPrograms = response.data.selectedPrograms;
-                        // reset the selectedProgramIDs list to empty
-                        this.selectedProgramIDs = [];
-                        // initialize the list of selected program id
-                        for (let k in this.selectedPrograms){
-                            this.selectedProgramIDs.push(this.selectedPrograms[k].id);
-                        }
-
-                        // check whether contains this program
-                        this.programSelected = this.selectedProgramIDs.includes(checkProgramId);
-
-                    })
-            },
-
-            // request whether the program is selected
-            isProgramSelected(programId){
-                // request only when user logged in
-                let userStr = cookie.get("current_user");
-                if (userStr){
-                    // require all the selected programs
-                    this.getUserSelectedPrograms(programId);
-                }
-            },
-
             // add a program into user application list
             addProgramIntoUserApplications(programId){
                 programSelectionApi.addApplication(programId)
                     .then(response => {
                         // add successfully
-                        // window.alert("The program added successfully into your list!")
-                        // update the button
-                        this.programSelected = !this.programSelected;
+                        this.notification("Program added successfully!")
+                        // reload application info to update the button
+                        this.getApplications(this.currentUser.id);
+
+                    })
+                    .catch(error => {
+                        if (error.response.status === 401){
+                            this.notification("You should login first!");
+                        }else{
+                            this.notification(error.response.data.message);
+                        }
                     })
             },
 
@@ -927,9 +922,10 @@
                 programSelectionApi.deleteApplicationByProgramId(programId)
                     .then(response => {
                         // delete successfully
-                        // window.alert("Program removed successfully from your list!")
-                        // update the button
-                        this.programSelected = !this.programSelected;
+                        this.notification("Program removed successfully!")
+
+                        // reload application info to update the button
+                        this.getApplications(this.currentUser.id);
                     })
             },
 
@@ -939,8 +935,8 @@
                 programApi.getWeeklyAdmissionCountByProgramId(programId)
                     .then(response => {
                         // for test
-                        console.log("=================================response: " + response.data.countLstThisYear);
-                        console.log("=================================response: " + response.data.countLstLastYear);
+                        // console.log("=================================response: " + response.data.countLstThisYear);
+                        // console.log("=================================response: " + response.data.countLstLastYear);
                         this.countLstThisYear = response.data.countLstThisYear;
                         this.countLstLastYear = response.data.countLstLastYear;
                     })
@@ -951,11 +947,25 @@
                     this.background = response.data
                     console.log(this.background)
                 })
-            }
+            },
+
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                    // load the applications of this user
+                    this.getApplications(this.currentUser.id);
+
+                }
+            },
 
         },
         created() {
             this.id = this.$route.params.id,
+            this.getCurrentUser();
             this.getData();
             this.getPrograms();
             this.getWeeklyADCount(this.id);

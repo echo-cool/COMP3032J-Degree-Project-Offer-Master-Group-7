@@ -135,9 +135,12 @@ export default {
               },
               onClick: function(){} // Callback after click
             }).showToast();
-            // window.alert("You should login first!");
+
+            // record the url user wants to go in cookie
+            cookie.set("gotoAfterLogin", window.location.pathname);
+            // push to login page
             router.push({path: '/login'});
-        }       
+        }
     },
     myDestory() {
       clearInterval(this.timer)
