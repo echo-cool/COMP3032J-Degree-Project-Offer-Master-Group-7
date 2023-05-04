@@ -9,7 +9,16 @@
                         <div class="rn-blog-listen">
                             <div class="blog-content-top">
                                 <h2 class="title">{{ blog.title }}</h2>
-                                <span class="date">{{blog.createdAt}}</span>
+                                <router-link :to="'/chat/' + blog.author.id" class="thumbnail">
+                                  <img class="comment-avatar"
+                                       :src="'/backend/static/' + blog.author.avatar"
+                                       alt="Author's Avatar"
+                                       style="width: 30px; border-radius: 100%;">
+                                </router-link>
+                                <router-link :to="'/chat/' + blog.author.id">
+                                  <span class="active-light-mode date">{{blog.author.username}}&nbsp&nbsp&nbsp</span>
+                                </router-link>
+                              <span class="date"> {{blog.createdAt}} </span>
                             </div>
                             <div class="bd-thumbnail">
                                 <div class="large-img mb--30">
