@@ -4,13 +4,14 @@
             v-model="value"
             :tooltips="false"
             @update="handleUpdate"
+            range :max="400.00" :min="280.00"
         />
         <div class="slider__range--output">
             <div class="price__output--wrap">
                 <div class="price--output">
                     <span>
 <!--                        GPA : <span class="ms-1">{{ value[0] }} - {{ value[1] }}</span>-->
-                        GPA : <span class="ms-1">{{ 3.01 }} - {{ 3.80 }}</span>
+                        GPA : <span class="ms-1">{{ value[0]/100 }} - {{ value[1]/100 }}</span>
                     </span>
                 </div>
                 <div v-if="showFilterButton" class="price--filter">
@@ -40,14 +41,14 @@
         components: {Slider},
         data() {
             return {
-                value: [75, 95]
+                value: [300.00, 400.00]
             }
         },
         methods: {
             handleUpdate() {
-                if (!this.showFilterButton) {
-                    this.$emit('filterPrice');
-                }
+                // if (!this.showFilterButton) {
+                //     this.$emit('filterPrice');
+                // }
                 this.$emit('onChangeRange', this.value);
             }
         }

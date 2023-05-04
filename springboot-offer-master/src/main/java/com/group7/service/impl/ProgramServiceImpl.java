@@ -1,8 +1,10 @@
 package com.group7.service.impl;
 
+import com.group7.db.jpa.Application;
 import com.group7.db.jpa.Program;
 import com.group7.db.jpa.ProgramRepository;
 import com.group7.db.jpa.utils.EMajor;
+import com.group7.db.jpa.utils.EStatus;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.service.ProgramService;
 import jakarta.annotation.Resource;
@@ -73,6 +75,7 @@ public class ProgramServiceImpl implements ProgramService {
     public List<Program> getProgramsByQuery(ProgramQueryVo programQueryVo) {
         Stream<Program> programs;
         List<Program> programList;
+        List<Program> programListFinal = new ArrayList<>();
         Sort sort;
 
         // get query items
@@ -80,6 +83,7 @@ public class ProgramServiceImpl implements ProgramService {
         String degree = programQueryVo.getDegree();
         String major = programQueryVo.getMajor();
         String query = programQueryVo.getQuery();
+        String[] gpa = programQueryVo.getGpa();
 
         // sort by like numbers
         if (likes.equals("most-liked")){
@@ -123,14 +127,35 @@ public class ProgramServiceImpl implements ProgramService {
 
         programList = programs.collect(Collectors.toList());
 
+        if (gpa != null) {
+            for (Program program : programList) {
+                List<Application> applications = program.getApplications()
+                        .stream()
+                        .filter(application -> application.geteStatus() == EStatus.ADMITTED)
+                        .toList();
+                if (applications.size() != 0) {
+//                            System.out.println(applications.size() + "21988129211");
+                    int GPASum = 0;
+                    for (Application application : applications) {
+                        GPASum += application.getUser().getProfile().getGpa();
+                    }
+                    int GPAAvg = (GPASum / applications.size()) * 100;
+                    if (GPAAvg <= Double.valueOf(gpa[1]) && GPAAvg >= Double.valueOf(gpa[0])) {
+                        programListFinal.add(program);
+                    }
+                } else {
+                    programListFinal.add(program);
+                }
+            }
+            return programListFinal;
+        }
+        return programList;
         // limit the number of programs when return
         // if less than the limit, we return all
 //        if (programList.size() > limit){
 //            // return limited number
 //            programList = programList.subList(0, (int) limit);
 //        }
-
-        return programList;
     }
 
 
