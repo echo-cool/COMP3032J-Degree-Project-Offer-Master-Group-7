@@ -126,8 +126,10 @@ public class ProgramServiceImpl implements ProgramService {
         }
 
         programList = programs.collect(Collectors.toList());
-
+        int GPASum = 0;
+        int GPAAvg = 0;
         if (gpa != null) {
+            System.out.println("GPA range = " + gpa[0] + " - " + gpa[1]);
             for (Program program : programList) {
                 List<Application> applications = program.getApplications()
                         .stream()
@@ -135,13 +137,17 @@ public class ProgramServiceImpl implements ProgramService {
                         .toList();
                 if (applications.size() != 0) {
 //                            System.out.println(applications.size() + "21988129211");
-                    int GPASum = 0;
+                    GPASum = 0;
                     for (Application application : applications) {
-                        GPASum += application.getUser().getProfile().getGpa();
+                        GPASum += application.getUser().getProfile().getGpa() * 100;
+//                        System.out.println(GPASum + ":111");
                     }
-                    int GPAAvg = (GPASum / applications.size()) * 100;
-                    if (GPAAvg <= Double.valueOf(gpa[1]) && GPAAvg >= Double.valueOf(gpa[0])) {
+//                    System.out.println("GPASum: " + GPASum * 100);
+                    GPAAvg = GPASum / applications.size();
+//                    System.out.println(GPAAvg + " : !!!!!");
+                    if (GPAAvg <= Integer.valueOf(gpa[1]) && GPAAvg >= Integer.valueOf(gpa[0])) {
                         programListFinal.add(program);
+                        System.out.println(GPAAvg + " : 666");
                     }
                 } else {
                     programListFinal.add(program);

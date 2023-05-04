@@ -47,6 +47,8 @@ import {getRecommendedProgramsByCF, getRecommendedProgramsByKNN} from "@/api/rec
 import ProgramCard from "@/components/myComp/program/ProgramCard";
 import LikeMixin from "@/mixins/user/LikeMixin";
 import profileApi from "@/api/profile";
+// import up from '@/assets/up.png'
+// import down from '@/assets/down.png'
 
 export default {
   name: 'ExploreLiveCarousel',
@@ -142,3 +144,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .carousel__prev{
+  }
+</style>
