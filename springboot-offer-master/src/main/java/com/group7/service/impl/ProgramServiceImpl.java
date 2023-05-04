@@ -127,35 +127,35 @@ public class ProgramServiceImpl implements ProgramService {
 
         programList = programs.collect(Collectors.toList());
 
-        for (Program program : programList) {
-            if (program.getApplications().size() != 0) {
+        if (gpa != null) {
+            for (Program program : programList) {
                 List<Application> applications = program.getApplications()
                         .stream()
                         .filter(application -> application.geteStatus() == EStatus.ADMITTED)
                         .toList();
-                            System.out.println(applications);
-                int GPASum = 0;
-                for (Application application : applications) {
-                    GPASum += application.getUser().getProfile().getGpa();
-                }
-                int GPAAvg = GPASum / applications.size() * 100;
-                if (GPAAvg <= Double.valueOf(gpa[1]) && GPAAvg >= Double.valueOf(gpa[0])) {
+                if (applications.size() != 0) {
+//                            System.out.println(applications.size() + "21988129211");
+                    int GPASum = 0;
+                    for (Application application : applications) {
+                        GPASum += application.getUser().getProfile().getGpa();
+                    }
+                    int GPAAvg = (GPASum / applications.size()) * 100;
+                    if (GPAAvg <= Double.valueOf(gpa[1]) && GPAAvg >= Double.valueOf(gpa[0])) {
+                        programListFinal.add(program);
+                    }
+                } else {
                     programListFinal.add(program);
                 }
             }
-            else{
-                programListFinal.add(program);
-            }
+            return programListFinal;
         }
-
+        return programList;
         // limit the number of programs when return
         // if less than the limit, we return all
 //        if (programList.size() > limit){
 //            // return limited number
 //            programList = programList.subList(0, (int) limit);
 //        }
-
-        return programListFinal;
     }
 
 

@@ -185,7 +185,7 @@ export default {
                 degree: "all",
                 major: "all",
                 query: "",
-                gpa: []
+                gpa: null
             },
             // filterPrice: null,
             programs: [],

@@ -4,7 +4,7 @@
             v-model="value"
             :tooltips="false"
             @update="handleUpdate"
-            range :max="400.00"
+            range :max="400.00" :min="280.00"
         />
         <div class="slider__range--output">
             <div class="price__output--wrap">
