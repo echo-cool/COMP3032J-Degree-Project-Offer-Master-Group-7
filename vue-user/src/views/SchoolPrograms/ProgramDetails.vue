@@ -685,7 +685,7 @@
                         <h3 class="title mb--0">Virtual Campus Tour</h3>
                     </div>
                 </div>
-<!--                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>-->
+                <virtual-campus-tour-frame ref="childCompVCTGoogle"/>
             </div>
         </div>
         <!-- Virtual Campus Tour area End -->
