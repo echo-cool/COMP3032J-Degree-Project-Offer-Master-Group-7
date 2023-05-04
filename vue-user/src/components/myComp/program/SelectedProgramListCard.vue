@@ -163,7 +163,7 @@
                             },
                             onClick: function(){} // Callback after click
                         }).showToast();
-                        // window.alert("Program removed successfully from your list!")
+
                         // tell the parent component to reload data for updating showing
                         this.$emit("reloadData");
                     })
