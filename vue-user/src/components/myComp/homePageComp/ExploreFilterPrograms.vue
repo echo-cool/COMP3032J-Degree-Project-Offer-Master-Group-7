@@ -105,7 +105,9 @@
                         <!--                        />-->
                         <program-card :program="program"
                                       :school="program.school"
-                                      :is-liked-obj="isLiked(program.id)"/>
+                                      :is-liked-obj="isLiked(program.id)"
+                                      @removeLike="removeLike(program.id)"
+                                      @addLike="addLike(program.id)"/>
                     </div>
                 </template>
 
@@ -178,8 +180,6 @@ export default {
     mixins: [ProductFilterMixin, LikeMixin],
     data() {
         return {
-            // likedPrograms: [],
-            // likedProgramIds: [],
             programQuery: {
                 likes: "most-liked",
                 degree: "all",
