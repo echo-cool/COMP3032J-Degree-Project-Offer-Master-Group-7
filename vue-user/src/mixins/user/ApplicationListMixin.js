@@ -6,8 +6,8 @@ import router from "@/router";
 export default {
     data() {
         return{
-            applications: [
-            ],
+            applications: [],
+            selectedProgramIDs: [],
         }
     },
 
@@ -25,6 +25,15 @@ export default {
 
                     // update the programs list
                     this.applications = response.data.applications;
+
+                    // update the program ID list
+                    this.selectedProgramIDs = [];
+                    for (let k in this.applications){
+                        this.selectedProgramIDs.push(this.applications[k].program.id);
+                    }
+
+                    // for test
+                    console.log("selectedProgramIDs: " + this.selectedProgramIDs);
 
                 })
         }
