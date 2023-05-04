@@ -24,35 +24,6 @@
                           ref="myCarousel"
                 >
 
-        <template #addons>
-          <div class="carousel-header">
-            <div class="section-title">
-              <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
-                  data-sal-duration="800">
-                {{ title }}
-              </h3>
-            </div>
-            <div class="carousel-navigation">
-              <navigation/>
-            </div>
-          </div>
-        </template>
-        <slide v-for="(program, index) in programs" :key="`program-${index}`">
-          <program-card
-              :program="program"
-              :school="program.school"
-              :is-liked-obj="isLiked(program.id)"
-              :is-recommended="true"
-              :is-program-selected="isProgramSelected(program.id)"
-              @reloadData="reloadData"
-              @removeLike="removeLike(program.id)"
-              @addLike="addLike(program.id)"
-          />
-        </slide>
-      </carousel>
-      </template>
-    </div>
-  </div>
                     <template #addons>
                         <div class="carousel-header">
                             <div class="section-title">
@@ -71,12 +42,14 @@
 
                     <slide v-for="(program, index) in programs" :key="`program-${index}`">
                         <program-card
-                                :program="program"
-                                :school="program.school"
-                                :is-liked-obj="isLiked(program.id)"
-                                :is-recommended="true"
-                                :is-program-selected="isProgramSelected(program.id)"
-                                @reloadData="reloadData"
+                            :program="program"
+                            :school="program.school"
+                            :is-liked-obj="isLiked(program.id)"
+                            :is-recommended="true"
+                            :is-program-selected="isProgramSelected(program.id)"
+                            @reloadData="reloadData"
+                            @removeLike="removeLike(program.id)"
+                            @addLike="addLike(program.id)"
 
                         />
                     </slide>
