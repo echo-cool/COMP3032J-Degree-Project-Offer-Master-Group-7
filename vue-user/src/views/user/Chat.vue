@@ -135,7 +135,7 @@ export default {
               },
               onClick: function(){} // Callback after click
             }).showToast();
-            
+
             // record the url user wants to go in cookie
             cookie.set("gotoAfterLogin", window.location.pathname);
             // push to login page
