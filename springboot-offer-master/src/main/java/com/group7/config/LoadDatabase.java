@@ -237,14 +237,22 @@ class LoadDatabase {
         for (User user : users) {
             // From 3.0 to 4.0
             double randomGPA = 3.0 + Math.random();
+            //with only 2 decimal places
+            randomGPA = (double) Math.round(randomGPA * 100) / 100;
             // From 1 to 30
             int randomRanking = (int) (Math.random() * 30 + 1);
             // Random IELTS Score 5.5 to 9.0
+            double[] possibleIELTSScore = {5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0};
             double listening = 5.5 + Math.random() * 3.5;
+            listening = possibleIELTSScore[(int) ((listening - 5.5) / 0.5)];
             double speaking = 5.5 + Math.random() * 3.5;
+            speaking = possibleIELTSScore[(int) ((speaking - 5.5) / 0.5)];
             double reading = 5.5 + Math.random() * 3.5;
+            reading = possibleIELTSScore[(int) ((reading - 5.5) / 0.5)];
             double writing = 5.5 + Math.random() * 3.5;
+            writing = possibleIELTSScore[(int) ((writing - 5.5) / 0.5)];
             double overallIELTS = (listening + speaking + reading + writing) / 4;
+            overallIELTS = possibleIELTSScore[(int) ((overallIELTS - 5.5) / 0.5)];
             // Random GRE Score 260 to 340
             int verbal = (int) (Math.random() * 40 + 130);
             int quantitative = (int) (Math.random() * 40 + 130);

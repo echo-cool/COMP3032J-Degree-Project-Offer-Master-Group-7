@@ -46,16 +46,16 @@
                                         aria-selected="false">
                                     <i class="feather-book-open"/> My Application Background
                                 </button>
-                                <button class="nav-link"
-                                        id="nav-program-list-tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#nav-program-list"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="nav-program-list"
-                                        aria-selected="false">
-                                    <i class="feather-clipboard"/> My Program List
-                                </button>
+<!--                                <button class="nav-link"-->
+<!--                                        id="nav-program-list-tab"-->
+<!--                                        data-bs-toggle="tab"-->
+<!--                                        data-bs-target="#nav-program-list"-->
+<!--                                        type="button"-->
+<!--                                        role="tab"-->
+<!--                                        aria-controls="nav-program-list"-->
+<!--                                        aria-selected="false">-->
+<!--                                    <i class="feather-clipboard"/> My Program List-->
+<!--                                </button>-->
                                 <button class="nav-link"
                                         id="nav-password-tab"
                                         data-bs-toggle="tab"
