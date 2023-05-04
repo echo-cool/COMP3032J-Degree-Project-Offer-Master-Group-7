@@ -165,7 +165,7 @@ export default {
                       {link: '/explore?search=', title: 'Program Browsing', icon: 'fast-forward'},
                       {link: '/program-selection', title: 'AI Matching', icon: 'fast-forward'},
                       {link: '/explore-decisions', title: 'View Decision Reports', icon: 'fast-forward'},
-                      {link: '/article-polishing', title: 'Article Polishing', icon: 'fast-forward'},
+                      {link: '/article-polishing', title: 'Essay Polishing', icon: 'fast-forward'},
                       {link: '/program-comparison', title: 'Compare Programs', icon: 'fast-forward'},
                   ]
               },
