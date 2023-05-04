@@ -780,6 +780,7 @@
     import cookie from "js-cookie";
     import profileApi from "@/api/profile";
     import BackgroundCard from "@/components/myComp/background/BackgroundCard";
+    import Toastify from "toastify-js";
 
 
     export default {
@@ -820,6 +821,24 @@
             }
         },
         methods: {
+            notification(text){
+                Toastify({
+                    text: text,
+                    duration: 3000,
+                    close: false,
+                    // avatar:"/img/logo-dark.44b49d43.png",
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                        "font-size": "large",
+                        "font-family":"\"Roboto\", sans-serif",
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+            },
+
             getProduct(productId) {
               this.product = this.products.find(item => item.id == productId);
               // !!! IMPORTANT !!!
@@ -919,6 +938,16 @@
                         // window.alert("The program added successfully into your list!")
                         // update the button
                         this.programSelected = !this.programSelected;
+
+                        // for test
+                        console.log("response: " + response)
+                    })
+                    .catch(error => {
+                        if (error.response.status === 401){
+                            this.notification("You should login first!");
+                        }else{
+                            this.notification(error.message);
+                        }
                     })
             },
 
