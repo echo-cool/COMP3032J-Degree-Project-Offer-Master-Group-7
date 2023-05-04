@@ -31,6 +31,8 @@
               :is-recommended="true"
               :is-program-selected="isProgramSelected(program.id)"
               @reloadData="reloadData"
+              @removeLike="removeLike(program.id)"
+              @addLike="addLike(program.id)"
           />
         </slide>
       </carousel>
