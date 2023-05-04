@@ -24,11 +24,11 @@
 <!--                        :product-style-class="showPlaceBid ? 'no-overlay with-placeBid' : ''"-->
 <!--                    />-->
 <!--                </slide>-->
-                <slide v-for="(application, index) in applications" :key="index">
+                <slide v-for="(application, index) in applications" :key="`application-program-${index}`">
                     <program-card
                         :program="application.program"
                         :school="application.program.school"
-                        :show-d-d-l-countdown="false"
+                        :show-d-d-l-countdown="true"
                         :deadline="application.deadline"
                         :is-liked-obj="isLiked(application.program.id)"
                     />
