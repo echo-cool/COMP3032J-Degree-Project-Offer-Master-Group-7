@@ -9,7 +9,16 @@
                         <div class="rn-blog-listen">
                             <div class="blog-content-top">
                                 <h2 class="title">{{ blog.title }}</h2>
-                                <span class="date">{{blog.createdAt}}</span>
+                                <router-link :to="'/chat/' + blog.author.id" class="thumbnail">
+                                  <img class="comment-avatar"
+                                       :src="'/backend/static/' + blog.author.avatar"
+                                       alt="Author's Avatar"
+                                       style="width: 30px; border-radius: 100%;">
+                                </router-link>
+                                <router-link :to="'/chat/' + blog.author.id">
+                                  <span class="active-light-mode date">{{blog.author.username}}&nbsp&nbsp&nbsp</span>
+                                </router-link>
+                              <span class="date"> {{blog.createdAt}} </span>
                             </div>
                             <div class="bd-thumbnail">
                                 <div class="large-img mb--30">
@@ -28,12 +37,16 @@
                                             <li class="comment parent" v-if="blog.comments.length !== 0" v-for="comment in blog.comments">
                                                 <div class="single-comment">
                                                     <div class="comment-author comment-img">
+                                                      <router-link :to="'/chat/' + comment.author.id" class="thumbnail">
                                                         <img class="comment-avatar"
                                                              :src="'/backend/static/' + comment.author.avatar"
                                                              alt="Comment Image"
                                                               style="width: 60px; border-radius: 100%;">
+                                                      </router-link>
                                                         <div class="m-b-20">
+                                                          <router-link :to="'/chat/' + comment.author.id">
                                                             <div class="commenter">{{ comment.author.username }}</div>
+                                                          </router-link>
                                                             <div class="time-spent">{{ comment.createdAt }}</div>
                                                         </div>
                                                     </div>

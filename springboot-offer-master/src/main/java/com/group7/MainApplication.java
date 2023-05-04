@@ -26,7 +26,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @ServletComponentScan(basePackages = "com.group7")
 public class MainApplication {
     public static void main(String[] args) {
-        BasicConfigurator.configure();
+//        BasicConfigurator.configure();
         SpringApplication.run(MainApplication.class, args);
     }
 

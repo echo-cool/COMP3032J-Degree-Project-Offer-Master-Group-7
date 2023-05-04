@@ -331,10 +331,14 @@ public class ProgramController {
         // get the last day of the year before last year
         Date lastDateOfLLYear = DateUtil.getLastDateOfYear(lastLastYear);
 
+        // filter out the applications with status of admitted or rejected
+        List<Application> reportedApplications = applications.stream().filter(a -> (a.geteStatus().equals(EStatus.ADMITTED) || a.geteStatus().equals(EStatus.REJECTED))).toList();
+
+
         // filter out the applications of this year
-        List<Application> applicationsThisYear = applications.stream().filter(a -> a.getReportedTime().after(lastDateOfLastYear)).toList();
+        List<Application> applicationsThisYear = reportedApplications.stream().filter(a -> a.getReportedTime().after(lastDateOfLastYear)).toList();
         // filter out the applications of last year
-        List<Application> applicationsLastYear = applications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
+        List<Application> applicationsLastYear = reportedApplications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
 
         // get the list of weekly admission count
         long[] countLstThisYear = program.getCountLstThisYear();
