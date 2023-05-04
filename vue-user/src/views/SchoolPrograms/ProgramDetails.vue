@@ -841,9 +841,12 @@
 
             getProduct(productId) {
               this.product = this.products.find(item => item.id == productId);
-              // !!! IMPORTANT !!!
-              // load google map after finish requesting the school obj
-              this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
+
+                this.$nextTick(() => {
+                    // !!! IMPORTANT !!!
+                    // load google map after finish requesting the school obj
+                    this.$refs.childCompVCTGoogle.initMap(Number(this.school.lat), Number(this.school.lng));
+                })
 
             },
             getPrograms() {
@@ -964,7 +967,7 @@
 
         },
         created() {
-            this.id = this.$route.params.id,
+            this.id = this.$route.params.id;
             this.getCurrentUser();
             this.getData();
             this.getPrograms();
@@ -976,7 +979,7 @@
         },
         watch: {
             '$route.params.id': function (val) {
-                this.id = this.$route.params.id,
+                this.id = this.$route.params.id;
                 this.getProduct(this.id);
             }
         },

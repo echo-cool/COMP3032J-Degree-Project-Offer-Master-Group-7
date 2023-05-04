@@ -75,6 +75,7 @@ public class Application {
     public User getUser() {
         User newUser = this.user.clone();
         newUser.setApplications(null);
+        newUser.setLikedPrograms(null);
         return newUser;
     }
 
@@ -85,6 +86,7 @@ public class Application {
     public Program getProgram() {
         Program newProgram = this.program.clone();
         newProgram.setApplications(null);
+//        newProgram.setLikeUsers(null);
         return newProgram;
     }
 

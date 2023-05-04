@@ -9,13 +9,22 @@
                         <div class="rn-blog-listen">
                             <div class="blog-content-top">
                                 <h2 class="title">{{ blog.title }}</h2>
-                                <router-link :to="'/chat/' + blog.author.id" class="thumbnail">
+                                <router-link to="#" v-if="selfId===blog.author.id" class="thumbnail">
                                   <img class="comment-avatar"
                                        :src="'/backend/static/' + blog.author.avatar"
                                        alt="Author's Avatar"
                                        style="width: 30px; border-radius: 100%;">
                                 </router-link>
-                                <router-link :to="'/chat/' + blog.author.id">
+                                 <router-link v-else :to="'/chat/' + blog.author.id" class="thumbnail">
+                                  <img class="comment-avatar"
+                                       :src="'/backend/static/' + blog.author.avatar"
+                                       alt="Author's Avatar"
+                                       style="width: 30px; border-radius: 100%;">
+                                </router-link>
+                                <router-link to="#" v-if="selfId===blog.author.id">
+                                  <span class="active-light-mode date">{{blog.author.username}}&nbsp&nbsp&nbsp</span>
+                                </router-link>
+                                <router-link v-else :to="'/chat/' + blog.author.id">
                                   <span class="active-light-mode date">{{blog.author.username}}&nbsp&nbsp&nbsp</span>
                                 </router-link>
                               <span class="date"> {{blog.createdAt}} </span>
@@ -37,14 +46,23 @@
                                             <li class="comment parent" v-if="blog.comments.length !== 0" v-for="comment in blog.comments">
                                                 <div class="single-comment">
                                                     <div class="comment-author comment-img">
-                                                      <router-link :to="'/chat/' + comment.author.id" class="thumbnail">
+                                                     <router-link to="#" class="thumbnail" v-if="selfId===comment.author.id">
+                                                        <img class="comment-avatar"
+                                                             :src="'/backend/static/' + comment.author.avatar"
+                                                             alt="Comment Image"
+                                                              style="width: 60px; border-radius: 100%;">
+                                                      </router-link>
+                                                      <router-link :to="'/chat/' + comment.author.id" class="thumbnail" v-else>
                                                         <img class="comment-avatar"
                                                              :src="'/backend/static/' + comment.author.avatar"
                                                              alt="Comment Image"
                                                               style="width: 60px; border-radius: 100%;">
                                                       </router-link>
                                                         <div class="m-b-20">
-                                                          <router-link :to="'/chat/' + comment.author.id">
+                                                         <router-link to="#" v-if="selfId===comment.author.id">
+                                                            <div class="commenter">{{ comment.author.username }}</div>
+                                                          </router-link>
+                                                          <router-link :to="'/chat/' + comment.author.id" v-else>
                                                             <div class="commenter">{{ comment.author.username }}</div>
                                                           </router-link>
                                                             <div class="time-spent">{{ comment.createdAt }}</div>
@@ -137,6 +155,7 @@
     import BlogSidebar from '@/components/blog/BlogSidebar'
     import {getPost} from "@/api/community";
     import request from "@/utils/request";
+    import cookie from "js-cookie"
 
     import { GrammarlyEditorPlugin, GrammarlyButton } from "@grammarly/editor-sdk-vue";
 
@@ -146,6 +165,7 @@
         mixins: [SalScrollAnimationMixin, BlogMixin],
         data() {
             return {
+                selfId: JSON.parse(cookie.get("current_user")).id,
                 id: this.$route.params.id,
                 blog: {}
             }
