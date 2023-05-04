@@ -16,18 +16,19 @@
                             <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
-                            <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="feather-more-horizontal"/>
-                            </button>
-                            <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                <button type="button"
+                            <button type="button"
                                         class="btn-setting-text share-text"
                                         data-bs-toggle="modal"
                                         data-bs-target="#shareModal"
                                         @click="removeSelf(programId)">
                                     delete
                                 </button>
-                            </div>
+                            <!-- <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="feather-more-horizontal"/>
+                            </button>
+                            <div class="share-btn-setting dropdown-menu dropdown-menu-end">
+                               
+                            </div> -->
                         </div>
                     </div>
                 </div>
