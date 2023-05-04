@@ -28,12 +28,16 @@
                                             <li class="comment parent" v-if="blog.comments.length !== 0" v-for="comment in blog.comments">
                                                 <div class="single-comment">
                                                     <div class="comment-author comment-img">
+                                                      <router-link :to="'/chat/' + comment.author.id" class="thumbnail">
                                                         <img class="comment-avatar"
                                                              :src="'/backend/static/' + comment.author.avatar"
                                                              alt="Comment Image"
                                                               style="width: 60px; border-radius: 100%;">
+                                                      </router-link>
                                                         <div class="m-b-20">
+                                                          <router-link :to="'/chat/' + comment.author.id">
                                                             <div class="commenter">{{ comment.author.username }}</div>
+                                                          </router-link>
                                                             <div class="time-spent">{{ comment.createdAt }}</div>
                                                         </div>
                                                     </div>
