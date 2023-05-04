@@ -75,6 +75,14 @@ public class ApplicationController {
                     .body(R.error().message("Failed: No program with this ID."));
         }
 
+        // check whether user has already selected this program
+        Application byUserAndProgram = applicationRepository.findByUserAndProgram(user, program);
+        if (byUserAndProgram != null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("The program already in list!."));
+        }
+
         // create a new application
         Application application = new Application(user, program);
         applicationRepository.save(application);
