@@ -201,6 +201,7 @@
       methods:{
         handleLogout(){
           cookie.set("current_user", "");
+          cookie.set("user_token", "");
           this.$forceUpdate();
           window.location.reload();
         },
