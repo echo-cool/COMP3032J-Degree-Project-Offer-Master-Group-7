@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Ariticle Polishing" current="Ariticle Polishing"/>
+        <breadcrumb title="Essay Polishing" current="Essay Polishing"/>
 
         <div class="rn-blog-area rn-blog-details-default">
             <div class="container">
