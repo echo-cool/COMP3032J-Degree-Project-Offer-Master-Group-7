@@ -10,7 +10,7 @@
                 <p class="mb--30">
                     <span class="mr--50" v-if="!isNaN(background.gpa)"><strong>GPA: </strong>{{ background.gpa.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>GPA: </strong>No Reported Data</span>
-                    <span class="mr--50" v-if="!isNaN(background.ranking)"><strong>Rank: </strong>{{ background.ranking }}</span>
+                    <span class="mr--50" v-if="!isNaN(background.ranking)"><strong>Rank: </strong>{{ background.ranking.toFixed(0) }}</span>
                     <span class="mr--50" v-else><strong>Rank: </strong>No Reported Data</span>
                 </p>
                 <p class="mb--30" v-if="!isAverage">
@@ -39,13 +39,13 @@
                     <span class="mr--50"><strong>SPEAKING: </strong>{{ background.speakingTOEFL }}</span>
                 </p>
                 <p class="mb--30">
-                    <span class="mr--50" v-if="!isNaN(background.greTotal)"><strong>GRE: </strong>{{ background.greTotal }}</span>
+                    <span class="mr--50" v-if="!isNaN(background.greTotal)"><strong>GRE: </strong>{{ background.greTotal.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>GRE: </strong>No Reported Data</span>
-                    <span class="mr--50" v-if="!isNaN(background.greVerbal)"><strong>VERBAL: </strong>{{ background.greVerbal }}</span>
+                    <span class="mr--50" v-if="!isNaN(background.greVerbal)"><strong>VERBAL: </strong>{{ background.greVerbal.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>VERBAL: </strong>No Reported Data</span>
-                    <span class="mr--50" v-if="!isNaN(background.greQuantitative)"><strong>QUANTITATIVE: </strong>{{ background.greQuantitative }}</span>
+                    <span class="mr--50" v-if="!isNaN(background.greQuantitative)"><strong>QUANTITATIVE: </strong>{{ background.greQuantitative.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>QUANTITATIVE: </strong>No Reported Data</span>
-                    <span class="mr--50" v-if="!isNaN(background.greAnalyticalWriting)"><strong>ANALYTICAL WRITING: </strong>{{ background.greAnalyticalWriting }}</span>
+                    <span class="mr--50" v-if="!isNaN(background.greAnalyticalWriting)"><strong>ANALYTICAL WRITING: </strong>{{ background.greAnalyticalWriting.toFixed(1) }}</span>
                     <span class="mr--50" v-else><strong>ANALYTICAL WRITING: </strong>No Reported Data</span>
                 </p>
             </div>

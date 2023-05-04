@@ -3,7 +3,9 @@
     <breadcrumb title="Program Comparison" current="Program Comparison"/>
     <div class="rn-product-area rn-section-gapTop">
             <div class="container">
+            <h5>Please Choose Two Programs From Program List To Start You Comparison</h5>
                 <div class="row g-5">
+                    
                     <div class="col-lg-4 custom-product-col">
                         <program-card-plus :p="'l'" :programId="l" v-if="l" @deleteSelf="deleteSelf" />
                          <!-- <background-card :background="backgroundL" :is-average="true" :card-title="`Average Background`" v-if="l" :is-editable="false"/> -->
@@ -150,9 +152,49 @@
 
             // to fetch data again for updating showing
             reloadData(id){
-                if (this.l == null) this.l = id
+                if (this.l == null) {
+                    if (this.r == id){
+                        Toastify({
+                        text: "Do not add same program",
+                        duration: 3000,
+                        close: false,
+                        // avatar:"/img/logo-dark.44b49d43.png",
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: false, // Prevents dismissing of toast on hover
+                        style: {
+                            "font-size": "large",
+                            "font-family":"\"Roboto\", sans-serif",
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    }
+                    else{
+                        this.l = id
+                    }
+                }
                 else if (this.l != null && this.r == null){
-                    this.r = id
+                    if (this.l == id) {
+                        Toastify({
+                        text: "Do not add same program",
+                        duration: 3000,
+                        close: false,
+                        // avatar:"/img/logo-dark.44b49d43.png",
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: false, // Prevents dismissing of toast on hover
+                        style: {
+                            "font-size": "large",
+                            "font-family":"\"Roboto\", sans-serif",
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    }
+                    else{
+                        this.r = id
+                    }
                 }
             },
 
@@ -171,6 +213,8 @@
 
         },
         created() {
+            this.l = null,
+            this.r = null
             this.getCurrentUser();
 
         },
