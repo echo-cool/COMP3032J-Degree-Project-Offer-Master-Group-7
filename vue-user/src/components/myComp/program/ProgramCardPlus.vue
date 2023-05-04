@@ -16,21 +16,23 @@
                             <span class="number">{{ program.likesNumber }}</span>
                         </div>
                         <div class="share-btn share-btn-activation dropdown">
-                            <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="feather-more-horizontal"/>
-                            </button>
-                            <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                                <button type="button"
+                            <button type="button"
                                         class="btn-setting-text share-text"
                                         data-bs-toggle="modal"
                                         data-bs-target="#shareModal"
                                         @click="removeSelf(programId)">
                                     delete
                                 </button>
-                            </div>
+                            <!-- <button class="icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="feather-more-horizontal"/>
+                            </button>
+                            <div class="share-btn-setting dropdown-menu dropdown-menu-end">
+                               
+                            </div> -->
                         </div>
                     </div>
                 </div>
+                 <background-card-plus :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
             </div>
         </div>
     </div>
@@ -39,10 +41,11 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programApi from "@/api/program";
+    import BackgroundCardPlus from "@/components/myComp/background/BackgroundCardPlus";
 
     export default {
         name: 'ProductListCardPlus',
-        components: {Countdown},
+        components: {Countdown, BackgroundCardPlus},
         props: {
             programId: "",
             p: null,
@@ -61,6 +64,7 @@
         data() {
             return {
                 program: {},
+                background: null,
                 pp : ""
                 // schoolId: this.$route.params.id.split("X")[1],
                 // product: {},
@@ -75,6 +79,12 @@
             }
         },
         methods: {
+            getAverageBackground() {
+                programApi.getAverageBackground(this.programId).then(response => {
+                    this.background = response.data
+                    console.log(this.background, "12212112121221")
+                })
+            },
             getById() {
                 programApi.getProgramById(this.programId).then(response => {
                      console.log(response.data.program)
@@ -89,7 +99,8 @@
             }
         },
         created(){
-            this.getById(this.programId)
+            this.getById()
+            this.getAverageBackground()
             console.log(this.p)
             this.pp = this.p
         }
