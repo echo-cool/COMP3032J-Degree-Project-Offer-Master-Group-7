@@ -28,7 +28,7 @@
                     <program-card
                         :program="application.program"
                         :school="application.program.school"
-                        :show-d-d-l-countdown="true"
+                        :show-d-d-l-countdown="false"
                         :deadline="application.deadline"
                         :is-liked-obj="isLiked(application.program.id)"
                     />
