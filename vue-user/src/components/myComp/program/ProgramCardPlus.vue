@@ -31,6 +31,7 @@
                         </div>
                     </div>
                 </div>
+                 <background-card :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
             </div>
         </div>
     </div>
@@ -39,10 +40,11 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programApi from "@/api/program";
+    import BackgroundCard from "@/components/myComp/background/BackgroundCard";
 
     export default {
         name: 'ProductListCardPlus',
-        components: {Countdown},
+        components: {Countdown, BackgroundCard},
         props: {
             programId: "",
             p: null,
@@ -61,6 +63,7 @@
         data() {
             return {
                 program: {},
+                background: null,
                 pp : ""
                 // schoolId: this.$route.params.id.split("X")[1],
                 // product: {},
@@ -75,6 +78,12 @@
             }
         },
         methods: {
+            getAverageBackground() {
+                programApi.getAverageBackground(this.programId).then(response => {
+                    this.background = response.data
+                    console.log(this.background, "12212112121221")
+                })
+            },
             getById() {
                 programApi.getProgramById(this.programId).then(response => {
                      console.log(response.data.program)
@@ -89,7 +98,8 @@
             }
         },
         created(){
-            this.getById(this.programId)
+            this.getById()
+            this.getAverageBackground()
             console.log(this.p)
             this.pp = this.p
         }

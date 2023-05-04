@@ -6,10 +6,11 @@
                 <div class="row g-5">
                     <div class="col-lg-4 custom-product-col">
                         <program-card-plus :p="'l'" :programId="l" v-if="l" @deleteSelf="deleteSelf" />
-
+                         <!-- <background-card :background="backgroundL" :is-average="true" :card-title="`Average Background`" v-if="l" :is-editable="false"/> -->
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <program-card-plus :p="'r'" :programId="r" v-if="r" @deleteSelf="deleteSelf" />
+                         <!-- <background-card :background="backgroundR" :is-average="true" :card-title="`Average Background`" v-if="r" :is-editable="false"/> -->
                     </div>
                     <div class="col-lg-4 custom-product-col">
                         <div class="header-right-fixed position-sticky product-notify-wrapper rbt-sticky-top-adjust-four mt_md--20 mt_sm--15">
@@ -47,6 +48,7 @@
     import ProgramCardPlus from '@/components/myComp/program/ProgramCardPlus'
     import applicationListMixin from "@/mixins/user/ApplicationListMixin";
     import MyProgramListSidebarPlus from "@/components/myComp/MyProgramListSidebarPlus.vue";
+    // import BackgroundCard from "@/components/myComp/background/BackgroundCard";
     // import programApi from "@/api/program"
     // import ProductMixin from "@/mixins/ProductMixin";
     // import TopSchoolItem from "@/components/myComp/homePageComp/TopSchoolItem.vue";
@@ -55,6 +57,7 @@
     // import programSelectionApi from "@/api/programSelection";
     import cookie from "js-cookie";
     import Toastify from "toastify-js";
+    import programApi from "@/api/program"
 
     // import profileApi from "@/api/profile";
 
@@ -72,7 +75,8 @@
             MyProgramListSidebarPlus,
             Layout,
             VirtualCampusTourFrame,
-            ProgramCardPlus
+            ProgramCardPlus,
+            // BackgroundCard
         },
         mixins: [applicationListMixin],
         data() {
@@ -80,6 +84,8 @@
                 currentUser: {},
                 r: null,
                 l: null,
+                // backgroundR: null,
+                // backgroundL: null,
                 // schoolId: this.$route.params.id.split("X")[1],
                 // product: {},
                 // activeTabIndex: 0,
@@ -93,6 +99,16 @@
             }
         },
         methods: {
+            // getAverageBackground() {
+            //     programApi.getAverageBackground(this.r).then(response => {
+            //         this.backgroundR = response.data
+            //         console.log(this.backgroundR)
+            //     })
+            //      programApi.getAverageBackground(this.l).then(response => {
+            //         this.backgroundL = response.data
+            //         console.log(this.backgroundL)
+            //     })
+            // },
             getCurrentUser(){
                 // we have stored this when logging in
                 let userStr = cookie.get("current_user");
@@ -107,7 +123,6 @@
                     // console.log(this.applications)
 
                     // this.getBackground();
-
                 }else{
                     // user should be redirected to the login page if not logged in
                     Toastify({
@@ -143,8 +158,13 @@
 
             deleteSelf(t){
                 console.log(t)
-                if (t == 'l') this.l = null
-                else this.r = null
+                if (t == 'l'){ this.l = null
+                    // this.backgroundL = null
+                }
+                else {
+                    this.r = null
+                    // this.backgroundR = null
+                }
                 // this.idList = this.idList.filter(item => {return item != id})
             }
 
