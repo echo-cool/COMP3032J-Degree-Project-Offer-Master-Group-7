@@ -12,6 +12,7 @@ import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,6 +35,8 @@ public class RecommendationController {
         User user = jwtUtils.getUserFromRequestByToken(request);
 
         List<Program> res = recommendationServiceCF.userBasedRecommender(user.getId(), 5);
+//        shuffel the result
+        Collections.shuffle(res);
         return ResponseEntity.ok(R.ok().data("data", res));
     }
 
