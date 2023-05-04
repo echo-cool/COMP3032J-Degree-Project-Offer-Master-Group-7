@@ -27,7 +27,8 @@
                             <!-- Start My Program List area -->
                             <my-program-list-sidebar-plus :current-user="currentUser"
                                                      :applications="applications"
-                                                     @reloadData="reloadData"/>
+                                                     @reloadData="reloadData"
+                                                     ref="xueBao"/>
                             <!-- End My Program List area -->
                         </div>
                     </div>
@@ -152,59 +153,67 @@
 
             // to fetch data again for updating showing
             reloadData(id){
-                if (this.l == null) {
-                    if (this.r == id){
-                        Toastify({
-                        text: "Do not add same program",
-                        duration: 3000,
-                        close: false,
-                        // avatar:"/img/logo-dark.44b49d43.png",
-                        gravity: "top", // `top` or `bottom`
-                        position: "right", // `left`, `center` or `right`
-                        stopOnFocus: false, // Prevents dismissing of toast on hover
-                        style: {
-                            "font-size": "large",
-                            "font-family":"\"Roboto\", sans-serif",
-                            background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        },
-                        onClick: function(){} // Callback after click
-                    }).showToast();
+                if (id > 0){
+                    if (this.l == null) {
+                        if (this.r == id){
+                            Toastify({
+                            text: "Do not add same program",
+                            duration: 3000,
+                            close: false,
+                            // avatar:"/img/logo-dark.44b49d43.png",
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: false, // Prevents dismissing of toast on hover
+                            style: {
+                                "font-size": "large",
+                                "font-family":"\"Roboto\", sans-serif",
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                        }
+                        else{
+                            this.l = id
+                        }
                     }
-                    else{
-                        this.l = id
+                    else if (this.l != null && this.r == null){
+                        if (this.l == id) {
+                            Toastify({
+                            text: "Do not add same program",
+                            duration: 3000,
+                            close: false,
+                            // avatar:"/img/logo-dark.44b49d43.png",
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: false, // Prevents dismissing of toast on hover
+                            style: {
+                                "font-size": "large",
+                                "font-family":"\"Roboto\", sans-serif",
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                        }
+                        else{
+                            this.r = id
+                        }
                     }
-                }
-                else if (this.l != null && this.r == null){
-                    if (this.l == id) {
-                        Toastify({
-                        text: "Do not add same program",
-                        duration: 3000,
-                        close: false,
-                        // avatar:"/img/logo-dark.44b49d43.png",
-                        gravity: "top", // `top` or `bottom`
-                        position: "right", // `left`, `center` or `right`
-                        stopOnFocus: false, // Prevents dismissing of toast on hover
-                        style: {
-                            "font-size": "large",
-                            "font-family":"\"Roboto\", sans-serif",
-                            background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        },
-                        onClick: function(){} // Callback after click
-                    }).showToast();
-                    }
-                    else{
-                        this.r = id
-                    }
+                }else{
+                    if (this.l == -1 * id) this.l = null
+                    if (this.r == -1 * id) this.r = null
                 }
             },
 
             deleteSelf(t){
                 console.log(t)
-                if (t == 'l'){ this.l = null
+                if (t == 'l'){ 
+                    // this.l = null
+                    this.$refs.xueBao.removeApplication(this.l)
                     // this.backgroundL = null
                 }
                 else {
-                    this.r = null
+                    // this.r = null
+                    this.$refs.xueBao.removeApplication(this.r)
                     // this.backgroundR = null
                 }
                 // this.idList = this.idList.filter(item => {return item != id})
@@ -216,7 +225,6 @@
             this.l = null,
             this.r = null
             this.getCurrentUser();
-
         },
         watch: {
             '$route.params.id': function (val) {

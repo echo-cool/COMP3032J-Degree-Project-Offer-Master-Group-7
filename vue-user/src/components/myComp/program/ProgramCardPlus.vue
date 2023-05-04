@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                 <background-card :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
+                 <background-card-plus :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
             </div>
         </div>
     </div>
@@ -40,11 +40,11 @@
 <script>
     import Countdown from '@/components/product/Countdown'
     import programApi from "@/api/program";
-    import BackgroundCard from "@/components/myComp/background/BackgroundCard";
+    import BackgroundCardPlus from "@/components/myComp/background/BackgroundCardPlus";
 
     export default {
         name: 'ProductListCardPlus',
-        components: {Countdown, BackgroundCard},
+        components: {Countdown, BackgroundCardPlus},
         props: {
             programId: "",
             p: null,

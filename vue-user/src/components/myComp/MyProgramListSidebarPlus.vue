@@ -45,7 +45,8 @@
                         <span v-else class="color-info">{{ application.eStatus }}</span>
                     </div>
                     <!--                    <router-link :to="application.url" class="btn btn-primary-alta">Check Out</router-link>-->
-                    <a class="btn btn-primary-alta" @click="addApplication(application.id)">Add</a>
+                    <a class="btn btn-primary-alta" v-if="application.id != type[0] && application.id != type[1]" @click="addApplication(application.id)">Add</a>
+                    <a class="btn btn-primary-alta" v-else @click="removeApplication(application.id)">Remove</a>
                 </div>
 
             </div>
@@ -72,7 +73,7 @@
         },
         data() {
             return {
-
+                type: []
             }
         },
 
@@ -82,9 +83,16 @@
 
         methods:{
             addApplication(applicationId){
+                if(this.type.length < 2)
+                    this.type.push(applicationId)
+                console.log(this.type, "add")
                 this.$emit("reloadData", applicationId);
+            },
+            removeApplication(applicationId){
+                this.type.splice(this.type.indexOf(applicationId, 1))
+                console.log(this.type, "remove")
+                this.$emit("reloadData", (applicationId * -1));
             }
-
         }
     }
 </script>
