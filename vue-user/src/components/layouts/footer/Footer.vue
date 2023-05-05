@@ -168,7 +168,7 @@
     <div class="mouse-cursor cursor-inner"/>
 
     <!-- Start Top To Bottom Area  -->
-    <back-to-top v-on:click="scrollTop"/>
+<!--    <back-to-top v-on:click="scrollTop"/>-->
     <!-- End Top To Bottom Area  -->
   </div>
 </template>
