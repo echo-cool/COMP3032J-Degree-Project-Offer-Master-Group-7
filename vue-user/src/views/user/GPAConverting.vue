@@ -27,14 +27,14 @@
                                 </div>
                             </div>
 
-                            <div class="input-two-wrapper">
-                                <div class="half-wid">
+                            <div class="input-two-wrapper" style="margin: 30px 15% 30px 15%;">
+<!--                                <div class="half-wid">-->
                                     <select id="original-scale" class="profile-edit-select mt--0" v-model="originalScale">
 <!--                                        <option value="" disabled  style="display: none">Select your original GPA Scale here</option>-->
                                         <option value="UCD" selected>University College Dublin 4.2 scale</option>
                                         <option value="CHINA">Chinese 0 - 100 scale</option>
                                     </select>
-                                </div>
+<!--                                </div>-->
                             </div>
                         </tab-content>
 
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <a href="/backend/static/excel/GPA_Convert_Template.xlsx" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto">Download Template</a>
+                            <a href="/backend/static/excel/GPA_Convert_Template.xlsx" class="btn btn-primary button-area w-25" style="display: block; margin: 30px auto;">Download Template</a>
                         </tab-content>
 
                         <!-- step 3 -->
@@ -78,18 +78,21 @@
                                 </div>
                             </div>
 
-                            <VueFileAgent v-model="fileRecords"
-                                          :multiple="false"
-                                          :meta="true"
-                                          :accept="`.xlsx`"
-                                          :helpText="'Upload your filled-in Excel Transcript Template'"
-                                          @change="getFile($event)"></VueFileAgent>
+                            <div style="margin: 30px 14% 10px 14%">
+                                <VueFileAgent v-model="fileRecords"
+                                              :multiple="false"
+                                              :meta="true"
+                                              :accept="`.xlsx`"
+                                              :helpText="'Upload your filled-in Excel Transcript Template'"
+                                              @change="getFile($event)"></VueFileAgent>
+                            </div>
 
-                            <a v-if="this.fileUploaded" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto" @click="removeTranscript()">Remove File</a>
+
+                            <a v-if="this.fileUploaded" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto 50px auto" @click="removeTranscript()">Remove File</a>
 <!--                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>-->
 
                             <!-- show course grades in table -->
-                            <div v-if="this.fileUploaded" class="container">
+                            <div v-if="this.fileUploaded" class="container" style="margin-bottom: 30px">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="about-wrapper text-center">
