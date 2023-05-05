@@ -1,10 +1,10 @@
 <template>
     <div class="rn-live-bidding-area">
         <div class="container">
-            <h3 v-if="isLoading" class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
+            <h2 v-if="isLoading" class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
                 data-sal-duration="800">
                 {{ title }}
-            </h3>
+            </h2>
             <div v-if="isLoading" style="height: 450px; display: flex; justify-content: center; align-items: center">
                 <div class="d-flex justify-content-center" >
                     <div class="spinner-border" role="status" style="zoom: 5;" >
@@ -76,7 +76,7 @@ export default {
     props: {
         title: {
             type: String,
-            default: 'Recommend By CF'
+            default: 'Guess Your Favorites'
         },
         showPlaceBid: {
             type: Boolean,

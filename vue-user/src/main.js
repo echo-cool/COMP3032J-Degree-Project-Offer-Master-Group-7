@@ -65,4 +65,11 @@ app.use(VueFileAgent);
 import Paginate from "vuejs-paginate-next";
 app.use(Paginate);
 
+// import APlayer from '@moefe/vue-aplayer';
+//
+// app.use(APlayer, {
+//     defaultCover: 'https://github.com/u3u.png', // set the default cover
+//     productionTip: false, // disable console output
+// });
+
 app.mount('#app')
