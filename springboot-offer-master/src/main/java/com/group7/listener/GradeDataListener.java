@@ -123,6 +123,9 @@ public class GradeDataListener extends AnalysisEventListener<GradeData> {
         // calculate the converted GPA
         double convertedGPA = this.totalUSGradePoints / this.totalCredits;
 
+        //with only 2 decimal places
+        convertedGPA = (double) Math.round(convertedGPA * 100) / 100;
+
         // get the profile of this user
         Profile profile = this.user.getProfile();
 
