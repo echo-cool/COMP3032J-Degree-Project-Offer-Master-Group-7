@@ -6,7 +6,7 @@
             <slot></slot>
         </main>
         <Footer :data="$props"/>
-        <back-to-top/>
+<!--        <back-to-top/>-->
     </div>
 </template>
 
