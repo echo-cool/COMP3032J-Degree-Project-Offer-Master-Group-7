@@ -30,6 +30,28 @@ public class DateUtil {
         return new Date(randomDate);
     }
 
+    public static Date getRandomFutureDate() throws ParseException {
+        // get current time as end time
+//        Calendar calendar = Calendar.getInstance();
+//        long end = calendar.getTimeInMillis();
+
+        // set the end time
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date endDate = sdf.parse("2025-06-01 00:00:00");
+        long end = endDate.getTime();
+
+        // set the start time
+        Date date = sdf.parse("2024-01-01 00:00:00");
+        long start = date.getTime();
+
+        Random random = new Random();
+
+        // random data
+        long randomDate = start + (long) (random.nextFloat() * (end - start + 1));
+
+        return new Date(randomDate);
+    }
+
     public static Date getFirstDateOfYear(int year){
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
