@@ -34,16 +34,17 @@ export default {
     data() {
         return {
             user: "",
+            // cssWord: "z-index: 9999",
             participants: [
                 {
                     id: 2,
                     name: 'Jinfeng Xu',
-                    imageUrl: "/backend/static/" + "default/default-avatar.jpg"
+                    imageUrl: "/backend/static/default/default-avatar.jpg"
                     // imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
                 },
                 {
                     id: 'user2',
-                    name: 'Support',
+                    name: 'me',
                     imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
                 }
             ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
@@ -96,9 +97,8 @@ export default {
                 this.user = JSON.parse(userTemp);
                 // console.log(userTemp.id)
                 this.participants[1].id = this.user.id
-                this.participants[1].name = this.user.username
-                this.participants[1].imageUrl = this.user.avatar
-                this.messageList[1].author = this.user.id
+                this.participants[1].name = 'me'
+                this.participants[1].imageUrl = "/backend/static/" + this.user.avatar
                 console.log(this.participants)
             }
             else{
@@ -109,7 +109,7 @@ export default {
             // console.log(1212)
             if (text.length > 0) {
                 this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-                this.onMessageWasSent({ author: 'me', type: 'text', data: { text } })
+                this.onMessageWasSent({ type: 'text', author: 'me', data: { text } })
             }
         },
         onMessageWasSent (message) {
@@ -117,7 +117,7 @@ export default {
             // console.log(message)
             // var tmpT = message.data
             var tmp = { 
-                    sender: this.participants[1].name,
+                    sender: this.user.username,
                     receiver: this.participants[0].name,
                     senderId: this.participants[1].id,
                     receiverId: this.participants[0].id,
@@ -128,8 +128,10 @@ export default {
             chatApi.sendChat(tmp).then(response => {
                 // console.log("666")
                 this.messageList = [ ...this.messageList, message ]
+                console.log(this.messageList)
             })
             console.log("777")
+            
         },
         openChat () {
             this.getCurrentUser()
@@ -140,9 +142,12 @@ export default {
                     t.type = tmp.type
                     if (tmp.author != 2){
                         t.author = 'me'
+                    }else{
+                        t.author = tmp.author
                     }
                     t.data.text = tmp.content
                     this.messageList = [ ...this.messageList, t ]
+                    console.log(this.messageList)
                 }
                 this.isChatOpen = true
                 // this.
@@ -175,3 +180,4 @@ export default {
     }
 }
 </script>
+
