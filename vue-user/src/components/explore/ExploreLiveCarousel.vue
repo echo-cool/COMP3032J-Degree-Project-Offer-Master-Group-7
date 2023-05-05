@@ -20,7 +20,6 @@
                           :items-to-show="1"
                           :wrap-around="true"
                           :breakpoints="breakpoints"
-                          @init="handleInit"
                           ref="myCarousel"
                 >
 
@@ -32,9 +31,10 @@
                 {{ title }}
               </h3>
             </div>
-            <div class="carousel-navigation">
-              <navigation/>
-            </div>
+            <div class="carousel-navigation" ref="navigation">
+<!--              <navigation/>-->
+              <button type="button" @click="clickPrev" class="carousel__prev" aria-label="Navigate to previous slide"><svg class="carousel__icon" viewBox="0 0 24 24" role="img" ariaLabel="arrowLeft"><title>arrowLeft</title><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"></path></svg></button>
+              <button type="button" @click="clickNext" class="carousel__next" aria-label="Navigate to next slide"><svg class="carousel__icon" viewBox="0 0 24 24" role="img" ariaLabel="arrowRight"><title>arrowRight</title><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg></button>            </div>
           </div>
         </template>
         <slide v-for="(program, index) in programs" :key="`program-${index}`">
@@ -153,6 +153,7 @@ export default {
       this.$emit("reloadData");
       // reload likes
       this.getLikedPrograms();
+      // this.handleInit();
     },
 
     // check whether the application list contains a program
@@ -160,10 +161,22 @@ export default {
       return this.selectedProgramIDs.includes(programId);
     },
 
+    clickNext() {
+      let myCarousel = this.$refs.myCarousel;
+      myCarousel.next();
+    },
+
+    clickPrev() {
+      let myCarousel = this.$refs.myCarousel;
+      myCarousel.prev();
+    },
+
     handleInit() {
-      let button = document.getElementsByClassName("carousel__next");
-      button.innerHtml = this.buttonIcon
-      console.log(button);
+      let button = document.querySelector(".carousel__next");
+      let container = this.$refs.navigation;
+      let btn = this.$createElement("button");
+      container.appendChild(btn);
+      // console.log(button);
     }
   }
 }
