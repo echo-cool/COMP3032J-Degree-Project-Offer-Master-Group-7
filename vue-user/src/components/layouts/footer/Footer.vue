@@ -199,7 +199,7 @@ export default {
     getRandomSchools() {
       let that = this;
       request({
-        url: `/api/school/public/getRandomSchools/5`,
+        url: `/api/school/public/getRandomSchools_fake/5`,
         method: 'get'
       }).then(function (res) {
         that.schools = res.data.schools;
