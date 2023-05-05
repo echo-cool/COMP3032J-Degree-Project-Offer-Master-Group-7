@@ -30,8 +30,8 @@
                             <div class="input-two-wrapper">
                                 <div class="half-wid">
                                     <select id="original-scale" class="profile-edit-select mt--0" v-model="originalScale">
-                                        <option value="" disabled selected style="display: none">Select your original GPA Scale here</option>
-                                        <option value="UCD">University College Dublin 4.2 scale</option>
+<!--                                        <option value="" disabled  style="display: none">Select your original GPA Scale here</option>-->
+                                        <option value="UCD" selected>University College Dublin 4.2 scale</option>
                                         <option value="CHINA">Chinese 0 - 100 scale</option>
                                     </select>
                                 </div>
@@ -86,7 +86,7 @@
                                           @change="getFile($event)"></VueFileAgent>
 
                             <a v-if="this.fileUploaded" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto" @click="removeTranscript()">Remove File</a>
-                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>
+<!--                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>-->
 
                             <!-- show course grades in table -->
                             <div v-if="this.fileUploaded" class="container">
@@ -248,7 +248,7 @@
         mixins: [],
         data() {
             return {
-                originalScale: "",
+                originalScale: "UCD",
                 fileRecords: [],
                 fileForUpload: null,
                 fileUploaded: false,
@@ -346,6 +346,10 @@
             },
 
             beforeChange4(){
+                window.location.href = "/backend/" + this.reportDownloadURL;
+                setTimeout(x => {
+                    window.location.href = "/";
+                }, 1000);
                 console.log("before change 4");
                 return true;
 
@@ -387,6 +391,7 @@
                     this.fileForUpload = e.target.files[0];
                     this.fileUploaded = false;
                     this.reportDownloadURL = "";
+                    this.uploadTranscript();
                 }
             },
 
