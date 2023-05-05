@@ -34,6 +34,8 @@
                     <span v-else-if="application.eStatus === `ADMITTED`" class="color-green fs-5">{{ application.eStatus.replace("_", " ") }}</span>
                     <span v-else class="color-info fs-5">{{ application.eStatus.replace("_", " ") }}</span>
 
+<!--                    for test -->
+                    <h2>test app ID: {{application.id}}</h2>
 
                     <div class="share-wrapper d-flex">
                         <div v-if="isLikedObj.isLiked" class="react-area-activated mr--15" @click="likeProgram(application.program.id)">
@@ -92,7 +94,7 @@
         </div>
     </div>
 
-    <application-edit-modal :application="application"/>
+    <application-edit-modal :key="`app-edit-modal-${application.id}`" :application="application" :e-round="application.eRound" :e-status="application.eStatus" :deadline="application.deadline"/>
 </template>
 
 <script>
