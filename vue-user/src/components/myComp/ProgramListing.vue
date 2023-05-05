@@ -1,15 +1,16 @@
 <template>
   <div class="rn-top-top-seller-area nice-selector-transparent">
-    <h2 class="text-left mb--50">RECOMMENDED PROGRAMS RANKED BY
-      <nice-select
-          :options="[
-              { value: 'knn', text: 'SIMILARITY WITH PROGRAMS' },
-              { value: 'cf', text: 'SIMILAR USERS\' SELECTIONS' },
-            ]"
-          :default-current="0"
-          name="sellerSort"
-          @onChange="changeHandler"
-      />
+    <h2 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
+        data-sal-duration="800">Programs Match Your Application Background
+<!--      <nice-select-->
+<!--          :options="[-->
+<!--              { value: 'knn', text: 'SIMILARITY WITH PROGRAMS' },-->
+<!--              { value: 'cf', text: 'SIMILAR USERS\' SELECTIONS' },-->
+<!--            ]"-->
+<!--          :default-current="0"-->
+<!--          name="sellerSort"-->
+<!--          @onChange="changeHandler"-->
+<!--      />-->
     </h2>
   </div>
   <!--    <nav class="product-tab-nav">-->
@@ -177,15 +178,15 @@ export default {
       this.getLikedPrograms();
     },
 
-    changeHandler(item) {
-      console.log(item.value)
-      if (item.value === "knn") {
-        this.getProgramsKNN()
-      }
-      else if (item.value === "cf") {
-        this.getProgramsCF()
-      }
-    }
+    // changeHandler(item) {
+    //   console.log(item.value)
+    //   if (item.value === "knn") {
+    //     this.getProgramsKNN()
+    //   }
+    //   else if (item.value === "cf") {
+    //     this.getProgramsCF()
+    //   }
+    // }
 
   }
 }
