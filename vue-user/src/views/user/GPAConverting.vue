@@ -88,7 +88,7 @@
                             </div>
 
 
-                            <a v-if="this.fileUploaded" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto 50px auto" @click="removeTranscript()">Remove File</a>
+                            <a v-if="this.fileUploaded || this.fileError" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto 50px auto" @click="removeTranscript()">Remove File</a>
 <!--                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>-->
 
                             <!-- show course grades in table -->
@@ -255,6 +255,7 @@
                 fileRecords: [],
                 fileForUpload: null,
                 fileUploaded: false,
+                fileError: false,
                 gradeRows: [],
                 convertedGPA: null,
                 tableHeader:[
@@ -340,7 +341,7 @@
 
             // upload transcripts
             beforeChange3(){
-                if (this.fileUploaded){
+                if (this.fileUploaded && !this.fileError){
                     return true;
                 }else{
                     this.notification("You should select your Excel transcript and upload!");
@@ -382,6 +383,7 @@
 
                         } else {
                             this.fileUploaded = false;
+                            this.fileError = true;
                             this.notification(response.message);
                         }
                     })
@@ -393,6 +395,7 @@
                     // update the file for uploading
                     this.fileForUpload = e.target.files[0];
                     this.fileUploaded = false;
+                    this.fileError = false;
                     this.reportDownloadURL = "";
                     this.uploadTranscript();
                 }
@@ -400,6 +403,7 @@
 
             removeTranscript(){
                 this.fileUploaded = false;
+                this.fileError = false;
                 this.fileForUpload = null;
                 this.fileRecords = [];
                 this.reportDownloadURL = "";
