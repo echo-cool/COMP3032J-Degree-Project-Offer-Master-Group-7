@@ -91,6 +91,18 @@
                             <a v-if="this.fileUploaded || this.fileError" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto 50px auto" @click="removeTranscript()">Remove File</a>
 <!--                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>-->
 
+                            <!-- loading icon -->
+                            <div v-if="isLoading">
+                                <div  class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status" style="zoom: 5">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="m-5 d-flex justify-content-center">
+                                    <h2>Loading...</h2>
+                                </div>
+                            </div>
+
                             <!-- show course grades in table -->
                             <div v-if="this.fileUploaded" class="container" style="margin-bottom: 30px">
                                 <div class="row">
@@ -256,6 +268,7 @@
                 fileForUpload: null,
                 fileUploaded: false,
                 fileError: false,
+                isLoading: false,
                 gradeRows: [],
                 convertedGPA: null,
                 tableHeader:[
@@ -375,6 +388,7 @@
                     .then(response => {
                         if (response.success) {
                             this.fileUploaded = true;
+                            this.isLoading = false;
                             this.notification("Transcript uploaded!");
                             // update the data from response
                             this.gradeRows = response.data.gradeRows;
@@ -384,6 +398,7 @@
                         } else {
                             this.fileUploaded = false;
                             this.fileError = true;
+                            this.isLoading = false;
                             this.notification(response.message);
                         }
                     })
@@ -396,6 +411,7 @@
                     this.fileForUpload = e.target.files[0];
                     this.fileUploaded = false;
                     this.fileError = false;
+                    this.isLoading = true;
                     this.reportDownloadURL = "";
                     this.uploadTranscript();
                 }
