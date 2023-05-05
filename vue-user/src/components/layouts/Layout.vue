@@ -8,7 +8,7 @@
         <Footer :data="$props"/>
 <!--        <back-to-top/>-->
 
-        <chat-box1></chat-box1>
+        <chat-box1 class="chatBox"></chat-box1>
 
     </div>
 </template>
@@ -32,3 +32,12 @@
         }
     }
 </script>
+
+<style>
+    .sc-launcher{
+        z-index: 9999
+    }
+    .sc-chat-window{
+        z-index: 9999
+    }
+</style>
