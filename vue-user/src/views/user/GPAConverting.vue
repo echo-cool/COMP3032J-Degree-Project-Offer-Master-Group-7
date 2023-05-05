@@ -27,14 +27,14 @@
                                 </div>
                             </div>
 
-                            <div class="input-two-wrapper">
-                                <div class="half-wid">
+                            <div class="input-two-wrapper" style="margin: 30px 15% 30px 15%;">
+<!--                                <div class="half-wid">-->
                                     <select id="original-scale" class="profile-edit-select mt--0" v-model="originalScale">
 <!--                                        <option value="" disabled  style="display: none">Select your original GPA Scale here</option>-->
                                         <option value="UCD" selected>University College Dublin 4.2 scale</option>
                                         <option value="CHINA">Chinese 0 - 100 scale</option>
                                     </select>
-                                </div>
+<!--                                </div>-->
                             </div>
                         </tab-content>
 
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <a href="/backend/static/excel/GPA_Convert_Template.xlsx" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto">Download Template</a>
+                            <a href="/backend/static/excel/GPA_Convert_Template.xlsx" class="btn btn-primary button-area w-25" style="display: block; margin: 30px auto;">Download Template</a>
                         </tab-content>
 
                         <!-- step 3 -->
@@ -78,18 +78,21 @@
                                 </div>
                             </div>
 
-                            <VueFileAgent v-model="fileRecords"
-                                          :multiple="false"
-                                          :meta="true"
-                                          :accept="`.xlsx`"
-                                          :helpText="'Upload your filled-in Excel Transcript Template'"
-                                          @change="getFile($event)"></VueFileAgent>
+                            <div style="margin: 30px 14% 10px 14%">
+                                <VueFileAgent v-model="fileRecords"
+                                              :multiple="false"
+                                              :meta="true"
+                                              :accept="`.xlsx`"
+                                              :helpText="'Upload your filled-in Excel Transcript Template'"
+                                              @change="getFile($event)"></VueFileAgent>
+                            </div>
 
-                            <a v-if="this.fileUploaded" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto" @click="removeTranscript()">Remove File</a>
+
+                            <a v-if="this.fileUploaded || this.fileError" class="btn btn-danger button-area w-25" style="display: block; margin: 0 auto 50px auto" @click="removeTranscript()">Remove File</a>
 <!--                            <a v-else class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto" @click="uploadTranscript()">Upload Transcript</a>-->
 
                             <!-- show course grades in table -->
-                            <div v-if="this.fileUploaded" class="container">
+                            <div v-if="this.fileUploaded" class="container" style="margin-bottom: 30px">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="about-wrapper text-center">
@@ -142,7 +145,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="about-wrapper text-center">
-                                                <h1>Here to Download Your GPA Converting Report!</h1>
+                                                <h1>Your Converted GPA is: <span class="color-green">{{ this.convertedGPA }}</span> / 4.0</h1>
                                                 <p class="discription">
                                                     Your GPA has been converted to the U.S 4.0 scale according to your original GPA scale
                                                     and the transcript you uploaded. GPA in your application background in OfferMaster is also updated!
@@ -155,7 +158,7 @@
                             </div>
 
                             <!-- show course grades in table -->
-                            <div v-if="this.fileUploaded" class="container">
+                            <div v-if="this.fileUploaded" class="container" style="margin: 30px 0">
                                 <div class="box-table table-responsive">
                                     <table class="table upcoming-projects">
                                         <thead>
@@ -204,11 +207,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="about-wrapper text-center">
-                                        <h3>Here to download your course-by-course GPA converting report</h3>
+                                        <h3>Here to Download Your Course-by-Course GPA Converting Report!</h3>
                                     </div>
                                 </div>
                             </div>
-                            <a :href="`/backend/${this.reportDownloadURL}`" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto">Download GPA Converting Report</a>
+                            <a :href="`/backend/${this.reportDownloadURL}`" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto 30px auto">Download GPA Converting Report</a>
 
                         </tab-content>
                     </form-wizard>
@@ -252,6 +255,7 @@
                 fileRecords: [],
                 fileForUpload: null,
                 fileUploaded: false,
+                fileError: false,
                 gradeRows: [],
                 convertedGPA: null,
                 tableHeader:[
@@ -337,7 +341,7 @@
 
             // upload transcripts
             beforeChange3(){
-                if (this.fileUploaded){
+                if (this.fileUploaded && !this.fileError){
                     return true;
                 }else{
                     this.notification("You should select your Excel transcript and upload!");
@@ -379,6 +383,7 @@
 
                         } else {
                             this.fileUploaded = false;
+                            this.fileError = true;
                             this.notification(response.message);
                         }
                     })
@@ -390,6 +395,7 @@
                     // update the file for uploading
                     this.fileForUpload = e.target.files[0];
                     this.fileUploaded = false;
+                    this.fileError = false;
                     this.reportDownloadURL = "";
                     this.uploadTranscript();
                 }
@@ -397,6 +403,7 @@
 
             removeTranscript(){
                 this.fileUploaded = false;
+                this.fileError = false;
                 this.fileForUpload = null;
                 this.fileRecords = [];
                 this.reportDownloadURL = "";
