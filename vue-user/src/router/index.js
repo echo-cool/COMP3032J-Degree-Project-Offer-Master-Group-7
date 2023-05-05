@@ -21,6 +21,7 @@ import CommunityCategoryPosts from "@/views/Community/CommunityCategoryPosts";
 import MyApplications from "@/views/user/MyApplications.vue";
 import GPAConverting from "@/views/user/GPAConverting.vue";
 import ExploreSchool from "@/views/Explore/ExploreSchool";
+import Contact from "@/views/Contact.vue";
 
 const routes = [
 
@@ -30,6 +31,14 @@ const routes = [
         component: HomePage,
         meta: {
             title: 'OfferMaster',
+        },
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: Contact,
+        meta: {
+            title: 'Contact us || OfferMaster',
         },
     },
 

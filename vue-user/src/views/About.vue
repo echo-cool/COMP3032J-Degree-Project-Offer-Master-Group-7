@@ -47,12 +47,12 @@
                                         To help users learn from others’ application experiences, we
                                         provide an application community module to maintain the latest information.
                                     </p>
-                                    <router-link to="/blog"
+                                    <router-link to="/community"
                                                  class="btn btn-primary-alta btn-large sal-animate mt--20"
                                                  data-sal="slide-up"
                                                  data-sal-duration="800"
                                                  data-sal-delay="150">
-                                        See Our Blog
+                                        See Our Community
                                     </router-link>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                                              data-sal="slide-up"
                                              data-sal-duration="800"
                                              data-sal-delay="150">
-                                            <router-link to="/create" class="btn btn-primary btn-large">
+                                            <router-link to="/program-selection" class="btn btn-primary btn-large">
                                                 Create
                                             </router-link>
                                             <router-link to="/contact" class="btn btn-primary-alta btn-large">
