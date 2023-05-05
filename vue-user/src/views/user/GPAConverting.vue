@@ -158,7 +158,7 @@
                             </div>
 
                             <!-- show course grades in table -->
-                            <div v-if="this.fileUploaded" class="container">
+                            <div v-if="this.fileUploaded" class="container" style="margin: 30px 0">
                                 <div class="box-table table-responsive">
                                     <table class="table upcoming-projects">
                                         <thead>
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a :href="`/backend/${this.reportDownloadURL}`" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto">Download GPA Converting Report</a>
+                            <a :href="`/backend/${this.reportDownloadURL}`" class="btn btn-primary button-area w-25" style="display: block; margin: 0 auto 30px auto">Download GPA Converting Report</a>
 
                         </tab-content>
                     </form-wizard>
