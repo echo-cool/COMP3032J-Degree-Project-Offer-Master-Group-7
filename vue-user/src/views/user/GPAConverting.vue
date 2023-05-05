@@ -145,7 +145,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="about-wrapper text-center">
-                                                <h1>Here to Download Your GPA Converting Report!</h1>
+                                                <h1>Your Converted GPA is: <span class="color-green">{{ this.convertedGPA }}</span> / 4.0</h1>
                                                 <p class="discription">
                                                     Your GPA has been converted to the U.S 4.0 scale according to your original GPA scale
                                                     and the transcript you uploaded. GPA in your application background in OfferMaster is also updated!
@@ -207,7 +207,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="about-wrapper text-center">
-                                        <h3>Here to download your course-by-course GPA converting report</h3>
+                                        <h3>Here to Download Your Course-by-Course GPA Converting Report!</h3>
                                     </div>
                                 </div>
                             </div>
