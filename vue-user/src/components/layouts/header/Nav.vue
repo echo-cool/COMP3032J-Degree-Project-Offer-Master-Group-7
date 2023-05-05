@@ -156,7 +156,7 @@ export default {
                 // ------ for testing ------
               {
                   link: '#',
-                  title: 'Apply',
+                  title: 'Apply Tools',
                   hasDropdown: true,
                   megamenu: false,
                   dropdownItems:[
@@ -167,6 +167,7 @@ export default {
                       {link: '/explore-decisions', title: 'View Decision Reports', icon: 'fast-forward'},
                       {link: '/article-polishing', title: 'Essay Polishing', icon: 'fast-forward'},
                       {link: '/program-comparison', title: 'Compare Programs', icon: 'fast-forward'},
+                      {link: '/GPA-convert', title: 'GPA Converting', icon: 'fast-forward'},
                   ]
               },
               {
@@ -203,9 +204,14 @@ export default {
               {
                 link: '/about',
                 title: 'About',
-                hasDropdown: false,
+                hasDropdown: true,
                 megamenu: false,
+                  dropdownItems:[
+                      {link: '/about', title: 'About', icon: 'fast-forward'},
+                      {link: '/contact', title: 'Contact Us', icon: 'fast-forward'},
+                  ]
               },
+
             ]
         }
     }

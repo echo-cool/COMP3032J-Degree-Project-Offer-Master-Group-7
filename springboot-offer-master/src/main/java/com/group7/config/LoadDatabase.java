@@ -354,7 +354,7 @@ class LoadDatabase {
         for(Program program: programs){
             if(program.getApplications().size() == 0){
                 User u = users.get(MyRandomUtils.getRandomInt(0, users.size()));
-                Application application = new Application(u, program, EStatus.ADMITTED, ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+                Application application = new Application(u, program, EStatus.ADMITTED, DateUtil.getRandomFutureDate(), ERound.SUMMER_2023, DateUtil.getRandomPastDate());
                 applicationRepository.save(application);
             }
         }
@@ -388,7 +388,7 @@ class LoadDatabase {
                 List<Program> programsUser = pickNRandomElements(programs, MyRandomUtils.getRandomInt(10, 50));
                 System.out.println(user + ": " + programsUser);
                 for (Program p : programsUser) {
-                    Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], ddl, ERound.SUMMER_2023, DateUtil.getRandomPastDate());
+                    Application application = new Application(user, p, statuses[MyRandomUtils.getRandomInt(0, statuses.length)], DateUtil.getRandomFutureDate(), ERound.SUMMER_2023, DateUtil.getRandomPastDate());
                     System.out.println("\t" + application);
                     applicationRepository.save(application);
                 }

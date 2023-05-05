@@ -112,7 +112,6 @@
                                  :current-user="currentUser"/>
 
 <!--         Top Explore Programs End-->
-        <chat-box1></chat-box1>
     </layout>
 </template>
 
@@ -130,7 +129,6 @@
     import ExploreFilterPrograms from "@/components/myComp/homePageComp/ExploreFilterPrograms.vue";
 
     import cookie from "js-cookie";
-    import ChatBox1 from "@/components/wyy/ChatBox1.vue";
     import Toastify from 'toastify-js'
     import "toastify-js/src/toastify.css"
     export default {
@@ -144,7 +142,6 @@
             OfferMasterGuide,
             ApplicationTools,
             ExploreFilterPrograms,
-            ChatBox1,
         },
         mixins: [SalScrollAnimationMixin, ApplicationListMixin],
 

@@ -83,6 +83,19 @@ public class SchoolController {
         return R.ok().data("schools", res);
     }
 
+    @RequestMapping("/public/getRandomSchools_fake/{size}")
+    public R getRandomSchools_fake(@PathVariable("size") long size){
+        List<School> schools = schoolRepository.findAll();
+        List<School> res = new ArrayList<>();
+        res.add(schools.get(0));
+        res.add(schools.get(1));
+        res.add(schools.get(2));
+        res.add(schools.get(3));
+        res.add(schools.get(4));
+
+        return R.ok().data("schools", res);
+    }
+
     @GetMapping("/public/getAllSchools")
     public R getAllSchools(){
         List<School> allSchools = schoolRepository.findAll();

@@ -25,6 +25,8 @@
                         :show-d-d-l-countdown="true"
                         :deadline="application.deadline"
                         :is-liked-obj="isLiked(application.program.id)"
+                        @removeLike="removeLike(application.program.id)"
+                        @addLike="addLike(application.program.id)"
                     />
                 </slide>
             </carousel>

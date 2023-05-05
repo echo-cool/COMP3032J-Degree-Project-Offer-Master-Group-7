@@ -1,14 +1,28 @@
 <template>
-  <div class="rn-live-bidding-area">
-    <div class="container">
-      <template v-if="toggle">
-      <carousel v-if="programs.length !== 0" class="portfolio-slider"
-                :items-to-show="1"
-                :wrap-around="true"
-                :breakpoints="breakpoints"
-                @init="handleInit"
-                ref="myCarousel"
-      >
+    <div class="rn-live-bidding-area">
+        <div class="container">
+            <h3 v-if="isLoading" class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
+                data-sal-duration="800">
+                {{ title }}
+            </h3>
+            <div v-if="isLoading" style="height: 450px; display: flex; justify-content: center; align-items: center">
+                <div class="d-flex justify-content-center" >
+                    <div class="spinner-border" role="status" style="zoom: 5;" >
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="m-5 d-flex justify-content-center " >
+                    <h2>Loading...</h2>
+                </div>
+            </div>
+            <template v-if="toggle">
+                <carousel v-show="!isLoading" v-if="programs.length !== 0" class="portfolio-slider"
+                          :items-to-show="1"
+                          :wrap-around="true"
+                          :breakpoints="breakpoints"
+                          @init="handleInit"
+                          ref="myCarousel"
+                >
 
         <template #addons>
           <div class="carousel-header">
@@ -50,59 +64,62 @@ import LikeMixin from "@/mixins/user/LikeMixin";
 import profileApi from "@/api/profile";
 
 export default {
-  name: 'ExploreLiveCarousel',
-  mixins: [LikeMixin],
-  components: {
-    ProductCard,
-    Carousel,
-    Slide,
-    Navigation,
-    ProgramCard,
-  },
-  props: {
-    title: {
-      type: String,
-      default: 'Recommend By CF'
+    name: 'ExploreLiveCarousel',
+    mixins: [LikeMixin],
+    components: {
+        ProductCard,
+        Carousel,
+        Slide,
+        Navigation,
+        ProgramCard,
     },
-    showPlaceBid: {
-      type: Boolean,
-      default: false
-    }
-  },
-  created() {
-    // init the liked program list
-    this.getLikedPrograms();
-  },
-  data() {
-    return {
-      breakpoints: {
-        576: {
-          itemsToShow: 2,
-          snapAlign: 'left'
+    props: {
+        title: {
+            type: String,
+            default: 'Recommend By CF'
         },
-        768: {
-          itemsToShow: 2,
-          snapAlign: 'left'
-        },
-        992: {
-          itemsToShow: 3,
-          snapAlign: 'left'
+        showPlaceBid: {
+            type: Boolean,
+            default: false
         }
-      },
-      programs: [],
-      selectedPrograms: [],
-      selectedProgramIDs: [],
-      toggle: true,
-      buttonIcon: '<svg class="carousel__icon" viewBox="0 0 24 24" role="img" ariaLabel="arrowRight"><title>arrowRight</title><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg>'
-    }
-  },
-  methods: {
-    getPrograms() {
-      console.log("start")
-      getRecommendedProgramsByCF().then(response => {
-        this.programs = response.data.data
-      })
     },
+    created() {
+        // init the liked program list
+        this.getLikedPrograms();
+    },
+    data() {
+        return {
+            isLoading: false,
+            breakpoints: {
+                576: {
+                    itemsToShow: 2,
+                    snapAlign: 'left'
+                },
+                768: {
+                    itemsToShow: 2,
+                    snapAlign: 'left'
+                },
+                992: {
+                    itemsToShow: 3,
+                    snapAlign: 'left'
+                }
+            },
+            programs: [],
+            selectedPrograms: [],
+            selectedProgramIDs: [],
+            toggle: true,
+            buttonIcon: '<svg class="carousel__icon" viewBox="0 0 24 24" role="img" ariaLabel="arrowRight"><title>arrowRight</title><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg>'
+        }
+    },
+    methods: {
+        getPrograms() {
+            console.log("start")
+            this.isLoading = true;
+            getRecommendedProgramsByCF().then(response => {
+                this.programs = response.data.data
+                this.isLoading = false;
+            })
+        },
 
     getUserSelectedPrograms() {
       // call the api method
@@ -151,3 +168,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.carousel__prev {
+}
+</style>

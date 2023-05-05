@@ -27,12 +27,12 @@
                                 <i class="feather-more-horizontal"/>
                             </button>
                             <div class="share-btn-setting dropdown-menu dropdown-menu-end">
-                               
+
                             </div> -->
                         </div>
                     </div>
                 </div>
-                 <background-card-plus :background="background" :is-average="true" :card-title="`Average Background`" :is-editable="false"/>
+                 <background-card-plus :background="background" :is-average="true" :card-title="`Average Admission Background`" :is-editable="false"/>
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
                 programApi.getProgramById(this.programId).then(response => {
                      console.log(response.data.program)
                     this.program = response.data.program
-                    
+
                     // console.log(this.program)
                 })
             },

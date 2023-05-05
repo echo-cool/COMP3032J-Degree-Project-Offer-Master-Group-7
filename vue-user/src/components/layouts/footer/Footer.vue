@@ -168,7 +168,7 @@
     <div class="mouse-cursor cursor-inner"/>
 
     <!-- Start Top To Bottom Area  -->
-    <back-to-top v-on:click="scrollTop"/>
+<!--    <back-to-top v-on:click="scrollTop"/>-->
     <!-- End Top To Bottom Area  -->
   </div>
 </template>
@@ -199,7 +199,7 @@ export default {
     getRandomSchools() {
       let that = this;
       request({
-        url: `/api/school/public/getRandomSchools/5`,
+        url: `/api/school/public/getRandomSchools_fake/5`,
         method: 'get'
       }).then(function (res) {
         that.schools = res.data.schools;

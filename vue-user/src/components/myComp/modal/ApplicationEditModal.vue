@@ -21,7 +21,7 @@
                             <!-- application status -->
                             <div class="half-wid">
                                 <label :for="`application-status-selection-${application.id}`" class="form-label mb--10" style="font-size: 15px;">Application Status</label>
-                                <select :id="`application-status-selection-${application.id}`" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="this.eStatus">
+                                <select :id="`application-status-selection-${application.id}`" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="this.applicationData.eStatus">
                                     <option value="ADMITTED">ADMITTED</option>
                                     <option value="REJECTED">REJECTED</option>
                                     <option value="AWAITING_REVIEW">AWAITING_REVIEW</option>
@@ -31,7 +31,7 @@
                             <!-- application round -->
                             <div class="half-wid ml--15">
                                 <label :for="`application-round-selection-${application.id}`" class="form-label mb--10" style="font-size: 15px;">Application Round</label>
-                                <select :id="`application-round-selection-${application.id}`" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="this.eRound">
+                                <select :id="`application-round-selection-${application.id}`" class="profile-edit-select w-100 mt--0 m-lg-0" v-model="this.applicationData.eRound">
                                     <option value="SPRING_2023">SPRING_2023</option>
                                     <option value="SUMMER_2023">SUMMER_2023</option>
                                     <option value="FALL_2023">FALL_2023</option>
@@ -47,12 +47,12 @@
                         <!-- application deadline -->
                         <div class="input-two-wrapper">
                             <label :for="`application-deadline-update-${application.id}`" class="form-label mb--10 mt--35" style="font-size: 15px;">Application Deadline</label>
-                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" v-model="this.deadline">
+                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" v-model="this.applicationData.deadline">
 <!--                            <input :id="`application-deadline-update-${application.id}`" class="profile-edit-select" type="date" :value="application.deadline">-->
                         </div>
                         <!-- btn group -->
                         <div class="report-button mt-5">
-                            <button v-if="this.eStatus === `ADMITTED` || this.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
+                            <button v-if="this.applicationData.eStatus === `ADMITTED` || this.applicationData.eStatus === `REJECTED`" type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update and Report</button>
                             <button v-else type="button" class="btn btn-primary mr--10 w-auto" @click="updateApplication">Update</button>
                             <button :id="`btn-close-edit-application-modal-${application.id}`" type="button" class="btn btn-primary-alta w-auto" data-bs-dismiss="modal">Cancel</button>
                         </div>
@@ -70,36 +70,39 @@
     export default {
         name: 'ApplicationEditModal',
         props: {
-            application: {}
+            application: {},
+
         },
         data() {
             return {
 
-                eStatus: this.application.eStatus,
-                eRound: this.application.eRound,
-                deadline: this.application.deadline
+                applicationData: {}
 
             }
         },
         created() {
-
+            this.applicationData = {};
+            this.applicationData.eStatus = this.application.eStatus;
+            this.applicationData.eRound = this.application.eRound;
+            this.applicationData.deadline = this.application.deadline;
         },
         methods: {
+
             updateApplication(){
                 // create the request body
                 let updateObj = {}
                 updateObj.id = this.application.id;
-                updateObj.status = this.eStatus;
-                updateObj.round = this.eRound;
-                updateObj.deadline = this.deadline;
+                updateObj.status = this.applicationData.eStatus;
+                updateObj.round = this.applicationData.eRound;
+                updateObj.deadline = this.applicationData.deadline;
 
                 // call api method
                 applicationApi.updateApplication(updateObj)
                     .then(response => {
                         // update the application
-                        this.application.eStatus = this.eStatus;
-                        this.application.eRound = this.eRound;
-                        this.application.deadline = this.deadline;
+                        this.application.eStatus = this.applicationData.eStatus;
+                        this.application.eRound = this.applicationData.eRound;
+                        this.application.deadline = this.applicationData.deadline;
 
                         // notify user
                         Toastify({
