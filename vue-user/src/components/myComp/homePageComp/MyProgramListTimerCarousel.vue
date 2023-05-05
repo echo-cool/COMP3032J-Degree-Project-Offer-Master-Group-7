@@ -97,7 +97,7 @@ export default {
         },
         created() {
             // init the liked program list
-            // this.getLikedPrograms();
+            this.getLikedPrograms();
         },
         methods:{
 

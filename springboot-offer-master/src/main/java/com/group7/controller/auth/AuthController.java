@@ -199,6 +199,12 @@ public class AuthController {
                     .body(R.error().message("Login failed: Wrong password!"));
         }
 
+        if (loginRequest.isAdmin() && user.getRoles().stream().noneMatch(role -> role.getName() == ERole.ROLE_ADMIN)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(R.error().message("Login failed: No Permission!"));
+        }
+
         // for authentication and token generation
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword()));

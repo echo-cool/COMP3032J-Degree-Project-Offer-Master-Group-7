@@ -33,7 +33,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { email, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ 'email': email, 'password': password }).then(response => {
+      login({ 'email': email, 'password': password, 'admin': true }).then(response => {
         // const { data } = response
         console.log(response)
         const token = response['tokenType'] + ' ' + response['accessToken']

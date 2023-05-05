@@ -20,6 +20,16 @@ public class LoginRequest {
     @NotBlank(message = "The password cannot be empty!")
     private String password;
 
+    private boolean isAdmin;
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     public String getEmail() {
         return email;
     }
