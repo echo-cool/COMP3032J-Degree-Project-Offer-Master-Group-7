@@ -52,7 +52,7 @@
                 <div class="row g-5" id="login-area-forms" v-else>
                     <div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status" style="zoom: 5">
-                            <span class="sr-only">Loading...</span>
+
                         </div>
 
                     </div>
