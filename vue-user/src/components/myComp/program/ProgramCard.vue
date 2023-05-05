@@ -128,6 +128,7 @@
                             this.program.likesNumber = response.data.likesNumber;
                             // change the liked status
                             this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                            this.$emit("reloadLike", programId, this.isLikedObj.isLiked);
                         }
                     })
             },

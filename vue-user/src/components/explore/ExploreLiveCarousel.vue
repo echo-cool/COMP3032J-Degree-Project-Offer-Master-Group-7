@@ -31,6 +31,7 @@
               :is-recommended="true"
               :is-program-selected="isProgramSelected(program.id)"
               @reloadData="reloadData"
+              @reloadLike="reloadLike"
           />
         </slide>
       </carousel>
@@ -120,13 +121,21 @@ export default {
           })
     },
 
+    reloadLike(programId, isLike) {
+      if (isLike) {
+        this.addLike(programId)
+      }
+      else {
+        this.removeLike(programId)
+      }
+    },
+
     reloadData() {
       // tell the parent to fetch data again
       // (this contains the reload of user selected programs in this component)
       this.$emit("reloadData");
       // reload likes
       this.getLikedPrograms();
-      const myCarousel = this.$refs.myCarousel
     },
 
     // check whether the application list contains a program
