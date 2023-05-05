@@ -205,13 +205,13 @@ services:
       retries: 100
     networks:
       - offer_master_network
-    volumes:
-      - ~/.fyp_offer_master/db:/var/lib/mysql
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+#    volumes:
+#      - ~/.fyp_offer_master/db:/var/lib/mysql
+#    logging:
+#      driver: "gelf"
+#      options:
+#        gelf-address: "udp://node5.echo.cool:12201"
+#        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
