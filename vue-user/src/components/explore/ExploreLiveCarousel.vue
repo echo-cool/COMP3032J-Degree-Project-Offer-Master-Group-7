@@ -24,40 +24,34 @@
                           ref="myCarousel"
                 >
 
-                    <template #addons>
-                        <div class="carousel-header">
-                            <div class="section-title">
-                                <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
-                                    data-sal-duration="800">
-                                    {{ title }}
-                                </h3>
-                            </div>
-                            <div class="carousel-navigation">
-                                <navigation/>
-                            </div>
-                        </div>
-
-                    </template>
-
-
-                    <slide v-for="(program, index) in programs" :key="`program-${index}`">
-                        <program-card
-                            :program="program"
-                            :school="program.school"
-                            :is-liked-obj="isLiked(program.id)"
-                            :is-recommended="true"
-                            :is-program-selected="isProgramSelected(program.id)"
-                            @reloadData="reloadData"
-                            @removeLike="removeLike(program.id)"
-                            @addLike="addLike(program.id)"
-
-                        />
-                    </slide>
-                </carousel>
-            </template>
-
-        </div>
+        <template #addons>
+          <div class="carousel-header">
+            <div class="section-title">
+              <h3 class="title mb--0 live-bidding-title" data-sal-delay="150" data-sal="slide-up"
+                  data-sal-duration="800">
+                {{ title }}
+              </h3>
+            </div>
+            <div class="carousel-navigation">
+              <navigation/>
+            </div>
+          </div>
+        </template>
+        <slide v-for="(program, index) in programs" :key="`program-${index}`">
+          <program-card
+              :program="program"
+              :school="program.school"
+              :is-liked-obj="isLiked(program.id)"
+              :is-recommended="true"
+              :is-program-selected="isProgramSelected(program.id)"
+              @reloadData="reloadData"
+              @reloadLike="reloadLike"
+          />
+        </slide>
+      </carousel>
+      </template>
     </div>
+  </div>
 </template>
 
 <script>
@@ -68,8 +62,6 @@ import {getRecommendedProgramsByCF, getRecommendedProgramsByKNN} from "@/api/rec
 import ProgramCard from "@/components/myComp/program/ProgramCard";
 import LikeMixin from "@/mixins/user/LikeMixin";
 import profileApi from "@/api/profile";
-// import up from '@/assets/up.png'
-// import down from '@/assets/down.png'
 
 export default {
     name: 'ExploreLiveCarousel',
@@ -129,44 +121,51 @@ export default {
             })
         },
 
-        getUserSelectedPrograms() {
-            // call the api method
-            profileApi.getSelectedPrograms()
-                .then(response => {
+    getUserSelectedPrograms() {
+      // call the api method
+      profileApi.getSelectedPrograms()
+          .then(response => {
 
-                    // get the list of user selected programs
-                    this.selectedPrograms = response.data.selectedPrograms;
-                    // reset the selectedProgramIDs list to empty
-                    this.selectedProgramIDs = [];
-                    // initialize the list of selected program id
-                    for (let k in this.selectedPrograms) {
-                        this.selectedProgramIDs.push(this.selectedPrograms[k].id);
-                    }
+            // get the list of user selected programs
+            this.selectedPrograms = response.data.selectedPrograms;
+            // reset the selectedProgramIDs list to empty
+            this.selectedProgramIDs = [];
+            // initialize the list of selected program id
+            for (let k in this.selectedPrograms) {
+              this.selectedProgramIDs.push(this.selectedPrograms[k].id);
+            }
 
+          })
+    },
 
-                })
-        },
+    reloadLike(programId, isLike) {
+      if (isLike) {
+        this.addLike(programId)
+      }
+      else {
+        this.removeLike(programId)
+      }
+    },
 
-        reloadData() {
-            // tell the parent to fetch data again
-            // (this contains the reload of user selected programs in this component)
-            this.$emit("reloadData");
-            // reload likes
-            this.getLikedPrograms();
-            const myCarousel = this.$refs.myCarousel
-        },
+    reloadData() {
+      // tell the parent to fetch data again
+      // (this contains the reload of user selected programs in this component)
+      this.$emit("reloadData");
+      // reload likes
+      this.getLikedPrograms();
+    },
 
-        // check whether the application list contains a program
-        isProgramSelected(programId) {
-            return this.selectedProgramIDs.includes(programId);
-        },
+    // check whether the application list contains a program
+    isProgramSelected(programId) {
+      return this.selectedProgramIDs.includes(programId);
+    },
 
-        handleInit() {
-            let button = document.getElementsByClassName("carousel__next");
-            button.innerHtml = this.buttonIcon
-            console.log(button);
-        }
+    handleInit() {
+      let button = document.getElementsByClassName("carousel__next");
+      button.innerHtml = this.buttonIcon
+      console.log(button);
     }
+  }
 }
 </script>
 

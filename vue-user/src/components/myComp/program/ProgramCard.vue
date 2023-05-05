@@ -92,7 +92,7 @@
                 type: Boolean,
                 default: false
             },
-
+            isLikedObj: {},
             deadline: "",
             isProgramSelected: {
               type: Boolean,
@@ -102,9 +102,6 @@
               type: Boolean,
               default: false
             },
-
-            isLikedObj: {},
-
         },
         watch: {
             '$route': function (to, from) {
@@ -126,22 +123,13 @@
                 // call API method
                 programAip.likeProgram(programId)
                     .then(response => {
-
                         if(response.success){
-
-                            // tell the parent comp to change the liked status (statically)
-                            if (response.data.likesNumber > this.program.likesNumber){
-                                // add like
-                                this.$emit("addLike");
-                            }else{
-                                // remove like
-                                this.$emit("removeLike");
-                            }
-
                             // update the like number of this program
                             this.program.likesNumber = response.data.likesNumber;
+                            // change the liked status
+                            this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                            this.$emit("reloadLike", programId, this.isLikedObj.isLiked);
                         }
-
                     })
             },
 
