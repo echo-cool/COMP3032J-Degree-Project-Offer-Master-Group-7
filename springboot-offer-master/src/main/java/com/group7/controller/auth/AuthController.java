@@ -199,7 +199,14 @@ public class AuthController {
                     .body(R.error().message("Login failed: Wrong password!"));
         }
 
-        if (loginRequest.isAdmin() && user.getRoles().stream().noneMatch(role -> role.getName() == ERole.ROLE_ADMIN)) {
+        if (loginRequest.isAdmin()) {
+            if (user.getRoles().stream().noneMatch(role -> role.getName() == ERole.ROLE_ADMIN)){
+                return ResponseEntity
+                        .badRequest()
+                        .body(R.error().message("Login failed: No Permission!"));
+            }
+        }
+        else if (user.getRoles().stream().noneMatch(role -> role.getName() == ERole.ROLE_USER)){
             return ResponseEntity
                     .badRequest()
                     .body(R.error().message("Login failed: No Permission!"));

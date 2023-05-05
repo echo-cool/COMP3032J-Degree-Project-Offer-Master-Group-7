@@ -173,6 +173,7 @@ class LoadDatabase {
 
         Set<Role> test1Roles = new HashSet<>();
         test1Roles.add(role1);
+        test1Roles.add(role3);
         Set<Role> test2Roles = new HashSet<>();
         test2Roles.add(role2);
         Set<Role> test3Roles = new HashSet<>();
