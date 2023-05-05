@@ -1,4 +1,6 @@
 <template>
+
+
     <div class="maintanence-area">
         <div class="wrapper">
             <div class="row row--0 h-100">
@@ -12,6 +14,7 @@
                                 <img :src="require(`@/assets/images/logo/new/logo-dark.png`)" alt="nft-logo" style="max-width: 200px;margin-bottom: 0px">
                             </router-link>
                         </div>
+                        <div id="aplayer"></div>
                         <div class="content">
                             <span class="sub-title">Feel free to</span>
                             <h3 class="title">
@@ -42,7 +45,21 @@
 
 <script>
     import {Carousel, Slide} from 'vue3-carousel'
+    // import 'aplayer/dist/APlayer.min.css';
+    // import 'aplayer/dist/APlayer.min.js';
+    // const ap = new APlayer({
+    //     container: document.getElementById('aplayer'),
+    //     audio: [{
+    //         name: 'name',
+    //         artist: 'artist',
+    //         url: 'url.mp3',
+    //         cover: 'cover.jpg'
+    //     }]
+    // });
 
+    // import APlayer from 'aplayer';
+    //
+    // const ap = new APlayer();
     export default {
         name: 'ComingSoon',
         components: {Carousel, Slide},
