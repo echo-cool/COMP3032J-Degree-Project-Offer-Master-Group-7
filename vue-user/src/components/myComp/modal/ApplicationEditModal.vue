@@ -8,7 +8,7 @@
             <div class="modal-content report-content-wrapper">
                 <div class="modal-header report-modal-header">
                     <h1 class="modal-title">
-                        Update Your Application Here - test application id: {{ application.id }}
+                        Update Your Application Here
                     </h1>
                 </div>
 
@@ -99,8 +99,6 @@
                 // call api method
                 applicationApi.updateApplication(updateObj)
                     .then(response => {
-                        // for test
-                        console.log("deadline: " + this.deadline);
                         // update the application
                         this.application.eStatus = this.applicationData.eStatus;
                         this.application.eRound = this.applicationData.eRound;
