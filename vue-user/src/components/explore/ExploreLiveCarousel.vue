@@ -42,12 +42,14 @@
 
                     <slide v-for="(program, index) in programs" :key="`program-${index}`">
                         <program-card
-                                :program="program"
-                                :school="program.school"
-                                :is-liked-obj="isLiked(program.id)"
-                                :is-recommended="true"
-                                :is-program-selected="isProgramSelected(program.id)"
-                                @reloadData="reloadData"
+                            :program="program"
+                            :school="program.school"
+                            :is-liked-obj="isLiked(program.id)"
+                            :is-recommended="true"
+                            :is-program-selected="isProgramSelected(program.id)"
+                            @reloadData="reloadData"
+                            @removeLike="removeLike(program.id)"
+                            @addLike="addLike(program.id)"
 
                         />
                     </slide>
