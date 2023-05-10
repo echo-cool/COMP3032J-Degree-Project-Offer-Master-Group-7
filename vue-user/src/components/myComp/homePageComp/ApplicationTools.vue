@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="200" data-sal="slide-up"
                      data-sal-duration="800">
                     <a class="category-style-one" href="/explore-decisions">
-                        <i class="feather-image"></i>
+                        <i class="feather-layout"></i>
                         <span class="category-label">Decision Reports</span>
                     </a>
                 </div>
@@ -15,7 +15,7 @@
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="300" data-sal="slide-up"
                      data-sal-duration="800">
                     <a class="category-style-one" href="/school-browsing">
-                        <i class="feather-music"></i>
+                        <i class="feather-book-open"></i>
                         <span class="category-label">School Browsing</span>
                     </a>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="500" data-sal="slide-up"
                      data-sal-duration="800">
                     <a class="category-style-one" href="/program-selection">
-                        <i class="feather-search"></i>
+                        <i class="feather-cpu"></i>
                         <span class="category-label">AI Matching</span>
                     </a>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="col-lg-3 col-xl-2 col-md-4 col-sm-6" data-sal-delay="700" data-sal="slide-up"
                      data-sal-duration="800">
                     <a class="category-style-one" href="/community">
-                        <i class="feather-activity"></i>
+                        <i class="feather-globe"></i>
                         <span class="category-label">Community</span>
                     </a>
                 </div>
