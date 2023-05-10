@@ -4,9 +4,9 @@
         <slide v-for="(school, index) in schools"
                :key="index">
           <b-spinner label="Spinning" style="position: absolute; width: 50px; height: 50px"></b-spinner>
-            <div class="slider-thumbnail thumbnail-overlay" style="min-height: 400px">
+            <div class="slider-thumbnail thumbnail-overlay" style="min-height: 400px; width: 100%">
                 <router-link :to="`/school-details/${school.id}`">
-                    <img class="w-100" :src="`/backend/static/` + school.img" alt="NFT_portfolio" style="height: 400px; width: 600px !important;">
+                    <img class="w-100" :src="`/backend/static/` + school.img" alt="NFT_portfolio" style="height: 400px">
                 </router-link>
                 <div class="read-wrapper">
                     <h5>
