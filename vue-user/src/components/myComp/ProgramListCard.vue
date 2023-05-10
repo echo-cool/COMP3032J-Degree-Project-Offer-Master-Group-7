@@ -68,7 +68,7 @@
             <button v-if="isProgramSelected"
                     style="width: 100px; height: 50px;"
                     type="button"
-                    class="btn btn-primary-alta mr--30"
+                    class="btn mr--30 btn-danger"
                     @click="removeProgramFromUserApplications(program.id)">Remove</button>
             <button v-else
                     style="width: 100px; height: 50px;"
