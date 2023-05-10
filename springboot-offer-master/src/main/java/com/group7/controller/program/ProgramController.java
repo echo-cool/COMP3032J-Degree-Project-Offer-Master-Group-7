@@ -337,9 +337,10 @@ public class ProgramController {
 
         // filter out the applications of this year
         List<Application> applicationsThisYear = reportedApplications.stream().filter(a -> a.getReportedTime().after(lastDateOfLastYear)).toList();
+        System.out.println(applicationsThisYear.size() + " applicationsThisYear Size");
         // filter out the applications of last year
         List<Application> applicationsLastYear = reportedApplications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
-
+        System.out.println(applicationsThisYear.size() + " applicationsLastYear Size");
         // get the list of weekly admission count
         long[] countLstThisYear = program.getCountLstThisYear();
         long[] countLstLastYear = program.getCountLstLastYear();
