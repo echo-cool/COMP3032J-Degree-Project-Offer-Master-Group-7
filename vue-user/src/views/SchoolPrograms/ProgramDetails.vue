@@ -977,6 +977,13 @@
                       }
                     }
                   })
+                  .catch(error => {
+                    if (error.response.status === 401){
+                      this.notification("You should login first!");
+                    }else{
+                      this.notification(error.response.data.message);
+                    }
+                  })
             },
 
         },
