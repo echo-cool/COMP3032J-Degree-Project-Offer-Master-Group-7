@@ -10,3 +10,13 @@ export function getBasicInfo() {
     }
   })
 }
+
+export function getInfoEachMonth() {
+  return request({
+    url: '/backend/api/dashboard/get-info-each-month',
+    method: 'get',
+    headers: {
+      'Authorization': getToken()
+    }
+  })
+}

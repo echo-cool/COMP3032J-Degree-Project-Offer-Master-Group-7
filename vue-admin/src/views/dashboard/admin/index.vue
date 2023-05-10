@@ -42,6 +42,7 @@
 <script>
 import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
+import { getInfoEachMonth } from '@/api/dashboard'
 // import RaddarChart from './components/RaddarChart'
 // import PieChart from './components/PieChart'
 // import BarChart from './components/BarChart'
@@ -74,9 +75,20 @@ export default {
       lineChartData: lineChartData.Applications
     }
   },
+  created() {
+    this.getData()
+  },
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    getData() {
+      getInfoEachMonth().then(response => {
+        console.log(response.data.data)
+        this.lineChartData.ADMITTED = response.data.data[0]
+        this.lineChartData.AWAITING_DECISION = response.data.data[1]
+        this.lineChartData.REJECTED = response.data.data[2]
+      })
     }
   }
 }

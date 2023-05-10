@@ -64,7 +64,7 @@ export default {
     setOptions({ ADMITTED, AWAITING_DECISION, REJECTED } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
+          data: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].slice(0, ADMITTED.length),
           boundaryGap: false,
           axisTick: {
             show: false
@@ -105,7 +105,7 @@ export default {
           smooth: true,
           type: 'line',
           data: ADMITTED,
-          animationDuration: 2800,
+          animationDuration: 5000,
           animationEasing: 'cubicInOut'
         },
         {
@@ -121,7 +121,7 @@ export default {
           smooth: true,
           type: 'line',
           data: AWAITING_DECISION,
-          animationDuration: 2800,
+          animationDuration: 5000,
           animationEasing: 'cubicInOut'
         },
         {
@@ -141,7 +141,7 @@ export default {
             }
           },
           data: REJECTED,
-          animationDuration: 2800,
+          animationDuration: 5000,
           animationEasing: 'quadraticOut'
         }]
       })
