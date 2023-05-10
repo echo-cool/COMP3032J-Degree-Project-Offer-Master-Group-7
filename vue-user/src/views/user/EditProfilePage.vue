@@ -834,6 +834,7 @@
 
                         // update the current_user and cookie
                         this.currentUser = response.data.user;
+                        console.log(this.currentUser.avatar);
                         cookie.set("current_user", JSON.stringify(this.currentUser), { domain: 'localhost' });
 
                     })

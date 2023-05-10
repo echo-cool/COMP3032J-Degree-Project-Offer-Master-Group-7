@@ -74,7 +74,7 @@ public class AuthController {
 
     @GetMapping("oauth/echocool/redirection")
     public RedirectView getOAuthRedirectionURL(RedirectAttributes attributes){
-        String authUrl = "http://auth.echo.cool/o/authorize/";
+        String authUrl = "https://oauth.yuyangwang.org/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
         String redirectUrl = echocoolRedirectUrl;
@@ -87,16 +87,16 @@ public class AuthController {
     }
     @GetMapping("oauth/echocool/callback")
     public R getJWTfromOAuthToken(ServletRequest request) throws IOException {
-        String authUrl = "http://auth.echo.cool/o/authorize/";
+        String authUrl = "https://oauth.yuyangwang.org/o/authorize/";
         String clientId = "OjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU";
         String secret = "gg7ouyLMif08EVOUdJMSEL15oZOBSD2ZKpAmc1BvFs3YWPZONqGJb7BqrgkMkuw1rrh3rCmuI98DVgWFnLLffna8ePPBIBdLEUw82GJgcIKAuR1lQ6cirhw5borQyOBc";
         String redirectUrl = echocoolRedirectUrl;
         String responseType = "code";
         String scope = "openid";
         String token = request.getParameter("code");
-        //http://auth.echo.cool/o/token
+        //https://oauth.yuyangwang.org/o/token
         okhttp3.Request request1 = new okhttp3.Request.Builder()
-                .url("http://auth.echo.cool/o/token/")
+                .url("https://oauth.yuyangwang.org/o/token/")
                 .post(okhttp3.RequestBody.create(okhttp3.MediaType.parse("application/x-www-form-urlencoded"), "client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl))
                 .build();
 
@@ -107,13 +107,13 @@ public class AuthController {
             e.printStackTrace();
         }
         if(response == null){
-            return R.error().message("Failed to get the response from the OAuth server, response is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+            return R.error().message("Failed to get the response from the OAuth server, response is null").data("URL", "https://oauth.yuyangwang.org/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
         }
         if (!response.isSuccessful()) {
-            return R.error().message("Failed to get the response from the OAuth server, response code: " + response.code() + ", message: " + response.message() + ", body: " + response.body().string()).data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+            return R.error().message("Failed to get the response from the OAuth server, response code: " + response.code() + ", message: " + response.message() + ", body: " + response.body().string()).data("URL", "https://oauth.yuyangwang.org/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
         }
         if(response.body() == null){
-            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "https://oauth.yuyangwang.org/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
         }
         String body = null;
         try {
@@ -125,9 +125,9 @@ public class AuthController {
         JSONObject json = new JSONObject(body);
         String access_token = (String) json.get("access_token");
 
-        //http://auth.echo.cool/o/userinfo/
+        //https://oauth.yuyangwang.org/o/userinfo/
         Request request2 = new Request.Builder()
-                .url("http://auth.echo.cool/o/userinfo/")
+                .url("https://oauth.yuyangwang.org/o/userinfo/")
                 .get()
                 .addHeader("Authorization", "Bearer " + access_token)
                 .build();
@@ -140,7 +140,7 @@ public class AuthController {
         }
         assert response2 != null;
         if(response2.body() == null){
-            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
+            return R.error().message("Failed to get the response from the OAuth server, body is null").data("URL", "https://oauth.yuyangwang.org/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl);
         }
         String body2 = response2.body().string();
         JSONObject json2 = new JSONObject(body2);
@@ -166,7 +166,7 @@ public class AuthController {
 
 //        return R.error().message("NO USER FOUND")
 //                .data("code", token)
-//                .data("URL", "http://auth.echo.cool/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl)
+//                .data("URL", "https://oauth.yuyangwang.org/o/token?client_id=" + clientId + "&client_secret=" + secret + "&grant_type=authorization_code&code=" + token + "&redirect_uri=" + redirectUrl)
 //                .data("response",body)
 //                .data("access_token", access_token)
 //                .data("userInfo", body2)
