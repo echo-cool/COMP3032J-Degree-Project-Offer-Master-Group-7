@@ -61,10 +61,10 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ ADMITTED, AWAITING_DECISION, REJECTED } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
           boundaryGap: false,
           axisTick: {
             show: false
@@ -90,10 +90,10 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['ADMITTED', 'REJECTED', 'AWAITING_DECISION']
         },
         series: [{
-          name: 'expected', itemStyle: {
+          name: 'ADMITTED', itemStyle: {
             normal: {
               color: '#FF005A',
               lineStyle: {
@@ -104,12 +104,28 @@ export default {
           },
           smooth: true,
           type: 'line',
-          data: expectedData,
+          data: ADMITTED,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
         },
         {
-          name: 'actual',
+          name: 'AWAITING_DECISION', itemStyle: {
+            normal: {
+              color: '#00FF00',
+              lineStyle: {
+                color: '#00FF00',
+                width: 2
+              }
+            }
+          },
+          smooth: true,
+          type: 'line',
+          data: AWAITING_DECISION,
+          animationDuration: 2800,
+          animationEasing: 'cubicInOut'
+        },
+        {
+          name: 'REJECTED',
           smooth: true,
           type: 'line',
           itemStyle: {
@@ -124,7 +140,7 @@ export default {
               }
             }
           },
-          data: actualData,
+          data: REJECTED,
           animationDuration: 2800,
           animationEasing: 'quadraticOut'
         }]
