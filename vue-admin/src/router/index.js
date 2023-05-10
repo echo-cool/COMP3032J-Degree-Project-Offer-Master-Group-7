@@ -71,6 +71,12 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/springboot-admin',
+    ignoreBasePath: true,
+    component: Layout,
+    meta: { title: 'Springboot Admin', icon: 'link' }
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
