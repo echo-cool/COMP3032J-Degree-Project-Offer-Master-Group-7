@@ -140,7 +140,7 @@ public class ChatController {
         for (Chat chat : list) {
             ChatFrontDto tmp = new ChatFrontDto();
             tmp.setType("text");
-            tmp.setAuthor(chat.getId());
+            tmp.setAuthor(chat.getSenderId());
             tmp.setContent(chat.getContent());
             fList.add(tmp);
         }

@@ -86,6 +86,15 @@ export default {
             messageStyling: true // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
         }
     },
+    mounted(){
+        // 页面渲染之后执行
+        this.timer = setInterval(() => {
+            this.getChatInfo()
+        }, 3000)
+    },
+    beforeDestroy() {
+        clearInterval(this.timer)
+    },
     created(){
         // this.getCurrentUser()
     },
@@ -133,26 +142,33 @@ export default {
             console.log("777")
             
         },
-        openChat () {
+        getChatInfo(){
             this.getCurrentUser()
             chatApi.getInfoById(this.participants[1].id, this.participants[0].id).then(response => {
                 const listTmp = response.data.list
+                this.messageList = [
+                        { type: 'text', author: 2, data: { text: `Connecting......` } },
+                        { type: 'text', author: 2, data: { text: 'Can I help you?' } }
+                    ]
                 for (const tmp of listTmp) {
                     let t = { type: '', author: '', data: { text: "" } }
                     t.type = tmp.type
-                    if (tmp.author != 2){
+                    console.log(tmp)
+                    if (tmp.author != '2' && tmp.author != 2){
                         t.author = 'me'
                     }else{
                         t.author = tmp.author
                     }
-                    t.data.text = tmp.content
+                    t.data.text = tmp.content.replace(/<\/?[^>]+(>|$)/g, "")
                     this.messageList = [ ...this.messageList, t ]
                     console.log(this.messageList)
                 }
-                this.isChatOpen = true
                 // this.
                 // this.isChatOpen = true
             })
+        },
+        openChat () {
+            this.isChatOpen = true
             this.newMessagesCount = 0
         },
         closeChat () {
