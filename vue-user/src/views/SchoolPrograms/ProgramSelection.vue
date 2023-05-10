@@ -43,6 +43,10 @@
             </div>
         </div>
 
+      <div v-if="applications.length !== 0" v-for="(application, index) in applications" :key="`application-model-${index}`">
+        <application-edit-modal :key="`app-edit-modal-${application.id}`" :application="application" :e-round="application.eRound" :e-status="application.eStatus" :deadline="application.deadline"/>
+      </div>
+
         <share-modal/>
 
         <report-modal/>
@@ -73,6 +77,7 @@
     import ExploreLive from "@/components/explore/ExploreLive";
     import ExploreLiveCarousel from "@/components/explore/ExploreLiveCarousel";
     import Toastify from "toastify-js";
+    import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal";
 
     export default {
         name: 'ExploreNine',
@@ -94,7 +99,8 @@
             Layout,
             MyProgramListSidebar,
             ProgramListing,
-            BackgroundCard
+            BackgroundCard,
+            ApplicationEditModal
         },
         data(){
             return{
