@@ -11,7 +11,7 @@
         </app-link>
       </div>
       <div v-else>
-        <a :href="item.path">
+        <a :href="item.path" target="_blank">
           <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
             <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
           </el-menu-item>
