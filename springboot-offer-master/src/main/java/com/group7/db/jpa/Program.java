@@ -61,6 +61,10 @@ public class Program implements Cloneable{
 
 
     // for offer-timeline
+    @OneToMany(mappedBy = "program")
+    @JsonManagedReference(value = "admissionCounts")
+    private Set<AdmissionCount> admissionCounts = new HashSet<>();
+
     @Transient
     private long[] countLstThisYear;
     @Transient
@@ -77,7 +81,7 @@ public class Program implements Cloneable{
         this.img = RandomSchoolImage.getRandomProgramImage();
         this.extraImages = RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage() + ";" + RandomSchoolImage.getRandomImage();
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school) {
@@ -85,7 +89,7 @@ public class Program implements Cloneable{
         this.school = school;
         generateRandomLike();
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree) {
@@ -94,7 +98,7 @@ public class Program implements Cloneable{
         this.school = school;
         generateRandomLike();
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree, EMajor major) {
@@ -104,7 +108,7 @@ public class Program implements Cloneable{
         this.school = school;
         generateRandomLike();
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     public Program(String name, School school, String degree, EMajor major, String img) {
@@ -115,13 +119,13 @@ public class Program implements Cloneable{
         generateRandomLike();
         this.img = "upload/img/" + img;
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     public Program() {
         generateRandomLike();
         // random offer-timeline
-        generateRandomBaseOfferTimeline();
+//        generateRandomBaseOfferTimeline();
     }
 
     /**
@@ -244,6 +248,14 @@ public class Program implements Cloneable{
 
     public void setCountLstLastYear(long[] countLstLastYear) {
         this.countLstLastYear = countLstLastYear;
+    }
+
+    public Set<AdmissionCount> getAdmissionCounts() {
+        return admissionCounts;
+    }
+
+    public void setAdmissionCounts(Set<AdmissionCount> admissionCounts) {
+        this.admissionCounts = admissionCounts;
     }
 
     @Override
