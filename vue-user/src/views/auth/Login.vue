@@ -30,12 +30,12 @@
                         <div class="social-share-media form-wrapper-one">
                             <h6>Another way to log in</h6>
                             <p>You can also login with the following ways.</p>
-                            <button v-on:click="loginByOAuth" class="another-login login-facebook">
-                                <img v-on:click="loginByOAuth" class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
-                                <span v-on:click="loginByOAuth" >Log in with Google</span>
+                            <button v-on:click="loginByGithub" class="another-login login-facebook">
+                                <img v-on:click="loginByGithub" class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
+                                <span v-on:click="loginByGithub" >Log in with Github</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-facebook">
-                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/facebook.png`)" alt="">
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
                                 <span v-on:click="loginByOAuth" >Log in with Facebook</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-twitter">
@@ -170,6 +170,10 @@
 
             loginByOAuth() {
                 window.location.href = "/backend/api/auth/oauth/echocool/redirection";
+            },
+
+            loginByGithub() {
+                window.location.href = "https://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Flocalhost%3A3000%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
             }
         }
 

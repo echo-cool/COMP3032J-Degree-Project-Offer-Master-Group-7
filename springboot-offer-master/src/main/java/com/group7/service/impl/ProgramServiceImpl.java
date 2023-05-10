@@ -147,7 +147,7 @@ public class ProgramServiceImpl implements ProgramService {
 //                    System.out.println(GPAAvg + " : !!!!!");
                     if (GPAAvg <= Integer.valueOf(gpa[1]) && GPAAvg >= Integer.valueOf(gpa[0])) {
                         programListFinal.add(program);
-                        System.out.println(GPAAvg + " : 666");
+//                        System.out.println(GPAAvg + " : 666");
                     }
                 } else {
                     programListFinal.add(program);

@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <breadcrumb title="Chat" current="Chat"/>
+        <breadcrumb title="program" current="Chat"/>
         <!-- recordContent 聊天记录数组-->
         <div class="chat-content" show>
         <!-- <el-backtop target=".chat-content" :visibility-height="vHeight">
