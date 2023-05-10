@@ -141,6 +141,8 @@ public class UserController {
         user.setAvatar(newFileName);
         userRepository.save(user);
 
+        user.setApplications(null);
+
         return ResponseEntity.ok(R.ok().data("avatar", newFileName).data("user", user));
     }
 
