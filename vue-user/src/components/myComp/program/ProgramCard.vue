@@ -18,12 +18,14 @@
         </div>
         <div class="product-share-wrapper">
             <div class="profile-share">
-              <button v-if="isProgramSelected && isRecommended"
-                      type="button"
-                      @click="removeProgramFromUserApplications(program.id)">Remove</button>
-              <button v-if="!isProgramSelected && isRecommended"
-                      type="button"
-                      @click="addProgramIntoUserApplications(program.id)">Add</button>
+<!--              <div class="single-notice">-->
+<!--                <div class="content-wrapper">-->
+              <a class="btn btn-primary mr--10" @click="removeProgramFromUserApplications(program.id)"
+                 v-if="isProgramSelected && isRecommended"  style="padding: 2px 6px; font-size: 12px; font-weight: 600; color: white !important;">Remove</a>
+              <a class="btn btn-primary mr--10" @click="addProgramIntoUserApplications(program.id)"
+                 v-if="!isProgramSelected && isRecommended" style="padding: 2px 6px; font-size: 12px; font-weight: 600; color: white !important;">Add</a>
+<!--                </div>-->
+<!--              </div>-->
 <!--                <router-link v-for="(author, index) in productDate.authors"-->
 <!--                             :key="`author-${index}`"-->
 <!--                             :to="`/author/${author.id}`"-->
