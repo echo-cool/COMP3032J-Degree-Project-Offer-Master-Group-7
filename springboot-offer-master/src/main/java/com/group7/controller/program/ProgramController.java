@@ -1,6 +1,7 @@
 package com.group7.controller.program;
 
 import com.group7.db.jpa.*;
+import com.group7.db.jpa.utils.AdmissionCountData;
 import com.group7.db.jpa.utils.EStatus;
 import com.group7.entitiy.ProgramQueryVo;
 import com.group7.entitiy.ProgramUpdateVo;
@@ -344,91 +345,58 @@ public class ProgramController {
         List<Application> applicationsLastYear = reportedApplications.stream().filter(a -> a.getReportedTime().after(lastDateOfLLYear)).filter(a -> a.getReportedTime().before(firstDateOfThisYear)).toList();
 
 
-        // test
-        Set<AdmissionCount> admissionCounts = program.getAdmissionCounts();
-        if (admissionCounts.size() == 0){
+        // get static data
+        long[] admissionCountThisYear = AdmissionCountData.AdmissionCountThisYear.get(program.getId());
+        long[] admissionCountLastYear = AdmissionCountData.AdmissionCountLastYear.get(program.getId());
 
-            List<AdmissionCount> admissionCountThisYearLst = new ArrayList<>();
-            List<AdmissionCount> admissionCountLastYearLst = new ArrayList<>();
+        // the first time, we will generate and store it into memory
+        if (admissionCountThisYear == null || admissionCountLastYear == null){
 
-            // for test
-            System.out.println("================== here in creating count");
-
+            long[] countLstThisYear = new long[52];
+            long[] countLstLastYear = new long[52];
 
             // create base admission data
             Random random = new Random();
 
             for (int i = 2; i < 9; i++){
-                // for test
-                System.out.println("================== i: " + i);
-
-                admissionCountThisYearLst.add(new AdmissionCount(program, 0, i + 1, random.nextLong(6, 15)));
-                admissionCountLastYearLst.add(new AdmissionCount(program, 1, i + 1, random.nextLong(6, 15)));
+                countLstThisYear[i] = random.nextLong(6, 15);
+                countLstLastYear[i] = random.nextLong(6, 15);
             }
 
             for (int i = 9; i < 13; i++){
-                // for test
-                System.out.println("================== 2i: " + i);
-
-                admissionCountThisYearLst.add(new AdmissionCount(program, 0, i + 1, random.nextLong(15, 36)));
-                admissionCountLastYearLst.add(new AdmissionCount(program, 1, i + 1, random.nextLong(15, 36)));
+                countLstThisYear[i] = random.nextLong(15, 36);
+                countLstLastYear[i] = random.nextLong(15, 36);
             }
 
             for (int i = 13; i < 22; i++){
-                // for test
-                System.out.println("================== 3i: " + i);
-
-                admissionCountThisYearLst.add(new AdmissionCount(program, 0, i + 1, random.nextLong(6, 15)));
-                admissionCountLastYearLst.add(new AdmissionCount(program, 1, i + 1, random.nextLong(6, 15)));
+                countLstThisYear[i] = random.nextLong(6, 15);
+                countLstLastYear[i] = random.nextLong(6, 15);
             }
 
             for (int i = 22; i < 52; i++){
-                // for test
-                System.out.println("================== 4i: " + i);
-
                 // determine whether you give value for this week (15% probability)
                 int prob = 15;
 
                 int rInt = random.nextInt(100);
                 if (rInt < prob){
-                    admissionCountThisYearLst.add(new AdmissionCount(program, 0, i + 1, random.nextLong(1, 6)));
-                }else{
-                    admissionCountThisYearLst.add(new AdmissionCount(program, 0, i + 1, 0L));
+                    countLstThisYear[i] = random.nextLong(1, 6);
                 }
 
                 rInt = random.nextInt(100);
                 if (rInt < prob){
-                    admissionCountLastYearLst.add(new AdmissionCount(program, 1, i + 1, random.nextLong(1, 6)));
-                }else{
-                    admissionCountLastYearLst.add(new AdmissionCount(program, 1, i + 1, 0L));
+                    countLstLastYear[i] = random.nextLong(1, 6);
                 }
             }
 
-            admissionCountRepository.saveAll(admissionCountThisYearLst);
-            admissionCountRepository.saveAll(admissionCountLastYearLst);
-
-            // for test
-            System.out.println("================== save finish ");
-
+            // add to the map
+            AdmissionCountData.AdmissionCountThisYear.put(program.getId(), countLstThisYear);
+            AdmissionCountData.AdmissionCountLastYear.put(program.getId(), countLstLastYear);
         }
-
-        List<AdmissionCount> admissionCountLstThisYear = admissionCountRepository.findAllByProgramAndWhichYearOrderByWeekNumAsc(program, 0);
-        List<AdmissionCount> admissionCountLstLastYear = admissionCountRepository.findAllByProgramAndWhichYearOrderByWeekNumAsc(program, 1);
 
 
         // get the list of weekly admission count
-        long[] countLstThisYear = new long[52];
-        long[] countLstLastYear = new long[52];
-
-        for (int i = 0; i < 52; i++){
-            // count the admissions in this week
-            countLstThisYear[i] = admissionCountLstThisYear.get(i).getAdmissionCount();
-            countLstLastYear[i] = admissionCountLstLastYear.get(i).getAdmissionCount();
-        }
-
-        // for test
-        System.out.println("================================= countLstThisYear" + Arrays.toString(countLstThisYear));
-        System.out.println("================================= countLstLastYear" + Arrays.toString(countLstLastYear));
+        long[] countLstThisYear = AdmissionCountData.AdmissionCountThisYear.get(program.getId());
+        long[] countLstLastYear = AdmissionCountData.AdmissionCountLastYear.get(program.getId());
 
         // add real count to the baseline
         for (int i = 0; i < 52; i++){
