@@ -55,9 +55,13 @@
                             <div class="pd-title-area">
                                 <h4 class="title">{{ product.name }}</h4>
                                 <div class="pd-react-area">
-                                    <div class="heart-count">
+                                    <div v-if="isLiked(product.id).isLiked" @click="likeProgram(product.id, false)" class="heart-count" style="background: var(--color-primary); color: var(--color-white)">
                                         <i class="feather-heart"/>
                                         <span>{{ product.likesNumber }}</span>
+                                    </div>
+                                    <div v-else @click="likeProgram(product.id, true)" class="heart-count">
+                                      <i class="feather-heart"/>
+                                      <span>{{ product.likesNumber }}</span>
                                     </div>
                                     <div class="count">
                                         <div class="share-btn share-btn-activation dropdown">
@@ -784,6 +788,8 @@
     import ApplicationListMixin from "@/mixins/user/ApplicationListMixin";
     import applicationListMixin from "@/mixins/user/ApplicationListMixin";
     import router from "@/router";
+    import likeMixin from "@/mixins/user/LikeMixin";
+    import programAip from "@/api/program";
 
 
     export default {
@@ -803,7 +809,7 @@
             OfferTimelineFrameHighCharts,
             BackgroundCard
         },
-        mixins: [ProductMixin, applicationListMixin],
+        mixins: [ProductMixin, applicationListMixin, likeMixin],
         data() {
             return {
                 id: this.$route.params.id,
@@ -965,12 +971,32 @@
                 }
             },
 
+            likeProgram(programId, isAdd){
+              // call API method
+              programAip.likeProgram(programId)
+                  .then(response => {
+                    if(response.success){
+                      // update the like number of this program
+                      this.product.likesNumber = response.data.likesNumber;
+                      // change the liked status
+                      // this.isLikedObj.isLiked = !this.isLikedObj.isLiked;
+                      if (isAdd) {
+                        this.addLike(programId);
+                      }
+                      else {
+                        this.removeLike(programId);
+                      }
+                    }
+                  })
+            },
+
         },
         created() {
             this.id = this.$route.params.id;
             this.getCurrentUser();
             this.getData();
             this.getPrograms();
+            this.getLikedPrograms();
             this.getWeeklyADCount(this.id);
             this.getAverageBackground();
         },
