@@ -94,7 +94,7 @@
                     </router-link>
                 </div>
 
-                <div class="top-seller-content">
+                <div class="top-seller-content" v-if="school">
 <!--                <router-link :to="`/author/${sellerData.id}`">-->
                     <router-link :to="`/school-details/`+school.id">
                         <h6 class="name" v-if="school.name.length > 20">{{school.name.substring(0,20) + `..` }}</h6>
@@ -695,7 +695,7 @@
         <!-- Virtual Campus Tour area End -->
 
         <!-- Offer Timeline Start -->
-        <div class="rn-new-items rn-section-gapTop">
+        <div class="rn-new-items rn-section-gapTop" v-if="this.product.school">
             <div class="container">
                 <div class="row mb--30 align-items-center">
                     <div class="col-12">
@@ -746,10 +746,11 @@
                     <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
                          v-for="(item, index) in relatedPrograms"
                          :key="`newest-item-${index}`">
-                        <product-card
-                            :product-date="item"
-                            product-style-class="no-overlay"
-                        />
+                        <program-card :program="item"
+                                      :school="item.school"
+                                      :is-liked-obj="isLiked(item.id)"
+                                      @removeLike="removeLike(item.id)"
+                                      @addLike="addLike(item.id)"/>
                     </div>
                 </div>
             </div>
@@ -790,6 +791,7 @@
     import router from "@/router";
     import likeMixin from "@/mixins/user/LikeMixin";
     import programAip from "@/api/program";
+    import ProgramCard from "@/components/myComp/program/ProgramCard";
 
 
     export default {
@@ -807,7 +809,8 @@
             VirtualCampusTourFrame,
             OfferTimelineFrame,
             OfferTimelineFrameHighCharts,
-            BackgroundCard
+            BackgroundCard,
+            ProgramCard
         },
         mixins: [ProductMixin, applicationListMixin, likeMixin],
         data() {
@@ -889,21 +892,7 @@
                 url: `/api/program/public/getRandomPrograms/15`,
                 method: 'get'
               }).then(function (resA){
-                let programs = resA.data.programs;
-                let count = 0;
-                for(let index in programs){
-                    request({
-                      url: `/api/program/public/getSchoolByProgram/` + resA.data.programs[index].id,
-                      method: 'get'
-                    }).then(function (resB){
-                      resA.data.programs[index].school = resB.data.school;
-                      count++;
-                      if(programs.length === count){
-                        that.relatedPrograms = resA.data.programs;
-                      }
-
-                    });
-                }
+                that.relatedPrograms = resA.data.programs;
               });
             },
 
