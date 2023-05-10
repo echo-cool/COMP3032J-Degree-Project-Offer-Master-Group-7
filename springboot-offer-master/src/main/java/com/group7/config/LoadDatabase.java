@@ -181,7 +181,7 @@ class LoadDatabase {
         User user1 = new User("Yuyang Wang", "me1@echo.cool", encoder.encode("111"), test1Roles);
         User user2 = new User("Jinfeng Xu", "me2@echo.cool", encoder.encode("111"), test3Roles);
         User user3 = new User("Zhe Liu", "me3@echo.cool", encoder.encode("111"), test3Roles);
-        User user4 = new User("Zixiao Ma", "me4@echo.cool", encoder.encode("111"), test3Roles);
+        User user4 = new User("Zixiao Ma", "zixiao.ma@ucdconnect.ie", encoder.encode("111"), test3Roles);
         User user5 = new User("Liuxin Yang", "me5@echo.cool", encoder.encode("111"), test3Roles);
         User user6 = new User("Zheyu Chen", "me6@echo.cool", encoder.encode("111"), test3Roles);
         User user7 = new User("Zhuoyi Zhang", "me7@echo.cool", encoder.encode("111"), test3Roles);
