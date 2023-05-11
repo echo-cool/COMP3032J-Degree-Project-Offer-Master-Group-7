@@ -99,7 +99,7 @@ export default {
     }
     return {
       loginForm: {
-        email: 'me1@echo.cool',
+        email: 'me2@echo.cool',
         password: '111'
       },
       loginRules: {
