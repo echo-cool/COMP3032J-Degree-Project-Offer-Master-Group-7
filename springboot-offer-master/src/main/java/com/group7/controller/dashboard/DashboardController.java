@@ -51,7 +51,6 @@ public class DashboardController {
 //        System.out.println("==========");
         for (int i = 0; i < 12; i++){
             for (Application application : applicationList) {
-
                 System.out.println(application.getReportedTime().getMonth() + " month");
                 System.out.println(application.getReportedTime().getYear() + 1900 + " year");
                 if ( (application.getReportedTime().getMonth() == i) && (application.getReportedTime().getYear() == (currentYear - 1900))) {
