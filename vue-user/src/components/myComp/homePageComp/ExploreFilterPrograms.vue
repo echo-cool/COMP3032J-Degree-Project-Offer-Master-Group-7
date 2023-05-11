@@ -59,20 +59,20 @@
                     </div>
 
                     <div class="filter-select-option">
-                        <label class="filter-leble">School type</label>
-                        <nice-select
-                                :options="[
-                                    {value: 'all', text: 'All Types'},
-                                    {value: 'fixed-price', text: 'Fixed price'},
-                                    {value: 'timed-auction', text: 'Timed auction'},
-                                    {value: 'not-for-sale', text: 'Not for sale'},
-                                    {value: 'open-for-offers', text: 'Open for offers'}
-                                ]"
-                                :default-current="0"
-                                placeholder="School type"
-                                name="school_type"
-                                @onChange="changeSaleType"
-                        />
+<!--                        <label class="filter-leble">School type</label>-->
+<!--                        <nice-select-->
+<!--                                :options="[-->
+<!--                                    {value: 'all', text: 'All Types'},-->
+<!--                                    {value: 'fixed-price', text: 'Fixed price'},-->
+<!--                                    {value: 'timed-auction', text: 'Timed auction'},-->
+<!--                                    {value: 'not-for-sale', text: 'Not for sale'},-->
+<!--                                    {value: 'open-for-offers', text: 'Open for offers'}-->
+<!--                                ]"-->
+<!--                                :default-current="0"-->
+<!--                                placeholder="School type"-->
+<!--                                name="school_type"-->
+<!--                                @onChange="changeSaleType"-->
+<!--                        />-->
                     </div>
 
                     <div class="filter-select-option">

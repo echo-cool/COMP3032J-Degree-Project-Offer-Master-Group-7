@@ -8,9 +8,9 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
+// import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -185,11 +185,29 @@ export const asyncRoutes = [
   // },
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
 
+  // chartsRouter,
+  // nestedRouter,
+  tableRouter,
+  componentsRouter,
+  {
+    path: '/springboot-admin',
+    ignoreBasePath: true,
+    component: Layout,
+    meta: { title: 'Springboot Admin', icon: 'link' }
+  },
+  {
+    path: '/phpmyadmin/',
+    ignoreBasePath: true,
+    component: Layout,
+    meta: { title: 'phpMyAdmin', icon: 'link' }
+  },
+  {
+    path: '/portainer',
+    ignoreBasePath: true,
+    component: Layout,
+    meta: { title: 'Portainer', icon: 'link' }
+  },
   // {
   //   path: '/example',
   //   component: Layout,
@@ -346,13 +364,13 @@ export const asyncRoutes = [
   //   hidden: true
   // },
 
-  {
-    path: '/chat/container/:id',
-    component: () => import('@/views/chat/container'),
-    name: 'Container',
-    meta: { title: 'Container' },
-    hidden: true
-  },
+  // {
+  //   path: '/chat/container/:id',
+  //   component: () => import('@/views/chat/container'),
+  //   name: 'Container',
+  //   meta: { title: 'Container' },
+  //   hidden: true
+  // },
   {
     path: '/chat',
     component: Layout,

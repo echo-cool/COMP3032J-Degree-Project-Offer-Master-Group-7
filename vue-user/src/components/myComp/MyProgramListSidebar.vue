@@ -45,12 +45,14 @@
                         <span v-else class="color-info">{{ application.eStatus }}</span>
                     </div>
                     <!--                    <router-link :to="application.url" class="btn btn-primary-alta">Check Out</router-link>-->
-                    <a class="btn btn-primary mr--10" @click="editApplication()">Edit</a>
+                    <a class="btn btn-primary mr--10" @click="editApplication()"
+                       :data-bs-toggle="`modal`"
+                       :data-bs-target="`#application-edit-modal-${application.id}`">Edit</a>
                     <a class="btn btn-primary-alta" @click="removeApplication(application.id)">Remove</a>
                 </div>
-
             </div>
         </div>
+
     </div>
 </template>
 
@@ -58,10 +60,11 @@
     import NiceSelect from '@/components/select/NiceSelect'
     import programSelectionApi from "@/api/programSelection";
     import Toastify from "toastify-js";
+    import ApplicationEditModal from "@/components/myComp/modal/ApplicationEditModal";
 
     export default {
         name: 'MyProgramListSidebar',
-        components: {NiceSelect},
+        components: {NiceSelect, ApplicationEditModal },
         props: {
             currentUser: {},
             applications: {
