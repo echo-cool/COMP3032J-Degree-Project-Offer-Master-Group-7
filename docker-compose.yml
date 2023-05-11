@@ -194,6 +194,8 @@ services:
   fyp_offer_master_portainer:
     image: portainer/portainer-ce
     restart: always
+    expose:
+      - "9000"
     ports:
       - "8800:8000"
       - "9900:9000"
