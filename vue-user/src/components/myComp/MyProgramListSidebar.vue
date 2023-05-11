@@ -97,7 +97,7 @@
                             duration: 3000,
                             close: false,
                             // avatar:"/img/logo-dark.44b49d43.png",
-                            gravity: "top", // `top` or `bottom`
+                            gravity: "bottom", // `top` or `bottom`
                             position: "right", // `left`, `center` or `right`
                             stopOnFocus: false, // Prevents dismissing of toast on hover
                             style: {
