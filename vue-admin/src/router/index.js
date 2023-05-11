@@ -197,13 +197,13 @@ export const asyncRoutes = [
     meta: { title: 'Springboot Admin', icon: 'link' }
   },
   {
-    path: '/phpmyadmin',
+    path: '/phpmyadmin/',
     ignoreBasePath: true,
     component: Layout,
     meta: { title: 'phpMyAdmin', icon: 'link' }
   },
   {
-    path: '/portainer',
+    path: '/portainer/',
     ignoreBasePath: true,
     component: Layout,
     meta: { title: 'Portainer', icon: 'link' }
