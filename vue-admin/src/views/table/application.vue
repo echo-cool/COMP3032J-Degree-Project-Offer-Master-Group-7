@@ -39,9 +39,9 @@
           <span>{{ row.deadline }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Deadline" width="350px" align="center">
+      <el-table-column label="Round" width="350px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.degree }}</span>
+          <span>{{ row.eRound }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Actions" align="center" min-width="230" class-name="small-padding fixed-width">
@@ -49,13 +49,7 @@
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>
-          <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
-            Publish
-          </el-button>
-          <el-button v-if="row.status!='draft'" size="mini" @click="handleModifyStatus(row,'draft')">
-            Draft
-          </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
+          <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
             Delete
           </el-button>
         </template>
@@ -69,8 +63,8 @@
         <el-form-item label="Status" prop="eStatus">
           <el-input v-model="temp.eStatus" />
         </el-form-item>
-        <el-form-item label="Degree" prop="degree">
-          <el-input v-model="temp.degree" />
+        <el-form-item label="Round" prop="eRound">
+          <el-input v-model="temp.eRound" />
         </el-form-item>
         <!--        <el-form-item label="SchoolID" prop="name">-->
         <!--          <el-input v-model="temp.schoolID" />-->
@@ -165,7 +159,7 @@ export default {
       temp: {
         eStatus: '',
         deadline: '',
-        degree: ''
+        eRound: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -234,7 +228,7 @@ export default {
       this.temp = {
         eStatus: '',
         deadline: '',
-        degree: ''
+        eRound: ''
       }
     },
     handleCreate() {
