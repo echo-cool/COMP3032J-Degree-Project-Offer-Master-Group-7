@@ -678,11 +678,11 @@
                     <div class="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
                          v-for="(item, index) in relatedPrograms"
                          :key="`newest-item-${index}`">
-                        <product-card
-                            :product-date="item"
-                            :productType="`program-details`"
-                            product-style-class="no-overlay"
-                        />
+                      <program-card :program="item"
+                                    :school="item.school"
+                                    :is-liked-obj="isLiked(item.id)"
+                                    @removeLike="removeLike(item.id)"
+                                    @addLike="addLike(item.id)"/>
                     </div>
                 </div>
             </div>
@@ -709,6 +709,8 @@
     import ProductMixin from "@/mixins/ProductMixin";
     import request from "@/utils/request";
     import VirtualCampusTourFrame from "@/components/myComp/VirtualCampusTourFrame";
+    import ProgramCard from "@/components/myComp/program/ProgramCard";
+    import LikeMixin from "@/mixins/user/LikeMixin";
 
     export default {
 
@@ -721,9 +723,10 @@
             ProductCard,
             Breadcrumb,
             Layout,
-            VirtualCampusTourFrame
+            VirtualCampusTourFrame,
+            ProgramCard
         },
-        mixins: [ProductMixin],
+        mixins: [ProductMixin, LikeMixin],
         data() {
             return {
                 id: this.$route.params.id,
@@ -769,6 +772,7 @@
         created() {
             this.getSchools();
             this.getData();
+            this.getLikedPrograms();
         },
       watch: {
             '$route.params.id': function (val) {
