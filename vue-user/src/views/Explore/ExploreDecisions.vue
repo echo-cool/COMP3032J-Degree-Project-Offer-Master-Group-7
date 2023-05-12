@@ -68,7 +68,7 @@ table {
 
                                     <td class="fit">
                                         <div class="product-wrapper d-flex align-items-center">
-                                            <router-link v-if="selfId === row.user.id" to="#" class="thumbnail">
+                                            <router-link v-if="currentUser.id === row.user.id" to="#" class="thumbnail">
                                                 <img :src="`/backend/static/${row.user.avatar}`" alt="Nft_Profile">
                                                 <span>{{ row.user.username }}</span>
                                             </router-link>
@@ -198,6 +198,7 @@ table {
     import backgroundCard from "@/components/myComp/background/BackgroundCard.vue";
     import Paginate from "vuejs-paginate-next";
     import cookie from "js-cookie"
+    import router from "@/router";
 
     export default {
         name: 'ExploreDecisions',
@@ -210,7 +211,7 @@ table {
         mixins: [SalScrollAnimationMixin],
         data() {
             return {
-                selfId: JSON.parse(cookie.get("current_user")).id,
+                currentUser: {},
                 tableHeader: {
                     Applicant: "",
                     School: "",
@@ -252,6 +253,16 @@ table {
             }
         },
         methods: {
+            // get current user info from cookie
+            getCurrentUser(){
+                // we have stored this when logging in
+                let userStr = cookie.get("current_user");
+                // turn json string to json obj
+                if (userStr){
+                    this.currentUser = JSON.parse(userStr);
+                }
+            },
+
             totalPage() {
                 return Math.ceil(this.filteredRows.length / this.countOfPage);
             },
