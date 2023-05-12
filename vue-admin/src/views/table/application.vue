@@ -14,9 +14,6 @@
       <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
         Export
       </el-button>
-      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
-        reviewer
-      </el-checkbox>
     </div>
 
     <el-table
@@ -95,7 +92,6 @@
 <script>
 
 import waves from '@/directive/waves' // waves directive
-import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination'
 import {
   createApplication,
@@ -307,25 +303,21 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const tHeader = ['Status', 'Deadline', 'Round']
+        const filterVal = this.list
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
-          data,
+          data: data,
           filename: 'table-list'
         })
         this.downloadLoading = false
       })
     },
     formatJson(filterVal) {
-      return this.list.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
+      return filterVal.map(v => {
+        return [v['eStatus'], v['deadline'], v['eRound']]
+      })
     },
     getSortClass: function(key) {
       const sort = this.listQuery.sort
