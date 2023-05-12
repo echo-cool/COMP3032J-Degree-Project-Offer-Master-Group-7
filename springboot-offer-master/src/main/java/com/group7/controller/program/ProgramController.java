@@ -57,7 +57,7 @@ public class ProgramController {
     @RequestMapping("/update/{id}")
     public R updateProgram(@PathVariable("id") long id, @RequestBody(required = false) ProgramUpdateVo program) {
         Program programOld = programRepository.findById(id).orElse(null);
-        System.out.println(programOld);
+//        System.out.println(programOld);
         if (programOld != null){
             programOld.setName(program.getName());
             School school = schoolRepository.getById(program.getSchoolID());
@@ -103,8 +103,8 @@ public class ProgramController {
         // remove like or add new like
         if (alreadyLiked){
             // remove the like relation
-            System.out.println(user);
-            System.out.println(likedProgram);
+//            System.out.println(user);
+//            System.out.println(likedProgram);
             user.getLikedPrograms().remove(likedProgram);
             // remove the user instance in the like list of this program
             // (the user obj is not the same reference stored in the list!)
@@ -119,8 +119,8 @@ public class ProgramController {
             user.getLikedPrograms().add(program);
             program.getLikeUsers().add(user);
         }
-        System.out.println(user);
-        System.out.println(program);
+//        System.out.println(user);
+//        System.out.println(program);
 
         userRepository.save(user);
         programRepository.save(program);
@@ -271,7 +271,7 @@ public class ProgramController {
                     .stream()
                     .filter(application -> application.geteStatus() == EStatus.ADMITTED)
                     .toList();
-            System.out.println(applications);
+//            System.out.println(applications);
             // 0: GPA, 1: GRE Overall, 2: GRE Verbal, 3: GRE Quantitative, 4: GRE Writing
             // 5: IELTS Listening, 6: IELTS Reading, 7: IELTS Writing, 8: IELTS Speaking, 9: IELTS Overall
             // 10: Ranking
