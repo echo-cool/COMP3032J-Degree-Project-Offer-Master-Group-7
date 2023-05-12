@@ -31,16 +31,16 @@
                             <h6>Another way to log in</h6>
                             <p>You can also login with the following ways.</p>
                             <button v-on:click="loginByGithub" class="another-login login-facebook">
-                                <img v-on:click="loginByGithub" class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
+                                <img v-on:click="loginByGithub" class="small-image" :src="require(`@/assets/images/icons/github.png`)" alt="">
                                 <span v-on:click="loginByGithub" >Log in with Github</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-facebook">
-                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/facebook.png`)" alt="">
-                                <span v-on:click="loginByOAuth" >Log in with Facebook</span>
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/google.png`)" alt="">
+                                <span v-on:click="loginByOAuth" >Log in with Google</span>
                             </button>
-                            <button v-on:click="loginByOAuth" class="another-login login-twitter">
-                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/tweeter.png`)" alt="">
-                                <span v-on:click="loginByOAuth" >Log in with Twitter</span>
+                            <button v-on:click="loginByLinkedin" class="another-login login-twitter">
+                                <img v-on:click="loginByLinkedin"  class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
+                                <span v-on:click="loginByLinkedin" >Log in with Linkedin</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-linkedin">
                                 <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/oauth.png`)" alt="">
@@ -173,7 +173,11 @@
             },
 
             loginByGithub() {
-                window.location.href = "https://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Flocalhost%3A3000%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
+                window.location.href = "https://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenidhttps://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
+            },
+
+            loginByLinkedin() {
+              window.location.href = "https://oauth.yuyangwang.org/external_auth/linkedin/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
             }
         }
 
