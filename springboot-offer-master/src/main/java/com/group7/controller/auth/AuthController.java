@@ -144,14 +144,14 @@ public class AuthController {
         }
         String body2 = response2.body().string();
         JSONObject json2 = new JSONObject(body2);
-        System.out.println(json2);
+//        System.out.println(json2);
         String email = (String) json2.get("email");
         String name = (String) json2.get("name");
-        System.out.println(email);
+//        System.out.println(email);
         User user = userRepository.findByEmail(email).orElse(null);
         if (user != null)
             user.setApplications(null);
-        System.out.println(user);
+//        System.out.println(user);
         if (user != null){
             return R.ok().data("user", user).data("jwt", jwtUtils.generateJWTfromUser(user));
         }

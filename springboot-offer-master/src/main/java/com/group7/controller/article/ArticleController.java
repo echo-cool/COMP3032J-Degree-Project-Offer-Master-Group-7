@@ -22,9 +22,9 @@ public class ArticleController {
     @GetMapping("/public/getById/{id}")
     public R getPostById(@PathVariable("id") long id) {
         Article article = articleRepository.findById(id).orElse(null);
-        System.out.println("==========777");
-        System.out.println(article);
-        System.out.println("==========777");
+//        System.out.println("==========777");
+//        System.out.println(article);
+//        System.out.println("==========777");
         return R.ok().data("article", article);
     }
     @GetMapping("/public/getByUserId/{id}")

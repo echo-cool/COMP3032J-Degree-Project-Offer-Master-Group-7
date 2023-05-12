@@ -62,7 +62,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         long after = System.currentTimeMillis();
 
-        System.out.println("First:" + (after - before));
+//        System.out.println("First:" + (after - before));
 
         before = System.currentTimeMillis();
 
@@ -98,7 +98,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         after = System.currentTimeMillis();
 
-        System.out.println("Second:" + (after - before));
+//        System.out.println("Second:" + (after - before));
 
         before = System.currentTimeMillis();
 
@@ -115,7 +115,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         after = System.currentTimeMillis();
 
-        System.out.println("Third:" + (after - before));
+//        System.out.println("Third:" + (after - before));
 
         before = System.currentTimeMillis();
 
@@ -135,7 +135,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         after = System.currentTimeMillis();
 
-        System.out.println("Forth:" + (after - before));
+//        System.out.println("Forth:" + (after - before));
 
         before = System.currentTimeMillis();
 
@@ -150,7 +150,7 @@ public class RecommendationServiceKNNImpl implements RecommendationServiceKNN {
 
         after = System.currentTimeMillis();
 
-        System.out.println("Fifth:" + (after - before));
+//        System.out.println("Fifth:" + (after - before));
 
         return result;
 

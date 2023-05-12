@@ -39,7 +39,7 @@ public class SchoolController {
     @RequestMapping("/update/{id}")
     public R updateSchool(@PathVariable("id") long id, @RequestBody(required = false) SchoolUpdateVo school) {
         School schoolOld = schoolRepository.findById(id).orElse(null);
-        System.out.println(schoolOld);
+//        System.out.println(schoolOld);
         if (schoolOld != null){
             schoolOld.setName(school.getName());
             schoolRepository.saveAndFlush(schoolOld);

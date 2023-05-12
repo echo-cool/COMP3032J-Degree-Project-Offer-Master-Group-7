@@ -36,8 +36,8 @@ public class ChatController {
         for (Chat chat : list) {
             map.put(chat.getSender() + "|" + chat.getReceiver(), chat);
         }
-        System.out.println(list);
-        System.out.println("---===---999");
+//        System.out.println(list);
+//        System.out.println("---===---999");
 
         return R.ok().data("chatList", map.values());
     }
@@ -49,8 +49,8 @@ public class ChatController {
         for (Chat chat : list) {
             map.put(chat.getReceiver(), chat);
         }
-        System.out.println(list);
-        System.out.println("---===---999");
+//        System.out.println(list);
+//        System.out.println("---===---999");
 
         return R.ok().data("chatList", map.values());
     }
@@ -87,9 +87,9 @@ public class ChatController {
             }
         };
         Collections.sort(list,tmpComparator);
-        System.out.println("==========666");
-        System.out.println(list);
-        System.out.println("==========666");
+//        System.out.println("==========666");
+//        System.out.println(list);
+//        System.out.println("==========666");
         return R.ok().data("list", list);
     }
 

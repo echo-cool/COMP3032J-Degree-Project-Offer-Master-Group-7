@@ -120,7 +120,7 @@ public class PostController {
 
     @GetMapping("/public/getPostsByCategory/{category}")
     public R getPost(@PathVariable("category") String category) {
-        System.out.println(category);
+//        System.out.println(category);
         return R.ok().data("posts", postRepository.findByCategory_NameIgnoreCase(category));
     }
 
