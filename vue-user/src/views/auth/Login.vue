@@ -173,7 +173,7 @@
             },
 
             loginByGithub() {
-                window.location.href = "https://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenidhttps://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
+                window.location.href = "https://oauth.yuyangwang.org/external_auth/github/?next=%2Fo%2Fauthorize%2F%3Fclient_id%3DOjxfcvMiTPb7DEIoopIebvJNNzWtr8Og3R1uVRuU%26redirect_uri%3Dhttp%3A%2F%2Fipa-008.ucd.ie%2Flogin%26response_type%3Dcode%26scope%3Dopenid";
             },
 
             loginByLinkedin() {
