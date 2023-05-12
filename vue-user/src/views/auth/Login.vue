@@ -35,7 +35,7 @@
                                 <span v-on:click="loginByGithub" >Log in with Github</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-facebook">
-                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/facebook.png`)" alt="">
                                 <span v-on:click="loginByOAuth" >Log in with Facebook</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-twitter">
@@ -43,7 +43,7 @@
                                 <span v-on:click="loginByOAuth" >Log in with Twitter</span>
                             </button>
                             <button v-on:click="loginByOAuth" class="another-login login-linkedin">
-                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/linkedin.png`)" alt="">
+                                <img v-on:click="loginByOAuth"  class="small-image" :src="require(`@/assets/images/icons/oauth.png`)" alt="">
                                 <span v-on:click="loginByOAuth" >Log in with OAuth</span>
                             </button>
                         </div>
