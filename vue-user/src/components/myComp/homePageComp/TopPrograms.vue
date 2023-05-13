@@ -21,13 +21,25 @@
                  data-sal="slide-up"
                  data-sal-delay="150"
                  data-sal-duration="800">
-                <template v-for="(program, index) in popularPrograms"
+                <template v-if="!isLoading" v-for="(program, index) in popularPrograms"
                           :key="`program-${index}`">
                     <div class="col-5 col-lg-3 col-md-4 col-sm-6 top-seller-list">
                         <top-program-item :program="program"
                                           :school="schoolsOfPrograms[index]"/>
                     </div>
                 </template>
+
+                <!-- loading icon -->
+                <div v-else>
+                    <div  class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" style="zoom: 5">
+                        </div>
+                    </div>
+                    <div class="m-5 d-flex justify-content-center">
+                        <h2>Loading...</h2>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -55,7 +67,8 @@
                 filteredSeller: '',
                 topSellerIn: '1 Day',
                 popularPrograms: [],
-                schoolsOfPrograms: []   // corresponding schools of programs
+                schoolsOfPrograms: [],   // corresponding schools of programs
+                isLoading: true
             }
         },
         // watch: {
@@ -82,6 +95,7 @@
             },
 
             getPopularPrograms(degree){
+                this.isLoading = true;
                 // call the api method
                 programApi.getPopularPrograms(degree, 8)
                     .then(response => {
@@ -89,6 +103,8 @@
                         this.popularPrograms = response.data.popularPrograms;
                         // update the school list corresponding to the programs
                         this.schoolsOfPrograms = response.data.schoolsOfPrograms;
+
+                        this.isLoading = false;
                     })
             }
         },
