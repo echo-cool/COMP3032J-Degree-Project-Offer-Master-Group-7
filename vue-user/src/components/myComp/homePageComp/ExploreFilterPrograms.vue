@@ -115,7 +115,6 @@
                 <div v-if="isLoading">
                     <div  class="d-flex justify-content-center">
                         <div class="spinner-border" role="status" style="zoom: 5">
-<!--                            -->
                         </div>
                     </div>
                     <div class="m-5 d-flex justify-content-center">

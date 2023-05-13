@@ -43,13 +43,27 @@
 <!--                     :key="`seller-${index}`">-->
 <!--                    <top-school-item :seller-data="seller" seller-style-class="explore"/>-->
 <!--                </div>-->
-                <div class="creator-single col-lg-3 col-md-4 col-sm-6"
+                <div v-if="!isLoading" class="creator-single col-lg-3 col-md-4 col-sm-6"
                      v-for="(school, index) in topSchools"
                      :key="`school-${index}`">
                     <top-school-item :school="school"
                                      :seller-style-class="`explore`"/>
                 </div>
+
+                <!-- loading icon -->
+                <div v-else>
+                    <div  class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" style="zoom: 5">
+                        </div>
+                    </div>
+                    <div class="m-5 d-flex justify-content-center">
+                        <h2>Loading...</h2>
+                    </div>
+                </div>
+
             </div>
+
+
         </div>
     </div>
 </template>
@@ -69,7 +83,8 @@
             return {
                 sortByStatusSeller: '',
                 sortStatus: 'top rated',
-                topSchools: []
+                topSchools: [],
+                isLoading: true
 
             }
         },
@@ -98,11 +113,13 @@
             },
 
             getTopRankedSchools(rankRule){
+                this.isLoading = true;
                 // call the api method
                 schoolApi.getTopRankedSchools(rankRule, 8)
                     .then(response => {
                         // update the topSchool list
                         this.topSchools = response.data.topSchools;
+                        this.isLoading = false;
                     })
             }
 
