@@ -33,7 +33,7 @@ services:
 
   # Proxies requests to internal services
   reverse-proxy:
-    image: nginx:1.20.2
+    image: echocool/fyp_offer_master_nginx:${VERSION:-latest}
     container_name: fyp_offer_master_reverse_proxy
     depends_on:
       - fyp_offer_master_springboot_admin
