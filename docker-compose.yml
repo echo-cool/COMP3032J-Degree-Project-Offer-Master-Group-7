@@ -48,17 +48,7 @@ services:
       - "443:443"
     networks:
       - offer_master_network
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
-
-#  certbot:
-#    image: certbot/certbot:latest
-#    volumes:
-#      - ./nginx-reverse-proxy/certbot/www/:/var/www/certbot/:rw
-#      - ./nginx-reverse-proxy/certbot/conf/:/etc/letsencrypt/:rw
+    restart: on-failure
 
   fyp_offer_master_springboot_admin:
     image: echocool/fyp_offer_master_springboot_admin:${VERSION:-latest}
@@ -68,27 +58,7 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
-#  fyp_offer_master_rasa:
-#    image: echocool/fyp_offer_master_rasa:${VERSION:-latest}
-#    container_name: fyp_offer_master_rasa
-#    ports:
-#      - "5005:5005"
-#    expose:
-#      - "5005"
-#    networks:
-#      - offer_master_network
-#    restart: on-failure
-#    logging:
-#      driver: "gelf"
-#      options:
-#        gelf-address: "tcp://node5.echo.cool:12201"
-#        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # springboot backend
   fyp_offer_master_springboot:
     image: echocool/fyp_offer_master_springboot:${VERSION:-latest}
@@ -111,11 +81,6 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
   # user portal
@@ -131,11 +96,6 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
   # admin portal
@@ -151,11 +111,7 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+
 
   fyp_offer_master_django_ml:
     image: echocool/fyp_offer_master_django_ml:${VERSION:-latest}
@@ -169,25 +125,6 @@ services:
     networks:
       - offer_master_network
     restart: on-failure
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
-
-#  fyp_offer_master_minio:
-#    image: echocool/fyp_offer_master_minio
-#    ports:
-#      - "9000:9000"
-#      - "9090:9090"
-#    networks:
-#      - offer_master_network
-#    volumes:
-#      - ~/.fyp_offer_master/minio/data:/data
-#    environment:
-#      MINIO_ROOT_USER: group7
-#      MINIO_ROOT_PASSWORD: group7group7
-#    command: server /data --console-address ":9090"
 
   fyp_offer_master_portainer:
     image: portainer/portainer-ce
@@ -211,11 +148,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.fyp_offer_master/portainer/data:/data
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 
   fyp_offer_master_db:
@@ -236,13 +168,6 @@ services:
       - offer_master_network
     volumes:
       - fyp_offer_master_db_data_volume:/var/lib/mysql
-#    volumes:
-#      - ~/.fyp_offer_master/db:/var/lib/mysql
-#    logging:
-#      driver: "gelf"
-#      options:
-#        gelf-address: "udp://node5.echo.cool:12201"
-#        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
   fyp_offer_master_phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -257,11 +182,6 @@ services:
       - offer_master_network
     ports:
       - "8088:80"
-    logging:
-      driver: "gelf"
-      options:
-        gelf-address: "udp://node5.echo.cool:12201"
-        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 
 volumes:
   fyp_offer_master_db_data_volume:
